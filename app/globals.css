@@ -1,26 +1,240 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================================
+   VISWAS DESIGN SYSTEM — "Midnight Petroleum"
+========================================================== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts */
+  --font-sans: var(--font-sans);       /* Suisse International — body */
+  --font-display: var(--font-display); /* Canela — headings */
+  --font-mono: var(--font-mono);       /* IBM Plex Mono — numbers/stats */
+
+  /* Brand palette */
+  --color-primary: #23363f;      /* Midnight Petroleum navy — surfaces, dark backgrounds */
+  --color-accent: #b7964a;       /* Gold — CTAs, highlights, borders */
+  --color-ivory: #f4f0e8;        /* Light background / card surface */
+  --color-ink: #1a1c20;          /* Near-black — text on Ivory surfaces */
+  --color-slate: #8a9299;        /* Muted text, secondary UI, subtle borders */
+
+  /* Semantic tokens (what components actually consume) */
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-ink);
+
+  --color-primary-foreground: var(--color-ivory);
+  --color-secondary: var(--color-accent);
+  --color-secondary-foreground: var(--color-primary);
+
+  --color-card: var(--color-ivory);
+  --color-card-foreground: var(--color-ink);
+
+  --color-muted: var(--color-slate);
+  --color-border: color-mix(in srgb, var(--color-slate) 25%, transparent);
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================================
+   BASE
+========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================
+   TYPOGRAPHY
+========================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  color: var(--color-foreground);
+}
+
+p {
+  line-height: 1.8;
+}
+
+/* Numbers / stats / metrics — IBM Plex Mono per brand board */
+.font-numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================
+   SELECTION
+========================================================== */
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-primary);
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-accent) 80%, black);
+}
+
+/* ==========================================================
+   UTILITIES
+========================================================== */
+
+/* Glass on Ivory/light contexts */
+.glass {
+  background: rgba(244, 240, 232, 0.55); /* Ivory-tinted glass */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Glass on Primary/dark contexts */
+.glass-dark {
+  background: rgba(35, 54, 63, 0.45); /* Primary-tinted glass */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-shadow {
+  box-shadow: 0 12px 35px rgba(26, 28, 32, 0.08); /* shadow tinted with Ink, not pure black */
+}
+
+.luxury-shadow {
+  box-shadow: 0 25px 70px rgba(26, 28, 32, 0.16);
+}
+
+.gold-gradient {
+  background: linear-gradient(
+    135deg,
+    #b7964a 0%,
+    #d9bd7c 100%
+  );
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(183, 150, 74, 0.18),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(35, 54, 63, 0.08),
+      transparent 40%
+    );
+}
+
+.container-xl {
+  width: min(1400px, 92%);
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    #23363f,
+    #b7964a
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
