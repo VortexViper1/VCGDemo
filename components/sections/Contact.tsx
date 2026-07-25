@@ -150,7 +150,7 @@ function MapPanel() {
               <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
                 Find Us
               </span>
-              <h3 className="mt-4 text-2xl font-semibold text-[#F7F4EE]">
+              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                 Visit our office
               </h3>
               <p className="mt-4 leading-7 text-white/70">
@@ -294,7 +294,7 @@ export default function Contact() {
                 <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
                   Office
                 </span>
-                <h3 className="mt-4 text-3xl font-semibold text-[#F7F4EE]">
+                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
                   VISWAS Consulting Group
                 </h3>
                 <p className="mt-6 leading-8 text-white/70">
@@ -325,7 +325,7 @@ export default function Contact() {
                         <p className="text-sm uppercase tracking-[0.25em] text-white/50">
                           {item.label}
                         </p>
-                        <p className="mt-2 text-[#F7F4EE]">{item.value}</p>
+                        <p className="mt-2 "style={{ color: "#F7F4EE" }}>{item.value}</p>
                       </div>
                     </motion.div>
                   );

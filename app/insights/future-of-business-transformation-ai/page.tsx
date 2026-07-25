@@ -135,7 +135,7 @@ export default function FutureOfBusinessTransformationAiPage() {
                   an IT rollout.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   From automation to augmentation
                 </h2>
                 <p>
@@ -151,14 +151,14 @@ export default function FutureOfBusinessTransformationAiPage() {
 
                 <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-white/[0.03] p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 text-[#F7F4EE]">
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#F7F4EE" }}>
                     The advantage no longer belongs to whoever adopts AI
                     first — it belongs to whoever redesigns their
                     organization around what AI makes possible.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Resilience as a design requirement
                 </h2>
                 <p>
@@ -172,7 +172,7 @@ export default function FutureOfBusinessTransformationAiPage() {
                   controls bolted on after an incident.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Leadership's changing role
                 </h2>
                 <p>
@@ -185,7 +185,7 @@ export default function FutureOfBusinessTransformationAiPage() {
                   absorbing the reputational cost when it falls short.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Building a future-ready enterprise
                 </h2>
                 <p>
@@ -235,7 +235,7 @@ export default function FutureOfBusinessTransformationAiPage() {
             <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold text-[#F7F4EE]">
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
               Related Insights
             </h2>
 

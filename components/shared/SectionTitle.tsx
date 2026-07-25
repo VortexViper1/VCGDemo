@@ -33,11 +33,9 @@ export default function SectionTitle({
       )}
 
       <motion.h2
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-4xl font-semibold tracking-tight text-[#F7F4EE] md:text-5xl lg:text-6xl"
-      >
+  style={{ color: "#F7F4EE" }}
+  className="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl"
+>
         {title}
       </motion.h2>
 

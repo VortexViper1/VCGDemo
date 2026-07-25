@@ -146,9 +146,12 @@ function AlumniCard({ person }: { person: Alum }) {
           )}
         </div>
 
-        <h3 className="mt-6 text-lg font-semibold text-[#F7F4EE]">
-          {person.name}
-        </h3>
+       <h3
+  className="mt-6 text-lg font-semibold"
+  style={{ color: "#F7F4EE" }}
+>
+  {person.name}
+</h3>
 
         <p className="mt-2 text-sm text-white/60">{person.role}</p>
 

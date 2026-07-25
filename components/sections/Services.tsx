@@ -113,7 +113,7 @@ function ServiceCard({
                   </motion.div>
                 </div>
 
-                <h3 className="mb-5 text-3xl font-semibold text-[#F7F4EE]">
+                <h3 className="mb-5 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
                   {service.title}
                 </h3>
 

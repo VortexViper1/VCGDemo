@@ -102,7 +102,7 @@ export default function CapitalAdvisoryPage() {
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-[#C9A35F]/20 bg-[#C9A35F]/10">
                     <Icon size={26} className="text-[#C9A35F]" />
                   </div>
-                  <h3 className="mb-3 text-xl font-semibold text-[#F7F4EE]">
+                  <h3 className="mb-3 text-xl font-semibold "style={{ color: "#F7F4EE" }}>
                     {pillar.title}
                   </h3>
                   <p className="leading-7 text-white/70">
@@ -116,7 +116,7 @@ export default function CapitalAdvisoryPage() {
 
         <Reveal delay={0.2}>
           <GlassCard className="mt-16">
-            <h3 className="mb-6 text-2xl font-semibold text-[#F7F4EE]">
+            <h3 className="mb-6 text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
               What You Can Expect
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">

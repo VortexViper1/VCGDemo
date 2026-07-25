@@ -10,26 +10,23 @@
   --font-display: var(--font-display); /* Canela — headings */
   --font-mono: var(--font-mono);       /* IBM Plex Mono — numbers/stats */
 
-  /* Brand palette */
-  --color-primary: #23363f;      /* Midnight Petroleum navy — surfaces, dark backgrounds */
-  --color-accent: #b7964a;       /* Gold — CTAs, highlights, borders */
-  --color-ivory: #f4f0e8;        /* Light background / card surface */
-  --color-ink: #1a1c20;          /* Near-black — text on Ivory surfaces */
-  --color-slate: #8a9299;        /* Muted text, secondary UI, subtle borders */
+  --color-primary: #23363f;
+  --color-accent: #b7964a;
+  --color-ivory: #f4f0e8;
+  --color-ink: #1a1c20;
+  --color-slate: #8a9299;
 
-  /* Semantic tokens (what components actually consume) */
-  --color-background: var(--color-ivory);
-  --color-foreground: var(--color-ink);
+  --color-background: #f4f0e8;
+  --color-foreground: #1a1c20;
 
-  --color-primary-foreground: var(--color-ivory);
-  --color-secondary: var(--color-accent);
-  --color-secondary-foreground: var(--color-primary);
+  --color-primary-foreground: #f4f0e8;
+  --color-secondary: #b7964a;
+  --color-secondary-foreground: #23363f;
 
-  --color-card: var(--color-ivory);
-  --color-card-foreground: var(--color-ink);
+  --color-card: #f4f0e8;
+  --color-card-foreground: #1a1c20;
 
-  --color-muted: var(--color-slate);
-  --color-border: color-mix(in srgb, var(--color-slate) 25%, transparent);
+  --color-muted: #8a9299;
 
   /* Radius */
   --radius-sm: 0.5rem;
@@ -37,7 +34,6 @@
   --radius-lg: 1.25rem;
   --radius-xl: 2rem;
 }
-
 /* ==========================================================
    BASE
 ========================================================== */
@@ -100,7 +96,7 @@ h5,
 h6 {
   font-family: var(--font-display);
   letter-spacing: -0.03em;
-  color: var(--color-foreground);
+  color: inherit;
 }
 
 p {

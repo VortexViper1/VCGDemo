@@ -206,7 +206,7 @@ export default function InsightsPage() {
 
                     </div>
 
-                    <h1 className="mt-8 text-5xl font-semibold leading-tight text-[#F7F4EE]">
+                    <h1 className="mt-8 text-5xl font-semibold leading-tight" style={{ color: "#F7F4EE" }}>
 
                       {FEATURED.title}
 
@@ -310,7 +310,7 @@ export default function InsightsPage() {
                 Latest Thinking
               </span>
 
-              <h2 className="mt-4 text-3xl font-semibold text-[#F7F4EE]">
+              <h2 className="mt-4 text-3xl font-semibold" style={{ color: "#F7F4EE" }}>
                 More Insights
               </h2>
 
@@ -345,7 +345,7 @@ export default function InsightsPage() {
                       {article.category}
                     </span>
 
-                    <h3 className="mt-6 text-xl font-semibold leading-snug text-[#F7F4EE] transition-colors duration-300 group-hover:text-[#C9A35F]">
+                    <h3 className="mt-6 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]" style={{ color: "#F7F4EE" }}>
                       {article.title}
                     </h3>
 

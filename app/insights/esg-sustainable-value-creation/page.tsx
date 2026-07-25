@@ -133,7 +133,7 @@ export default function EsgSustainableValueCreationPage() {
                   that shows up directly in commercial outcomes.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Beyond the compliance checklist
                 </h2>
                 <p>
@@ -149,14 +149,14 @@ export default function EsgSustainableValueCreationPage() {
 
                 <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-white/[0.03] p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 text-[#F7F4EE]">
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#F7F4EE" }}>
                     ESG done well is simply long-term risk management, made
                     visible to the people who will eventually pay for it if
                     it is ignored.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Resilience shows up in the supply chain first
                 </h2>
                 <p>
@@ -170,7 +170,7 @@ export default function EsgSustainableValueCreationPage() {
                   decision on their timeline instead of the market's.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Stakeholder trust compounds
                 </h2>
                 <p>
@@ -184,7 +184,7 @@ export default function EsgSustainableValueCreationPage() {
                   eroded it.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Making ESG a strategic function
                 </h2>
                 <p>
@@ -233,7 +233,7 @@ export default function EsgSustainableValueCreationPage() {
             <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold text-[#F7F4EE]">
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
               Related Insights
             </h2>
 

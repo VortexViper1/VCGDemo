@@ -20,7 +20,6 @@ export default function HeroContent() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set(".hero-line-inner", { yPercent: 120, opacity: 0 });
-      gsap.set(".hero-eyebrow", { opacity: 0, y: 20 });
       gsap.set(".hero-sub", { opacity: 0, y: 30 });
       gsap.set(".hero-cta", { opacity: 0, y: 30 });
 
@@ -54,7 +53,7 @@ tl.to(".hero-line-inner", {
       ref={containerRef}
       className="relative z-20 flex min-h-[80vh] flex-col justify-center"
     >
-      <h1 className="font-[var(--font-display)] text-[clamp(4rem,5vw,8rem)] leading-[0.92] text-[#F7F4EE]">
+      <h1 className="font-[var(--font-display)] text-[clamp(4rem,5vw,8rem)] leading-[0.92] "style={{ color: "#F7F4EE" }}>
         {lines.map((line, i) => (
           <span key={i} className="block overflow-hidden">
             <span

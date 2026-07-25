@@ -119,7 +119,7 @@ export default function Testimonials() {
                       />
                     </div>
 
-                    <h4 className="text-lg font-semibold text-[#F7F4EE]">
+                    <h4 className="text-lg font-semibold "style={{ color: "#F7F4EE" }}>
                       {item.author}
                     </h4>
 

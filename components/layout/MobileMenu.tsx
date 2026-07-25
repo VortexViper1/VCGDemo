@@ -65,7 +65,7 @@ export default function MobileMenu({
 
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-6">
           <div>
-            <h2 className="text-xl font-semibold text-[#F7F4EE]">
+            <h2 className="text-xl font-semibold "style={{ color: "#F7F4EE" }}>
               VISWAS
             </h2>
 
@@ -113,7 +113,7 @@ export default function MobileMenu({
                       />
                     )}
 
-                    <span className="text-lg font-medium text-[#F7F4EE]">
+                    <span className="text-lg font-medium "style={{ color: "#F7F4EE" }}>
                       {item.label}
                     </span>
                   </div>

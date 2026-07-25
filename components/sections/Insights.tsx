@@ -109,7 +109,7 @@ function ArticleCard({
                 <span className="text-sm text-white/40">{article.read}</span>
               </div>
 
-              <h3 className="mt-8 text-2xl font-semibold leading-snug text-[#F7F4EE]">
+              <h3 className="mt-8 text-2xl font-semibold leading-snug "style={{ color: "#F7F4EE" }}>
                 {article.title}
               </h3>
 
@@ -212,7 +212,7 @@ export default function Insights() {
                   </div>
                 </div>
 
-                <h3 className="mt-8 text-4xl font-semibold leading-tight text-[#F7F4EE]">
+                <h3 className="mt-8 text-4xl font-semibold leading-tight "style={{ color: "#F7F4EE" }}>
                   {FEATURED.title}
                 </h3>
 

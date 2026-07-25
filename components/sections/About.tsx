@@ -115,7 +115,7 @@ export default function About() {
                 >
                   <div className="flex items-end justify-between">
                     <div>
-                      <h3 className="text-5xl font-bold text-[#F7F4EE]">
+                      <h3 className="text-5xl font-bold "style={{ color: "#F7F4EE" }}>
                         {metric.value}
                       </h3>
 
@@ -143,7 +143,7 @@ export default function About() {
                   Our Philosophy
                 </span>
 
-                <h3 className="text-3xl font-semibold leading-snug text-[#F7F4EE]">
+                <h3 className="text-3xl font-semibold leading-snug "style={{ color: "#F7F4EE" }}>
                   Strategy is valuable only when execution creates measurable impact.
                 </h3>
 

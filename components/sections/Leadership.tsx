@@ -81,7 +81,7 @@ export default function Leadership() {
                     Leadership Network
                   </span>
 
-                  <h3 className="mt-6 text-4xl font-semibold leading-tight text-[#F7F4EE]">
+                  <h3 className="mt-6 text-4xl font-semibold leading-tight "style={{ color: "#F7F4EE" }}>
                     Explore Our Leadership & Alumni
                   </h3>
 

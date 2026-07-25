@@ -133,7 +133,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   work differently because of it.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Technology is the easy part
                 </h2>
                 <p>
@@ -149,13 +149,13 @@ export default function DigitalTransformationBeyondTechnologyPage() {
 
                 <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-white/[0.03] p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 text-[#F7F4EE]">
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#F7F4EE" }}>
                     A new system adopted by an unchanged organization simply
                     produces the old outcomes, faster and more expensively.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Aligning people, process, and platform
                 </h2>
                 <p>
@@ -169,7 +169,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   go-live date and a training deck.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Sequencing matters more than speed
                 </h2>
                 <p>
@@ -182,7 +182,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   the organization to trust a large investment on faith.
                 </p>
 
-                <h2 className="text-2xl font-semibold text-[#F7F4EE]">
+                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
                   Leadership has to model the change
                 </h2>
                 <p>
@@ -231,7 +231,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
             <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold text-[#F7F4EE]">
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
               Related Insights
             </h2>
 
