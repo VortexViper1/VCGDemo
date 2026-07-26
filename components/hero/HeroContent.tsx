@@ -86,15 +86,11 @@ tl.to(".hero-line-inner", {
         <Link href="/#services" className="hero-cta group">
         <MagneticButton
   strength={0.25}
-  className="flex items-center gap-3 rounded-full border border-[#173F38]/10 px-8 py-4 transition-all duration-300 hover:border-[#C9A35F] hover:bg-white"
-  style={{ color: "#173F38" }}
+  className="flex items-center gap-3 rounded-full border border-[#173F38]/10 px-8 py-4 text-[#173F38] transition-all duration-300 hover:border-[#C9A35F]"
 >
-            Explore Capabilities
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </MagneticButton>
+  Explore Capabilities
+  <ArrowRight />
+</MagneticButton>
         </Link>
       </div>
     </div>
