@@ -131,17 +131,20 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <nav className="mt-16 flex flex-col gap-2">
                 {NAVIGATION.map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>
-                    <Link
-                      href={item.href}
-                      onClick={onClose}
-                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-2xl font-medium text-white transition-all duration-300 hover:bg-[#B7964A]/10 hover:text-[#C9A35F]"
-                    >
-                      <span>{item.label}</span>
-                      <ArrowUpRight
-  size={20}
-  className="text-[#C9A35F] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-/>
-                    </Link>
+                   <Link
+  href={item.href}
+  onClick={onClose}
+  className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#B7964A]/10"
+>
+  <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C9A35F]">
+    {item.label}
+  </span>
+
+  <ArrowUpRight
+    size={20}
+    className="text-[#C9A35F] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+  />
+</Link>
                   </motion.div>
                 ))}
               </nav>
