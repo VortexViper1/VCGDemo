@@ -120,7 +120,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   whileTap={{ scale: 0.9, rotate: 90 }}
                   whileHover={{ scale: 1.1 }}
                   onClick={onClose}
-                  className="rounded-full border border-[#F4F0E8]/10 p-3 text-[#F4F0E8] transition-colors hover:border-[#B7964A]/50 hover:text-[#B7964A]"
+                  className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C9A35F] hover:text-[#C9A35F]"
                   aria-label="Close menu"
                 >
                   <X size={22} />
