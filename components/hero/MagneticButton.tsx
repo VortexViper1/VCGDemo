@@ -34,12 +34,12 @@ export default function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: pos.x, y: pos.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 12, mass: 0.4 }}
+      transition={{ type: "spring" as const, stiffness: 150, damping: 12, mass: 0.4 }}
       className={className}
     >
       <motion.span
         animate={{ x: pos.x * 0.4, y: pos.y * 0.4 }}
-        transition={{ type: "spring", stiffness: 150, damping: 12 }}
+        transition={{ type: "spring" as const, stiffness: 150, damping: 12 }}
         className="inline-flex items-center gap-3"
       >
         {children}

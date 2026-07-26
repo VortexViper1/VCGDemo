@@ -240,7 +240,7 @@ export default function HighPerformanceLeadershipTeamsPage() {
                   <Link href={article.href} className="block h-full">
                     <motion.div
                       whileHover={{ y: -6 }}
-                      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                      transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
                       className="h-full"
                     >
                       <GlassCard className="group flex h-full flex-col">

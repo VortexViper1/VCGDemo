@@ -95,7 +95,7 @@ export default function Testimonials() {
                       rotate: isHovered ? -8 : 0,
                       scale: isHovered ? 1.08 : 1,
                     }}
-                    transition={{ type: "spring", stiffness: 250, damping: 15 }}
+                    transition={{ type: "spring" as const, stiffness: 250, damping: 15 }}
                     className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-500 ${
                       isHovered
                         ? "border-[#C9A35F]/50 bg-[#C9A35F]/20"
@@ -141,7 +141,7 @@ export default function Testimonials() {
               <motion.div
                 key={logo}
                 whileHover={{ scale: 1.08 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
                 className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#071F2D]/40 transition-colors duration-300 hover:text-[#C9A35F]"
               >
                 {logo}

@@ -310,12 +310,12 @@ export default function Contact() {
                   const content = (
                     <motion.div
                       whileHover={item.href ? { x: 4 } : undefined}
-                      transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                      transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
                       className="group flex gap-5"
                     >
                       <motion.div
                         whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
-                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                        transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
                         className="rounded-2xl bg-[#C9A35F]/12 p-4 transition-colors duration-300 group-hover:bg-[#C9A35F]/20"
                       >
                         <Icon size={22} className="text-[#C9A35F]" />

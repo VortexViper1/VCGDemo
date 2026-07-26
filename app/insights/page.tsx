@@ -335,7 +335,7 @@ export default function InsightsPage() {
 
                 <motion.div
                   whileHover={{ y: -6 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
                   className="h-full"
                 >
 

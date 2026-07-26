@@ -93,7 +93,7 @@ export default function CTA() {
                     <Link key={stat.label} href={stat.href}>
                       <motion.div
                         whileHover={{ y: -4 }}
-                        transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                        transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
                         className="group cursor-pointer rounded-2xl px-4 py-2 transition-colors duration-300 hover:bg-white"
                       >
                         <h3 className="text-4xl font-bold transition-colors duration-300 group-hover:text-[#C9A35F]"

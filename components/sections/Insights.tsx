@@ -98,7 +98,7 @@ function ArticleCard({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             whileHover={{ y: -6 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 220, damping: 20 }}
             style={{
               transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
               transformStyle: "preserve-3d",
@@ -171,7 +171,7 @@ export default function Insights() {
           <Link href={FEATURED.href} className="block h-full">
             <motion.div
               whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              transition={{ type: "spring" as const, stiffness: 200, damping: 22 }}
               className="h-full cursor-pointer"
             >
               <GlassCard className="group h-full overflow-hidden">

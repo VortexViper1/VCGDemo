@@ -128,7 +128,7 @@ function FeatureCard({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             whileHover={{ y: -6 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 220, damping: 20 }}
             style={{
               transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
               transformStyle: "preserve-3d",
@@ -143,7 +143,7 @@ function FeatureCard({
               <div className="relative flex h-full flex-col">
                 <motion.div
                   whileHover={{ rotate: -8, scale: 1.08 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
                   className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-500 group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
                 >
                   <Icon size={30} className="text-[#C9A35F]" />
@@ -219,7 +219,7 @@ export default function WhyViswas() {
                 <motion.div
                   key={item.label}
                   whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                  transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
                 >
                   <CountUpStat value={item.value} delay={index * 0.15} />
                   <p className="mt-3 text-[#071F2D]/70">{item.label}</p>

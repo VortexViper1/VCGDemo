@@ -119,7 +119,7 @@ function AlumniCard({ person }: { person: Alum }) {
   return (
     <motion.div
       whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
       className="h-full"
     >
       <GlassCard className="group flex h-full flex-col items-center text-center">

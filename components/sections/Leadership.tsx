@@ -52,7 +52,7 @@ export default function Leadership() {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{
-              type: "spring",
+              type: "spring" as const,
               stiffness: 220,
               damping: 20,
             }}

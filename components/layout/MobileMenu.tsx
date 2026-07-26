@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  type Variants,
+} from "framer-motion";
 import Link from "next/link";
 import { X, ArrowUpRight } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
@@ -11,19 +15,19 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
-const backdropVariants = {
+const backdropVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: { opacity: 0 },
 };
 
-const panelVariants = {
+const panelVariants: Variants = {
   hidden: { x: "100%", opacity: 0.8 },
   visible: {
     x: 0,
     opacity: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 300,
       damping: 30,
       mass: 0.8,
@@ -35,7 +39,7 @@ const panelVariants = {
     x: "100%",
     opacity: 0.8,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 350,
       damping: 35,
       mass: 0.7,
@@ -43,14 +47,14 @@ const panelVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, x: 40, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     x: 0,
     filter: "blur(0px)",
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
       damping: 24,
     },

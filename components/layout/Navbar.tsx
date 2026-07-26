@@ -235,7 +235,7 @@ export default function Navbar() {
                     scale: 1.08,
                     boxShadow: "0 12px 30px rgba(183,150,74,.18)",
                   }}
-                  transition={{ type: "spring", stiffness: 320, damping: 16 }}
+                  transition={{ type: "spring" as const, stiffness: 320, damping: 16 }}
                 >
                   <Image
                     src="/logo/viswas-logo.png"
@@ -381,8 +381,8 @@ export default function Navbar() {
                   }}
                   whileTap={{ scale: 0.97, y: 0 }}
                   transition={{
-                    y: { type: "spring", stiffness: 320, damping: 22 },
-                    scale: { type: "spring", stiffness: 320, damping: 22 },
+                    y: { type: "spring" as const, stiffness: 320, damping: 22 },
+                    scale: { type: "spring" as const, stiffness: 320, damping: 22 },
                     boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
                     backgroundColor: { duration: 0 },
                   }}
@@ -407,7 +407,7 @@ export default function Navbar() {
                       x: ctaHovered ? 3 : 0,
                       y: ctaHovered ? -3 : 0,
                     }}
-                    transition={{ type: "spring", stiffness: 340, damping: 24 }}
+                    transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
                     className="relative z-10 flex"
                   >
                     <ArrowUpRight size={18} />
