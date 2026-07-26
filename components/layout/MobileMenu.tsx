@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { X, ArrowUpRight } from "lucide-react";
-
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
 
 interface MobileMenuProps {
@@ -11,147 +11,154 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
-const backdrop = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
-const panel = {
-  hidden: {
-    x: "100%",
-  },
+const panelVariants = {
+  hidden: { x: "100%", opacity: 0.8 },
   visible: {
     x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      mass: 0.8,
+      staggerChildren: 0.06,
+      delayChildren: 0.15,
+    },
   },
   exit: {
     x: "100%",
+    opacity: 0.8,
+    transition: {
+      type: "spring",
+      stiffness: 350,
+      damping: 35,
+      mass: 0.7,
+    },
   },
 };
 
-export default function MobileMenu({
-  open,
-  onClose,
-}: MobileMenuProps) {
+const itemVariants = {
+  hidden: { opacity: 0, x: 40, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 24,
+    },
+  },
+};
+
+export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+  // Lock body scroll
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    if (open) document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (open) window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
   return (
-    <motion.div
-      variants={backdrop}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md lg:hidden"
-      onClick={onClose}
-    >
-      <motion.aside
-        variants={panel}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        transition={{
-          duration: 0.45,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        onClick={(e) => e.stopPropagation()}
-        className="absolute right-0 top-0 flex h-full w-full max-w-sm flex-col border-l border-white/10 bg-[#071F2D]/95 backdrop-blur-3xl"
-      >
-        {/* Header */}
-
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-6">
-          <div>
-            <h2 className="text-xl font-semibold "style={{ color: "#F7F4EE" }}>
-              VISWAS
-            </h2>
-
-            <p className="mt-1 text-[11px] uppercase tracking-[0.3em] text-[#C9A35F]">
-              Strategy • Capital • Transformation
-            </p>
-          </div>
-
-          <button
+    <AnimatePresence mode="wait">
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={onClose}
-            className="rounded-full border border-white/10 bg-white/5 p-3 text-white transition hover:border-[#C9A35F]"
+            className="fixed inset-0 z-[110] bg-[#071F2D]/60 backdrop-blur-md"
+            aria-hidden="true"
+          />
+
+          {/* Panel */}
+          <motion.div
+            variants={panelVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed inset-y-0 right-0 z-[120] w-full max-w-sm bg-[#0F1E26] shadow-2xl shadow-black/40"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
           >
-            <X size={22} />
-          </button>
-        </div>
+            {/* Decorative gradient orb */}
+            <div className="pointer-events-none absolute -top-32 -right-32 h-64 w-64 rounded-full bg-[#B7964A]/10 blur-3xl" />
 
-        {/* Navigation */}
-
-        <nav className="flex flex-1 flex-col px-6 py-10">
-          <div className="space-y-2">
-            {NAVIGATION.map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{
-                  opacity: 0,
-                  x: 30,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                transition={{
-                  delay: index * 0.08,
-                }}
-              >
-                <Link
-                  href={item.href}
+            <div className="flex h-full flex-col px-8 py-10">
+              {/* Header */}
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-semibold tracking-[0.06em] text-[#F4F0E8]">
+                  VISWAS
+                </span>
+                <motion.button
+                  whileTap={{ scale: 0.9, rotate: 90 }}
+                  whileHover={{ scale: 1.1 }}
                   onClick={onClose}
-                  className="group flex items-center justify-between rounded-2xl border border-transparent px-5 py-4 transition-all duration-300 hover:border-[#C9A35F]/40 hover:bg-white/5"
+                  className="rounded-full border border-[#F4F0E8]/10 p-3 text-[#F4F0E8] transition-colors hover:border-[#B7964A]/50 hover:text-[#B7964A]"
+                  aria-label="Close menu"
                 >
-                  <div className="flex items-center gap-4">
-                    {item.icon && (
-                      <item.icon
-                        className="text-[#C9A35F]"
+                  <X size={22} />
+                </motion.button>
+              </div>
+
+              {/* Links */}
+              <nav className="mt-16 flex flex-col gap-2">
+                {NAVIGATION.map((item) => (
+                  <motion.div key={item.label} variants={itemVariants}>
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-2xl font-medium text-[#F4F0E8]/80 transition-colors hover:bg-[#B7964A]/5 hover:text-[#B7964A]"
+                    >
+                      <span>{item.label}</span>
+                      <ArrowUpRight
+                        size={20}
+                        className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                       />
-                    )}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
 
-                    <span className="text-lg font-medium "style={{ color: "#F7F4EE" }}>
-                      {item.label}
-                    </span>
-                  </div>
-
-                  <ArrowUpRight
-                    size={18}
-                    className="text-white/40 transition group-hover:text-[#C9A35F]"
-                  />
+              {/* CTA */}
+              <motion.div variants={itemVariants} className="mt-auto pt-8">
+                <Link href={CTA_BUTTON.href} onClick={onClose}>
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
+                  >
+                    <span>{CTA_BUTTON.label}</span>
+                    <ArrowUpRight size={18} />
+                  </motion.div>
                 </Link>
               </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-auto pt-10">
-            <Link
-              href={CTA_BUTTON.href}
-              onClick={onClose}
-            >
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A35F] px-6 py-4 text-sm font-semibold text-[#071F2D] shadow-lg shadow-[#C9A35F]/20 transition hover:shadow-[#C9A35F]/40"
-              >
-                {CTA_BUTTON.label}
-
-                <ArrowUpRight size={18} />
-              </motion.button>
-            </Link>
-          </div>
-        </nav>
-
-        {/* Footer */}
-
-        <div className="border-t border-white/10 px-6 py-5">
-          <p className="text-xs uppercase tracking-[0.25em] text-white/40">
-            © {new Date().getFullYear()} VISWAS Consulting Group
-          </p>
-        </div>
-      </motion.aside>
-    </motion.div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }

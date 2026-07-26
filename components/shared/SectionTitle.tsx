@@ -33,8 +33,8 @@ export default function SectionTitle({
       )}
 
       <motion.h2
-  style={{ color: "#F7F4EE" }}
-  className="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl"
+  style={{ color: "#173F38" }}
+  className="text-4xl font-semibold tracking-tight md:text-6xl tracking-tight lg:text-6xl"
 >
         {title}
       </motion.h2>
@@ -44,7 +44,7 @@ export default function SectionTitle({
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-6 text-lg leading-8 text-white/70"
+          className="mt-6 text-lg leading-8 text-[#071F2D]/70"
         >
           {description}
         </motion.p>

@@ -91,7 +91,7 @@ function ServiceCard({
             className="h-full cursor-pointer transition-transform duration-300 ease-out"
           >
             <GlassCard className="group relative h-full overflow-hidden">
-              <span className="absolute right-8 top-8 font-serif text-6xl font-bold text-white/[0.04] transition-colors duration-500 group-hover:text-[#C9A35F]/10">
+              <span className="absolute right-8 top-8 font-serif text-6xl font-bold text-[#071F2D]/[0.04] transition-colors duration-500 group-hover:text-[#C9A35F]/10">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
@@ -100,28 +100,31 @@ function ServiceCard({
                   <motion.div
                     whileHover={{ rotate: -8, scale: 1.08 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/10 transition-colors duration-500 group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
+                    className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-500 group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
                   >
                     <Icon size={30} className="text-[#C9A35F]" />
                   </motion.div>
 
                   <motion.div whileHover={{ x: 5, y: -5 }}>
                     <ArrowUpRight
-                      className="text-white/40 transition group-hover:text-[#C9A35F]"
+                      className="text-[#071F2D]/40 transition group-hover:text-[#C9A35F]"
                       size={24}
                     />
                   </motion.div>
                 </div>
 
-                <h3 className="mb-5 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h3 className="mb-5 text-3xl font-semibold "style={{ color: "#173F38" }}>
                   {service.title}
                 </h3>
 
-                <p className="leading-8 text-white/70">
+                <p
+  className="leading-8"
+  style={{ color: "#6E847F" }}
+>
                   {service.description}
                 </p>
 
-                <div className="relative mt-10 h-px bg-white/10">
+                <div className="relative mt-10 h-px bg-[#F7F4EE]/10">
                   <motion.div
                     initial={{ width: "0%" }}
                     whileInView={{ width: "40%" }}
@@ -148,12 +151,12 @@ function ServiceCard({
 
 export default function Services() {
   return (
-    <Section id="services" className="relative overflow-hidden bg-[#071F2D]">
+    <Section id="services" className="relative overflow-hidden bg-[#F7F4EE]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/10 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0] }}

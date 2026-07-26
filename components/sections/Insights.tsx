@@ -13,13 +13,17 @@ import GlassCard from "@/components/shared/GlassCard";
 const FEATURED = {
   category: "Business Strategy",
   title: "The Future of Business Transformation in the AI Era",
-  description:
-    "Artificial intelligence is no longer just a technology initiative—it has become a strategic imperative. Explore how forward-thinking organizations are leveraging AI, digital transformation, and data-driven leadership to accelerate innovation, improve operational efficiency, and create sustainable competitive advantage.",
+  description: `Artificial Intelligence has evolved from an emerging technology into one of the most transformative forces shaping the future of global business. Organizations across every industry are moving beyond experimentation and isolated proof-of-concepts to embed AI into the heart of strategic decision-making, operational excellence, customer engagement, and enterprise innovation. As markets become increasingly dynamic and competitive, AI is no longer simply an efficiency tool—it is a catalyst for business transformation, enabling organizations to rethink how they operate, create value, and deliver sustainable growth.
+
+The convergence of Artificial Intelligence, advanced analytics, cloud computing, automation, and digital technologies is fundamentally changing the way businesses compete. Modern enterprises are leveraging intelligent systems to optimize supply chains, predict market trends, personalize customer experiences, strengthen cybersecurity, accelerate product development, improve financial performance, and empower employees with data-driven insights. Companies that successfully integrate these technologies are building organizations that are more agile, resilient, and capable of responding to disruption with confidence.
+
+Yet technology alone does not create transformation. Successful digital enterprises recognize that meaningful change requires aligning people, processes, leadership, and organizational culture with technological innovation. Digital transformation is not simply about implementing new platforms—it is about redesigning business models, modernizing operating structures, fostering cross-functional collaboration, and creating an environment where continuous learning and innovation become part of the organization's DNA. Organizations that prioritize change management alongside technology investments consistently achieve greater long-term value and stronger business outcomes.
+
+Artificial Intelligence is also redefining leadership itself.`,
   date: "July 2026",
   read: "9 min read",
   href: "/insights/future-of-business-transformation-ai",
 };
-
 const ARTICLES = [
   {
     category: "Digital Transformation",
@@ -106,14 +110,14 @@ function ArticleCard({
                 <span className="text-xs uppercase tracking-[0.3em] text-[#C9A35F]">
                   {article.category}
                 </span>
-                <span className="text-sm text-white/40">{article.read}</span>
+                <span className="text-sm text-[#071F2D]/40">{article.read}</span>
               </div>
 
-              <h3 className="mt-8 text-2xl font-semibold leading-snug "style={{ color: "#F7F4EE" }}>
+              <h3 className="mt-8 text-2xl font-semibold leading-snug "style={{ color: "#173F38" }}>
                 {article.title}
               </h3>
 
-              <div className="relative mt-10 h-px w-full overflow-hidden bg-white/10">
+              <div className="relative mt-10 h-px w-full overflow-hidden bg-[#F7F4EE]/10">
                 <motion.div
                   initial={{ width: "0%" }}
                   whileInView={{ width: "30%" }}
@@ -139,12 +143,12 @@ function ArticleCard({
 
 export default function Insights() {
   return (
-    <Section id="insights" className="relative overflow-hidden bg-[#071F2D]">
+    <Section id="insights" className="relative overflow-hidden bg-[#F7F4EE]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#C9A35F]/10 blur-[140px]"
+          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
@@ -192,13 +196,13 @@ export default function Insights() {
                   />
 
                   <div className="absolute bottom-8 left-8">
-                    <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F] backdrop-blur-sm">
+                    <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F] backdrop-blur-sm">
                       Featured Insight
                     </span>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-6 text-sm text-white/50">
+                <div className="flex flex-wrap items-center gap-6 text-sm text-[#071F2D]/50">
                   <span className="uppercase tracking-[0.25em] text-[#C9A35F]">
                     {FEATURED.category}
                   </span>
@@ -212,11 +216,11 @@ export default function Insights() {
                   </div>
                 </div>
 
-                <h3 className="mt-8 text-4xl font-semibold leading-tight "style={{ color: "#F7F4EE" }}>
+                <h3 className="mt-8 text-4xl font-semibold leading-tight "style={{ color: "#173F38" }}>
                   {FEATURED.title}
                 </h3>
 
-                <p className="mt-8 text-lg leading-9 text-white/70">
+                <p className="mt-8 text-lg leading-9 text-[#071F2D]/70">
                   {FEATURED.description}
                 </p>
 

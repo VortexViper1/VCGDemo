@@ -63,11 +63,11 @@ function FormField({
   const [focused, setFocused] = useState(false);
 
   const sharedClasses =
-    "w-full rounded-2xl border bg-white/5 px-5 py-4 text-[#F7F4EE] outline-none transition-all duration-300";
+    "w-full rounded-2xl border bg-white px-5 py-4  outline-none transition-all duration-300";
 
   return (
     <div>
-      <label className="mb-3 block text-sm uppercase tracking-[0.25em] text-white/60">
+      <label className="mb-3 block text-sm uppercase tracking-[0.25em] text-[#6B807A]">
         {label}
       </label>
 
@@ -81,7 +81,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} resize-none ${
-              focused ? "border-[#C9A35F] bg-white/[0.07]" : "border-white/10"
+              focused ? "border-[#C9A35F] bg-[#F7F4EE]/[0.07]" : "border-[#173F38]/8"
             }`}
           />
         ) : (
@@ -93,7 +93,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} ${
-              focused ? "border-[#C9A35F] bg-white/[0.07]" : "border-white/10"
+              focused ? "border-[#C9A35F] bg-[#F7F4EE]/[0.07]" : "border-[#173F38]/8"
             }`}
           />
         )}
@@ -101,7 +101,7 @@ function FormField({
         <motion.div
           animate={{ opacity: focused ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#C9A35F]/10 blur-md"
+          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#C9A35F]/12 blur-md"
         />
       </div>
     </div>
@@ -150,10 +150,10 @@ function MapPanel() {
               <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
                 Find Us
               </span>
-              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#173F38" }}>
                 Visit our office
               </h3>
-              <p className="mt-4 leading-7 text-white/70">
+              <p className="mt-4 leading-7 text-[#071F2D]/70">
                 {OFFICE_ADDRESS}
               </p>
             </div>
@@ -263,12 +263,12 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" className="relative overflow-hidden bg-[#071F2D]">
+    <Section id="contact" className="relative overflow-hidden bg-[#F7F4EE]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/10 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
@@ -294,10 +294,10 @@ export default function Contact() {
                 <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
                   Office
                 </span>
-                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#173F38" }}>
                   VISWAS Consulting Group
                 </h3>
-                <p className="mt-6 leading-8 text-white/70">
+                <p className="mt-6 leading-8 text-[#071F2D]/70">
                   Partnering with visionary organizations to create
                   sustainable business growth through strategy, capital
                   advisory, and digital transformation.
@@ -316,16 +316,16 @@ export default function Contact() {
                       <motion.div
                         whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
                         transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                        className="rounded-2xl bg-[#C9A35F]/10 p-4 transition-colors duration-300 group-hover:bg-[#C9A35F]/20"
+                        className="rounded-2xl bg-[#C9A35F]/12 p-4 transition-colors duration-300 group-hover:bg-[#C9A35F]/20"
                       >
                         <Icon size={22} className="text-[#C9A35F]" />
                       </motion.div>
 
                       <div>
-                        <p className="text-sm uppercase tracking-[0.25em] text-white/50">
+                        <p className="text-sm uppercase tracking-[0.25em] text-[#071F2D]/50">
                           {item.label}
                         </p>
-                        <p className="mt-2 "style={{ color: "#F7F4EE" }}>{item.value}</p>
+                        <p className="mt-2 "style={{ color: "#173F38" }}>{item.value}</p>
                       </div>
                     </motion.div>
                   );
@@ -346,13 +346,13 @@ export default function Contact() {
                 })}
               </div>
 
-              <div className="border-t border-white/10 pt-8">
+              <div className="border-t border-[#173F38]/8 pt-8">
                 <motion.a
                   href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ x: 4 }}
-                  className="inline-flex items-center gap-3 text-white/70 transition-colors hover:text-[#C9A35F]"
+                  className="inline-flex items-center gap-3 text-[#071F2D]/70 transition-colors hover:text-[#C9A35F]"
                 >
                   <Globe size={20} className="text-[#C9A35F]" />
                   LinkedIn

@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 /* ==========================================================
    VISWAS DESIGN SYSTEM — "Midnight Petroleum"
@@ -43,7 +47,32 @@
 *::after {
   box-sizing: border-box;
 }
+/* ── Navbar Island ── */
+.nav-island {
+  /* Hardware acceleration for the pill */
+  will-change: transform, max-width, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure navbar stays crisp */
+.nav-island * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .nav-island {
+    will-change: auto;
+    transition: none !important;
+  }
+}
 html {
   scroll-behavior: smooth;
 }

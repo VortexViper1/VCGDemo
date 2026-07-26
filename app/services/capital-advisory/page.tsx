@@ -46,12 +46,12 @@ const OUTCOMES = [
 
 export default function CapitalAdvisoryPage() {
   return (
-    <main className="min-h-screen bg-[#071F2D]">
+    <main className="min-h-screen bg-[#F7F4EE]">
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/10 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
         />
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
@@ -64,7 +64,7 @@ export default function CapitalAdvisoryPage() {
         <Reveal>
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-white/50 transition-colors duration-300 hover:text-[#C9A35F]"
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors duration-300 hover:text-[#C9A35F]"
           >
             <ArrowLeft
               size={16}
@@ -76,7 +76,7 @@ export default function CapitalAdvisoryPage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/10">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12">
               <Landmark size={30} className="text-[#C9A35F]" />
             </div>
             <span className="text-xs uppercase tracking-[0.3em] text-[#C9A35F]">
@@ -99,13 +99,13 @@ export default function CapitalAdvisoryPage() {
             return (
               <Reveal key={pillar.title} delay={0.1 + index * 0.1}>
                 <GlassCard className="h-full">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-[#C9A35F]/20 bg-[#C9A35F]/10">
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-[#C9A35F]/20 bg-[#C9A35F]/12">
                     <Icon size={26} className="text-[#C9A35F]" />
                   </div>
-                  <h3 className="mb-3 text-xl font-semibold "style={{ color: "#F7F4EE" }}>
+                  <h3 className="mb-3 text-xl font-semibold "style={{ color: "#173F38" }}>
                     {pillar.title}
                   </h3>
-                  <p className="leading-7 text-white/70">
+                  <p className="leading-7 text-[#071F2D]/70">
                     {pillar.description}
                   </p>
                 </GlassCard>
@@ -116,7 +116,7 @@ export default function CapitalAdvisoryPage() {
 
         <Reveal delay={0.2}>
           <GlassCard className="mt-16">
-            <h3 className="mb-6 text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+            <h3 className="mb-6 text-2xl font-semibold "style={{ color: "#173F38" }}>
               What You Can Expect
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -126,7 +126,7 @@ export default function CapitalAdvisoryPage() {
                     size={20}
                     className="mt-0.5 shrink-0 text-[#C9A35F]"
                   />
-                  <span className="text-white/80">{outcome}</span>
+                  <span className="text-[#071F2D]/80">{outcome}</span>
                 </div>
               ))}
             </div>

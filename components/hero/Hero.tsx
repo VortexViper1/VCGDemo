@@ -7,7 +7,7 @@ import ScrollIndicator from "./ScrollIndicator";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#23363F] pt-32 text-white">
+    <section className="relative min-h-screen overflow-hidden bg-[#F7F4EE] pt-32 text-[#173F38]">
       <HeroBackground />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 lg:px-10">

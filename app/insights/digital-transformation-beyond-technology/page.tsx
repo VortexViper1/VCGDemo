@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -10,7 +9,7 @@ import {
   Layers,
   Quote,
 } from "lucide-react";
-
+import Image from "next/image";
 import Section from "@/components/shared/Section";
 import GlassCard from "@/components/shared/GlassCard";
 import Reveal from "@/components/shared/Reveal";
@@ -47,12 +46,12 @@ const RELATED = [
 
 export default function DigitalTransformationBeyondTechnologyPage() {
   return (
-    <main className="min-h-screen bg-[#071F2D]">
+    <main className="min-h-screen bg-[#F7F4EE]">
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/10 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
         />
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
@@ -65,7 +64,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
         <Reveal>
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[#C9A35F]"
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors hover:text-[#C9A35F]"
           >
             <ArrowLeft
               size={16}
@@ -77,20 +76,20 @@ export default function DigitalTransformationBeyondTechnologyPage() {
 
         <Reveal delay={0.1}>
           <div className="mx-auto mt-10 max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
               <Layers size={14} />
               {ARTICLE.category}
             </span>
 
-            <h1 className="mt-8 text-4xl font-semibold leading-tight text-[#F7F4EE] sm:text-5xl">
+            <h1 className="mt-8 text-4xl font-semibold leading-tight  sm:text-6xl tracking-tight"style={{ color: "#173F38" }}>
               {ARTICLE.title}
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/70">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#071F2D]/70">
               {ARTICLE.description}
             </p>
 
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-white/50">
+            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#071F2D]/50">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
                 {ARTICLE.date}
@@ -104,25 +103,23 @@ export default function DigitalTransformationBeyondTechnologyPage() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="relative mx-auto mt-16 flex h-[280px] max-w-5xl items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#123A53] via-[#0E2B40] to-[#071F2D] sm:h-[340px]">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute h-64 w-64 rounded-full border border-[#C9A35F]/20 sm:h-80 sm:w-80"
-            />
-            <motion.div
-              animate={{ rotate: [360, 0] }}
-              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-              className="absolute h-44 w-44 rounded-full border border-white/10 sm:h-56 sm:w-56"
-            />
-            <Layers size={64} className="relative z-10 text-[#C9A35F]" />
-          </div>
-        </Reveal>
+  <div className="relative mx-auto mt-16 h-[280px] max-w-5xl overflow-hidden rounded-3xl sm:h-[340px] lg:h-[420px]">
+    <Image
+      src="/insights/digital.png"
+      alt="Digital Transformation Beyond Technology"
+      fill
+      priority
+      unoptimized
+      sizes="(max-width:768px) 100vw, 1280px"
+      className="object-cover object-center"
+    />
+  </div>
+</Reveal>
 
         <div className="mx-auto mt-20 max-w-3xl">
           <Reveal>
             <GlassCard className="prose-none">
-              <div className="space-y-8 leading-8 text-white/75">
+              <div className="space-y-8 leading-8 text-[#071F2D]/75">
                 <p>
                   Most digital transformation programs are sold as technology
                   purchases: a new platform, a cloud migration, an
@@ -133,7 +130,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   work differently because of it.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
                   Technology is the easy part
                 </h2>
                 <p>
@@ -147,15 +144,15 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   themselves.
                 </p>
 
-                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-white/[0.03] p-8">
+                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#F7F4EE]/[0.03] p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#F7F4EE" }}>
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#173F38" }}>
                     A new system adopted by an unchanged organization simply
                     produces the old outcomes, faster and more expensively.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
                   Aligning people, process, and platform
                 </h2>
                 <p>
@@ -169,7 +166,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   go-live date and a training deck.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
                   Sequencing matters more than speed
                 </h2>
                 <p>
@@ -182,7 +179,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                   the organization to trust a large investment on faith.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#F7F4EE" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
                   Leadership has to model the change
                 </h2>
                 <p>
@@ -207,8 +204,8 @@ export default function DigitalTransformationBeyondTechnologyPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:flex-row">
-              <p className="text-center text-white/70 sm:text-left">
+            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] p-8 sm:flex-row">
+              <p className="text-center text-[#071F2D]/70 sm:text-left">
                 Planning a transformation program and want a second opinion
                 on sequencing?
               </p>
@@ -231,7 +228,7 @@ export default function DigitalTransformationBeyondTechnologyPage() {
             <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#F7F4EE" }}>
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#173F38" }}>
               Related Insights
             </h2>
 
@@ -245,16 +242,16 @@ export default function DigitalTransformationBeyondTechnologyPage() {
                       className="h-full"
                     >
                       <GlassCard className="group flex h-full flex-col">
-                        <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/10 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
+                        <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
                           {article.category}
                         </span>
 
-                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug text-[#F7F4EE] transition-colors duration-300 group-hover:text-[#C9A35F]">
+                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]"style={{ color: "#173F38" }} >
                           {article.title}
                         </h3>
 
-                        <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
-                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/50">
+                        <div className="mt-6 flex items-center justify-between border-t border-[#173F38]/8 pt-5">
+                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#071F2D]/50">
                             <Clock3 size={14} />
                             {article.read}
                           </div>

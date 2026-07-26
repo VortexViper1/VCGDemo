@@ -130,17 +130,17 @@ function AlumniCard({ person }: { person: Alum }) {
           <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-[#C9A35F]/25 opacity-0 blur-md transition-opacity duration-500 ease-out group-hover:opacity-60" />
 
           {person.image ? (
-            <div className="relative h-28 w-28 overflow-hidden rounded-full ring-1 ring-[#C9A35F]/30">
-              <Image
-                src={person.image}
-                alt={person.name}
-                fill
-                sizes="112px"
-                className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
-              />
-            </div>
+            <div className="relative h-28 w-28 overflow-hidden rounded-full border-[3px] border-white shadow-[0_10px_35px_rgba(0,0,0,0.08)] transition-all duration-500 group-hover:border-[#C9A35F] group-hover:shadow-[0_0_35px_rgba(201,163,95,0.30)]">
+  <Image
+    src={person.image}
+    alt={person.name}
+    fill
+    sizes="112px"
+    className="rounded-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
+  />
+</div>
           ) : (
-            <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-[#C9A35F]/10 text-xl font-semibold text-[#C9A35F] ring-1 ring-[#C9A35F]/30 transition-transform duration-500 ease-out group-hover:scale-105">
+            <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-[#C9A35F]/12 text-xl font-semibold text-[#C9A35F] ring-1 ring-[#C9A35F]/30 transition-transform duration-500 ease-out group-hover:scale-105">
               {getInitials(person.name)}
             </div>
           )}
@@ -148,18 +148,18 @@ function AlumniCard({ person }: { person: Alum }) {
 
        <h3
   className="mt-6 text-lg font-semibold"
-  style={{ color: "#F7F4EE" }}
+  style={{ color: "#173F38" }}
 >
   {person.name}
 </h3>
 
-        <p className="mt-2 text-sm text-white/60">{person.role}</p>
+        <p className="mt-2 text-sm text-[#6B807A]">{person.role}</p>
 
         <Link
           href={person.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs uppercase tracking-[0.15em] text-white/50 transition-colors duration-300 hover:border-[#C9A35F]/40 hover:text-[#C9A35F]"
+          className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#173F38]/8 bg-white px-3.5 py-1.5 text-xs uppercase tracking-[0.15em] text-[#071F2D]/50 transition-colors duration-300 hover:border-[#C9A35F]/40 hover:text-[#C9A35F]"
         >
           <Briefcase size={12} className="text-[#C9A35F]" />
           LinkedIn
@@ -183,13 +183,13 @@ function AlumniGrid({ people }: { people: Alum[] }) {
 
 export default function AlumniPage() {
   return (
-    <main className="min-h-screen bg-[#071F2D]">
+    <main className="min-h-screen bg-[#F7F4EE]">
       {/* Ambient background, consistent with the rest of the site */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/10 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
         />
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
@@ -203,7 +203,7 @@ export default function AlumniPage() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-white/50 transition-colors duration-300 hover:text-[#C9A35F]"
+              className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors duration-300 hover:text-[#C9A35F]"
             >
               <ArrowLeft
                 size={16}
@@ -212,7 +212,7 @@ export default function AlumniPage() {
               Back to Home
             </Link>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-white/60">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#173F38]/8 bg-white px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[#6B807A]">
               <Globe size={12} className="text-[#C9A35F]" />
               {COMPANY_NAME}
             </div>

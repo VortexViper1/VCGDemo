@@ -40,7 +40,7 @@ const OUTCOMES = [
 
 export default function TrustedPartnershipPage() {
   return (
-    <main className="min-h-screen bg-primary">
+    <main className="min-h-screen bg-[#F7F4EE]">
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
@@ -50,7 +50,7 @@ export default function TrustedPartnershipPage() {
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-ivory/5 blur-[180px]"
+          className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#173F38]/8 blur-[180px]"
         />
       </div>
 
@@ -58,7 +58,7 @@ export default function TrustedPartnershipPage() {
         <Reveal>
           <Link
             href="/#about"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-ivory/50 transition-colors duration-300 hover:text-accent"
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#44665F] transition-colors duration-300 hover:text-accent"
           >
             <ArrowLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-1" />
             Back to Why VISWAS
@@ -84,7 +84,7 @@ export default function TrustedPartnershipPage() {
 
         {/* Business photo — replace src with your own image in /public/about/ */}
         <Reveal delay={0.18}>
-          <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-2xl border border-ivory/10 md:h-[440px]">
+          <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-2xl border border-[#173F38]/10 md:h-[440px]">
             <Image
               src="/about/trusted-partnership.png"
               alt="Trusted Partnership — VISWAS advisors meeting with a client"
@@ -93,7 +93,7 @@ export default function TrustedPartnershipPage() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#173F38]/35 via-transparent to-transparent" />
           </div>
         </Reveal>
 
@@ -106,8 +106,8 @@ export default function TrustedPartnershipPage() {
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-accent/20 bg-accent/10">
                     <Icon size={26} className="text-accent" />
                   </div>
-                  <h3 className="mb-3 text-xl font-semibold text-ivory">{point.title}</h3>
-                  <p className="leading-7 text-ivory/70">{point.description}</p>
+                  <h3 className="mb-3 text-xl font-semibold text-[#173F38]">{point.title}</h3>
+                  <p className="leading-7 text-[#173F38]/70">{point.description}</p>
                 </GlassCard>
               </Reveal>
             );
@@ -116,12 +116,12 @@ export default function TrustedPartnershipPage() {
 
         <Reveal delay={0.2}>
           <GlassCard className="mt-16">
-            <h3 className="mb-6 text-2xl font-semibold text-ivory">What You Can Expect</h3>
+            <h3 className="mb-6 text-2xl font-semibold text-[#173F38]">What You Can Expect</h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {OUTCOMES.map((outcome) => (
                 <div key={outcome} className="flex items-start gap-3">
                   <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-accent" />
-                  <span className="text-ivory/80">{outcome}</span>
+                  <span className="text-[#173F38]/80">{outcome}</span>
                 </div>
               ))}
             </div>

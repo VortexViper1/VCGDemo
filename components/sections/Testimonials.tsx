@@ -36,13 +36,13 @@ export default function Testimonials() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <Section id="testimonials" className="relative overflow-hidden bg-[#071F2D]">
+    <Section id="testimonials" className="relative overflow-hidden bg-[#F7F4EE]">
       {/* Ambient background — consistent with other sections */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
           transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/10 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
@@ -99,19 +99,19 @@ export default function Testimonials() {
                     className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-500 ${
                       isHovered
                         ? "border-[#C9A35F]/50 bg-[#C9A35F]/20"
-                        : "border-[#C9A35F]/20 bg-[#C9A35F]/10"
+                        : "border-[#C9A35F]/20 bg-[#C9A35F]/12"
                     }`}
                   >
                     <Quote size={30} className="text-[#C9A35F]" />
                   </motion.div>
 
-                  <p className="flex-1 text-lg leading-9 text-white/75">
+                  <p className="flex-1 text-lg leading-9 text-[#071F2D]/75">
                     “{item.quote}”
                   </p>
 
                   <div className="relative mt-12 pt-6">
                     {/* Animated top border that transitions in on hover */}
-                    <div className="absolute inset-x-0 top-0 h-px bg-white/10">
+                    <div className="absolute inset-x-0 top-0 h-px bg-[#F7F4EE]/10">
                       <motion.div
                         animate={{ width: isHovered ? "100%" : "0%" }}
                         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -119,7 +119,7 @@ export default function Testimonials() {
                       />
                     </div>
 
-                    <h4 className="text-lg font-semibold "style={{ color: "#F7F4EE" }}>
+                    <h4 className="text-lg font-semibold "style={{ color: "#173F38" }}>
                       {item.author}
                     </h4>
 
@@ -135,14 +135,14 @@ export default function Testimonials() {
       </div>
 
       <Reveal delay={0.5}>
-        <div className="mt-24 rounded-[32px] border border-white/10 bg-white/[0.03] px-8 py-10 backdrop-blur-2xl">
+        <div className="mt-24 rounded-[32px] border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] px-8 py-10 backdrop-blur-2xl">
           <div className="grid grid-cols-2 items-center gap-8 opacity-50 md:grid-cols-3 lg:grid-cols-6">
             {LOGOS.map((logo) => (
               <motion.div
                 key={logo}
                 whileHover={{ scale: 1.08 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-white/40 transition-colors duration-300 hover:text-[#C9A35F]"
+                className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#071F2D]/40 transition-colors duration-300 hover:text-[#C9A35F]"
               >
                 {logo}
               </motion.div>

@@ -53,7 +53,10 @@ tl.to(".hero-line-inner", {
       ref={containerRef}
       className="relative z-20 flex min-h-[80vh] flex-col justify-center"
     >
-      <h1 className="font-[var(--font-display)] text-[clamp(4rem,5vw,8rem)] leading-[0.92] "style={{ color: "#F7F4EE" }}>
+      <h1
+  className="font-[var(--font-display)] text-[clamp(4rem,5vw,8rem)] leading-[0.92]"
+  style={{ color: "#173F38" }}
+>
         {lines.map((line, i) => (
           <span key={i} className="block overflow-hidden">
             <span
@@ -67,7 +70,7 @@ tl.to(".hero-line-inner", {
         ))}
       </h1>
 
-      <p className="hero-sub mt-10 max-w-2xl text-lg leading-9 text-white/70">
+      <p className="hero-sub mt-10 max-w-2xl text-lg leading-9 text-[#071F2D]/70">
         VISWAS integrates strategy, corporate finance, governance and
         transformation into one advisory experience, helping boards and
         promoters make confident decisions with long-term impact.
@@ -81,10 +84,11 @@ tl.to(".hero-line-inner", {
         </Link>
 
         <Link href="/#services" className="hero-cta group">
-          <MagneticButton
-            strength={0.25}
-            className="flex items-center gap-3 rounded-full border border-white/20 px-8 py-4 text-[#F7F4EE] transition-all duration-300 hover:border-[#C9A35F] hover:bg-white/5"
-          >
+        <MagneticButton
+  strength={0.25}
+  className="flex items-center gap-3 rounded-full border border-[#173F38]/10 px-8 py-4 transition-all duration-300 hover:border-[#C9A35F] hover:bg-white"
+  style={{ color: "#173F38" }}
+>
             Explore Capabilities
             <ArrowRight
               size={18}

@@ -117,7 +117,7 @@ function EmberField() {
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-[#071F2D]">
+    <main className="min-h-screen bg-[#F7F4EE]">
 
       {/* Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -132,7 +132,7 @@ export default function InsightsPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/10 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
         />
 
         <motion.div
@@ -161,7 +161,7 @@ export default function InsightsPage() {
         <Reveal>
           <Link
             href="/"
-            className="group relative z-10 inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[#C9A35F]"
+            className="group relative z-10 inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors hover:text-[#C9A35F]"
           >
             <ArrowLeft
               size={16}
@@ -200,25 +200,25 @@ export default function InsightsPage() {
 
                     <div className="flex items-center gap-3">
 
-                      <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
+                      <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
                         Featured Insight
                       </span>
 
                     </div>
 
-                    <h1 className="mt-8 text-5xl font-semibold leading-tight" style={{ color: "#F7F4EE" }}>
+                    <h1 className="mt-8 text-6xl tracking-tight font-semibold leading-tight" style={{ color: "#173F38" }}>
 
                       {FEATURED.title}
 
                     </h1>
 
-                    <p className="mt-8 text-lg leading-9 text-white/70">
+                    <p className="mt-8 text-lg leading-9 text-[#071F2D]/70">
 
                       {FEATURED.description}
 
                     </p>
 
-                    <div className="mt-10 flex flex-wrap gap-6 text-white/60">
+                    <div className="mt-10 flex flex-wrap gap-6 text-[#6B807A]">
 
                       <div className="flex items-center gap-2">
 
@@ -276,7 +276,7 @@ export default function InsightsPage() {
                         repeat: Infinity,
                         ease: "linear",
                       }}
-                      className="absolute h-52 w-52 rounded-full border border-white/10"
+                      className="absolute h-52 w-52 rounded-full border border-[#173F38]/8"
                     />
 
                     <TrendingUp
@@ -310,13 +310,13 @@ export default function InsightsPage() {
                 Latest Thinking
               </span>
 
-              <h2 className="mt-4 text-3xl font-semibold" style={{ color: "#F7F4EE" }}>
+              <h2 className="mt-4 text-3xl font-semibold" style={{ color: "#173F38" }}>
                 More Insights
               </h2>
 
             </div>
 
-            <p className="max-w-sm text-sm leading-6 text-white/50">
+            <p className="max-w-sm text-sm leading-6 text-[#071F2D]/50">
               Perspectives across strategy, technology, and leadership from
               our consulting practice.
             </p>
@@ -341,21 +341,21 @@ export default function InsightsPage() {
 
                   <GlassCard className="group flex h-full flex-col overflow-hidden">
 
-                    <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/10 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
+                    <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
                       {article.category}
                     </span>
 
-                    <h3 className="mt-6 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]" style={{ color: "#F7F4EE" }}>
+                    <h3 className="mt-6 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]" style={{ color: "#173F38" }}>
                       {article.title}
                     </h3>
 
-                    <p className="mt-4 flex-1 text-sm leading-7 text-white/60">
+                    <p className="mt-4 flex-1 text-sm leading-7 text-[#6B807A]">
                       {article.description}
                     </p>
 
-                    <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+                    <div className="mt-8 flex items-center justify-between border-t border-[#173F38]/8 pt-6">
 
-                      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/50">
+                      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#071F2D]/50">
                         <Clock3 size={14} />
                         {article.read}
                       </div>
@@ -398,7 +398,7 @@ export default function InsightsPage() {
                 <motion.div
                   animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C9A35F]/10 blur-[120px]"
+                  className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C9A35F]/12 blur-[120px]"
                 />
 
               </div>

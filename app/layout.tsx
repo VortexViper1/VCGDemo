@@ -94,8 +94,6 @@ export default function RootLayout({
 
         <CursorGlow />
 
-        <Navbar />
-
         <main>{children}</main>
 
         <Footer />

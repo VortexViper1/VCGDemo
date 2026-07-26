@@ -3,7 +3,7 @@
 import {
   Target,
   PiggyBank,
-  Sparkles,
+  Workflow,
   Handshake,
   Briefcase,
   Landmark,
@@ -26,7 +26,7 @@ const VALUES = [
   },
   {
     label: "Digital transformation",
-    icon: Sparkles,
+    icon: Workflow,
   },
   {
     label: "Long-term partnerships",
@@ -56,7 +56,7 @@ export default function About() {
   return (
     <Section
       id="about"
-      className="bg-[#071F2D]"
+      className="bg-[#F7F4EE]"
     >
       <div className="grid items-center gap-20 lg:grid-cols-2">
         {/* Left */}
@@ -80,14 +80,17 @@ export default function About() {
                     key={item.label}
                     className="flex items-center gap-4"
                   >
-                    <div className="rounded-full bg-[#C9A35F]/10 p-2">
+                    <div className="rounded-full bg-[#C9A35F]/12 p-2">
                       <Icon
                         size={18}
                         className="text-[#C9A35F]"
                       />
                     </div>
 
-                    <span className="text-lg text-white/80">
+                    <span
+  className="text-lg font-medium"
+  style={{ color: "#44665F" }}
+>
                       {item.label}
                     </span>
                   </div>
@@ -111,20 +114,20 @@ export default function About() {
 
                 <GlassCard
                   key={metric.label}
-                  className="transition-all duration-300 hover:border-[#C9A35F]/40"
+                  className="transition-all duration-500 hover:-translate-y-2 hover:border-[#C9A35F]/40 hover:shadow-[0_25px_80px_rgba(23,63,56,0.12)]"
                 >
                   <div className="flex items-end justify-between">
                     <div>
-                      <h3 className="text-5xl font-bold "style={{ color: "#F7F4EE" }}>
+                      <h3 className="text-6xl tracking-tight font-bold "style={{ color: "#173F38" }}>
                         {metric.value}
                       </h3>
 
-                      <p className="mt-3 text-white/70">
+                      <p className="mt-3 text-[#071F2D]/70">
                         {metric.label}
                       </p>
                     </div>
 
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#C9A35F]/20 bg-[#C9A35F]/10">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#C9A35F]/20 bg-[#C9A35F]/12">
                       <Icon
                         size={26}
                         className="text-[#C9A35F]"
@@ -143,11 +146,14 @@ export default function About() {
                   Our Philosophy
                 </span>
 
-                <h3 className="text-3xl font-semibold leading-snug "style={{ color: "#F7F4EE" }}>
+                <h3 className="text-3xl font-semibold leading-snug "style={{ color: "#173F38" }}>
                   Strategy is valuable only when execution creates measurable impact.
                 </h3>
 
-                <p className="leading-8 text-white/70">
+                <p
+  className="leading-8"
+  style={{ color: "#6E847F" }}
+>
                   Every engagement combines strategic thinking,
                   financial insight, operational excellence, and
                   digital innovation to create sustainable business
