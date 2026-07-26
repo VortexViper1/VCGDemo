@@ -113,7 +113,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             <div className="flex h-full flex-col px-8 py-10">
               {/* Header */}
               <div className="flex items-center justify-between">
-                <span className="text-lg font-semibold tracking-[0.06em] text-[#F4F0E8]">
+                <span className="text-lg font-semibold tracking-[0.06em] text-white">
                   VISWAS
                 </span>
                 <motion.button
@@ -134,13 +134,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-2xl font-medium text-[#F4F0E8]/80 transition-colors hover:bg-[#B7964A]/5 hover:text-[#B7964A]"
+                      className="group flex items-center justify-between rounded-xl px-4 py-4 text-2xl font-medium text-white transition-all duration-300 hover:bg-[#B7964A]/10 hover:text-[#C9A35F]"
                     >
                       <span>{item.label}</span>
                       <ArrowUpRight
-                        size={20}
-                        className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      />
+  size={20}
+  className="text-[#C9A35F] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+/>
                     </Link>
                   </motion.div>
                 ))}
