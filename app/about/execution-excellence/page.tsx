@@ -97,7 +97,7 @@ export default function ExecutionExcellencePage() {
           </div>
         </Reveal>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:p-8 md:grid-cols-3">
           {POINTS.map((point, index) => {
             const Icon = point.icon;
             return (

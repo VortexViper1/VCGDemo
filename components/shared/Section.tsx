@@ -18,11 +18,11 @@ export default function Section({
     <section
       id={id}
       className={cn(
-        "relative w-full overflow-hidden py-24 md:py-36",
+        "relative w-full overflow-hidden py-28 md:py-40",
         className
       )}
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div className="mx-auto w-full max-w-[1440px] px-8 sm:px-10 md:px-14 lg:px-20 xl:px-24">
         {children}
       </div>
     </section>

@@ -70,7 +70,7 @@ export default function HeroStats() {
         style={{ transformStyle: "preserve-3d" }}
         className="relative w-full max-w-md rounded-[37px] bg-gradient-to-br from-[#C9A35F]/40 via-[#E3C88C]/25 to-[#C9A35F]/10 p-px shadow-[0_50px_140px_rgba(23,63,56,0.14)]"
       >
-        <div className="group relative overflow-hidden rounded-[36px] border border-white/40 bg-gradient-to-br from-[#FFFDF8] via-[#FBF8F1] to-[#F7F2E7] p-8 backdrop-blur-xl">
+        <div className="group relative overflow-hidden rounded-[36px] border border-white/40 bg-gradient-to-br from-[#FFFDF8] via-[#FBF8F1] to-[#F7F2E7] p-6 md:p-8 backdrop-blur-xl">
           {/* Premium gold ambient background */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#C9A35F]/14 blur-[110px]" />

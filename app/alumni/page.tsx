@@ -127,20 +127,24 @@ function AlumniCard({ person }: { person: Alum }) {
             fixed square size (h-28 w-28) keeps the ring perfectly round */}
         <div className="relative mx-auto h-28 w-28 shrink-0">
           {/* soft gold glow — invisible at rest, eases in on hover */}
-          <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-[#C9A35F]/25 opacity-0 blur-md transition-opacity duration-500 ease-out group-hover:opacity-60" />
+          <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-[#C9A35F]/25 opacity-0 blur-md transition-opacity duration-700
+ease-out ease-out group-hover:opacity-60" />
 
           {person.image ? (
-            <div className="relative h-28 w-28 overflow-hidden rounded-full border-[3px] border-white shadow-[0_10px_35px_rgba(0,0,0,0.08)] transition-all duration-500 group-hover:border-[#C9A35F] group-hover:shadow-[0_0_35px_rgba(201,163,95,0.30)]">
+            <div className="relative h-28 w-28 overflow-hidden rounded-full border-[3px] border-white shadow-[0_10px_35px_rgba(0,0,0,0.08)] transition-all duration-700
+ease-out group-hover:border-[#C9A35F] group-hover:shadow-[0_0_35px_rgba(201,163,95,0.30)]">
   <Image
     src={person.image}
     alt={person.name}
     fill
     sizes="112px"
-    className="rounded-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
+    className="rounded-full object-cover object-center transition-transform duration-700
+ease-out ease-out group-hover:scale-110"
   />
 </div>
           ) : (
-            <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-[#C9A35F]/12 text-xl font-semibold text-[#C9A35F] ring-1 ring-[#C9A35F]/30 transition-transform duration-500 ease-out group-hover:scale-105">
+            <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-[#C9A35F]/12 text-xl font-semibold text-[#C9A35F] ring-1 ring-[#C9A35F]/30 transition-transform duration-700
+ease-out ease-out group-hover:scale-105">
               {getInitials(person.name)}
             </div>
           )}
@@ -171,7 +175,7 @@ function AlumniCard({ person }: { person: Alum }) {
 
 function AlumniGrid({ people }: { people: Alum[] }) {
   return (
-    <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="mt-16 grid gap-6 md:p-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {people.map((person, index) => (
         <Reveal key={person.name} delay={0.05 + (index % 4) * 0.08}>
           <AlumniCard person={person} />

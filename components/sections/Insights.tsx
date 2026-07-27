@@ -1,147 +1,502 @@
 "use client";
 
-import { useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Calendar, Clock3 } from "lucide-react";
+import Image from "next/image";
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  useReducedMotion,
+} from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import Reveal from "@/components/shared/Reveal";
-import GlassCard from "@/components/shared/GlassCard";
 
-const FEATURED = {
-  category: "Business Strategy",
-  title: "The Future of Business Transformation in the AI Era",
-  description: `Artificial Intelligence has evolved from an emerging technology into one of the most transformative forces shaping the future of global business. Organizations across every industry are moving beyond experimentation and isolated proof-of-concepts to embed AI into the heart of strategic decision-making, operational excellence, customer engagement, and enterprise innovation. As markets become increasingly dynamic and competitive, AI is no longer simply an efficiency tool—it is a catalyst for business transformation, enabling organizations to rethink how they operate, create value, and deliver sustainable growth.
+/* ------------------------------------------------------------------ */
+/*  Content                                                            */
+/* ------------------------------------------------------------------ */
 
-The convergence of Artificial Intelligence, advanced analytics, cloud computing, automation, and digital technologies is fundamentally changing the way businesses compete. Modern enterprises are leveraging intelligent systems to optimize supply chains, predict market trends, personalize customer experiences, strengthen cybersecurity, accelerate product development, improve financial performance, and empower employees with data-driven insights. Companies that successfully integrate these technologies are building organizations that are more agile, resilient, and capable of responding to disruption with confidence.
-
-Yet technology alone does not create transformation. Successful digital enterprises recognize that meaningful change requires aligning people, processes, leadership, and organizational culture with technological innovation. Digital transformation is not simply about implementing new platforms—it is about redesigning business models, modernizing operating structures, fostering cross-functional collaboration, and creating an environment where continuous learning and innovation become part of the organization's DNA. Organizations that prioritize change management alongside technology investments consistently achieve greater long-term value and stronger business outcomes.
-
-Artificial Intelligence is also redefining leadership itself.`,
-  date: "July 2026",
-  read: "9 min read",
-  href: "/insights/future-of-business-transformation-ai",
+type Insight = {
+  category: string;
+  title: string;
+  description: string;
+  date: string;
+  read: string;
+  href: string;
+  image: string;
 };
-const ARTICLES = [
+
+const INSIGHTS: Insight[] = [
   {
     category: "Digital Transformation",
     title: "Digital Transformation Beyond Technology",
+    description:
+      "Why lasting transformation is a discipline of people, process, and culture — and why platforms alone rarely move the needle.",
+    date: "Jun 2026",
     read: "6 min read",
     href: "/insights/digital-transformation-beyond-technology",
+    image: "/insights/beyond.jpg",
   },
   {
     category: "Leadership",
     title: "Building High-Performance Leadership Teams",
+    description:
+      "The operating rhythms, incentives, and decision rights that separate leadership teams that compound from those that stall.",
+    date: "Jun 2026",
     read: "5 min read",
     href: "/insights/high-performance-leadership-teams",
+    image: "/insights/leadershi_p.jpg",
   },
   {
     category: "Cybersecurity",
     title: "Cybersecurity as a Business Strategy",
+    description:
+      "Reframing security investment from a cost center to a board-level driver of trust, resilience, and enterprise value.",
+    date: "May 2026",
     read: "7 min read",
     href: "/insights/cybersecurity-business-strategy",
+    image: "/insights/security.jpg",
   },
   {
     category: "Growth Strategy",
     title: "Scaling Businesses in Emerging Markets",
+    description:
+      "A playbook for sequencing entry, capital, and talent decisions across markets with volatile demand and thin data.",
+    date: "May 2026",
     read: "6 min read",
     href: "/insights/scaling-businesses-emerging-markets",
+    image: "/insights/businesssc.jpg",
   },
   {
     category: "Operations",
     title: "Operational Excellence Through Process Optimization",
+    description:
+      "How disciplined process redesign — not headcount — unlocks the next decade of margin improvement.",
+    date: "Apr 2026",
     read: "5 min read",
     href: "/insights/operational-excellence-process-optimization",
+    image: "/insights/operationalexce.jpg",
   },
   {
     category: "Sustainability",
     title: "Creating Sustainable Value Through ESG Leadership",
+    description:
+      "Why the enterprises winning on ESG treat it as a capital allocation question, not a reporting exercise.",
+    date: "Apr 2026",
     read: "6 min read",
     href: "/insights/esg-sustainable-value-creation",
+    image: "/insights/Esg.jpg",
   },
 ];
 
-function ArticleCard({
-  article,
-  index,
-}: {
-  article: (typeof ARTICLES)[number];
-  index: number;
-}) {
-  const cardRef = useRef<HTMLDivElement>(null);
+/* ------------------------------------------------------------------ */
+/*  Tunables                                                           */
+/* ------------------------------------------------------------------ */
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--rx", `${py * -4}deg`);
-    el.style.setProperty("--ry", `${px * 4}deg`);
-  };
+const CYCLE_SECONDS = 30; // full loop duration target
+const HOVER_RESUME_DELAY_MS = 300;
+const MOBILE_CENTER_HOLD_MS = 2000;
+const MOBILE_RESUME_AFTER_SWIPE_MS = 3000;
+const GAP_PX = 32; // must match the Tailwind gap below (gap-6 md:p-8 = 2rem = 32px)
 
-  const handleMouseLeave = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.setProperty("--rx", "0deg");
-    el.style.setProperty("--ry", "0deg");
-  };
+/** Duplicate the deck so the track can wrap seamlessly. */
+const LOOP_COPIES = 3;
+const TRACK: Insight[] = Array.from({ length: LOOP_COPIES }, () => INSIGHTS).flat();
 
+/* ------------------------------------------------------------------ */
+/*  Responsive visible-card count                                     */
+/* ------------------------------------------------------------------ */
+
+function useVisibleCount() {
+  const [count, setCount] = useState(3);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 768) setCount(1);
+      else if (w < 1200) setCount(2);
+      else setCount(3);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return count;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Card                                                                */
+/* ------------------------------------------------------------------ */
+
+interface CardProps {
+  insight: Insight;
+  cardWidth: number;
+  active: boolean; // hovered / focused (desktop) OR centered (mobile)
+  onEnter: () => void;
+  onLeave: () => void;
+}
+
+function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps) {
   return (
-    <Reveal delay={index * 0.1}>
-      <div style={{ perspective: 1000 }}>
-        <Link href={article.href} className="block">
+    <Link
+      href={insight.href}
+      className="block shrink-0 outline-none"
+      style={{ width: cardWidth }}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+      draggable={false}
+    >
+      <div
+        className="group relative h-[28rem] lg:h-[26rem] w-full overflow-hidden rounded-2xl bg-[#071F2D] ring-1 ring-white/10 transition-shadow duration-500 focus-within:ring-2 focus-within:ring-[#C9A35F]"
+        style={{ willChange: "transform" }}
+      >
+        {/* Background image */}
+        <div className="absolute inset-0" style={{ willChange: "transform" }}>
           <motion.div
-            ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            whileHover={{ y: -6 }}
-            transition={{ type: "spring" as const, stiffness: 220, damping: 20 }}
-            style={{
-              transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
-              transformStyle: "preserve-3d",
-            }}
-            className="cursor-pointer"
+            className="absolute inset-0"
+            animate={{ scale: active ? 1.08 : 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: "transform" }}
           >
-            <GlassCard className="group relative overflow-hidden">
-              <div className="flex justify-between">
-                <span className="text-xs uppercase tracking-[0.3em] text-[#C9A35F]">
-                  {article.category}
-                </span>
-                <span className="text-sm text-[#071F2D]/40">{article.read}</span>
-              </div>
-
-              <h3 className="mt-8 text-2xl font-semibold leading-snug "style={{ color: "#173F38" }}>
-                {article.title}
-              </h3>
-
-              <div className="relative mt-10 h-px w-full overflow-hidden bg-[#F7F4EE]/10">
-                <motion.div
-                  initial={{ width: "0%" }}
-                  whileInView={{ width: "30%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C9A35F] to-transparent transition-all duration-500 group-hover:w-full"
-                />
-              </div>
-
-              <div className="mt-6 inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-[#C9A35F]">
-                Explore
-                <motion.div whileHover={{ x: 4, y: -4 }}>
-                  <ArrowUpRight size={18} />
-                </motion.div>
-              </div>
-            </GlassCard>
+            <Image
+              src={insight.image}
+              alt=""
+              fill
+              draggable={false}
+              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 30vw"
+              className="pointer-events-none object-cover"
+              priority={false}
+            />
           </motion.div>
-        </Link>
+        </div>
+
+        {/* Overlay */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071F2D] via-[#071F2D]/50 to-[#071F2D]/10"
+          animate={{ opacity: active ? 1 : 0.85 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        />
+
+        {/* Content */}
+        <div className="relative flex h-full flex-col justify-end p-6 md:p-8">
+          {/* Category + date — always visible */}
+          <motion.div
+            className="flex items-center justify-between"
+            animate={{ y: active ? -4 : 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="
+text-[13px]
+font-semibold
+uppercase
+tracking-[0.2em] md:tracking-[0.32em]
+text-[#D4AF37]
+drop-shadow-[0_1px_6px_rgba(212,175,55,0.35)]
+">
+              {insight.category}
+            </span>
+            <span className="
+text-[12px]
+font-medium
+uppercase
+tracking-[0.18em]
+text-white/75
+">
+              {insight.date}
+            </span>
+          </motion.div>
+
+          {/* Title — always visible, shifts up slightly on active */}
+         <motion.h3
+  className="
+    mt-5
+    font-[var(--font-display)]
+    text-[26px] md:text-[30px] lg:text-[32px]
+    font-bold
+    leading-[1.15]
+    tracking-[-0.03em]
+    transition-colors
+    duration-500
+    group-hover:text-white
+  "
+  style={{ color: "white" }}
+  animate={{ y: active ? -6 : 0 }}
+  transition={{
+    duration: 0.35,
+    delay: active ? 0.03 : 0,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+>
+  {insight.title}
+</motion.h3>
+
+          {/* Gold accent line */}
+          <div className="relative mt-5 h-px w-full overflow-hidden bg-white/15">
+            <motion.div
+              className="
+absolute
+inset-y-0
+left-0
+bg-gradient-to-r
+from-[#D4AF37]
+via-[#F4D675]
+to-[#D4AF37]
+"
+              animate={{ width: active ? "100%" : "18%" }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </div>
+
+          {/* Description — revealed on active */}
+          <motion.p
+            className="
+overflow-hidden
+font-[var(--font-sans)]
+text-[16px]
+leading-7
+tracking-[0.01em]
+font-medium
+text-white/90
+drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]
+"
+            initial={false}
+            animate={
+              active
+                ? { height: "auto", opacity: 1, marginTop: 14 }
+                : { height: 0, opacity: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.4, delay: active ? 0.06 : 0, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {insight.description}
+          </motion.p>
+
+          {/* Read More — slides up on active */}
+          <motion.div
+            className="
+mt-5
+flex
+items-center
+gap-3
+text-[13px]
+font-bold
+uppercase
+tracking-[0.28em]
+text-[#D4AF37]
+drop-shadow-[0_2px_10px_rgba(212,175,55,0.35)]
+"
+            initial={false}
+            animate={
+              active
+                ? { opacity: 1, y: 0, height: "auto", marginTop: 20 }
+                : { opacity: 0, y: 12, height: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.4, delay: active ? 0.1 : 0, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Read More
+            <motion.span
+              animate={{ rotate: active ? 45 : 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex"
+            >
+              <ArrowUpRight size={16} />
+            </motion.span>
+          </motion.div>
+        </div>
       </div>
-    </Reveal>
+    </Link>
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  Carousel                                                           */
+/* ------------------------------------------------------------------ */
+
 export default function Insights() {
+  const prefersReducedMotion = useReducedMotion();
+  const visibleCount = useVisibleCount();
+  const isMobile = visibleCount === 1;
+
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      setViewportWidth(entries[0].contentRect.width);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // Card width so `visibleCount` cards + gaps fill the viewport exactly.
+  const cardWidth = useMemo(() => {
+    if (!viewportWidth) return 0;
+    const totalGap = GAP_PX * (visibleCount - 1);
+    return (viewportWidth - totalGap) / visibleCount;
+  }, [viewportWidth, visibleCount]);
+
+  const singleSetWidth = useMemo(
+    () => (cardWidth + GAP_PX) * INSIGHTS.length,
+    [cardWidth]
+  );
+
+  const speedPxPerSec = singleSetWidth / CYCLE_SECONDS;
+
+  const x = useMotionValue(0);
+
+  // Pause reasons — any one of these being true halts the ticker.
+  const hoverPausedRef = useRef(false);
+  const draggingRef = useRef(false);
+  const mobileHoldRef = useRef(false);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mobileTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const lastCenteredIndexRef = useRef<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); // desktop hover/focus
+  const [mobileActiveIndex, setMobileActiveIndex] = useState<number | null>(null);
+
+  const clearResumeTimeout = () => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
+  /* ---------------- Desktop hover pause ---------------- */
+
+  const handleCardEnter = useCallback(
+    (index: number) => {
+      if (isMobile) return;
+      clearResumeTimeout();
+      hoverPausedRef.current = true;
+      setActiveIndex(index);
+    },
+    [isMobile]
+  );
+
+  const handleCardLeave = useCallback(
+    (index: number) => {
+      if (isMobile) return;
+      setActiveIndex((prev) => (prev === index ? null : prev));
+      clearResumeTimeout();
+      resumeTimeoutRef.current = setTimeout(() => {
+        hoverPausedRef.current = false;
+      }, HOVER_RESUME_DELAY_MS);
+    },
+    [isMobile]
+  );
+
+  /* ---------------- Drag / swipe (mobile) ---------------- */
+
+  const handleDragStart = useCallback(() => {
+    draggingRef.current = true;
+    mobileHoldRef.current = false;
+    if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+    setMobileActiveIndex(null);
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    draggingRef.current = false;
+    if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+    mobileTimeoutRef.current = setTimeout(() => {
+      mobileHoldRef.current = false;
+    }, MOBILE_RESUME_AFTER_SWIPE_MS);
+  }, []);
+
+  /* ---------------- Ticker ---------------- */
+
+  useAnimationFrame((_, delta) => {
+    if (!singleSetWidth || prefersReducedMotion) return;
+
+    const paused =
+      hoverPausedRef.current || draggingRef.current || mobileHoldRef.current;
+
+    if (!paused) {
+      let next = x.get() - (speedPxPerSec * delta) / 1000;
+
+      // Seamless bidirectional wrap.
+      while (next <= -singleSetWidth) next += singleSetWidth;
+      while (next > 0) next -= singleSetWidth;
+
+      x.set(next);
+    }
+
+    // Mobile: detect which card is centered in the viewport.
+    if (isMobile && !draggingRef.current && viewportWidth && cardWidth) {
+      const step = cardWidth + GAP_PX;
+      const centerOffset = -x.get() + viewportWidth / 2;
+      const rawIndex = Math.round(centerOffset / step - 0.5);
+      const normalized =
+        ((rawIndex % INSIGHTS.length) + INSIGHTS.length) % INSIGHTS.length;
+
+      if (
+        lastCenteredIndexRef.current !== normalized &&
+        !mobileHoldRef.current
+      ) {
+        lastCenteredIndexRef.current = normalized;
+        mobileHoldRef.current = true;
+        setMobileActiveIndex(normalized);
+
+        if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+        mobileTimeoutRef.current = setTimeout(() => {
+          mobileHoldRef.current = false;
+          setMobileActiveIndex(null);
+        }, MOBILE_CENTER_HOLD_MS);
+      }
+    }
+  });
+
+  useEffect(() => {
+    return () => {
+      clearResumeTimeout();
+      if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
+    };
+  }, []);
+
+  /* ---------------- Static (reduced motion) layout ---------------- */
+
+  if (prefersReducedMotion) {
+    return (
+      <Section id="insights" className="relative overflow-hidden bg-[#F7F4EE]">
+        <Reveal>
+          <SectionTitle
+            eyebrow="INSIGHTS"
+            title="Perspectives shaping tomorrow's business leaders."
+            description="Thought leadership, market intelligence, and strategic insights from VISWAS Consulting Group."
+            align="center"
+          />
+        </Reveal>
+        <div className="mt-16 grid gap-6 md:p-8 sm:grid-cols-2 lg:grid-cols-3">
+          {INSIGHTS.map((insight) => (
+            <div key={insight.title} style={{ width: "100%" }}>
+              <InsightCard
+                insight={insight}
+                cardWidth={9999}
+                active={false}
+                onEnter={() => {}}
+                onLeave={() => {}}
+              />
+            </div>
+          ))}
+        </div>
+      </Section>
+    );
+  }
+
   return (
     <Section id="insights" className="relative overflow-hidden bg-[#F7F4EE]">
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -166,80 +521,39 @@ export default function Insights() {
         />
       </Reveal>
 
-      <div className="mt-20 grid gap-8 lg:grid-cols-12">
-        <Reveal className="lg:col-span-7">
-          <Link href={FEATURED.href} className="block h-full">
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring" as const, stiffness: 200, damping: 22 }}
-              className="h-full cursor-pointer"
-            >
-              <GlassCard className="group h-full overflow-hidden">
-                <div className="relative mb-10 h-72 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0d3147] via-[#123a53] to-[#071F2D]">
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 opacity-60"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle at top right, rgba(201,163,95,.25), transparent 45%)",
-                      backgroundSize: "160% 160%",
-                    }}
-                  />
+      <div ref={viewportRef} className="relative mt-16 overflow-hidden">
+        {/* Edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#F7F4EE] to-transparent w-10 sm:w-16 lg:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#F7F4EE] to-transparent w-10 sm:w-16 lg:w-28" />
 
-                  <motion.div
-                    animate={{ opacity: [0.18, 0.34, 0.18], scale: [1, 1.04, 1] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-0 bg-[radial-gradient(ellipse_at_18%_20%,rgba(244,240,232,0.12),transparent_55%)]"
-                  />
+        <motion.div
+          className="flex"
+          style={{ x, gap: GAP_PX, willChange: "transform" }}
+          drag={isMobile ? "x" : false}
+          dragElastic={0.08}
+          dragMomentum={false}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          {cardWidth > 0 &&
+            TRACK.map((insight, i) => {
+              const baseIndex = i % INSIGHTS.length;
+              const active = isMobile
+                ? mobileActiveIndex === baseIndex
+                : activeIndex === i;
 
-                  <div className="absolute bottom-8 left-8">
-                    <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F] backdrop-blur-sm">
-                      Featured Insight
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-6 text-sm text-[#071F2D]/50">
-                  <span className="uppercase tracking-[0.25em] text-[#C9A35F]">
-                    {FEATURED.category}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Calendar size={16} />
-                    {FEATURED.date}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock3 size={16} />
-                    {FEATURED.read}
-                  </div>
-                </div>
-
-                <h3 className="mt-8 text-4xl font-semibold leading-tight "style={{ color: "#173F38" }}>
-                  {FEATURED.title}
-                </h3>
-
-                <p className="mt-8 text-lg leading-9 text-[#071F2D]/70">
-                  {FEATURED.description}
-                </p>
-
-                <div className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C9A35F]">
-                  Read Article
-                  <motion.div whileHover={{ x: 5 }}>
-                    <ArrowUpRight size={18} />
-                  </motion.div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          </Link>
-        </Reveal>
-
-        <div className="space-y-8 lg:col-span-5">
-          {ARTICLES.map((article, index) => (
-            <ArticleCard key={article.title} article={article} index={index} />
-          ))}
-        </div>
+              return (
+                <InsightCard
+                  key={`${insight.title}-${i}`}
+                  insight={insight}
+                  cardWidth={cardWidth}
+                  active={active}
+                  onEnter={() => handleCardEnter(i)}
+                  onLeave={() => handleCardLeave(i)}
+                />
+              );
+            })}
+        </motion.div>
       </div>
     </Section>
   );

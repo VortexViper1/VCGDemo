@@ -161,7 +161,7 @@ export default function CybersecurityBusinessStrategyPage() {
                   competitors.
                 </p>
 
-                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#F7F4EE]/[0.03] p-8">
+                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#F7F4EE]/[0.03] p-6 md:p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
                   <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#173F38" }}>
                     Resilience is no longer about preventing every breach —
@@ -239,7 +239,7 @@ export default function CybersecurityBusinessStrategyPage() {
 
           {/* Share / CTA */}
           <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] p-8 sm:flex-row">
+            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] p-6 md:p-8 sm:flex-row">
               <p className="text-center text-[#071F2D]/70 sm:text-left">
                 Want to assess where your organization stands on cyber
                 resilience?
@@ -268,7 +268,7 @@ export default function CybersecurityBusinessStrategyPage() {
               Related Insights
             </h2>
 
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
+            <div className="mt-10 grid gap-6 md:p-8 md:grid-cols-3">
               {RELATED.map((article, index) => (
                 <Reveal key={article.href} delay={0.1 + index * 0.1}>
                   <Link href={article.href} className="block h-full">

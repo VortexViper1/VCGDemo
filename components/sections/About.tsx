@@ -9,7 +9,7 @@ import {
   Landmark,
   Building2,
 } from "lucide-react";
-
+import { motion } from "framer-motion";
 import Reveal from "@/components/shared/Reveal";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
@@ -58,7 +58,7 @@ export default function About() {
       id="about"
       className="bg-[#F7F4EE]"
     >
-      <div className="grid items-center gap-20 lg:grid-cols-2">
+      <div className="grid items-center gap-24 lg:grid-cols-2 xl:gap-32">
         {/* Left */}
 
         <Reveal>
@@ -68,6 +68,9 @@ export default function About() {
               title="Building enduring businesses through strategy, capital, and transformation."
               description="VISWAS Consulting Group partners with ambitious organizations, investors, and institutions to solve complex business challenges with clarity, innovation, and measurable impact."
             />
+            <div className="mt-10 mb-12 flex items-center gap-4">
+  <div className="h-px w-16 bg-[#C9A35F]" />
+</div>
 
             <div className="mt-10 space-y-6">
               {VALUES.map((item) => {
@@ -80,15 +83,28 @@ export default function About() {
                     key={item.label}
                     className="flex items-center gap-4"
                   >
-                    <div className="rounded-full bg-[#C9A35F]/12 p-2">
-                      <Icon
-                        size={18}
-                        className="text-[#C9A35F]"
-                      />
+                    <div
+  className="
+    rounded-full
+    bg-[#C9A35F]/10
+    p-3
+    transition-all
+    duration-700
+ease-out
+    group-hover:bg-[#C9A35F]
+    group-hover:scale-110
+"
+>
+                      
                     </div>
 
                     <span
-  className="text-lg font-medium"
+  className="
+font-[var(--font-sans)]
+text-[19px]
+font-medium
+tracking-[0.01em]
+"
   style={{ color: "#44665F" }}
 >
                       {item.label}
@@ -114,25 +130,46 @@ export default function About() {
 
                 <GlassCard
                   key={metric.label}
-                  className="transition-all duration-500 hover:-translate-y-2 hover:border-[#C9A35F]/40 hover:shadow-[0_25px_80px_rgba(23,63,56,0.12)]"
+                  className="transition-all duration-700
+ease-out hover:-translate-y-3
+hover:scale-[1.02] hover:border-[#C9A35F]/40 hover:shadow-[0_25px_80px_rgba(23,63,56,0.12)]"
                 >
-                  <div className="flex items-end justify-between">
+                  <div>
                     <div>
-                      <h3 className="text-6xl tracking-tight font-bold "style={{ color: "#173F38" }}>
-                        {metric.value}
-                      </h3>
+                      <motion.h3
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{
+    duration: 0.7,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+  className="
+    font-[var(--font-display)]
+    text-[clamp(3.2rem,4vw,4.8rem)]
+    font-semibold
+    leading-none
+    tracking-[-0.04em]
+  "
+  style={{ color: "#173F38" }}
+>
+  {metric.value}
+  <div className="mt-5 h-px w-16 bg-[#C9A35F]/70" />
+</motion.h3>
 
-                      <p className="mt-3 text-[#071F2D]/70">
+                      <p className="
+mt-4
+font-[var(--font-sans)]
+text-sm
+uppercase
+tracking-[0.16em]
+text-[#6E847F]
+">
                         {metric.label}
                       </p>
                     </div>
 
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#C9A35F]/20 bg-[#C9A35F]/12">
-                      <Icon
-                        size={26}
-                        className="text-[#C9A35F]"
-                      />
-                    </div>
+                   
                   </div>
                 </GlassCard>
 
@@ -140,7 +177,25 @@ export default function About() {
 
             })}
 
-            <GlassCard>
+            <GlassCard
+  className="
+    relative
+    overflow-hidden
+    transition-all
+    duration-700
+    hover:-translate-y-3
+    hover:scale-[1.02]
+    hover:border-[#C9A35F]/40
+    before:absolute
+    before:inset-0
+    before:bg-gradient-to-b
+    before:from-[#C9A35F]/5
+    before:to-transparent
+    before:opacity-0
+    hover:before:opacity-100
+    before:transition-opacity
+  "
+>
               <div className="space-y-6">
                 <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
                   Our Philosophy
@@ -151,7 +206,12 @@ export default function About() {
                 </h3>
 
                 <p
-  className="leading-8"
+  className="
+font-[var(--font-sans)]
+text-[18px]
+leading-[1.9]
+tracking-[0.01em]
+"
   style={{ color: "#6E847F" }}
 >
                   Every engagement combines strategic thinking,

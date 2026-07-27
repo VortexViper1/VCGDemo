@@ -154,7 +154,7 @@ export default function Footer() {
             All Rights Reserved.
           </p>
 
-          <div className="flex gap-8">
+          <div className="flex gap-6 md:p-8">
             <Link
               href="/privacy"
               className="transition hover:text-[#C9A35F]"

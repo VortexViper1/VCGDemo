@@ -33,7 +33,7 @@ export default function CTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="mx-auto max-w-4xl text-center">
+              <div className="mx-auto max-w-[1440px] px-10 sm:px-12 md:px-16 lg:px-24 xl:px-28">
                 {/* Badge — now a working link to insights/updates */}
                 <Link href="/#Insights">
                   <motion.div

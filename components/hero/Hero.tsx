@@ -17,7 +17,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <ScrollIndicator />
     </section>
   );
 }

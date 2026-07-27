@@ -93,7 +93,7 @@ export default function CapitalAdvisoryPage() {
           />
         </Reveal>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:p-8 md:grid-cols-3">
           {PILLARS.map((pillar, index) => {
             const Icon = pillar.icon;
             return (

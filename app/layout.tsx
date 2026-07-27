@@ -1,22 +1,32 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import CursorGlow from "@/components/shared/CursorGlow";
+import { Cormorant_Garamond } from "next/font/google";
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-stats",
+  display: "swap",
+  weight: ["600", "700"],
+});
+
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -85,16 +95,20 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable} ${playfair.variable}`}
-    >
+  lang="en"
+  suppressHydrationWarning
+  className={`${manrope.variable} ${playfair.variable} ${cormorant.variable}`}
+>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ScrollProgress />
 
         <CursorGlow />
 
-        <main>{children}</main>
+        <Navbar />
+
+        <main className="overflow-x-hidden">
+  {children}
+</main>
 
         <Footer />
       </body>

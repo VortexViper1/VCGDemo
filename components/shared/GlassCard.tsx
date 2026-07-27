@@ -29,9 +29,10 @@ export default function GlassCard({
         ${className ?? ""}`}
     >
       <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-[linear-gradient(135deg,rgba(244,240,232,0.09),transparent_35%)]" />
-      <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-transparent transition-colors duration-500 group-hover:border-[#B7964A]/40" />
+      <div className="pointer-events-none absolute inset-0 rounded-[28px] border border-transparent transition-colors duration-700
+ease-out group-hover:border-[#B7964A]/40" />
 
-      <div className="relative p-8 md:p-10">
+      <div className="relative p-6 md:p-8 md:p-10">
         {children}
       </div>
     </motion.div>

@@ -84,7 +84,8 @@ export default function Testimonials() {
                 className="h-full"
               >
                 <GlassCard
-                  className={`group flex h-full flex-col transition-shadow duration-500 ${
+                  className={`group flex h-full flex-col transition-shadow duration-700
+ease-out ${
                     isHovered
                       ? "shadow-[0_25px_70px_-15px_rgba(201,163,95,0.25)] border-[#C9A35F]/30"
                       : ""
@@ -96,7 +97,8 @@ export default function Testimonials() {
                       scale: isHovered ? 1.08 : 1,
                     }}
                     transition={{ type: "spring" as const, stiffness: 250, damping: 15 }}
-                    className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-500 ${
+                    className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-700
+ease-out ${
                       isHovered
                         ? "border-[#C9A35F]/50 bg-[#C9A35F]/20"
                         : "border-[#C9A35F]/20 bg-[#C9A35F]/12"
@@ -115,7 +117,15 @@ export default function Testimonials() {
                       <motion.div
                         animate={{ width: isHovered ? "100%" : "0%" }}
                         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute inset-y-0 left-0 bg-[#C9A35F]"
+                        className="
+absolute
+inset-y-0
+left-0
+bg-gradient-to-r
+from-[#D4AF37]
+via-[#F4D675]
+to-[#D4AF37]
+"
                       />
                     </div>
 

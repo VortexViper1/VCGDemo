@@ -145,7 +145,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                   credibility needed to take on harder markets later.
                 </p>
 
-                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#071F2D]/[0.03] p-8">
+                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#071F2D]/[0.03] p-6 md:p-8">
                   <Quote size={22} className="text-[#C9A35F]" />
                   <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#173F38" }}>
                     A strategy that worked at home is a hypothesis abroad,
@@ -208,7 +208,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#071F2D]/[0.03] p-8 sm:flex-row">
+            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#071F2D]/[0.03] p-6 md:p-8 sm:flex-row">
               <p className="text-center text-[#071F2D]/70 sm:text-left">
                 Evaluating which market to enter next, and in what order?
               </p>
@@ -235,7 +235,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
               Related Insights
             </h2>
 
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
+            <div className="mt-10 grid gap-6 md:p-8 md:grid-cols-3">
               {RELATED.map((article, index) => (
                 <Reveal key={article.href} delay={0.1 + index * 0.1}>
                   <Link href={article.href} className="block h-full">

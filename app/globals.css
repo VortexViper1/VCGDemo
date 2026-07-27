@@ -10,9 +10,9 @@
 
 @theme inline {
   /* Fonts */
-  --font-sans: var(--font-sans);       /* Suisse International — body */
-  --font-display: var(--font-display); /* Canela — headings */
-  --font-mono: var(--font-mono);       /* IBM Plex Mono — numbers/stats */
+--font-sans: var(--font-sans);       /* Manrope */
+--font-display: var(--font-display); /* Playfair Display */
+--font-mono: var(--font-mono);       /* IBM Plex Mono */
 
   --color-primary: #23363f;
   --color-accent: #b7964a;
@@ -83,7 +83,11 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
+font-feature-settings:
+  "liga" 1,
+  "kern" 1,
+  "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -124,14 +128,34 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
   color: inherit;
+  text-wrap: balance;
 }
-
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+.prose {
+  max-width: 70ch;
+}
 p {
-  line-height: 1.8;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
 }
-
+button,
+a,
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+}
 /* Numbers / stats / metrics — IBM Plex Mono per brand board */
 .font-numeric {
   font-family: var(--font-mono);

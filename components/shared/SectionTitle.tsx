@@ -26,7 +26,16 @@ export default function SectionTitle({
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.35em] text-[#C9A35F]"
+          className="
+mb-5
+inline-block
+font-[var(--font-sans)]
+text-[13px]
+font-semibold
+uppercase
+tracking-[0.28em]
+text-[#C9A35F]
+"
         >
           {eyebrow}
         </motion.span>
@@ -34,7 +43,14 @@ export default function SectionTitle({
 
       <motion.h2
   style={{ color: "#173F38" }}
-  className="text-4xl font-semibold tracking-tight md:text-6xl tracking-tight lg:text-6xl"
+  className="
+font-[var(--font-display)]
+text-[clamp(2.8rem,5vw,4.8rem)]
+font-semibold
+leading-[1.05]
+tracking-[-0.04em]
+text-balance
+"
 >
         {title}
       </motion.h2>
@@ -44,7 +60,15 @@ export default function SectionTitle({
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-6 text-lg leading-8 text-[#071F2D]/70"
+          className="
+mt-8
+max-w-2xl
+font-[var(--font-sans)]
+text-[19px]
+leading-[1.9]
+tracking-[0.01em]
+text-[#44665F]
+"
         >
           {description}
         </motion.p>

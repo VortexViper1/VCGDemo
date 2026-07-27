@@ -130,15 +130,17 @@ function FeatureCard({
           className="h-full transition-transform duration-300 ease-out"
         >
           <GlassCard className="group relative h-full overflow-hidden">
-            <span className="absolute right-6 top-6 font-serif text-6xl tracking-tight font-bold text-[#071F2D]/[0.04] transition-colors duration-500 group-hover:text-[#C9A35F]/10">
+            <span className="absolute right-6 top-6 font-serif text-6xl tracking-tight font-bold text-[#071F2D]/[0.04] transition-colors duration-700
+ease-out group-hover:text-[#C9A35F]/10">
               {String(index + 1).padStart(2, "0")}
             </span>
 
             <div className="relative flex h-full flex-col">
               <motion.div
-                whileHover={{ rotate: -8, scale: 1.08 }}
+                whileHover={{ rotate: -8, scale: active ? 1.05 : 1 }}
                 transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-500 group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
+                className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-700
+ease-out group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
               >
                 <Icon size={30} className="text-[#C9A35F]" />
               </motion.div>
@@ -215,7 +217,14 @@ export default function WhyViswas() {
                   transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
                 >
                   <CountUpStat value={item.value} delay={index * 0.15} />
-                  <p className="mt-3 text-[#071F2D]/70">{item.label}</p>
+                  <p className="
+mt-4
+font-[var(--font-sans)]
+text-sm
+uppercase
+tracking-[0.16em]
+text-[#6E847F]
+">{item.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -223,7 +232,7 @@ export default function WhyViswas() {
         </div>
 
         {/* Right */}
-        <div className="grid gap-8 md:grid-cols-2 lg:col-span-7">
+        <div className="grid gap-6 md:p-8 md:grid-cols-2 lg:col-span-7">
           {FEATURES.map((feature, index) => (
             <FeatureCard key={feature.title} feature={feature} index={index} />
           ))}

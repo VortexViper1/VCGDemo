@@ -3,12 +3,14 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
   Landmark,
   TrendingUp,
   Workflow,
+  type LucideIcon,
 } from "lucide-react";
 
 import Section from "@/components/shared/Section";
@@ -16,8 +18,15 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import Reveal from "@/components/shared/Reveal";
 import GlassCard from "@/components/shared/GlassCard";
 
-const SERVICES = [
+const SERVICES: {
+  image: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  href: string;
+}[] = [
   {
+    image: "/services/strategy.jpg",
     icon: BriefcaseBusiness,
     title: "Business Strategy",
     description:
@@ -25,6 +34,7 @@ const SERVICES = [
     href: "/services/business-strategy",
   },
   {
+    image: "/services/capital.jpg",
     icon: Landmark,
     title: "Capital Advisory",
     description:
@@ -32,6 +42,7 @@ const SERVICES = [
     href: "/services/capital-advisory",
   },
   {
+    image: "/services/growth.jpg",
     icon: TrendingUp,
     title: "Growth Consulting",
     description:
@@ -39,6 +50,7 @@ const SERVICES = [
     href: "/services/growth-consulting",
   },
   {
+    image: "/services/digital.jpg",
     icon: Workflow,
     title: "Digital Transformation",
     description:
@@ -54,8 +66,8 @@ function ServiceCard({
   service: (typeof SERVICES)[number];
   index: number;
 }) {
-  const Icon = service.icon;
   const cardRef = useRef<HTMLDivElement>(null);
+  const Icon = service.icon;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
@@ -91,46 +103,73 @@ function ServiceCard({
             className="h-full cursor-pointer transition-transform duration-300 ease-out"
           >
             <GlassCard className="group relative h-full overflow-hidden">
-              <span className="absolute right-8 top-8 font-serif text-6xl font-bold text-[#071F2D]/[0.04] transition-colors duration-500 group-hover:text-[#C9A35F]/10">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              {/* Background image, quiet at rest */}
+              <div className="absolute inset-0 -z-10">
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover opacity-[0.08] grayscale transition-all duration-700 ease-out group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                />
+                {/* Scrim: light at rest, deep ink on hover */}
+                <div
+                  className="absolute inset-0 bg-[#F7F4EE] transition-opacity duration-700 ease-out group-hover:opacity-0"
+                  aria-hidden
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-br from-[#0A1F2A]/95 via-[#12332E]/92 to-[#0A1F2A]/95 opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
+                  aria-hidden
+                />
+              </div>
 
-              <div className="relative flex h-full flex-col">
+              {/* Oversized ghost icon, watermark-style */}
+              <Icon
+                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#071F2D]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C9A35F]/20"
+                strokeWidth={1}
+              />
+
+              <div className="relative flex h-full flex-col p-10">
                 <div className="mb-8 flex items-center justify-between">
-                  <motion.div
-                    whileHover={{ rotate: -8, scale: 1.08 }}
-                    transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-500 group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
-                  >
-                    <Icon size={30} className="text-[#C9A35F]" />
-                  </motion.div>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C9A35F]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C9A35F]/60 group-hover:bg-[#C9A35F]/10">
+                    <Icon
+                      size={24}
+                      strokeWidth={1.5}
+                      className="text-[#173F38] transition-colors duration-500 group-hover:text-[#C9A35F]"
+                    />
+                  </div>
 
                   <motion.div whileHover={{ x: 5, y: -5 }}>
                     <ArrowUpRight
-                      className="text-[#071F2D]/40 transition group-hover:text-[#C9A35F]"
+                      className="text-[#071F2D]/40 transition-colors duration-500 group-hover:text-[#C9A35F]"
                       size={24}
                     />
                   </motion.div>
                 </div>
 
-                <h3 className="mb-5 text-3xl font-semibold "style={{ color: "#173F38" }}>
-                  {service.title}
+                <h3
+                  className="mb-5 text-3xl font-semibold transition-colors duration-500"
+                  style={{ color: "#173F38" }}
+                >
+                  <span className="transition-colors duration-500 group-hover:text-[#F7F4EE]">
+                    {service.title}
+                  </span>
                 </h3>
 
                 <p
-  className="leading-8"
-  style={{ color: "#6E847F" }}
->
+                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C9D3D0]"
+                  style={{ color: "#6E847F" }}
+                >
                   {service.description}
                 </p>
 
-                <div className="relative mt-10 h-px bg-[#F7F4EE]/10">
+                <div className="relative mt-10 h-px bg-[#071F2D]/10 group-hover:bg-[#F7F4EE]/15">
                   <motion.div
                     initial={{ width: "0%" }}
                     whileInView={{ width: "40%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C9A35F] to-transparent transition-all duration-500 group-hover:w-full"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C9A35F] to-transparent transition-all duration-700 ease-out group-hover:w-full"
                   />
                 </div>
 
@@ -174,7 +213,7 @@ export default function Services() {
         />
       </Reveal>
 
-      <div className="mt-20 grid gap-8 md:grid-cols-2">
+      <div className="mt-20 grid gap-6 md:p-8 md:grid-cols-2">
         {SERVICES.map((service, index) => (
           <ServiceCard key={service.title} service={service} index={index} />
         ))}
