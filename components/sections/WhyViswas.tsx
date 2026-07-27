@@ -136,14 +136,7 @@ ease-out group-hover:text-[#C9A35F]/10">
             </span>
 
             <div className="relative flex h-full flex-col">
-              <motion.div
-                whileHover={{ rotate: -8, scale: active ? 1.05 : 1 }}
-                transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-700
-ease-out group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
-              >
-                <Icon size={30} className="text-[#C9A35F]" />
-              </motion.div>
+             
 
               <h3 className="mb-5 text-2xl font-semibold "style={{ color: "#173F38" }}>
                 {feature.title}
