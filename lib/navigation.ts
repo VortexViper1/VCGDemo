@@ -33,7 +33,7 @@ export const NAVIGATION: NavigationItem[] = [
     icon: BriefcaseBusiness,
   },
   {
-    label: "Industries",
+    label: "Why Viswas",
     href: "/#why-viswas",
     icon: Building2,
   },

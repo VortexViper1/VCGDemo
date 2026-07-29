@@ -2,6 +2,8 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import Industries from "@/components/sections/Industries";
+// NOTE: unused — Industries.tsx renders the same content. Confirm with
+// product owner before removing.
 import WhyViswas from "@/components/sections/WhyViswas";
 import Leadership from "@/components/sections/Leadership";
 import Testimonials from "@/components/sections/Testimonials";

@@ -63,6 +63,7 @@ export default function Testimonials() {
       <div
         className="mt-20 grid gap-8 lg:grid-cols-3"
         onMouseLeave={() => setHovered(null)}
+        onTouchStart={() => setHovered(null)}
       >
         {TESTIMONIALS.map((item, index) => {
           const isHovered = hovered === index;
@@ -72,6 +73,7 @@ export default function Testimonials() {
             <Reveal key={item.company} delay={index * 0.15}>
               <motion.div
                 onMouseEnter={() => setHovered(index)}
+                onTouchStart={() => setHovered(index)}
                 animate={{
                   scale: isHovered ? 1.04 : isDimmed ? 0.97 : 1,
                   opacity: isDimmed ? 0.55 : 1,

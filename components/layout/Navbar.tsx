@@ -418,14 +418,8 @@ export default function Navbar() {
 
             {/* ── Mobile Menu Button ── */}
             <motion.button
-              initial={{ width: 48, opacity: 1, scale: 1 }}
-              animate={{
-                width: 48 * (1 - effectiveProgress),
-                opacity: 1 - effectiveProgress,
-                scale: 1 - effectiveProgress * 0.1,
-              }}
-              transition={getTransition(0.015, 0.045)}
-              style={{ pointerEvents: compact ? "none" : "auto", overflow: "hidden" }}
+              initial={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: 1, scale: 1 }}
               onClick={() => setMenuOpen(true)}
               whileTap={{ scale: 0.9, rotate: 90 }}
               whileHover={{ borderColor: GOLD }}
