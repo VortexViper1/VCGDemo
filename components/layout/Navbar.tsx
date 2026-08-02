@@ -437,7 +437,7 @@ export default function Navbar() {
                 overflowX: "hidden",
                 overflowY: "visible",
               }}
-              className="absolute left-[58%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
+              className="absolute left-[56%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
             >
               {MAIN_NAV_ITEMS.map((item, i) => {
                 const itemId = sectionIdFromHref(item.href);
