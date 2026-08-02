@@ -1,184 +1,208 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
-import {
-  ArrowRight,
-  Award,
-  Globe2,
-  Handshake,
-  Lightbulb,
-} from "lucide-react";
 
 import Reveal from "@/components/shared/Reveal";
 import Section from "@/components/shared/Section";
-import SectionTitle from "@/components/shared/SectionTitle";
-import GlassCard from "@/components/shared/GlassCard";
 
 const FEATURES = [
   {
-    icon: Lightbulb,
+    tag: "Strategy",
     title: "Strategic Intelligence",
     description:
       "Data-driven insights combined with executive expertise to solve complex business challenges.",
+    // TODO: replace with real image — /public/images/why/strategic-intelligence.jpg
+    image: "/why/Strategic Intelligence.jpg",
     href: "/about/strategic-intelligence",
   },
   {
-    icon: Globe2,
+    tag: "Global",
     title: "Global Perspective",
     description:
       "Combining international best practices with local market understanding for sustainable growth.",
+    // TODO: replace with real image — /public/images/why/global-perspective.jpg
+    image: "/why/Global Perspective.jpg",
     href: "/about/global-perspective",
   },
   {
-    icon: Handshake,
+    tag: "Partnership",
     title: "Trusted Partnership",
     description:
       "Working alongside leadership teams as long-term advisors rather than short-term consultants.",
+    // TODO: replace with real image — /public/images/why/trusted-partnership.jpg
+    image: "/why/Trusted Partnership.jpg",
     href: "/about/trusted-partnership",
   },
   {
-    icon: Award,
+    tag: "Execution",
     title: "Execution Excellence",
     description:
       "Strategies backed by measurable execution frameworks that deliver tangible business outcomes.",
+    // TODO: replace with real image — /public/images/why/execution-excellence.jpg
+    image: "/why/Execution Excellence.jpg",
     href: "/about/execution-excellence",
   },
 ];
 
-const STATS = [
-  { value: "98%", label: "Client Retention" },
-  { value: "15+", label: "Years Combined Experience" },
-  { value: "24/7", label: "Leadership Support" },
-];
-
-function CountUpStat({ value, delay }: { value: string; delay: number }) {
-  const ref = useRef<HTMLHeadingElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [display, setDisplay] = useState("0");
-
-  // Extract a countable number + trailing suffix (e.g. "98%" -> 98, "%")
-  const match = value.match(/^(\d+)(.*)$/);
-  const target = match ? parseInt(match[1], 10) : null;
-  const suffix = match ? match[2] : "";
+/**
+ * Apple TV+ / apple.com style swipeable carousel.
+ * Native CSS scroll-snap (not JS drag physics) — runs on the
+ * browser's compositor thread, so it stays smooth on low-end
+ * mobile and there's zero jank on desktop either.
+ */
+function FeatureCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    if (!inView || target === null) {
-      if (inView) setDisplay(value);
-      return;
-    }
+    const track = trackRef.current;
+    if (!track) return;
 
-    const duration = 1400;
-    const start = performance.now();
+    const slides = Array.from(track.children) as HTMLElement[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            const idx = slides.indexOf(entry.target as HTMLElement);
+            if (idx !== -1) setActive(idx);
+          }
+        });
+      },
+      { root: track, threshold: [0.6] }
+    );
 
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * target).toString());
-      if (progress < 1) requestAnimationFrame(tick);
-    };
+    slides.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
-    const timeout = setTimeout(() => requestAnimationFrame(tick), delay * 1000);
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView]);
+  const scrollToIndex = useCallback((index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slide = track.children[index] as HTMLElement | undefined;
+    if (!slide) return;
+    track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: "smooth" });
+  }, []);
 
-  return (
-    <h3 ref={ref} className="text-6xl tracking-tight font-bold  tabular-nums" style={{ color: "#173F38" }}>
-      {display}
-      {suffix}
-    </h3>
-  );
-}
-
-function FeatureCard({
-  feature,
-  index,
-}: {
-  feature: (typeof FEATURES)[number];
-  index: number;
-}) {
-  const Icon = feature.icon;
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.setProperty("--rx", `${py * -6}deg`);
-    el.style.setProperty("--ry", `${px * 6}deg`);
-  };
-
-  const handleMouseLeave = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.setProperty("--rx", "0deg");
-    el.style.setProperty("--ry", "0deg");
-  };
+  const goNext = () => scrollToIndex(Math.min(active + 1, FEATURES.length - 1));
+  const goPrev = () => scrollToIndex(Math.max(active - 1, 0));
 
   return (
-    <Reveal delay={index * 0.1}>
-      <div style={{ perspective: 1000 }}>
-        <Link href={feature.href} className="block h-full">
-          <motion.div
-            ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            whileHover={{ y: -6 }}
-            transition={{ type: "spring" as const, stiffness: 220, damping: 20 }}
-            style={{
-              transform: "rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
-              transformStyle: "preserve-3d",
-            }}
-            className="h-full cursor-pointer transition-transform duration-300 ease-out"
+    <div className="relative">
+      {/* Track — full-bleed, large slides like apple.com's carousel */}
+      <div
+        ref={trackRef}
+        className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6
+                   px-[max(1.5rem,calc((100vw-1400px)/2))]
+                   [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {FEATURES.map((feature, index) => (
+          <div
+            key={feature.title}
+            className="relative shrink-0 snap-center overflow-hidden rounded-3xl
+                       w-[92vw] sm:w-[85vw] md:w-[900px] lg:w-[1100px]
+                       aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9]"
           >
-            <GlassCard className="group relative h-full overflow-hidden">
-              <span className="absolute right-6 top-6 font-serif text-6xl tracking-tight font-bold text-[#071F2D]/[0.04] transition-colors duration-700
-ease-out group-hover:text-[#C9A35F]/10">
-                {String(index + 1).padStart(2, "0")}
+            {/* Background image — swap the src in FEATURES[].image with your own asset in /public/images/why/ */}
+            <Image
+              src={feature.image}
+              alt={feature.title}
+              fill
+              sizes="(max-width: 768px) 92vw, 1100px"
+              className="object-cover"
+              priority={index === 0}
+            />
+
+            {/* Gradient overlay for text legibility, Apple TV+ style */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+            {/* z-20 + relative here matters: this is the routing-bug fix —
+               if a Navbar overlay sits above this section with a higher
+               stacking context, its transparent hit-area can swallow clicks
+               before they reach this Link. Keep this content layer explicitly
+               stacked and make sure Navbar's overlay uses pointer-events-none
+               except on its own interactive children. */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 md:p-14">
+              <span className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A35F]">
+                {feature.tag}
               </span>
+              <h3
+  className="mb-3 text-3xl md:text-5xl font-semibold"
+  style={{ color: "#FAF8F4" }}
+>
+  {feature.title}
+</h3>
 
-              <div className="relative flex h-full flex-col">
-                <motion.div
-                  whileHover={{ rotate: -8, scale: 1.08 }}
-                  transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                  className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#C9A35F]/20 bg-[#C9A35F]/12 transition-colors duration-700
-ease-out group-hover:border-[#C9A35F]/50 group-hover:bg-[#C9A35F]/20"
-                >
-                  <Icon size={30} className="text-[#C9A35F]" />
-                </motion.div>
+<p className="mb-6 max-w-md md:max-w-lg text-sm md:text-base leading-6 md:leading-7 text-[#E8E3DA]">
+  {feature.description}
+</p>
 
-                <h3 className="mb-5 text-2xl font-semibold "style={{ color: "#173F38" }}>
-                  {feature.title}
-                </h3>
+              <Link
+                href={feature.href}
+                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-sm font-medium text-[#071F2D] transition-transform hover:scale-105"
+              >
+                Discover More
+                <ArrowRight size={15} />
+              </Link>
+            </div>
 
-                <p className="flex-1 leading-8 text-[#071F2D]/70">
-                  {feature.description}
-                </p>
-
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="mt-10 inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-[#C9A35F]"
-                >
-                  Discover More
-                  <ArrowRight size={16} />
-                </motion.div>
-              </div>
-            </GlassCard>
-          </motion.div>
-        </Link>
+            {/* Whole-card click target to the same href, sitting BELOW the
+               button/text (z-10) so the button's own z-30 still wins,
+               but clicking anywhere else on the slide also navigates —
+               matches the apple.com carousel behavior. */}
+            <Link
+              href={feature.href}
+              aria-label={feature.title}
+              className="absolute inset-0 z-10"
+            />
+          </div>
+        ))}
       </div>
-    </Reveal>
+
+      {/* Controls: dots + arrows */}
+      <div className="mt-6 flex items-center justify-between px-[max(1.5rem,calc((100vw-1400px)/2))]">
+        <div className="flex gap-2">
+          {FEATURES.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollToIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === active ? "w-6 bg-[#173F38]" : "w-1.5 bg-[#173F38]/25"
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={goPrev}
+            disabled={active === 0}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#173F38]/15 text-[#173F38] transition-opacity disabled:opacity-30"
+            aria-label="Previous slide"
+          >
+            <ArrowLeft size={16} />
+          </button>
+          <button
+            onClick={goNext}
+            disabled={active === FEATURES.length - 1}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#173F38]/15 text-[#173F38] transition-opacity disabled:opacity-30"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function WhyViswas() {
   return (
     <Section id="why-viswas" className="relative overflow-hidden bg-[#F7F4EE]">
-      {/* Ambient background depth — consistent with other sections */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
@@ -192,59 +216,9 @@ export default function WhyViswas() {
         />
       </div>
 
-      <div className="grid gap-20 lg:grid-cols-12">
-        {/* Left */}
-        <div className="lg:col-span-5">
-          <Reveal>
-            <SectionTitle
-              eyebrow="WHY VISWAS"
-              title="A consulting partner committed to lasting transformation."
-              description="We believe exceptional consulting goes beyond recommendations. It requires ownership, execution, and measurable impact."
-            />
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <div className="relative mt-14 space-y-10 pl-8">
-              {/* Animated vertical rail replacing the static border */}
-              <div className="absolute inset-y-0 left-0 w-px bg-[#F7F4EE]/10">
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  whileInView={{ scaleY: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ transformOrigin: "top" }}
-                  className="absolute inset-0 bg-gradient-to-b from-[#C9A35F] to-transparent"
-                />
-              </div>
-
-              {STATS.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
-                >
-                  <CountUpStat value={item.value} delay={index * 0.15} />
-                  <p className="
-mt-4
-font-[var(--font-sans)]
-text-sm
-uppercase
-tracking-[0.16em]
-text-[#6E847F]
-">{item.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Right */}
-        <div className="grid gap-6 md:p-8 md:grid-cols-2 lg:col-span-7">
-          {FEATURES.map((feature, index) => (
-            <FeatureCard key={feature.title} feature={feature} index={index} />
-          ))}
-        </div>
-      </div>
+      <Reveal>
+        <FeatureCarousel />
+      </Reveal>
     </Section>
   );
 }

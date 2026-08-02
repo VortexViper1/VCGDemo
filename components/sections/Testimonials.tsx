@@ -1,167 +1,227 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import Reveal from "@/components/shared/Reveal";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
-import GlassCard from "@/components/shared/GlassCard";
 
-const TESTIMONIALS = [
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const INK = "#1C2624";
+const INK_SOFT = "#5B6863";
+const PAPER = "#EFEAE0";
+const PAPER_LINE = "#D9D0BA";
+const SEAL = "#7A2E2E";
+const LOGOS = ["FORTUNE", "VENTURES", "GLOBAL", "CAPITAL", "ENTERPRISE", "GROUP"];
+const DISPLAY_SERIF = "var(--font-display)";
+const MONO = "var(--font-sans)";
+
+const EXHIBITS = [
   {
-    company: "Global Manufacturing Enterprise",
+    letter: "A",
     quote:
       "VISWAS provided strategic clarity during one of our most significant transformation initiatives. Their expertise accelerated execution and delivered measurable business value.",
     author: "Managing Director",
+    company: "Meridian Capital",
   },
   {
-    company: "Private Investment Group",
+    letter: "B",
     quote:
       "Their capital advisory team demonstrated exceptional financial insight, helping us structure investments with confidence and long-term sustainability.",
     author: "Chief Executive Officer",
+    company: "Anchorpoint Group",
   },
   {
-    company: "Healthcare Network",
+    letter: "C",
     quote:
       "Professional, insightful, and execution focused. VISWAS became an extension of our leadership team throughout our transformation journey.",
     author: "Board Member",
+    company: "Fortune Holdings",
   },
 ];
 
-const LOGOS = ["FORTUNE", "VENTURES", "GLOBAL", "CAPITAL", "ENTERPRISE", "GROUP"];
+const SIGNATORIES = [
+  "MERIDIAN CAPITAL",
+  "ANCHORPOINT GROUP",
+  "FORTUNE HOLDINGS",
+  "NORTHFIELD VENTURES",
+  "OAKMONT PARTNERS",
+  "STERLING & CO.",
+];
+
+/** A corporate seal — circular ring text + center mark, stamped in on hover. */
+function Seal({ active }: { active: boolean }) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.svg
+      width="56"
+      height="56"
+      viewBox="0 0 56 56"
+      aria-hidden="true"
+      initial={false}
+      animate={
+        reduce
+          ? {}
+          : active
+          ? { scale: [1, 1.15, 1], rotate: [0, -6, 0] }
+          : { scale: 1, rotate: 0 }
+      }
+      transition={{ duration: 0.45, ease: EASE }}
+    >
+      <circle cx="28" cy="28" r="26" fill="none" stroke={SEAL} strokeWidth="1" opacity="0.55" />
+      <circle cx="28" cy="28" r="21" fill="none" stroke={SEAL} strokeWidth="0.75" opacity="0.4" />
+      <path id="sealRingPath" fill="none" d="M28,28 m-17,0 a17,17 0 1,1 34,0 a17,17 0 1,1 -34,0" />
+      <text fontSize="5.4" fill={SEAL} opacity="0.75" letterSpacing="2.5" style={{ fontFamily: MONO }}>
+        <textPath href="#sealRingPath" startOffset="2%">
+          VISWAS · ATTESTED ·
+        </textPath>
+      </text>
+      <path d="M22 30 L27 35 L36 22" stroke={SEAL} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.85" />
+    </motion.svg>
+  );
+}
+
+/** Hand-drawn signature mark, draws in when its exhibit is active. */
+function Signature({ active }: { active: boolean }) {
+  const reduce = useReducedMotion();
+  return (
+    <svg width="120" height="28" viewBox="0 0 120 28" aria-hidden="true">
+      <motion.path
+        d="M4 20 C 12 6, 18 6, 22 16 S 34 24, 40 14 S 52 4, 58 15 C 62 22, 68 20, 74 12 C 80 4, 88 8, 92 16 C 96 22, 104 18, 116 10"
+        fill="none"
+        stroke={INK}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        initial={false}
+        animate={
+          reduce
+            ? { pathLength: 1, opacity: 0.7 }
+            : { pathLength: active ? 1 : 0.55, opacity: active ? 0.85 : 0.35 }
+        }
+        transition={{ duration: 0.6, ease: EASE }}
+      />
+    </svg>
+  );
+}
 
 export default function Testimonials() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(null);
 
   return (
-    <Section id="testimonials" className="relative overflow-hidden bg-[#F7F4EE]">
-      {/* Ambient background — consistent with other sections */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <motion.div
-          animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
-          transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
-        />
-        <motion.div
-          animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
-          transition={{ duration: 21, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
-        />
-      </div>
+    <Section id="testimonials" className="relative overflow-hidden">
+      {/* faint paper grain — static, not another glowing blob */}
+      <svg className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-[0.035]" aria-hidden="true">
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
 
       <Reveal>
         <SectionTitle
-          eyebrow="CLIENT TRUST"
-          title="Trusted by organizations building the future."
-          description="Long-term partnerships are built through measurable outcomes, strategic thinking, and consistent execution."
+          eyebrow="ON THE RECORD"
+          title="Attested by the people we've worked alongside."
+          description="Every engagement closes with a signature, not a sales pitch. Here's what the record shows."
           align="center"
         />
       </Reveal>
 
-      <div
-        className="mt-20 grid gap-8 lg:grid-cols-3"
-        onMouseLeave={() => setHovered(null)}
-        onTouchStart={() => setHovered(null)}
-      >
-        {TESTIMONIALS.map((item, index) => {
-          const isHovered = hovered === index;
-          const isDimmed = hovered !== null && hovered !== index;
+      {/* letterhead rule */}
+      <div className="mx-auto mt-16 flex max-w-5xl items-center gap-4 px-6">
+        <div className="h-px flex-1" style={{ background: PAPER_LINE }} />
+        <span
+          className="whitespace-nowrap text-[11px] uppercase tracking-[0.3em]"
+          style={{ color: INK_SOFT, fontFamily: MONO }}
+        >
+          Client Record · Exhibits A–C
+        </span>
+        <div className="h-px flex-1" style={{ background: PAPER_LINE }} />
+      </div>
+
+      <div className="mt-10 grid gap-6 lg:grid-cols-3" onMouseLeave={() => setActive(null)}>
+        {EXHIBITS.map((item, index) => {
+          const isActive = active === index;
 
           return (
-            <Reveal key={item.company} delay={index * 0.15}>
-              <motion.div
-                onMouseEnter={() => setHovered(index)}
-                onTouchStart={() => setHovered(index)}
-                animate={{
-                  scale: isHovered ? 1.04 : isDimmed ? 0.97 : 1,
-                  opacity: isDimmed ? 0.55 : 1,
-                  y: isHovered ? -8 : 0,
+            <Reveal key={item.letter} delay={index * 0.12}>
+              <motion.figure
+                tabIndex={0}
+                onMouseEnter={() => setActive(index)}
+                onFocus={() => setActive(index)}
+                onBlur={() => setActive(null)}
+                animate={{ y: isActive ? -6 : 0 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                className="relative flex h-full flex-col justify-between rounded-[2px] p-8 outline-none focus-visible:ring-2 focus-visible:ring-[#7A2E2E]/50 sm:p-9"
+                style={{
+                  background: "#FBF8F1",
+                  border: `1px solid ${PAPER_LINE}`,
+                  boxShadow: isActive
+                    ? "0 22px 40px -18px rgba(28,38,36,0.28)"
+                    : "0 10px 24px -18px rgba(28,38,36,0.16)",
+                  transition: "box-shadow 0.4s ease",
                 }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="h-full"
               >
-                <GlassCard
-                  className={`group flex h-full flex-col transition-shadow duration-700
-ease-out ${
-                    isHovered
-                      ? "shadow-[0_25px_70px_-15px_rgba(201,163,95,0.25)] border-[#C9A35F]/30"
-                      : ""
-                  }`}
-                >
-                  <motion.div
-                    animate={{
-                      rotate: isHovered ? -8 : 0,
-                      scale: isHovered ? 1.08 : 1,
-                    }}
-                    transition={{ type: "spring" as const, stiffness: 250, damping: 15 }}
-                    className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-700
-ease-out ${
-                      isHovered
-                        ? "border-[#C9A35F]/50 bg-[#C9A35F]/20"
-                        : "border-[#C9A35F]/20 bg-[#C9A35F]/12"
-                    }`}
+                <div className="flex items-start justify-between">
+                  <span
+                    className="text-[11px] uppercase tracking-[0.3em]"
+                    style={{ color: INK_SOFT, fontFamily: MONO }}
                   >
-                    <Quote size={30} className="text-[#C9A35F]" />
-                  </motion.div>
+                    Exhibit {item.letter}
+                  </span>
+                  <Seal active={isActive} />
+                </div>
 
-                  <p className="flex-1 text-lg leading-9 text-[#071F2D]/75">
-                    “{item.quote}”
-                  </p>
+                <blockquote
+                  className="mt-6 flex-1 text-[18px] italic leading-[1.6]"
+                  style={{ color: INK, fontFamily: DISPLAY_SERIF }}
+                >
+                  “{item.quote}”
+                </blockquote>
 
-                  <div className="relative mt-12 pt-6">
-                    {/* Animated top border that transitions in on hover */}
-                    <div className="absolute inset-x-0 top-0 h-px bg-[#F7F4EE]/10">
-                      <motion.div
-                        animate={{ width: isHovered ? "100%" : "0%" }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="
-absolute
-inset-y-0
-left-0
-bg-gradient-to-r
-from-[#D4AF37]
-via-[#F4D675]
-to-[#D4AF37]
-"
-                      />
+                <figcaption className="mt-8">
+                  <div className="h-px w-full" style={{ background: PAPER_LINE }} />
+                  <div className="mt-4 flex items-end justify-between">
+                    <div>
+                      <p
+                        className="text-[13px] font-semibold"
+                        style={{ color: INK, fontFamily: DISPLAY_SERIF }}
+                      >
+                        {item.company}
+                      </p>
+                      <p
+                        className="mt-0.5 text-[10px] uppercase tracking-[0.25em]"
+                        style={{ color: INK_SOFT, fontFamily: MONO }}
+                      >
+                        {item.author}
+                      </p>
                     </div>
-
-                    <h4 className="text-lg font-semibold "style={{ color: "#173F38" }}>
-                      {item.author}
-                    </h4>
-
-                    <p className="mt-2 text-sm uppercase tracking-[0.25em] text-[#C9A35F]">
-                      {item.company}
-                    </p>
+                    <Signature active={isActive} />
                   </div>
-                </GlassCard>
-              </motion.div>
+                </figcaption>
+              </motion.figure>
             </Reveal>
           );
         })}
       </div>
 
       <Reveal delay={0.5}>
-        <div className="mt-24 rounded-[32px] border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] px-8 py-10 backdrop-blur-2xl">
-          <div className="grid grid-cols-2 items-center gap-8 opacity-50 md:grid-cols-3 lg:grid-cols-6">
-            {LOGOS.map((logo) => (
-              <motion.div
-                key={logo}
-                whileHover={{ scale: 1.08 }}
-                transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#071F2D]/40 transition-colors duration-300 hover:text-[#C9A35F]"
-              >
-                {logo}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+  <div className="mt-24 rounded-[32px] border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] px-8 py-10 backdrop-blur-2xl">
+    <div className="grid grid-cols-2 items-center gap-8 opacity-50 md:grid-cols-3 lg:grid-cols-6">
+      {LOGOS.map((logo) => (
+        <motion.div
+          key={logo}
+          whileHover={{ scale: 1.08 }}
+          transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
+          className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#071F2D]/40 transition-colors duration-300 hover:text-[#C9A35F]"
+        >
+          {logo}
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</Reveal>
     </Section>
   );
 }

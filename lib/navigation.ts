@@ -8,6 +8,7 @@ import {
   Building2,
   Newspaper,
   Phone,
+  Route,
 } from "lucide-react";
 
 export interface NavigationItem {
@@ -41,6 +42,11 @@ export const NAVIGATION: NavigationItem[] = [
     label: "Insights",
     href: "/#insights",
     icon: Newspaper,
+  },
+  {
+    label: "Journey",
+    href: "/#journey",
+    icon: Route,
   },
   {
     label: "Contact",

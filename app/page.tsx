@@ -11,6 +11,7 @@ import Insights from "@/components/sections/Insights";
 import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
 import Navbar from "@/components/layout/Navbar";
+import BusinessJourney from "@/components/journey/BusinessJourney";
 import CursorGlow from "@/components/shared/CursorGlow";
 import FloatingContact from "@/components/shared/FloatingContact";
 export default function HomePage() {
@@ -26,7 +27,7 @@ export default function HomePage() {
       <Services />
 
       <Industries />
-
+      <BusinessJourney />
       <Leadership />
 
       <Testimonials />

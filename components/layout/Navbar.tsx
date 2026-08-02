@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
@@ -42,6 +43,31 @@ const GOLD = "#B7964A";
 
 const ISLAND_MAX_WIDTH = 1160;
 const TAGLINE_MAX_WIDTH = 420;
+const JOURNEY_MAX_WIDTH = 140;
+
+/* Shared focus-visible treatment for every interactive nav element,
+   so keyboard users always get a visible ring in brand gold. */
+const FOCUS_RING =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7964A] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-sm";
+
+/* ─────────────────────────────────────────────
+   NAVIGATION SPLIT
+   Journey is pulled out of the single NAVIGATION source of truth and
+   rendered next to the wordmark instead of in the centered nav
+   cluster. No duplicate arrays — MobileMenu still gets the full,
+   unfiltered NAVIGATION.
+   ───────────────────────────────────────────── */
+
+const JOURNEY_ITEM = NAVIGATION.find((item) => item.href === "/#journey");
+const MAIN_NAV_ITEMS = NAVIGATION.filter((item) => item !== JOURNEY_ITEM);
+
+/* Section ids to scrollspy, derived from the same NAVIGATION source
+   (no separate hardcoded list to fall out of sync). */
+const SECTION_IDS = NAVIGATION.map((item) => item.href.split("#")[1]).filter(
+  (id): id is string => Boolean(id)
+);
+
+const sectionIdFromHref = (href: string) => href.split("#")[1] ?? null;
 
 /* ─────────────────────────────────────────────
    COMPONENT
@@ -59,6 +85,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [ctaHovered, setCtaHovered] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const islandRef = useRef<HTMLDivElement>(null);
 
@@ -83,6 +110,34 @@ export default function Navbar() {
     return () => cancelAnimationFrame(id);
   }, []);
 
+  /* ── Scrollspy: tracks which section is currently in view so nav
+     items (including Journey) can highlight themselves via
+     aria-current, independent of hover. Silently does nothing on
+     routes where these section ids don't exist. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length === 0) return;
+        const topMost = visible.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+        );
+        setActiveSection(topMost.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const isCompact = progress > 0.98;
 
   useEffect(() => {
@@ -100,7 +155,7 @@ export default function Navbar() {
   }, [isCompact]);
 
   const effectiveProgress = isCompact && islandHovered ? 0 : progress;
-  const compact = effectiveProgress > 0.98;
+  const compact = isCompact && !islandHovered;
 
   const islandWidth = ISLAND_MAX_WIDTH - 928 * Math.pow(effectiveProgress, 2.4);
 
@@ -137,9 +192,27 @@ export default function Navbar() {
         delay: 0.1,
       };
 
+  const handleJourneyClick = useCallback(
+    (e: ReactMouseEvent<HTMLAnchorElement>) => {
+      if (typeof window === "undefined") return;
+      if (window.location.pathname !== "/") return;
+
+      const target = document.getElementById("journey");
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      window.history.pushState(null, "", "/#journey");
+      setActiveSection("journey");
+    },
+    [prefersReducedMotion]
+  );
+
   return (
     <>
-      {/* FIX 1: will-change forces a GPU compositing layer — no page bleed */}
       <motion.header
         initial={{
           y: prefersReducedMotion ? 0 : -60,
@@ -161,7 +234,6 @@ export default function Navbar() {
       >
         <div className="mx-auto px-6 lg:px-8">
           {/* ── Island Pill ── */}
-          {/* FIX 1: overflow-hidden → overflow-visible to stop backdrop-filter bleed */}
           <motion.div
             ref={islandRef}
             initial={{ maxWidth: ISLAND_MAX_WIDTH, scale: 0.97 }}
@@ -175,17 +247,16 @@ export default function Navbar() {
             onMouseLeave={() => setIslandHovered(false)}
             onTouchStart={() => isCompact && setIslandHovered((v) => !v)}
             whileTap={isCompact ? { scale: 0.97 } : undefined}
-            className="nav-island relative mx-auto flex h-[66px] w-full items-center justify-center overflow-visible px-5 sm:px-6"
+            className="nav-island relative mx-auto flex h-[66px] w-full min-w-[220px] items-center justify-center overflow-visible px-5 sm:px-6"
           >
             {/* ── Frosted Glass Backdrop ── */}
-            {/* FIX 1: opacity bumped to 0.92 min + saturate(180%) so dark sections never bleed */}
             <motion.div
               initial={{
-                backgroundColor: "rgba(255,255,255,0.92)",
+                backgroundColor: "rgba(255,255,255,1)",
                 borderColor: "rgba(244,240,232,0.14)",
               }}
               animate={{
-                backgroundColor: `rgba(255,255,255,${0.92 + effectiveProgress * 0.07})`,
+                backgroundColor: "rgba(255,255,255,1)",
                 borderColor: `rgba(244,240,232,${0.14 + effectiveProgress * 0.1})`,
               }}
               transition={getTransition(0.01, 0.02)}
@@ -218,7 +289,7 @@ export default function Navbar() {
               className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-[#B7964A] to-transparent"
             />
 
-            {/* ── Logo + Wordmark ── */}
+            {/* ── Logo + Wordmark + Journey ── */}
             <motion.div
               animate={{
                 scale: 1 + effectiveProgress * 0.08,
@@ -228,7 +299,11 @@ export default function Navbar() {
               transition={getTransition(0.01, 0.08)}
               className="absolute left-5 z-10 flex shrink-0 items-center sm:left-6"
             >
-              <Link href="/" className="flex items-center gap-3" aria-label="VISWAS home">
+              <Link
+                href="/"
+                className={`flex items-center gap-3 ${FOCUS_RING}`}
+                aria-label="VISWAS home"
+              >
                 <motion.div
                   whileHover={{
                     rotate: 6,
@@ -248,30 +323,86 @@ export default function Navbar() {
                 </motion.div>
 
                 <div className="whitespace-nowrap">
-                  <motion.div
-                    className="relative inline-block"
-                    initial="rest"
-                    whileHover="hover"
-                    animate="rest"
-                  >
-                    <motion.h2
-                      variants={{
-                        rest: { color: IVORY, letterSpacing: "0.06em" },
-                        hover: { color: GOLD, letterSpacing: "0.085em" },
-                      }}
-                      transition={COLOR_TRANSITION}
-                      className="text-lg font-semibold"
+                  {/* ── Name row: VISWAS wordmark + Journey, same baseline ── */}
+                  <div className="flex items-center">
+                    <motion.div
+                      className="relative inline-block"
+                      initial="rest"
+                      whileHover="hover"
+                      animate="rest"
                     >
-                      VISWAS
-                    </motion.h2>
-                    <motion.span
-                      variants={{ rest: { width: "0%" }, hover: { width: "100%" } }}
-                      transition={COLOR_TRANSITION}
-                      className="absolute -bottom-0.5 left-0 h-px"
-                      style={{ backgroundColor: GOLD }}
-                    />
-                  </motion.div>
+                      <motion.h2
+                        variants={{
+                          rest: { color: IVORY, letterSpacing: "0.06em" },
+                          hover: { color: GOLD, letterSpacing: "0.085em" },
+                        }}
+                        transition={COLOR_TRANSITION}
+                        className="text-lg font-semibold"
+                      >
+                        VISWAS
+                      </motion.h2>
+                      <motion.span
+                        variants={{ rest: { width: "0%" }, hover: { width: "100%" } }}
+                        transition={COLOR_TRANSITION}
+                        className="absolute -bottom-0.5 left-0 h-px"
+                        style={{ backgroundColor: GOLD }}
+                      />
+                    </motion.div>
 
+                    {/* ── Journey, immediately right of "VISWAS" ── */}
+                    {JOURNEY_ITEM &&
+                      (() => {
+                        const journeyId = sectionIdFromHref(JOURNEY_ITEM.href);
+                        const isActive = journeyId !== null && activeSection === journeyId;
+                        const isHighlighted = hoveredNav === JOURNEY_ITEM.label || isActive;
+
+                        return (
+                          <motion.div
+                            initial={{ maxWidth: JOURNEY_MAX_WIDTH, opacity: 1, marginLeft: 14 }}
+                            animate={{
+                              maxWidth: JOURNEY_MAX_WIDTH * (1 - effectiveProgress),
+                              opacity: 1 - effectiveProgress,
+                              marginLeft: 14 * (1 - effectiveProgress),
+                            }}
+                            transition={getTransition(0, 0.14)}
+                            style={{ pointerEvents: compact ? "none" : "auto" }}
+                            className="hidden items-center self-stretch overflow-hidden sm:flex"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="mr-3 h-4 w-px shrink-0"
+                              style={{ backgroundColor: "rgba(23,63,56,0.16)" }}
+                            />
+                            <Link
+                              href={JOURNEY_ITEM.href}
+                              onClick={handleJourneyClick}
+                              onMouseEnter={() => setHoveredNav(JOURNEY_ITEM.label)}
+                              onMouseLeave={() =>
+                                setHoveredNav((v) => (v === JOURNEY_ITEM.label ? null : v))
+                              }
+                              aria-current={isActive ? "page" : undefined}
+                              className={`relative shrink-0 whitespace-nowrap ${FOCUS_RING}`}
+                            >
+                              <motion.span
+                                animate={{ color: isHighlighted ? GOLD : IVORY }}
+                                transition={COLOR_TRANSITION}
+                                className="block text-[11px] font-semibold uppercase tracking-[0.28em]"
+                              >
+                                {JOURNEY_ITEM.label}
+                              </motion.span>
+                              <motion.span
+                                animate={{ width: isHighlighted ? "100%" : "0%" }}
+                                transition={COLOR_TRANSITION}
+                                className="absolute -bottom-1.5 left-0 h-px"
+                                style={{ backgroundColor: GOLD }}
+                              />
+                            </Link>
+                          </motion.div>
+                        );
+                      })()}
+                  </div>
+
+                  {/* ── Tagline, full width, below the VISWAS + Journey row ── */}
                   <motion.div
                     initial={{ maxWidth: TAGLINE_MAX_WIDTH, opacity: 1, marginTop: 2 }}
                     animate={{
@@ -308,52 +439,56 @@ export default function Navbar() {
               }}
               className="absolute left-[58%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
             >
-              {NAVIGATION.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: mounted ? 0.15 + i * 0.05 : 0,
-                    duration: 0.4,
-                    ease: "easeOut",
-                  }}
-                >
-                  <div
-                    className="relative -translate-y-0.5"
-                    onMouseEnter={() => setHoveredNav(item.label)}
-                    onMouseLeave={() =>
-                      setHoveredNav((v) => (v === item.label ? null : v))
-                    }
+              {MAIN_NAV_ITEMS.map((item, i) => {
+                const itemId = sectionIdFromHref(item.href);
+                const isActive = itemId !== null && activeSection === itemId;
+                const isHighlighted = hoveredNav === item.label || isActive;
+
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: mounted ? 0.15 + i * 0.05 : 0,
+                      duration: 0.4,
+                      ease: "easeOut",
+                    }}
                   >
-                    <Link href={item.href}>
-                      <motion.span
-                        whileHover={{ y: -2 }}
-                        animate={{
-                          color: hoveredNav === item.label ? GOLD : IVORY,
-                        }}
-                        transition={COLOR_TRANSITION}
-                        className="block text-sm font-medium"
+                    <div
+                      className="relative -translate-y-0.5"
+                      onMouseEnter={() => setHoveredNav(item.label)}
+                      onMouseLeave={() =>
+                        setHoveredNav((v) => (v === item.label ? null : v))
+                      }
+                    >
+                      <Link
+                        href={item.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={FOCUS_RING}
                       >
-                        {item.label}
-                      </motion.span>
-                      <motion.span
-                        animate={{
-                          width: hoveredNav === item.label ? "100%" : "0%",
-                        }}
-                        transition={COLOR_TRANSITION}
-                        className="absolute -bottom-2 left-0 h-px"
-                        style={{ backgroundColor: GOLD }}
-                      />
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
+                        <motion.span
+                          whileHover={{ y: -2 }}
+                          animate={{ color: isHighlighted ? GOLD : IVORY }}
+                          transition={COLOR_TRANSITION}
+                          className="block text-sm font-medium"
+                        >
+                          {item.label}
+                        </motion.span>
+                        <motion.span
+                          animate={{ width: isHighlighted ? "100%" : "0%" }}
+                          transition={COLOR_TRANSITION}
+                          className="absolute -bottom-2 left-0 h-px"
+                          style={{ backgroundColor: GOLD }}
+                        />
+                      </Link>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.nav>
 
             {/* ── CTA Button ── */}
-            {/* FIX 2: overflow-hidden removed from wrapper — it was clipping the button
-                background during hover, causing the black flash */}
             <motion.div
               initial={{ width: 172, opacity: 1, scale: 1 }}
               animate={{
@@ -365,8 +500,7 @@ export default function Navbar() {
               style={{ pointerEvents: compact ? "none" : "auto" }}
               className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
             >
-              <Link href={CTA_BUTTON.href}>
-                {/* FIX 2 + 3: stable gold background, premium spring lift, layered shadow */}
+              <Link href={CTA_BUTTON.href} className={FOCUS_RING}>
                 <motion.button
                   onHoverStart={() => setCtaHovered(true)}
                   onHoverEnd={() => setCtaHovered(false)}
@@ -389,7 +523,6 @@ export default function Navbar() {
                   className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
                   style={{ background: "#B7964A" }}
                 >
-                  {/* FIX 3: diagonal shimmer instead of flat white sweep */}
                   <motion.span
                     initial={{ x: "-110%" }}
                     animate={{ x: ctaHovered ? "110%" : "-110%" }}
@@ -401,7 +534,6 @@ export default function Navbar() {
                     }}
                   />
                   <span className="relative z-10">{CTA_BUTTON.label}</span>
-                  {/* FIX 3: spring-driven arrow — smooth diagonal lift, not jumpy */}
                   <motion.span
                     animate={{
                       x: ctaHovered ? 3 : 0,
@@ -419,12 +551,19 @@ export default function Navbar() {
             {/* ── Mobile Menu Button ── */}
             <motion.button
               initial={{ opacity: 1, scale: 1 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{
+                opacity: compact ? 0.55 : 1,
+                scale: 1 - effectiveProgress * 0.06,
+              }}
+              transition={getTransition(0.015, 0.045)}
+              style={{ pointerEvents: "auto" }}
               onClick={() => setMenuOpen(true)}
               whileTap={{ scale: 0.9, rotate: 90 }}
-              whileHover={{ borderColor: GOLD }}
-              className="absolute right-5 z-10 flex rounded-full border border-[#173F38]/8 bg-white p-3 text-[#071F2D] backdrop-blur-md lg:hidden"
+              whileHover={{ borderColor: GOLD, opacity: 1 }}
               aria-label="Open menu"
+              aria-haspopup="true"
+              aria-expanded={menuOpen}
+              className={`absolute right-5 z-10 flex rounded-full border border-[#173F38]/8 bg-white p-3 text-[#071F2D] backdrop-blur-md lg:hidden ${FOCUS_RING}`}
             >
               <Menu size={22} />
             </motion.button>
