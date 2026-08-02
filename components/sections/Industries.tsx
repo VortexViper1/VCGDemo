@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
+import SectionTitle from "@/components/shared/SectionTitle";
 import Reveal from "@/components/shared/Reveal";
 import Section from "@/components/shared/Section";
 
@@ -217,8 +217,19 @@ export default function WhyViswas() {
       </div>
 
       <Reveal>
-        <FeatureCarousel />
-      </Reveal>
+  <SectionTitle
+    eyebrow="WHY VISWAS"
+    title="Why organizations choose VISWAS."
+    description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
+    align="center"
+  />
+</Reveal>
+
+<div className="mt-20">
+  <Reveal delay={0.15}>
+    <FeatureCarousel />
+  </Reveal>
+</div>
     </Section>
   );
 }
