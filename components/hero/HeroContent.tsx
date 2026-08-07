@@ -70,7 +70,7 @@ return (
       ))}
     </h1>
 
-    <p className="hero-sub mt-4 max-w-md text-[15px] leading-7 text-white/80 opacity-0 sm:mt-6 sm:max-w-xl sm:text-[18px] sm:leading-8">
+    <p className="hero-sub mt-4 max-w-md text-[15px] leading-7 text-white/80 opacity-0 [text-shadow:0_1px_10px_rgba(0,0,0,0.5)] sm:mt-6 sm:max-w-xl sm:text-[18px] sm:leading-8 sm:[text-shadow:none]">
       VISWAS integrates strategy, corporate finance, governance and
       transformation into one advisory experience, helping boards and
       promoters make confident decisions with long-term impact.
@@ -82,7 +82,7 @@ return (
           className="
             group flex items-center gap-3
             rounded-full bg-[#C49A4A]
-            px-8 py-3.5 text-sm font-medium uppercase tracking-[0.08em]
+            px-6 py-3 text-sm font-medium uppercase tracking-[0.08em]
             text-[#2A2D31]
             transition-all duration-700 ease-out
             hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(201,163,95,.35)]

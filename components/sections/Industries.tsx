@@ -115,7 +115,7 @@ function FeatureCarousel() {
           <div
             key={feature.title}
             className="relative shrink-0 snap-center overflow-hidden rounded-2xl bg-white
-                       w-[78vw] sm:w-[85vw] md:aspect-[21/9] md:w-[900px] md:rounded-3xl lg:w-[1100px]"
+                       w-[64vw] sm:w-[78vw] md:aspect-[21/9] md:w-[900px] md:rounded-3xl lg:w-[1100px]"
           >
             {/* ── Photo ──
                 Mobile: small, fixed-ratio card image, normal document flow.
@@ -127,7 +127,7 @@ function FeatureCarousel() {
                 src={feature.image}
                 alt={feature.title}
                 fill
-                sizes="(max-width: 767px) 78vw, 1100px"
+                sizes="(max-width: 767px) 64vw, 1100px"
                 className="object-cover"
                 priority={index === 0}
               />
@@ -143,26 +143,40 @@ function FeatureCarousel() {
                 Desktop (md+): absolutely positioned overlay at the
                 bottom of the full-bleed photo, as before. */}
             <div
-              className="relative z-20 flex flex-col p-5 sm:p-6
-                         md:absolute md:inset-0 md:justify-end md:p-8 lg:p-14"
+              className="relative z-20 flex flex-col p-4 sm:p-5 md:p-8 lg:p-14
+                         md:absolute md:inset-0 md:justify-end"
             >
-<span
-  className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] md:mb-3"
-  style={{ color: "#C49A4A" }}
->
+              <span
+                className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-xs sm:tracking-[0.2em] md:mb-3"
+                style={{ color: "#C49A4A" }}
+              >
                 {feature.tag}
               </span>
-              <h3 className="mb-2 text-xl font-semibold  sm:text-2xl md:mb-3 md:text-3xl md:text-[#FAF8F4] lg:text-5xl"style={{ color: "white" }}>
+              <h3
+                className="mb-2 text-lg font-semibold sm:text-xl md:mb-3 md:text-3xl md:text-[#FAF8F4] lg:text-5xl"
+                style={{ color: "white" }}
+              >
                 {feature.title}
               </h3>
 
-              <p className="mb-5 max-w-md text-sm leading-6 text-[#646B70] md:mb-6 md:max-w-lg md:leading-7 md:text-[#E8E3DA] lg:text-base">
+              <p className="mb-4 max-w-md text-[13px] leading-5 text-[#646B70] sm:mb-5 sm:text-sm sm:leading-6 md:mb-6 md:max-w-lg md:leading-7 md:text-[#E8E3DA] lg:text-base">
                 {feature.description}
               </p>
 
+              {/*
+                Mobile "Discover More" fix: the old mobile styling used a
+                solid dark (#2A2D31) pill with white text, which — sitting
+                on the plain white card background used on mobile (there's
+                no gradient overlay below md:) — read as a jarring solid
+                black button. Mobile now uses the same gold accent as the
+                rest of the site (matches the tag color above) with dark
+                text for contrast, so it reads as an intentional CTA
+                instead of a black glitch. Desktop keeps its original
+                white-pill-on-photo treatment, unchanged.
+              */}
               <Link
                 href={feature.href}
-                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#2A2D31] px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-105 md:bg-white/95 md:text-[#23272B]"
+                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-transform hover:scale-105 sm:px-5 sm:py-2.5 sm:text-sm md:bg-white/95 md:text-[#23272B]"
               >
                 Discover More
                 <ArrowRight size={15} />

@@ -109,6 +109,14 @@ const MOBILE_CENTER_HOLD_MS = 2000;
 const MOBILE_RESUME_AFTER_SWIPE_MS = 3000;
 const GAP_PX = 32; // must match the Tailwind gap below (gap-6 md:p-8 = 2rem = 32px)
 
+/**
+ * On mobile we deliberately show less than one full card width so the
+ * next/previous card peeks in at the edges (a standard mobile-carousel
+ * affordance) and the card reads as smaller/denser than the old
+ * full-viewport-width card.
+ */
+const MOBILE_CARD_WIDTH_RATIO = 0.8;
+
 /** Duplicate the deck so the track can wrap seamlessly. */
 const LOOP_COPIES = 3;
 const TRACK: Insight[] = Array.from({ length: LOOP_COPIES }, () => INSIGHTS).flat();
@@ -160,7 +168,7 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
       draggable={false}
     >
       <div
-        className="group relative h-[28rem] lg:h-[26rem] w-full overflow-hidden rounded-2xl bg-[#23272B] ring-1 ring-white/10 transition-shadow duration-500 focus-within:ring-2 focus-within:ring-[#C49A4A]"
+        className="group relative h-[22rem] sm:h-[24rem] md:h-[28rem] lg:h-[26rem] w-full overflow-hidden rounded-2xl bg-[#23272B] ring-1 ring-white/10 transition-shadow duration-500 focus-within:ring-2 focus-within:ring-[#C49A4A]"
         style={{ willChange: "transform" }}
       >
         {/* Background image */}
@@ -176,7 +184,7 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
               alt=""
               fill
               draggable={false}
-              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 30vw"
+              sizes="(max-width: 768px) 80vw, (max-width: 1200px) 45vw, 30vw"
               className="pointer-events-none object-cover"
               priority={false}
             />
@@ -191,7 +199,7 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
         />
 
         {/* Content */}
-        <div className="relative flex h-full flex-col justify-end p-6 md:p-8">
+        <div className="relative flex h-full flex-col justify-end p-5 sm:p-6 md:p-8">
           {/* Category + date — always visible */}
           <motion.div
             className="flex items-center justify-between"
@@ -199,20 +207,20 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="
-text-[13px]
+text-[11px] sm:text-[13px]
 font-semibold
 uppercase
-tracking-[0.2em] md:tracking-[0.32em]
+tracking-[0.16em] md:tracking-[0.32em]
 text-[#D4AF37]
 drop-shadow-[0_1px_6px_rgba(212,175,55,0.35)]
 ">
               {insight.category}
             </span>
             <span className="
-text-[12px]
+text-[10px] sm:text-[12px]
 font-medium
 uppercase
-tracking-[0.18em]
+tracking-[0.14em] md:tracking-[0.18em]
 text-white/75
 ">
               {insight.date}
@@ -222,9 +230,9 @@ text-white/75
           {/* Title — always visible, shifts up slightly on active */}
          <motion.h3
   className="
-    mt-5
+    mt-4 sm:mt-5
     font-[var(--font-display)]
-    text-[26px] md:text-[30px] lg:text-[32px]
+    text-[20px] sm:text-[24px] md:text-[30px] lg:text-[32px]
     font-bold
     leading-[1.15]
     tracking-[-0.03em]
@@ -244,7 +252,7 @@ text-white/75
 </motion.h3>
 
           {/* Gold accent line */}
-          <div className="relative mt-5 h-px w-full overflow-hidden bg-white/15">
+          <div className="relative mt-4 sm:mt-5 h-px w-full overflow-hidden bg-white/15">
             <motion.div
               className="
 absolute
@@ -265,8 +273,8 @@ to-[#D4AF37]
             className="
 overflow-hidden
 font-[var(--font-sans)]
-text-[16px]
-leading-7
+text-[14px] sm:text-[16px]
+leading-6 sm:leading-7
 tracking-[0.01em]
 font-medium
 text-white/90
@@ -286,14 +294,14 @@ drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]
           {/* Read More — slides up on active */}
           <motion.div
             className="
-mt-5
+mt-4 sm:mt-5
 flex
 items-center
 gap-3
-text-[13px]
+text-[11px] sm:text-[13px]
 font-bold
 uppercase
-tracking-[0.28em]
+tracking-[0.22em] md:tracking-[0.28em]
 text-[#D4AF37]
 drop-shadow-[0_2px_10px_rgba(212,175,55,0.35)]
 "
@@ -342,12 +350,18 @@ export default function Insights() {
     return () => ro.disconnect();
   }, []);
 
-  // Card width so `visibleCount` cards + gaps fill the viewport exactly.
+  // Card width: on mobile we deliberately show a fraction of the viewport
+  // (MOBILE_CARD_WIDTH_RATIO) so the card is visibly smaller and the next
+  // card peeks in at the edge. On tablet/desktop, `visibleCount` cards +
+  // gaps fill the viewport exactly, as before.
   const cardWidth = useMemo(() => {
     if (!viewportWidth) return 0;
+    if (isMobile) {
+      return viewportWidth * MOBILE_CARD_WIDTH_RATIO;
+    }
     const totalGap = GAP_PX * (visibleCount - 1);
     return (viewportWidth - totalGap) / visibleCount;
-  }, [viewportWidth, visibleCount]);
+  }, [viewportWidth, visibleCount, isMobile]);
 
   const singleSetWidth = useMemo(
     () => (cardWidth + GAP_PX) * INSIGHTS.length,

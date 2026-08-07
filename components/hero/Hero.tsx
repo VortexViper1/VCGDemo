@@ -39,16 +39,30 @@ export default function Hero() {
           w-full
           max-w-[1600px]
           items-start
-          px-8
+          px-6
           sm:px-12
           lg:px-20
           xl:px-28
           2xl:px-36
-          pt-40
+          pt-44
+          sm:pt-40
           lg:pt-40
-          pb-16
+          pb-10
+          sm:pb-16
         "
       >
+        {/*
+          Mobile top padding (pt-44 = 176px) is intentionally MORE than
+          desktop's (pt-40 = 160px), not less. The navbar is a fixed
+          floating island (~66px pill + up to 24px top padding while
+          expanded) sitting on top of this section, and on narrow
+          screens that pill reads much closer to the hero text than it
+          does on desktop where there's far more horizontal breathing
+          room around it. pt-44 gives the heading enough clearance to
+          never feel like it's tucked under the navbar. sm: and up
+          steps back down to the original pt-40 once there's enough
+          vertical space that the extra buffer isn't needed.
+        */}
         <div className="w-full max-w-3xl">
           <HeroContent />
         </div>
