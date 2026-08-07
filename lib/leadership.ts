@@ -18,7 +18,7 @@ export const LEADERSHIP: Leader[] = [
     designation: "Strategy Consulting",
     image: "/team/partner-1.jpg",
     bio:
-      "Advises enterprises on long-term business strategy and organizational transformation.",
+      "Advises enterprises on long-term Corporate & Financial Strategy and organizational transformation.",
   },
   {
     name: "Partner",

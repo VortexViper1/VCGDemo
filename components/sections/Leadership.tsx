@@ -13,7 +13,7 @@ export default function Leadership() {
   return (
     <Section
       id="leadership"
-      className="relative overflow-hidden bg-[#F7F4EE]"
+      className="relative overflow-hidden bg-[#F8F5EF]"
     >
       {/* Ambient Background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -24,7 +24,7 @@ export default function Leadership() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[160px]"
+          className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[160px]"
         />
 
         <motion.div
@@ -65,11 +65,11 @@ export default function Leadership() {
                   <motion.div
                     whileHover={{ rotate: 8, scale: 1.05 }}
                     transition={{ duration: 0.35 }}
-                    className="flex h-40 w-40 items-center justify-center rounded-full border border-[#C9A35F]/25 bg-[#C9A35F]/12"
+                    className="flex h-40 w-40 items-center justify-center rounded-full border border-[#C49A4A]/25 bg-[#C49A4A]/12"
                   >
                     <Users
                       size={72}
-                      className="text-[#C9A35F]"
+                      className="text-[#C49A4A]"
                     />
                   </motion.div>
                 </div>
@@ -77,23 +77,23 @@ export default function Leadership() {
                 {/* Content */}
                 <div>
 
-                  <span className="text-xs uppercase tracking-[0.3em] text-[#C9A35F]">
+                  <span className="text-xs uppercase tracking-[0.3em] text-[#C49A4A]">
                     Leadership Network
                   </span>
 
-                  <h3 className="mt-6 text-4xl font-semibold leading-tight "style={{ color: "#173F38" }}>
+                  <h3 className="mt-6 text-4xl font-semibold leading-tight "style={{ color: "#2A2D31" }}>
                     Explore Our Leadership & Alumni
                   </h3>
 
-                  <p className="mt-8 max-w-3xl text-lg leading-9 text-[#071F2D]/70">
+                  <p className="mt-8 max-w-3xl text-lg leading-9 text-[#23272B]/70">
                     Behind every successful organization is a community of
                     visionary leaders. Meet the professionals who have guided
                     VISWAS Consulting Group and explore our growing alumni
                     network of leaders creating impact across consulting,
-                    technology, business strategy and innovation.
+                    technology, Corporate & Financial Strategy and innovation.
                   </p>
 
-                  <div className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C9A35F]">
+                  <div className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C49A4A]">
                     Explore Alumni
 
                     <motion.div

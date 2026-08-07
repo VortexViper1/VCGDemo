@@ -81,7 +81,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} resize-none ${
-              focused ? "border-[#C9A35F] bg-[#F7F4EE]/[0.07]" : "border-[#173F38]/8"
+              focused ? "border-[#C49A4A] bg-[#F8F5EF]/[0.07]" : "border-[#2A2D31]/8"
             }`}
           />
         ) : (
@@ -93,7 +93,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} ${
-              focused ? "border-[#C9A35F] bg-[#F7F4EE]/[0.07]" : "border-[#173F38]/8"
+              focused ? "border-[#C49A4A] bg-[#F8F5EF]/[0.07]" : "border-[#2A2D31]/8"
             }`}
           />
         )}
@@ -101,7 +101,7 @@ function FormField({
         <motion.div
           animate={{ opacity: focused ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#C9A35F]/12 blur-md"
+          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#C49A4A]/12 blur-md"
         />
       </div>
     </div>
@@ -125,11 +125,11 @@ function MapPanel() {
               <motion.span
                 animate={{ rotate: 360 }}
                 transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-                className="h-6 w-6 rounded-full border-2 border-[#C9A35F]/30 border-t-[#C9A35F]"
+                className="h-6 w-6 rounded-full border-2 border-[#C49A4A]/30 border-t-[#C49A4A]"
               />
             </motion.div>
 
-            <div className="pointer-events-none absolute -inset-px z-20 rounded-none ring-1 ring-inset ring-[#C9A35F]/15" />
+            <div className="pointer-events-none absolute -inset-px z-20 rounded-none ring-1 ring-inset ring-[#C49A4A]/15" />
 
             <iframe
               title="VISWAS Consulting Group location"
@@ -141,19 +141,19 @@ function MapPanel() {
               style={{ border: 0, filter: "sepia(8%)" }}
             />
 
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071F2D]/70 via-transparent to-transparent lg:bg-gradient-to-r" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#23272B]/70 via-transparent to-transparent lg:bg-gradient-to-r" />
           </div>
 
           {/* Copy + CTA panel */}
           <div className="flex w-full flex-col justify-center gap-6 p-10 lg:w-2/5 lg:p-12">
             <div>
-              <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
+              <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
                 Find Us
               </span>
-              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#173F38" }}>
+              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                 Visit our office
               </h3>
-              <p className="mt-4 leading-7 text-[#071F2D]/70">
+              <p className="mt-4 leading-7 text-[#23272B]/70">
                 {OFFICE_ADDRESS}
               </p>
             </div>
@@ -164,7 +164,7 @@ function MapPanel() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="group relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full bg-[#C9A35F] px-7 py-3.5 font-semibold text-[#071F2D] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
+              className="group relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full bg-[#C49A4A] px-7 py-3.5 font-semibold text-[#23272B] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
             >
               Get Directions
               <ArrowUpRight
@@ -263,17 +263,17 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" className="relative overflow-hidden bg-[#F7F4EE]">
+    <Section id="contact" className="relative overflow-hidden bg-[#F8F5EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
+          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#C89B3C]/15 blur-[140px]"
         />
       </div>
 
@@ -291,13 +291,13 @@ export default function Contact() {
           <GlassCard className="h-full">
             <div className="space-y-10">
               <div>
-                <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
+                <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
                   Office
                 </span>
-                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#173F38" }}>
+                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#2A2D31" }}>
                   VISWAS Consulting Group
                 </h3>
-                <p className="mt-6 leading-8 text-[#071F2D]/70">
+                <p className="mt-6 leading-8 text-[#23272B]/70">
                   Partnering with visionary organizations to create
                   sustainable business growth through strategy, capital
                   advisory, and digital transformation.
@@ -316,16 +316,16 @@ export default function Contact() {
                       <motion.div
                         whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
                         transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                        className="rounded-2xl bg-[#C9A35F]/12 p-4 transition-colors duration-300 group-hover:bg-[#C9A35F]/20"
+                        className="rounded-2xl bg-[#C49A4A]/12 p-4 transition-colors duration-300 group-hover:bg-[#C49A4A]/20"
                       >
-                        <Icon size={22} className="text-[#C9A35F]" />
+                        <Icon size={22} className="text-[#C49A4A]" />
                       </motion.div>
 
                       <div>
-                        <p className="text-sm uppercase tracking-[0.25em] text-[#071F2D]/50">
+                        <p className="text-sm uppercase tracking-[0.25em] text-[#23272B]/50">
                           {item.label}
                         </p>
-                        <p className="mt-2 "style={{ color: "#173F38" }}>{item.value}</p>
+                        <p className="mt-2 "style={{ color: "#2A2D31" }}>{item.value}</p>
                       </div>
                     </motion.div>
                   );
@@ -346,15 +346,15 @@ export default function Contact() {
                 })}
               </div>
 
-              <div className="border-t border-[#173F38]/8 pt-8">
+              <div className="border-t border-[#2A2D31]/8 pt-8">
                 <motion.a
                   href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ x: 4 }}
-                  className="inline-flex items-center gap-3 text-[#071F2D]/70 transition-colors hover:text-[#C9A35F]"
+                  className="inline-flex items-center gap-3 text-[#23272B]/70 transition-colors hover:text-[#C49A4A]"
                 >
-                  <Globe size={20} className="text-[#C9A35F]" />
+                  <Globe size={20} className="text-[#C49A4A]" />
                   LinkedIn
                 </motion.a>
               </div>
@@ -409,8 +409,8 @@ export default function Contact() {
                 whileTap={{ scale: status === "idle" ? 0.98 : 1 }}
                 type="submit"
                 disabled={status !== "idle"}
-                className={`group relative flex min-w-[200px] items-center justify-center gap-3 overflow-hidden rounded-full px-8 py-4 font-semibold text-[#071F2D] transition-colors duration-300 ${
-                  status === "sent" ? "bg-emerald-400" : "bg-[#C9A35F]"
+                className={`group relative flex min-w-[200px] items-center justify-center gap-3 overflow-hidden rounded-full px-8 py-4 font-semibold text-[#23272B] transition-colors duration-300 ${
+                  status === "sent" ? "bg-emerald-400" : "bg-[#C49A4A]"
                 }`}
               >
                 <AnimatePresence mode="wait">
@@ -440,7 +440,7 @@ export default function Contact() {
                       <motion.span
                         animate={{ rotate: 360 }}
                         transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                        className="h-4 w-4 rounded-full border-2 border-[#071F2D]/30 border-t-[#071F2D]"
+                        className="h-4 w-4 rounded-full border-2 border-[#23272B]/30 border-t-[#23272B]"
                       />
                       Sending inquiry...
                     </motion.span>

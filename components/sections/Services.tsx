@@ -28,7 +28,7 @@ const SERVICES: {
   {
     image: "/services/strategy.jpg",
     icon: BriefcaseBusiness,
-    title: "Business Strategy",
+    title: "Corporate & Financial Strategy",
     description:
       "Transforming vision into executable strategies that accelerate sustainable growth and market leadership.",
     href: "/services/business-strategy",
@@ -44,7 +44,7 @@ const SERVICES: {
   {
     image: "/services/growth.jpg",
     icon: TrendingUp,
-    title: "Growth Consulting",
+    title: "M&A and Transaction Advisory",
     description:
       "Helping organizations identify opportunities, optimize operations, and scale with confidence.",
     href: "/services/growth-consulting",
@@ -52,7 +52,7 @@ const SERVICES: {
   {
     image: "/services/digital.jpg",
     icon: Workflow,
-    title: "Digital Transformation",
+    title: "Governance, Compliance & Regulatory Advisory",
     description:
       "Modernizing enterprises using AI, automation, cloud technologies, and digital-first operating models.",
     href: "/services/digital-transformation",
@@ -112,36 +112,45 @@ function ServiceCard({
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover opacity-[0.08] grayscale transition-all duration-700 ease-out group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
                 />
-                {/* Scrim: light at rest, deep ink on hover */}
+
+                {/* Scrim: light at rest */}
                 <div
-                  className="absolute inset-0 bg-[#F7F4EE] transition-opacity duration-700 ease-out group-hover:opacity-0"
+                  className="absolute inset-0 bg-[#F8F5EF] transition-opacity duration-700 ease-out group-hover:opacity-0"
                   aria-hidden
                 />
+
+                {/* Scrim: #C89B3C amber-lit dark base on hover */}
                 <div
-                  className="absolute inset-0 bg-gradient-to-br from-[#0A1F2A]/95 via-[#12332E]/92 to-[#0A1F2A]/95 opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
+                  className="absolute inset-0 bg-gradient-to-br from-[#1A1206] via-[#7A5A1E] to-[#120D04] opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
+                  aria-hidden
+                />
+
+                {/* Amber glow, light-source feel, sits on top of the base */}
+                <div
+                  className="absolute inset-0 bg-[radial-gradient(120%_100%_at_20%_0%,rgba(200,155,60,0.4),transparent_60%)] opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
                   aria-hidden
                 />
               </div>
 
               {/* Oversized ghost icon, watermark-style */}
               <Icon
-                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#071F2D]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C9A35F]/20"
+                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#23272B]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C89B3C]/20"
                 strokeWidth={1}
               />
 
               <div className="relative flex h-full flex-col p-10">
                 <div className="mb-8 flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C9A35F]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C9A35F]/60 group-hover:bg-[#C9A35F]/10">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C89B3C]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C89B3C]/60 group-hover:bg-[#C89B3C]/10">
                     <Icon
                       size={24}
                       strokeWidth={1.5}
-                      className="text-[#173F38] transition-colors duration-500 group-hover:text-[#C9A35F]"
+                      className="text-[#2A2D31] transition-colors duration-500 group-hover:text-[#C89B3C]"
                     />
                   </div>
 
                   <motion.div whileHover={{ x: 5, y: -5 }}>
                     <ArrowUpRight
-                      className="text-[#071F2D]/40 transition-colors duration-500 group-hover:text-[#C9A35F]"
+                      className="text-[#23272B]/40 transition-colors duration-500 group-hover:text-[#C89B3C]"
                       size={24}
                     />
                   </motion.div>
@@ -149,31 +158,31 @@ function ServiceCard({
 
                 <h3
                   className="mb-5 text-3xl font-semibold transition-colors duration-500"
-                  style={{ color: "#173F38" }}
+                  style={{ color: "#2A2D31" }}
                 >
-                  <span className="transition-colors duration-500 group-hover:text-[#F7F4EE]">
+                  <span className="transition-colors duration-500 group-hover:text-[#F8F5EF]">
                     {service.title}
                   </span>
                 </h3>
 
                 <p
-                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C9D3D0]"
-                  style={{ color: "#6E847F" }}
+                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C89B3C]"
+                  style={{ color: "#6C7278" }}
                 >
                   {service.description}
                 </p>
 
-                <div className="relative mt-10 h-px bg-[#071F2D]/10 group-hover:bg-[#F7F4EE]/15">
+                <div className="relative mt-10 h-px bg-[#E6DDD0] group-hover:bg-[#F8F5EF]/15">
                   <motion.div
                     initial={{ width: "0%" }}
                     whileInView={{ width: "40%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C9A35F] to-transparent transition-all duration-700 ease-out group-hover:w-full"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C89B3C] to-transparent transition-all duration-700 ease-out group-hover:w-full"
                   />
                 </div>
 
-                <div className="mt-8 flex items-center gap-3 text-sm uppercase tracking-[0.25em] text-[#C9A35F]">
+                <div className="mt-8 flex items-center gap-3 text-sm uppercase tracking-[0.25em] text-[#C89B3C]">
                   Learn More
                   <motion.div whileHover={{ x: 4 }}>
                     <ArrowUpRight size={16} />
@@ -190,17 +199,17 @@ function ServiceCard({
 
 export default function Services() {
   return (
-    <Section id="services" className="relative overflow-hidden bg-[#F7F4EE]">
+    <Section id="services" className="relative overflow-hidden bg-[#F8F5EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C89B3C]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
+          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#C89B3C]/15 blur-[140px]"
         />
       </div>
 

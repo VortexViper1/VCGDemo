@@ -13,7 +13,7 @@ export default function JourneyCTA() {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[40px] bg-[#173F38] px-8 py-20 lg:px-20">
+    <section className="relative overflow-hidden rounded-[40px] bg-[#2A2D31] px-8 py-20 lg:px-20">
 
       {/* Background Glow */}
       <div
@@ -26,7 +26,7 @@ export default function JourneyCTA() {
         -translate-x-1/2
         -translate-y-1/2
         rounded-full
-        bg-[#C9A35F]/10
+        bg-[#C49A4A]/10
         blur-[160px]
         "
       />
@@ -44,7 +44,7 @@ export default function JourneyCTA() {
           text-xs
           uppercase
           tracking-[0.45em]
-          text-[#C9A35F]
+          text-[#C49A4A]
           "
         >
           YOUR NEXT CHAPTER
@@ -132,9 +132,9 @@ export default function JourneyCTA() {
               backdrop-blur-xl
               transition-all
               duration-500
-              hover:border-[#C9A35F]
-              hover:bg-[#C9A35F]
-              hover:text-[#173F38]
+              hover:border-[#C49A4A]
+              hover:bg-[#C49A4A]
+              hover:text-[#2A2D31]
               "
             >
               {stage}
@@ -168,11 +168,11 @@ export default function JourneyCTA() {
             items-center
             gap-4
             rounded-full
-            bg-[#C9A35F]
+            bg-[#C49A4A]
             px-9
             py-5
             font-semibold
-            text-[#173F38]
+            text-[#2A2D31]
             transition-all
             duration-500
             hover:scale-105

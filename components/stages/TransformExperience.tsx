@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { START_CONTENT } from "@/lib/stages";
+import { TRANSFORM_CONTENT } from "@/lib/stages";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export default function StartExperience() {
-  const content = START_CONTENT;
+export default function TransformExperience() {
+  const content = TRANSFORM_CONTENT;
 
   return (
     <section

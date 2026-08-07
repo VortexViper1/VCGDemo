@@ -17,7 +17,7 @@ export default function FloatingContact() {
       whileHover={{ y: -3, scale: 1.025 }}
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className="talk-island fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[#23363F]/80 px-4 py-3 text-sm font-medium text-[#071F2D] backdrop-blur-2xl sm:bottom-7 sm:right-7 sm:px-5"
+      className="talk-island fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-[#1F2428]/80 px-4 py-3 text-sm font-medium text-[#23272B] backdrop-blur-2xl sm:bottom-7 sm:right-7 sm:px-5"
       aria-label="Scroll to contact section"
     >
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#B7964A] text-[#1A1C20]">

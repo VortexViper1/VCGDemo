@@ -18,15 +18,15 @@ export const SITE_CONFIG = {
 };
 
 export const COLORS = {
-  background: "#071F2D",
+  background: "#23272B",
 
   surface: "rgba(255,255,255,0.05)",
 
   border: "rgba(255,255,255,0.08)",
 
-  gold: "#C9A35F",
+  gold: "#C49A4A",
 
-  text: "#F7F4EE",
+  text: "#F8F5EF",
 
   muted: "rgba(247,244,238,0.72)",
 };
@@ -59,7 +59,7 @@ export const STATS = [
 
 export const SERVICES = [
   {
-    title: "Business Strategy",
+    title: "Corporate & Financial Strategy",
     description:
       "Helping organizations define long-term strategic direction with measurable execution.",
   },
@@ -69,12 +69,12 @@ export const SERVICES = [
       "Investment readiness, fundraising strategy, financial structuring, and capital partnerships.",
   },
   {
-    title: "Digital Transformation",
+    title: "Governance, Compliance & Regulatory Advisory",
     description:
       "Modernizing operations using technology, automation, AI, and scalable digital systems.",
   },
   {
-    title: "Growth Consulting",
+    title: "M&A and Transaction Advisory",
     description:
       "Accelerating business expansion through market insights, innovation, and operational excellence.",
   },

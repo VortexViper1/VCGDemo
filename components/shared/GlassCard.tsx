@@ -22,8 +22,8 @@ export default function GlassCard({
         duration: 0.35,
       }}
       className={`glass-island group relative overflow-hidden rounded-[28px]
-        bg-[#F7F4EE]/[0.04]
-        border border-[#173F38]/8
+        bg-[#F8F5EF]/[0.04]
+        border border-[#2A2D31]/8
         backdrop-blur-2xl
         shadow-[0_20px_80px_rgba(0,0,0,0.25)]
         ${className ?? ""}`}

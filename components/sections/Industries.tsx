@@ -53,6 +53,17 @@ const FEATURES = [
  * Native CSS scroll-snap (not JS drag physics) — runs on the
  * browser's compositor thread, so it stays smooth on low-end
  * mobile and there's zero jank on desktop either.
+ *
+ * Mobile vs desktop are two different visual treatments of the SAME
+ * markup (no duplicated <Image>/content, so nothing double-loads):
+ *  - mobile: compact card — small aspect-[4/3] photo up top, content
+ *    flows normally below it, card height is just whatever the
+ *    content needs.
+ *  - md and up: the original full-bleed, text-over-image overlay.
+ *    Both the photo and the content switch to `absolute` at md+, so
+ *    the slide wrapper needs an explicit `aspect-*` there — otherwise
+ *    it has nothing left in normal flow to derive a height from and
+ *    collapses to zero. That aspect ratio is the fix below.
  */
 function FeatureCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -92,57 +103,66 @@ function FeatureCarousel() {
 
   return (
     <div className="relative">
-      {/* Track — full-bleed, large slides like apple.com's carousel */}
+      {/* Track — full-bleed, large slides like apple.com's carousel on
+          desktop; compact cards on mobile */}
       <div
         ref={trackRef}
-        className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6
-                   px-[max(1.5rem,calc((100vw-1400px)/2))]
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6
+                   px-[max(1.5rem,calc((100vw-1400px)/2))] sm:gap-6
                    [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {FEATURES.map((feature, index) => (
           <div
             key={feature.title}
-            className="relative shrink-0 snap-center overflow-hidden rounded-3xl
-                       w-[92vw] sm:w-[85vw] md:w-[900px] lg:w-[1100px]
-                       aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9]"
+            className="relative shrink-0 snap-center overflow-hidden rounded-2xl bg-white
+                       w-[78vw] sm:w-[85vw] md:aspect-[21/9] md:w-[900px] md:rounded-3xl lg:w-[1100px]"
           >
-            {/* Background image — swap the src in FEATURES[].image with your own asset in /public/images/why/ */}
-            <Image
-              src={feature.image}
-              alt={feature.title}
-              fill
-              sizes="(max-width: 768px) 92vw, 1100px"
-              className="object-cover"
-              priority={index === 0}
-            />
+            {/* ── Photo ──
+                Mobile: small, fixed-ratio card image, normal document flow.
+                Desktop (md+): full-bleed background filling the whole slide
+                (the slide now has real height via md:aspect-[21/9] above,
+                so md:h-full here has something to fill). */}
+            <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] md:absolute md:inset-0 md:aspect-auto md:h-full">
+              <Image
+                src={feature.image}
+                alt={feature.title}
+                fill
+                sizes="(max-width: 767px) 78vw, 1100px"
+                className="object-cover"
+                priority={index === 0}
+              />
 
-            {/* Gradient overlay for text legibility, Apple TV+ style */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              {/* Gradient overlay only needed where text sits on top of
+                  the image, i.e. desktop */}
+              <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/80 via-black/10 to-transparent md:block" />
+            </div>
 
-            {/* z-20 + relative here matters: this is the routing-bug fix —
-               if a Navbar overlay sits above this section with a higher
-               stacking context, its transparent hit-area can swallow clicks
-               before they reach this Link. Keep this content layer explicitly
-               stacked and make sure Navbar's overlay uses pointer-events-none
-               except on its own interactive children. */}
-            <div className="absolute inset-0 z-20 flex flex-col justify-end p-8 md:p-14">
-              <span className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A35F]">
+            {/* ── Content ──
+                Mobile: normal flow, sits below the photo, card grows to
+                fit it — this is what keeps the photo small.
+                Desktop (md+): absolutely positioned overlay at the
+                bottom of the full-bleed photo, as before. */}
+            <div
+              className="relative z-20 flex flex-col p-5 sm:p-6
+                         md:absolute md:inset-0 md:justify-end md:p-8 lg:p-14"
+            >
+<span
+  className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] md:mb-3"
+  style={{ color: "#C49A4A" }}
+>
                 {feature.tag}
               </span>
-              <h3
-  className="mb-3 text-3xl md:text-5xl font-semibold"
-  style={{ color: "#FAF8F4" }}
->
-  {feature.title}
-</h3>
+              <h3 className="mb-2 text-xl font-semibold  sm:text-2xl md:mb-3 md:text-3xl md:text-[#FAF8F4] lg:text-5xl"style={{ color: "white" }}>
+                {feature.title}
+              </h3>
 
-<p className="mb-6 max-w-md md:max-w-lg text-sm md:text-base leading-6 md:leading-7 text-[#E8E3DA]">
-  {feature.description}
-</p>
+              <p className="mb-5 max-w-md text-sm leading-6 text-[#646B70] md:mb-6 md:max-w-lg md:leading-7 md:text-[#E8E3DA] lg:text-base">
+                {feature.description}
+              </p>
 
               <Link
                 href={feature.href}
-                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-sm font-medium text-[#071F2D] transition-transform hover:scale-105"
+                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#2A2D31] px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-105 md:bg-white/95 md:text-[#23272B]"
               >
                 Discover More
                 <ArrowRight size={15} />
@@ -152,7 +172,8 @@ function FeatureCarousel() {
             {/* Whole-card click target to the same href, sitting BELOW the
                button/text (z-10) so the button's own z-30 still wins,
                but clicking anywhere else on the slide also navigates —
-               matches the apple.com carousel behavior. */}
+               matches the apple.com carousel behavior on desktop, and
+               still works as a whole-card tap target on mobile. */}
             <Link
               href={feature.href}
               aria-label={feature.title}
@@ -171,7 +192,7 @@ function FeatureCarousel() {
               onClick={() => scrollToIndex(index)}
               aria-label={`Go to slide ${index + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === active ? "w-6 bg-[#173F38]" : "w-1.5 bg-[#173F38]/25"
+                index === active ? "w-6 bg-[#2A2D31]" : "w-1.5 bg-[#2A2D31]/25"
               }`}
             />
           ))}
@@ -181,7 +202,7 @@ function FeatureCarousel() {
           <button
             onClick={goPrev}
             disabled={active === 0}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#173F38]/15 text-[#173F38] transition-opacity disabled:opacity-30"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2A2D31]/15 text-[#2A2D31] transition-opacity disabled:opacity-30"
             aria-label="Previous slide"
           >
             <ArrowLeft size={16} />
@@ -189,7 +210,7 @@ function FeatureCarousel() {
           <button
             onClick={goNext}
             disabled={active === FEATURES.length - 1}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#173F38]/15 text-[#173F38] transition-opacity disabled:opacity-30"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2A2D31]/15 text-[#2A2D31] transition-opacity disabled:opacity-30"
             aria-label="Next slide"
           >
             <ChevronRight size={16} />
@@ -202,17 +223,17 @@ function FeatureCarousel() {
 
 export default function WhyViswas() {
   return (
-    <Section id="why-viswas" className="relative overflow-hidden bg-[#F7F4EE]">
+    <Section id="why-viswas" className="relative overflow-hidden bg-[#F8F5EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
+          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
           transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
+          className="absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#1F2428]/30 blur-[140px]"
         />
       </div>
 

@@ -57,7 +57,7 @@ export default function HeroStats() {
         aria-hidden
         animate={{ opacity: [0.35, 0.6, 0.35], scale: [1, 1.05, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full bg-[#C9A35F]/20 blur-[100px]"
+        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full bg-[#C49A4A]/20 blur-[100px]"
       />
 
       {/* Gradient-border shell: 1px of gradient peeking around the card
@@ -68,12 +68,12 @@ export default function HeroStats() {
         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ rotateY: -2, rotateX: 2 }}
         style={{ transformStyle: "preserve-3d" }}
-        className="relative w-full max-w-md rounded-[37px] bg-gradient-to-br from-[#C9A35F]/40 via-[#E3C88C]/25 to-[#C9A35F]/10 p-px shadow-[0_50px_140px_rgba(23,63,56,0.14)]"
+        className="relative w-full max-w-md rounded-[37px] bg-gradient-to-br from-[#C49A4A]/40 via-[#E3C88C]/25 to-[#C49A4A]/10 p-px shadow-[0_50px_140px_rgba(23,63,56,0.14)]"
       >
         <div className="group relative overflow-hidden rounded-[36px] border border-white/40 bg-gradient-to-br from-[#FFFDF8] via-[#FBF8F1] to-[#F7F2E7] p-6 md:p-8 backdrop-blur-xl">
           {/* Premium gold ambient background */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#C9A35F]/14 blur-[110px]" />
+            <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#C49A4A]/14 blur-[110px]" />
             <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#E3C88C]/12 blur-[120px]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,163,95,0.08),transparent_45%)]" />
           </div>
@@ -84,7 +84,7 @@ export default function HeroStats() {
             aria-hidden
             animate={{ rotate: 360 }}
             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full border border-dashed border-[#C9A35F]/20"
+            className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full border border-dashed border-[#C49A4A]/20"
           />
 
           {/* Shine sweep on hover */}
@@ -107,16 +107,16 @@ export default function HeroStats() {
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.8, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
                   style={{ transformOrigin: "left" }}
-                  className="h-px flex-1 bg-gradient-to-r from-[#C9A35F]/60 to-transparent"
+                  className="h-px flex-1 bg-gradient-to-r from-[#C49A4A]/60 to-transparent"
                 />
               </div>
 
-              <h3 className="mt-5 font-serif text-[3rem] leading-[1.08] tracking-[-0.03em] text-[#173F38]">
+              <h3 className="mt-5 font-serif text-[3rem] leading-[1.08] tracking-[-0.03em] text-[#2A2D31]">
                 Strategy.
                 <br />
                 Capital.
                 <br />
-                <span className="bg-gradient-to-r from-[#173F38] to-[#3A6B5E] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#2A2D31] to-[#3A6B5E] bg-clip-text text-transparent">
                   Transformation.
                 </span>
               </h3>
@@ -126,7 +126,7 @@ export default function HeroStats() {
               variants={container}
               initial="hidden"
               animate="show"
-              className="divide-y divide-[#173F38]/8"
+              className="divide-y divide-[#2A2D31]/8"
             >
               {stats.map((stat) => (
                 <motion.div
@@ -144,7 +144,7 @@ export default function HeroStats() {
                     }}
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                     style={{ transformOrigin: "center" }}
-                    className="absolute -left-8 h-8 w-[3px] rounded-full bg-gradient-to-b from-[#C9A35F] to-[#E3C88C]"
+                    className="absolute -left-8 h-8 w-[3px] rounded-full bg-gradient-to-b from-[#C49A4A] to-[#E3C88C]"
                   />
 
                   <div
@@ -155,7 +155,7 @@ export default function HeroStats() {
                   </div>
 
                   <div className="min-w-0">
-                    <h4 className="text-lg font-semibold text-[#173F38]">
+                    <h4 className="text-lg font-semibold text-[#2A2D31]">
                       {stat.title}
                     </h4>
                     <p className="mt-1 text-[14px] leading-6 text-[#6B807A]">

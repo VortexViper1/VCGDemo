@@ -56,7 +56,7 @@ export default function About() {
   return (
     <Section
       id="about"
-      className="bg-[#F7F4EE]"
+      className="bg-[#F8F5EF]"
     >
       <div className="grid items-center gap-24 lg:grid-cols-2 xl:gap-32">
         {/* Left */}
@@ -69,7 +69,7 @@ export default function About() {
               description="VISWAS Consulting Group partners with ambitious organizations, investors, and institutions to solve complex business challenges with clarity, innovation, and measurable impact."
             />
             <div className="mt-10 mb-12 flex items-center gap-4">
-  <div className="h-px w-16 bg-[#C9A35F]" />
+  <div className="h-px w-16 bg-[#C49A4A]" />
 </div>
 
             <div className="mt-10 space-y-6">
@@ -86,12 +86,12 @@ export default function About() {
                     <div
   className="
     rounded-full
-    bg-[#C9A35F]/10
+    bg-[#C49A4A]/10
     p-3
     transition-all
     duration-700
 ease-out
-    group-hover:bg-[#C9A35F]
+    group-hover:bg-[#C49A4A]
     group-hover:scale-110
 "
 >
@@ -132,7 +132,7 @@ tracking-[0.01em]
                   key={metric.label}
                   className="transition-all duration-700
 ease-out hover:-translate-y-3
-hover:scale-[1.02] hover:border-[#C9A35F]/40 hover:shadow-[0_25px_80px_rgba(23,63,56,0.12)]"
+hover:scale-[1.02] hover:border-[#C49A4A]/40 hover:shadow-[0_25px_80px_rgba(23,63,56,0.12)]"
                 >
                   <div>
                     <div>
@@ -151,10 +151,10 @@ hover:scale-[1.02] hover:border-[#C9A35F]/40 hover:shadow-[0_25px_80px_rgba(23,6
     leading-none
     tracking-[-0.04em]
   "
-  style={{ color: "#173F38" }}
+  style={{ color: "#2A2D31" }}
 >
   {metric.value}
-  <div className="mt-5 h-px w-16 bg-[#C9A35F]/70" />
+  <div className="mt-5 h-px w-16 bg-[#C49A4A]/70" />
 </motion.h3>
 
                       <p className="
@@ -163,7 +163,7 @@ font-[var(--font-sans)]
 text-sm
 uppercase
 tracking-[0.16em]
-text-[#6E847F]
+text-[#6C7278]
 ">
                         {metric.label}
                       </p>
@@ -185,11 +185,11 @@ text-[#6E847F]
     duration-700
     hover:-translate-y-3
     hover:scale-[1.02]
-    hover:border-[#C9A35F]/40
+    hover:border-[#C49A4A]/40
     before:absolute
     before:inset-0
     before:bg-gradient-to-b
-    before:from-[#C9A35F]/5
+    before:from-[#C49A4A]/5
     before:to-transparent
     before:opacity-0
     hover:before:opacity-100
@@ -197,11 +197,11 @@ text-[#6E847F]
   "
 >
               <div className="space-y-6">
-                <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
+                <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
                   Our Philosophy
                 </span>
 
-                <h3 className="text-3xl font-semibold leading-snug "style={{ color: "#173F38" }}>
+                <h3 className="text-3xl font-semibold leading-snug "style={{ color: "#2A2D31" }}>
                   Strategy is valuable only when execution creates measurable impact.
                 </h3>
 
@@ -212,7 +212,7 @@ text-[18px]
 leading-[1.9]
 tracking-[0.01em]
 "
-  style={{ color: "#6E847F" }}
+  style={{ color: "#6C7278" }}
 >
                   Every engagement combines strategic thinking,
                   financial insight, operational excellence, and

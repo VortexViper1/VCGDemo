@@ -22,23 +22,20 @@ const EXHIBITS = [
   {
     letter: "A",
     quote:
-      "VISWAS provided strategic clarity during one of our most significant transformation initiatives. Their expertise accelerated execution and delivered measurable business value.",
-    author: "Managing Director",
-    company: "Meridian Capital",
+      "We begin every engagement by understanding the organization's ambitions, challenges, and long-term vision. Our recommendations are practical, measurable, and designed to create lasting enterprise value.",
+    author: "Strategic Thinking",
   },
   {
     letter: "B",
     quote:
-      "Their capital advisory team demonstrated exceptional financial insight, helping us structure investments with confidence and long-term sustainability.",
-    author: "Chief Executive Officer",
-    company: "Anchorpoint Group",
+      "Every recommendation is supported by rigorous financial analysis, governance best practices, and disciplined execution planning, enabling leaders to make confident decisions with clarity.",
+    author: "Execution Excellence",
   },
   {
     letter: "C",
     quote:
-      "Professional, insightful, and execution focused. VISWAS became an extension of our leadership team throughout our transformation journey.",
-    author: "Board Member",
-    company: "Fortune Holdings",
+      "Our multidisciplinary approach combines strategy, transformation, governance, and technology to help organizations navigate complexity and build sustainable competitive advantage.",
+    author: "Long-Term Partnership",
   },
 ];
 
@@ -121,10 +118,11 @@ export default function Testimonials() {
 
       <Reveal>
         <SectionTitle
-          eyebrow="ON THE RECORD"
-          title="Attested by the people we've worked alongside."
-          description="Every engagement closes with a signature, not a sales pitch. Here's what the record shows."
-          align="center"
+          eyebrow="CLIENT PERSPECTIVES"
+
+title="Trusted by leaders. Valued for outcomes."
+
+description="We build enduring partnerships by helping organizations solve complex strategic, financial, and transformation challenges with confidence."
         />
       </Reveal>
 
@@ -135,7 +133,7 @@ export default function Testimonials() {
           className="whitespace-nowrap text-[11px] uppercase tracking-[0.3em]"
           style={{ color: INK_SOFT, fontFamily: MONO }}
         >
-          Client Record · Exhibits A–C
+          Client Perspectives
         </span>
         <div className="h-px flex-1" style={{ background: PAPER_LINE }} />
       </div>
@@ -188,7 +186,6 @@ export default function Testimonials() {
                         className="text-[13px] font-semibold"
                         style={{ color: INK, fontFamily: DISPLAY_SERIF }}
                       >
-                        {item.company}
                       </p>
                       <p
                         className="mt-0.5 text-[10px] uppercase tracking-[0.25em]"
@@ -207,14 +204,14 @@ export default function Testimonials() {
       </div>
 
       <Reveal delay={0.5}>
-  <div className="mt-24 rounded-[32px] border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] px-8 py-10 backdrop-blur-2xl">
+  <div className="mt-24 rounded-[32px] border border-[#2A2D31]/8 bg-[#F8F5EF]/[0.03] px-8 py-10 backdrop-blur-2xl">
     <div className="grid grid-cols-2 items-center gap-8 opacity-50 md:grid-cols-3 lg:grid-cols-6">
       {LOGOS.map((logo) => (
         <motion.div
           key={logo}
           whileHover={{ scale: 1.08 }}
           transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-          className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#071F2D]/40 transition-colors duration-300 hover:text-[#C9A35F]"
+          className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#23272B]/40 transition-colors duration-300 hover:text-[#C49A4A]"
         >
           {logo}
         </motion.div>

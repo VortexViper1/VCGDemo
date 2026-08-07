@@ -40,7 +40,7 @@ export default function JourneyStagePanel({ stage, index, total }: Props) {
             <StageImage stage={stage} activeService={activeService} />
           </div>
 
-          <div className="mt-16 grid gap-16 border-t border-[#173F38]/10 pt-14 sm:mt-20 sm:pt-16 lg:grid-cols-2 lg:gap-24">
+          <div className="mt-16 grid gap-16 border-t border-[#2A2D31]/10 pt-14 sm:mt-20 sm:pt-16 lg:grid-cols-2 lg:gap-24">
             <div>
               <span
                 className="text-[11px] uppercase tracking-[0.35em]"
@@ -53,7 +53,7 @@ export default function JourneyStagePanel({ stage, index, total }: Props) {
               </div>
             </div>
 
-            <div className="lg:border-l lg:border-[#173F38]/10 lg:pl-24">
+            <div className="lg:border-l lg:border-[#2A2D31]/10 lg:pl-24">
               <span
                 className="text-[11px] uppercase tracking-[0.35em]"
                 style={{ color: stage.accent }}

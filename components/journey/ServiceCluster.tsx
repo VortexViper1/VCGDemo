@@ -23,12 +23,12 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
 
   return (
     <div>
-      <div className="space-y-2 border-t border-[#173F38]/10">
+      <div className="space-y-2 border-t border-[#2A2D31]/10">
         {services.map((service, index) => {
           const isOpen = activeId === service.id;
 
           return (
-            <div key={service.id} className="border-b border-[#173F38]/10 py-6">
+            <div key={service.id} className="border-b border-[#2A2D31]/10 py-6">
               <motion.div
                 animate={{ width: isOpen ? 56 : 24 }}
                 transition={{ duration: 0.42, ease: EASE }}
@@ -53,8 +53,8 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
                   transition={{ duration: 0.42, ease: EASE }}
                   className={`font-[var(--font-display)] leading-[1.05] tracking-[-0.02em] transition-all duration-300 ${
                     isOpen
-                      ? "text-[28px] text-[#173F38] sm:text-[32px]"
-                      : "text-[19px] text-[#173F38]/70 group-hover:text-[#173F38] sm:text-[21px]"
+                      ? "text-[28px] text-[#2A2D31] sm:text-[32px]"
+                      : "text-[19px] text-[#2A2D31]/70 group-hover:text-[#2A2D31] sm:text-[21px]"
                   }`}
                 >
                   {service.title}
@@ -72,7 +72,7 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
                     className="overflow-hidden"
                   >
                     <div className="pl-[2.1rem] pt-6 sm:pl-[2.6rem]">
-                      <p className="max-w-xl font-[var(--font-sans)] text-[16px] leading-[1.9] tracking-[0.005em] text-[#6E847F] sm:text-[17px]">
+                      <p className="max-w-xl font-[var(--font-sans)] text-[16px] leading-[1.9] tracking-[0.005em] text-[#6C7278] sm:text-[17px]">
                         {service.description}
                       </p>
 
@@ -88,7 +88,7 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
                             initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.35, delay: 0.08 + i * 0.04, ease: EASE }}
-                            className="flex items-start gap-3 font-[var(--font-sans)] text-[14px] leading-[1.7] text-[#173F38]/75"
+                            className="flex items-start gap-3 font-[var(--font-sans)] text-[14px] leading-[1.7] text-[#2A2D31]/75"
                           >
                             <span
                               className="mt-[9px] h-px w-3 shrink-0"

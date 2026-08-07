@@ -17,7 +17,7 @@ import Reveal from "@/components/shared/Reveal";
 
 const ARTICLE = {
   category: "Cybersecurity",
-  title: "Cybersecurity as a Business Strategy",
+  title: "Cybersecurity as a Corporate & Financial Strategy",
   description:
     "Cyber resilience has become a strategic advantage, enabling organizations to innovate securely and protect trust.",
   date: "July 2026",
@@ -47,13 +47,13 @@ const RELATED = [
 
 export default function CybersecurityBusinessStrategyPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE]">
+    <main className="min-h-screen bg-[#F8F5EF]">
       {/* Ambient background, consistent with the rest of the site */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[170px]"
         />
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
@@ -67,7 +67,7 @@ export default function CybersecurityBusinessStrategyPage() {
         <Reveal>
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors hover:text-[#C9A35F]"
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#C49A4A]"
           >
             <ArrowLeft
               size={16}
@@ -79,20 +79,20 @@ export default function CybersecurityBusinessStrategyPage() {
 
         <Reveal delay={0.1}>
           <div className="mx-auto mt-10 max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C49A4A]">
               <ShieldCheck size={14} />
               {ARTICLE.category}
             </span>
 
-            <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-6xl tracking-tight"style={{ color: "#173F38" }} >
+            <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-6xl tracking-tight"style={{ color: "#2A2D31" }} >
               {ARTICLE.title}
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#071F2D]/70">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#23272B]/70">
               {ARTICLE.description}
             </p>
 
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#071F2D]/50">
+            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#23272B]/50">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
                 {ARTICLE.date}
@@ -107,16 +107,16 @@ export default function CybersecurityBusinessStrategyPage() {
 
         {/* Hero visual band, echoing the featured-insight treatment */}
         <Reveal delay={0.2}>
-          <div className="relative mx-auto mt-16 flex h-[280px] max-w-5xl items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#123A53] via-[#0E2B40] to-[#071F2D] sm:h-[340px]">
+          <div className="relative mx-auto mt-16 flex h-[280px] max-w-5xl items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#123A53] via-[#0E2B40] to-[#23272B] sm:h-[340px]">
             <motion.div
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute h-64 w-64 rounded-full border border-[#C9A35F]/20 sm:h-80 sm:w-80"
+              className="absolute h-64 w-64 rounded-full border border-[#C49A4A]/20 sm:h-80 sm:w-80"
             />
             <motion.div
               animate={{ rotate: [360, 0] }}
               transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-              className="absolute h-44 w-44 rounded-full border border-[#173F38]/8 sm:h-56 sm:w-56"
+              className="absolute h-44 w-44 rounded-full border border-[#2A2D31]/8 sm:h-56 sm:w-56"
             />
            <Image
   src="/insights/cyber.png"
@@ -133,7 +133,7 @@ export default function CybersecurityBusinessStrategyPage() {
         <div className="mx-auto mt-20 max-w-3xl">
           <Reveal>
             <GlassCard className="prose-none">
-              <div className="space-y-8 leading-8 text-[#071F2D]/75">
+              <div className="space-y-8 leading-8 text-[#23272B]/75">
                 <p>
                   For most of the last two decades, cybersecurity sat inside
                   the IT department as a cost of doing business — a set of
@@ -146,7 +146,7 @@ export default function CybersecurityBusinessStrategyPage() {
                   without inviting disaster.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   From cost center to competitive advantage
                 </h2>
                 <p>
@@ -161,16 +161,16 @@ export default function CybersecurityBusinessStrategyPage() {
                   competitors.
                 </p>
 
-                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#F7F4EE]/[0.03] p-6 md:p-8">
-                  <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#173F38" }}>
+                <div className="my-10 rounded-2xl border-l-4 border-[#C49A4A] bg-[#F8F5EF]/[0.03] p-6 md:p-8">
+                  <Quote size={22} className="text-[#C49A4A]" />
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#2A2D31" }}>
                     Resilience is no longer about preventing every breach —
                     it is about ensuring the business keeps running when one
                     happens.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Building resilience, not just defenses
                 </h2>
                 <p>
@@ -185,7 +185,7 @@ export default function CybersecurityBusinessStrategyPage() {
                   technical checkbox.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Trust as the real asset being protected
                 </h2>
                 <p>
@@ -200,7 +200,7 @@ export default function CybersecurityBusinessStrategyPage() {
                   compliance line items.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Making security a leadership conversation
                 </h2>
                 <p>
@@ -214,7 +214,7 @@ export default function CybersecurityBusinessStrategyPage() {
                   shared organizational priority.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Where organizations should start
                 </h2>
                 <p>
@@ -238,33 +238,16 @@ export default function CybersecurityBusinessStrategyPage() {
           </Reveal>
 
           {/* Share / CTA */}
-          <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#F7F4EE]/[0.03] p-6 md:p-8 sm:flex-row">
-              <p className="text-center text-[#071F2D]/70 sm:text-left">
-                Want to assess where your organization stands on cyber
-                resilience?
-              </p>
-              <Link href="/#contact">
-                <motion.span
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-3 whitespace-nowrap rounded-full bg-[#C9A35F] px-7 py-3.5 font-semibold text-[#071F2D] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
-                >
-                  Talk to Our Team
-                  <ArrowRight size={18} />
-                </motion.span>
-              </Link>
-            </div>
-          </Reveal>
+        
         </div>
 
         {/* RELATED INSIGHTS */}
         <Reveal delay={0.1}>
           <div className="mx-auto mt-24 mb-32 max-w-5xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#173F38" }}>
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#2A2D31" }}>
               Related Insights
             </h2>
 
@@ -278,22 +261,22 @@ export default function CybersecurityBusinessStrategyPage() {
                       className="h-full"
                     >
                       <GlassCard className="group flex h-full flex-col">
-                        <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
+                        <span className="inline-flex w-fit items-center rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C49A4A]">
                           {article.category}
                         </span>
 
-                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug  transition-colors duration-300 group-hover:text-[#C9A35F]"style={{ color: "#173F38" }}>
+                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug  transition-colors duration-300 group-hover:text-[#C49A4A]"style={{ color: "#2A2D31" }}>
                           {article.title}
                         </h3>
 
-                        <div className="mt-6 flex items-center justify-between border-t border-[#173F38]/8 pt-5">
-                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#071F2D]/50">
+                        <div className="mt-6 flex items-center justify-between border-t border-[#2A2D31]/8 pt-5">
+                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#23272B]/50">
                             <Clock3 size={14} />
                             {article.read}
                           </div>
                           <ArrowRight
                             size={15}
-                            className="text-[#C9A35F] transition-transform duration-300 group-hover:translate-x-1"
+                            className="text-[#C49A4A] transition-transform duration-300 group-hover:translate-x-1"
                           />
                         </div>
                       </GlassCard>

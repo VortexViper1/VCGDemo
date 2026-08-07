@@ -22,7 +22,7 @@ export default function StageImage({ stage, activeService }: Props) {
   return (
     <Link
       href={href}
-      className="group relative block aspect-[16/9] w-full cursor-pointer overflow-hidden bg-[#173F38]/5 sm:aspect-[21/9]"
+      className="group relative block aspect-[16/9] w-full cursor-pointer overflow-hidden bg-[#2A2D31]/5 sm:aspect-[21/9]"
     >
       <AnimatePresence mode="wait">
         <motion.div

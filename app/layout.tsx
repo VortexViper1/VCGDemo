@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
-
+import HashScroll from "@/components/shared/HashScroll";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/animations/ScrollProgress";
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
   keywords: [
     "Consulting",
-    "Business Strategy",
+    "",
     "Capital Advisory",
     "Transformation",
     "VISWAS",
@@ -101,18 +101,22 @@ export default function RootLayout({
   className={`${manrope.variable} ${playfair.variable} ${cormorant.variable}`}
 >
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
-        <ScrollProgress />
 
-        <CursorGlow />
+  <HashScroll />
 
-        <Navbar />
+  <ScrollProgress />
 
-        <main className="overflow-x-hidden">
-  {children}
-</main>
+  <CursorGlow />
 
-        <Footer />
-      </body>
+  <Navbar />
+
+  <main className="overflow-x-hidden">
+    {children}
+  </main>
+
+  <Footer />
+
+</body>
     </html>
   );
 }

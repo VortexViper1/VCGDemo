@@ -8,10 +8,7 @@ import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { Menu, ArrowUpRight } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
 import MobileMenu from "./MobileMenu";
-
-/* ─────────────────────────────────────────────
-   ANIMATION CONFIGURATION
-   ───────────────────────────────────────────── */
+import SectionLink from "@/components/shared/SectionLink";
 
 const COLLAPSE_SPRING = {
   type: "spring" as const,
@@ -34,41 +31,37 @@ const HOVER_TWEEN = {
 
 const COLOR_TRANSITION = { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
 
-/* ─────────────────────────────────────────────
-   DESIGN TOKENS
-   ───────────────────────────────────────────── */
-
-const IVORY = "#173F38";
+const IVORY = "#2A2D31";
 const GOLD = "#B7964A";
 
 const ISLAND_MAX_WIDTH = 1160;
 const TAGLINE_MAX_WIDTH = 420;
-const JOURNEY_MAX_WIDTH = 140;
 
-/* Shared focus-visible treatment for every interactive nav element,
-   so keyboard users always get a visible ring in brand gold. */
+/* Distance (px) from the top of the viewport that counts as the
+   "active section" line for the scrollspy below. */
+const SCROLLSPY_OFFSET = 120;
+
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7964A] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-sm";
 
-/* ─────────────────────────────────────────────
-   NAVIGATION SPLIT
-   Journey is pulled out of the single NAVIGATION source of truth and
-   rendered next to the wordmark instead of in the centered nav
-   cluster. No duplicate arrays — MobileMenu still gets the full,
-   unfiltered NAVIGATION.
-   ───────────────────────────────────────────── */
-
-const JOURNEY_ITEM = NAVIGATION.find((item) => item.href === "/#journey");
-const MAIN_NAV_ITEMS = NAVIGATION.filter((item) => item !== JOURNEY_ITEM);
+/* Journey sits deliberately between Home and Services here — this
+   array's order is the single source of truth for desktop nav order. */
+const MAIN_NAV_ITEMS = [
+  NAVIGATION.find((item) => item.label === "Home"),
+  NAVIGATION.find((item) => item.label === "Journey"),
+  NAVIGATION.find((item) => item.label === "Services"),
+  NAVIGATION.find((item) => item.label === "Why Viswas"),
+  NAVIGATION.find((item) => item.label === "Insights"),
+].filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 /* Section ids to scrollspy, derived from the same NAVIGATION source
-   (no separate hardcoded list to fall out of sync). */
+   (no separate hardcoded list to fall out of sync). Order matters:
+   this is assumed to match top-to-bottom document order. */
 const SECTION_IDS = NAVIGATION.map((item) => item.href.split("#")[1]).filter(
   (id): id is string => Boolean(id)
 );
 
 const sectionIdFromHref = (href: string) => href.split("#")[1] ?? null;
-
 /* ─────────────────────────────────────────────
    COMPONENT
    ───────────────────────────────────────────── */
@@ -88,6 +81,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const islandRef = useRef<HTMLDivElement>(null);
+const isNavigatingRef = useRef(false);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -112,8 +106,20 @@ export default function Navbar() {
 
   /* ── Scrollspy: tracks which section is currently in view so nav
      items (including Journey) can highlight themselves via
-     aria-current, independent of hover. Silently does nothing on
-     routes where these section ids don't exist. */
+     aria-current, independent of hover.
+
+     Position-based rather than IntersectionObserver-based: we walk
+     the sections in document order and pick the last one whose top
+     has crossed SCROLLSPY_OFFSET. This recalculates fresh on every
+     scroll/resize, so it can never get stuck on stale state the way
+     a narrow IntersectionObserver rootMargin band can (e.g. a fast
+     scroll skipping past the band entirely, or the "no intersecting
+     entries" case bailing out and leaving the previous section
+     highlighted forever). Silently does nothing on routes where
+     these section ids don't exist.
+
+     Unchanged from before — this never calls the navigation hook and
+     never touches history, so it cannot conflict with SectionLink. */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -122,20 +128,27 @@ export default function Navbar() {
     );
     if (elements.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length === 0) return;
-        const topMost = visible.reduce((a, b) =>
-          a.boundingClientRect.top < b.boundingClientRect.top ? a : b
-        );
-        setActiveSection(topMost.target.id);
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
+   const updateActive = () => {
+  let current: string | null = null;
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+  for (const el of elements) {
+    if (el.getBoundingClientRect().top - SCROLLSPY_OFFSET <= 0) {
+      current = el.id;
+    } else {
+      break;
+    }
+  }
+
+  setActiveSection(current);
+};
+
+    updateActive();
+    window.addEventListener("scroll", updateActive, { passive: true });
+    window.addEventListener("resize", updateActive);
+    return () => {
+      window.removeEventListener("scroll", updateActive);
+      window.removeEventListener("resize", updateActive);
+    };
   }, []);
 
   const isCompact = progress > 0.98;
@@ -191,26 +204,6 @@ export default function Navbar() {
         mass: 0.8,
         delay: 0.1,
       };
-
-  const handleJourneyClick = useCallback(
-    (e: ReactMouseEvent<HTMLAnchorElement>) => {
-      if (typeof window === "undefined") return;
-      if (window.location.pathname !== "/") return;
-
-      const target = document.getElementById("journey");
-      if (!target) return;
-
-      e.preventDefault();
-      target.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-        block: "start",
-      });
-      window.history.pushState(null, "", "/#journey");
-      setActiveSection("journey");
-    },
-    [prefersReducedMotion]
-  );
-
   return (
     <>
       <motion.header
@@ -289,7 +282,7 @@ export default function Navbar() {
               className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-[#B7964A] to-transparent"
             />
 
-            {/* ── Logo + Wordmark + Journey ── */}
+            {/* ── Logo + Wordmark ── */}
             <motion.div
               animate={{
                 scale: 1 + effectiveProgress * 0.08,
@@ -313,7 +306,7 @@ export default function Navbar() {
                   transition={{ type: "spring" as const, stiffness: 320, damping: 16 }}
                 >
                   <Image
-                    src="/logo/viswas-logo.png"
+                    src="/logo/MAIN LOGO.png"
                     alt="VISWAS"
                     width={42}
                     height={42}
@@ -323,7 +316,7 @@ export default function Navbar() {
                 </motion.div>
 
                 <div className="whitespace-nowrap">
-                  {/* ── Name row: VISWAS wordmark + Journey, same baseline ── */}
+                  {/* ── Name row: VISWAS wordmark ── */}
                   <div className="flex items-center">
                     <motion.div
                       className="relative inline-block"
@@ -348,61 +341,9 @@ export default function Navbar() {
                         style={{ backgroundColor: GOLD }}
                       />
                     </motion.div>
-
-                    {/* ── Journey, immediately right of "VISWAS" ── */}
-                    {JOURNEY_ITEM &&
-                      (() => {
-                        const journeyId = sectionIdFromHref(JOURNEY_ITEM.href);
-                        const isActive = journeyId !== null && activeSection === journeyId;
-                        const isHighlighted = hoveredNav === JOURNEY_ITEM.label || isActive;
-
-                        return (
-                          <motion.div
-                            initial={{ maxWidth: JOURNEY_MAX_WIDTH, opacity: 1, marginLeft: 14 }}
-                            animate={{
-                              maxWidth: JOURNEY_MAX_WIDTH * (1 - effectiveProgress),
-                              opacity: 1 - effectiveProgress,
-                              marginLeft: 14 * (1 - effectiveProgress),
-                            }}
-                            transition={getTransition(0, 0.14)}
-                            style={{ pointerEvents: compact ? "none" : "auto" }}
-                            className="hidden items-center self-stretch overflow-hidden sm:flex"
-                          >
-                            <span
-                              aria-hidden="true"
-                              className="mr-3 h-4 w-px shrink-0"
-                              style={{ backgroundColor: "rgba(23,63,56,0.16)" }}
-                            />
-                            <Link
-                              href={JOURNEY_ITEM.href}
-                              onClick={handleJourneyClick}
-                              onMouseEnter={() => setHoveredNav(JOURNEY_ITEM.label)}
-                              onMouseLeave={() =>
-                                setHoveredNav((v) => (v === JOURNEY_ITEM.label ? null : v))
-                              }
-                              aria-current={isActive ? "page" : undefined}
-                              className={`relative shrink-0 whitespace-nowrap ${FOCUS_RING}`}
-                            >
-                              <motion.span
-                                animate={{ color: isHighlighted ? GOLD : IVORY }}
-                                transition={COLOR_TRANSITION}
-                                className="block text-[11px] font-semibold uppercase tracking-[0.28em]"
-                              >
-                                {JOURNEY_ITEM.label}
-                              </motion.span>
-                              <motion.span
-                                animate={{ width: isHighlighted ? "100%" : "0%" }}
-                                transition={COLOR_TRANSITION}
-                                className="absolute -bottom-1.5 left-0 h-px"
-                                style={{ backgroundColor: GOLD }}
-                              />
-                            </Link>
-                          </motion.div>
-                        );
-                      })()}
                   </div>
 
-                  {/* ── Tagline, full width, below the VISWAS + Journey row ── */}
+                  {/* ── Tagline, full width, below the VISWAS row ── */}
                   <motion.div
                     initial={{ maxWidth: TAGLINE_MAX_WIDTH, opacity: 1, marginTop: 2 }}
                     animate={{
@@ -443,6 +384,7 @@ export default function Navbar() {
                 const itemId = sectionIdFromHref(item.href);
                 const isActive = itemId !== null && activeSection === itemId;
                 const isHighlighted = hoveredNav === item.label || isActive;
+                const isJourney = itemId === "journey";
 
                 return (
                   <motion.div
@@ -462,11 +404,11 @@ export default function Navbar() {
                         setHoveredNav((v) => (v === item.label ? null : v))
                       }
                     >
-                      <Link
-                        href={item.href}
-                        aria-current={isActive ? "page" : undefined}
-                        className={FOCUS_RING}
-                      >
+                     <SectionLink
+  href={item.href}
+  aria-current={isActive ? "page" : undefined}
+  className={FOCUS_RING}
+>
                         <motion.span
                           whileHover={{ y: -2 }}
                           animate={{ color: isHighlighted ? GOLD : IVORY }}
@@ -481,72 +423,67 @@ export default function Navbar() {
                           className="absolute -bottom-2 left-0 h-px"
                           style={{ backgroundColor: GOLD }}
                         />
-                      </Link>
+                      </SectionLink>
                     </div>
                   </motion.div>
                 );
               })}
             </motion.nav>
 
-            {/* ── CTA Button ── */}
-            <motion.div
-              initial={{ width: 172, opacity: 1, scale: 1 }}
-              animate={{
-                width: 172 * (1 - effectiveProgress),
-                opacity: 1 - effectiveProgress,
-                scale: 1 - effectiveProgress * 0.16,
-              }}
-              transition={getTransition(0.015, 0.045)}
-              style={{ pointerEvents: compact ? "none" : "auto" }}
-              className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
-            >
-              <Link href={CTA_BUTTON.href} className={FOCUS_RING}>
-                <motion.button
-                  onHoverStart={() => setCtaHovered(true)}
-                  onHoverEnd={() => setCtaHovered(false)}
-                  animate={{
-                    backgroundColor: "#B7964A",
-                  }}
-                  whileHover={{
-                    y: -3,
-                    scale: 1.025,
-                    boxShadow:
-                      "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
-                  }}
-                  whileTap={{ scale: 0.97, y: 0 }}
-                  transition={{
-                    y: { type: "spring" as const, stiffness: 320, damping: 22 },
-                    scale: { type: "spring" as const, stiffness: 320, damping: 22 },
-                    boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                    backgroundColor: { duration: 0 },
-                  }}
-                  className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
-                  style={{ background: "#B7964A" }}
-                >
-                  <motion.span
-                    initial={{ x: "-110%" }}
-                    animate={{ x: ctaHovered ? "110%" : "-110%" }}
-                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
-                    }}
-                  />
-                  <span className="relative z-10">{CTA_BUTTON.label}</span>
-                  <motion.span
-                    animate={{
-                      x: ctaHovered ? 3 : 0,
-                      y: ctaHovered ? -3 : 0,
-                    }}
-                    transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
-                    className="relative z-10 flex"
-                  >
-                    <ArrowUpRight size={18} />
-                  </motion.span>
-                </motion.button>
-              </Link>
-            </motion.div>
+           {/* ── CTA Button ── */}
+<motion.div
+  initial={{ width: 172, opacity: 1, scale: 1 }}
+  animate={{
+    width: 172 * (1 - effectiveProgress),
+    opacity: 1 - effectiveProgress,
+    scale: 1 - effectiveProgress * 0.16,
+  }}
+  transition={getTransition(0.015, 0.045)}
+  style={{ pointerEvents: compact ? "none" : "auto" }}
+  className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
+>
+  <SectionLink href={CTA_BUTTON.href} className={FOCUS_RING}>
+    <motion.button
+      onHoverStart={() => setCtaHovered(true)}
+      onHoverEnd={() => setCtaHovered(false)}
+      animate={{ backgroundColor: "#B7964A" }}
+      whileHover={{
+        y: -3,
+        scale: 1.025,
+        boxShadow:
+          "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
+      }}
+      whileTap={{ scale: 0.97, y: 0 }}
+      transition={{
+        y: { type: "spring" as const, stiffness: 320, damping: 22 },
+        scale: { type: "spring" as const, stiffness: 320, damping: 22 },
+        boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+        backgroundColor: { duration: 0 },
+      }}
+      className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
+      style={{ background: "#B7964A" }}
+    >
+      <motion.span
+        initial={{ x: "-110%" }}
+        animate={{ x: ctaHovered ? "110%" : "-110%" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
+        }}
+      />
+      <span className="relative z-10">{CTA_BUTTON.label}</span>
+      <motion.span
+        animate={{ x: ctaHovered ? 3 : 0, y: ctaHovered ? -3 : 0 }}
+        transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
+        className="relative z-10 flex"
+      >
+        <ArrowUpRight size={18} />
+      </motion.span>
+    </motion.button>
+  </SectionLink>
+</motion.div>
 
             {/* ── Mobile Menu Button ── */}
             <motion.button
@@ -563,7 +500,7 @@ export default function Navbar() {
               aria-label="Open menu"
               aria-haspopup="true"
               aria-expanded={menuOpen}
-              className={`absolute right-5 z-10 flex rounded-full border border-[#173F38]/8 bg-white p-3 text-[#071F2D] backdrop-blur-md lg:hidden ${FOCUS_RING}`}
+              className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md lg:hidden ${FOCUS_RING}`}
             >
               <Menu size={22} />
             </motion.button>
@@ -571,9 +508,14 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      <AnimatePresence>
-        {menuOpen && <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />}
-      </AnimatePresence>
+<AnimatePresence>
+  {menuOpen && (
+    <MobileMenu
+      open={menuOpen}
+      onClose={() => setMenuOpen(false)}
+    />
+  )}
+</AnimatePresence>
     </>
   );
 }

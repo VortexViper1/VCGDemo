@@ -47,12 +47,12 @@ const RELATED = [
 
 export default function ScalingBusinessesEmergingMarketsPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE]">
+    <main className="min-h-screen bg-[#F8F5EF]">
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[170px]"
         />
         <motion.div
           animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
@@ -65,7 +65,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
         <Reveal>
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors hover:text-[#C9A35F]"
+            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#C49A4A]"
           >
             <ArrowLeft
               size={16}
@@ -77,20 +77,20 @@ export default function ScalingBusinessesEmergingMarketsPage() {
 
         <Reveal delay={0.1}>
           <div className="mx-auto mt-10 max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C49A4A]">
               <Globe2 size={14} />
               {ARTICLE.category}
             </span>
 
-            <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-6xl tracking-tight"style={{ color: "#173F38" }} >
+            <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-6xl tracking-tight"style={{ color: "#2A2D31" }} >
               {ARTICLE.title}
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#071F2D]/70">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#23272B]/70">
               {ARTICLE.description}
             </p>
 
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#071F2D]/50">
+            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#23272B]/50">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
                 {ARTICLE.date}
@@ -120,7 +120,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
         <div className="mx-auto mt-20 max-w-3xl">
           <Reveal>
             <GlassCard className="prose-none">
-              <div className="space-y-8 leading-8 text-[#071F2D]/75">
+              <div className="space-y-8 leading-8 text-[#23272B]/75">
                 <p>
                   Emerging markets offer some of the most attractive growth
                   curves available to an expanding business — and some of
@@ -131,7 +131,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                   single playbook exported unchanged across borders.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Strategic expansion starts with sequencing
                 </h2>
                 <p>
@@ -145,16 +145,16 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                   credibility needed to take on harder markets later.
                 </p>
 
-                <div className="my-10 rounded-2xl border-l-4 border-[#C9A35F] bg-[#071F2D]/[0.03] p-6 md:p-8">
-                  <Quote size={22} className="text-[#C9A35F]" />
-                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#173F38" }}>
+                <div className="my-10 rounded-2xl border-l-4 border-[#C49A4A] bg-[#23272B]/[0.03] p-6 md:p-8">
+                  <Quote size={22} className="text-[#C49A4A]" />
+                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#2A2D31" }}>
                     A strategy that worked at home is a hypothesis abroad,
                     not a guarantee — and treating it as a guarantee is the
                     most common way expansion plans quietly fail.
                   </p>
                 </div>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Localized execution, not just localized marketing
                 </h2>
                 <p>
@@ -168,7 +168,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                   brand actually functions as a locally adapted business.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Operational excellence as a growth constraint
                 </h2>
                 <p>
@@ -182,7 +182,7 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                   cannot keep pace with its own growth.
                 </p>
 
-                <h2 className="text-2xl font-semibold "style={{ color: "#173F38" }}>
+                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
                   Governance that travels well
                 </h2>
                 <p>
@@ -207,31 +207,15 @@ export default function ScalingBusinessesEmergingMarketsPage() {
             </GlassCard>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#173F38]/8 bg-[#071F2D]/[0.03] p-6 md:p-8 sm:flex-row">
-              <p className="text-center text-[#071F2D]/70 sm:text-left">
-                Evaluating which market to enter next, and in what order?
-              </p>
-              <Link href="/contact">
-                <motion.span
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-3 whitespace-nowrap rounded-full bg-[#C9A35F] px-7 py-3.5 font-semibold text-[#071F2D] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
-                >
-                  Talk to Our Team
-                  <ArrowRight size={18} />
-                </motion.span>
-              </Link>
-            </div>
-          </Reveal>
+        
         </div>
 
         <Reveal delay={0.1}>
           <div className="mx-auto mt-24 mb-32 max-w-5xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
               Continue Reading
             </span>
-            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#173F38" }}>
+            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#2A2D31" }}>
               Related Insights
             </h2>
 
@@ -245,22 +229,22 @@ export default function ScalingBusinessesEmergingMarketsPage() {
                       className="h-full"
                     >
                       <GlassCard className="group flex h-full flex-col">
-                        <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
+                        <span className="inline-flex w-fit items-center rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C49A4A]">
                           {article.category}
                         </span>
 
-                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]"style={{ color: "#173F38" }} >
+                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C49A4A]"style={{ color: "#2A2D31" }} >
                           {article.title}
                         </h3>
 
-                        <div className="mt-6 flex items-center justify-between border-t border-[#173F38]/8 pt-5">
-                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#071F2D]/50">
+                        <div className="mt-6 flex items-center justify-between border-t border-[#2A2D31]/8 pt-5">
+                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#23272B]/50">
                             <Clock3 size={14} />
                             {article.read}
                           </div>
                           <ArrowRight
                             size={15}
-                            className="text-[#C9A35F] transition-transform duration-300 group-hover:translate-x-1"
+                            className="text-[#C49A4A] transition-transform duration-300 group-hover:translate-x-1"
                           />
                         </div>
                       </GlassCard>

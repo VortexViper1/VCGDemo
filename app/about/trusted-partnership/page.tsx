@@ -35,11 +35,11 @@ const OUTCOMES = [
 
 export default function TrustedPartnershipPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE]">
+    <main className="min-h-screen bg-[#F8F5EF]">
       <Section className="pt-40 pb-32">
         <Reveal>
           <Link
-            href="/#about"
+            href="/#why-viswas"
             className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#44665F] transition-colors duration-300 hover:text-accent"
           >
             <ArrowLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-1" />
@@ -66,7 +66,7 @@ export default function TrustedPartnershipPage() {
 
         {/* Business photo — replace src with your own image in /public/about/ */}
         <Reveal delay={0.18}>
-          <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#173F38]/10 md:h-[440px]">
+          <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/trusted-partnership.png"
               alt="Trusted Partnership — VISWAS advisors meeting with a client"
@@ -75,7 +75,7 @@ export default function TrustedPartnershipPage() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#173F38]/35 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2A2D31]/35 via-transparent to-transparent" />
           </div>
         </Reveal>
 
@@ -88,10 +88,10 @@ export default function TrustedPartnershipPage() {
                   className="h-full rounded-[28px] border p-10 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
                   style={{
                     background:
-                      "linear-gradient(160deg, rgba(23, 63, 56, 0.92) 0%, rgba(7, 31, 45, 0.96) 100%)",
+                      "linear-gradient(160deg, rgba(42,45,49, 0.92) 0%, rgba(31,35,39, 0.96) 100%)",
                     borderColor: "rgba(255, 255, 255, 0.12)",
                     boxShadow:
-                      "0 12px 40px rgba(7, 31, 45, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
+                      "0 12px 40px rgba(31,35,39, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
                   }}
                 >
                   <h3
@@ -107,15 +107,15 @@ export default function TrustedPartnershipPage() {
 
         {/* Outcomes — plain spec-list on the page background, hairline top rule */}
         <Reveal delay={0.2}>
-          <div className="mt-24 border-t border-[#173F38]/10 pt-12">
-            <h3 className="mb-8 text-2xl font-semibold tracking-tight text-[#173F38]">
+          <div className="mt-24 border-t border-[#2A2D31]/10 pt-12">
+            <h3 className="mb-8 text-2xl font-semibold tracking-tight text-[#2A2D31]">
               What You Can Expect
             </h3>
             <div className="grid gap-5 sm:grid-cols-2">
               {OUTCOMES.map((outcome) => (
                 <div key={outcome} className="flex items-start gap-3">
                   <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-accent" />
-                  <span className="text-[#173F38]/75">{outcome}</span>
+                  <span className="text-[#2A2D31]/75">{outcome}</span>
                 </div>
               ))}
             </div>

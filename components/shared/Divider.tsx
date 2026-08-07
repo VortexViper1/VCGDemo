@@ -12,11 +12,11 @@ export default function Divider({
   return (
     <div
       className={cn(
-        "relative h-px w-full overflow-hidden bg-[#F7F4EE]/10",
+        "relative h-px w-full overflow-hidden bg-[#F8F5EF]/10",
         className
       )}
     >
-      <div className="absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-transparent via-[#C9A35F] to-transparent" />
+      <div className="absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-transparent via-[#C49A4A] to-transparent" />
     </div>
   );
 }

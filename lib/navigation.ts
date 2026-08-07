@@ -24,11 +24,6 @@ export const NAVIGATION: NavigationItem[] = [
     icon: Home,
   },
   {
-    label: "About",
-    href: "/#about",
-    icon: Users,
-  },
-  {
     label: "Services",
     href: "/#services",
     icon: BriefcaseBusiness,

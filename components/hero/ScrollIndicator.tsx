@@ -10,14 +10,14 @@ export default function ScrollIndicator() {
       transition={{ delay: 1.6, duration: 1 }}
       className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3"
     >
-      <span className="text-[10px] uppercase tracking-[0.4em] text-[#071F2D]/50">
+      <span className="text-[10px] uppercase tracking-[0.4em] text-[#23272B]/50">
         Scroll
       </span>
-      <div className="relative h-12 w-[1px] overflow-hidden bg-[#F7F4EE]/15">
+      <div className="relative h-12 w-[1px] overflow-hidden bg-[#F8F5EF]/15">
         <motion.div
           animate={{ y: ["-100%", "100%"] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-x-0 top-0 h-1/2 bg-[#C9A35F]"
+          className="absolute inset-x-0 top-0 h-1/2 bg-[#C49A4A]"
         />
       </div>
     </motion.div>

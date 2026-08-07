@@ -34,7 +34,7 @@ text-[13px]
 font-semibold
 uppercase
 tracking-[0.28em]
-text-[#C9A35F]
+text-[#C49A4A]
 "
         >
           {eyebrow}
@@ -42,7 +42,7 @@ text-[#C9A35F]
       )}
 
       <motion.h2
-  style={{ color: "#173F38" }}
+  style={{ color: "#2A2D31" }}
   className="
 font-[var(--font-display)]
 text-[clamp(2.8rem,5vw,4.8rem)]

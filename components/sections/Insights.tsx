@@ -59,7 +59,7 @@ const INSIGHTS: Insight[] = [
   },
   {
     category: "Cybersecurity",
-    title: "Cybersecurity as a Business Strategy",
+    title: "Cybersecurity as a Corporate & Financial Strategy",
     description:
       "Reframing security investment from a cost center to a board-level driver of trust, resilience, and enterprise value.",
     date: "May 2026",
@@ -160,7 +160,7 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
       draggable={false}
     >
       <div
-        className="group relative h-[28rem] lg:h-[26rem] w-full overflow-hidden rounded-2xl bg-[#071F2D] ring-1 ring-white/10 transition-shadow duration-500 focus-within:ring-2 focus-within:ring-[#C9A35F]"
+        className="group relative h-[28rem] lg:h-[26rem] w-full overflow-hidden rounded-2xl bg-[#23272B] ring-1 ring-white/10 transition-shadow duration-500 focus-within:ring-2 focus-within:ring-[#C49A4A]"
         style={{ willChange: "transform" }}
       >
         {/* Background image */}
@@ -185,7 +185,7 @@ function InsightCard({ insight, cardWidth, active, onEnter, onLeave }: CardProps
 
         {/* Overlay */}
         <motion.div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071F2D] via-[#071F2D]/50 to-[#071F2D]/10"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#23272B] via-[#23272B]/50 to-[#23272B]/10"
           animate={{ opacity: active ? 1 : 0.85 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         />
@@ -365,6 +365,8 @@ export default function Insights() {
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mobileTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+const scrollingRef = useRef(false);
+
   const lastCenteredIndexRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null); // desktop hover/focus
   const [mobileActiveIndex, setMobileActiveIndex] = useState<number | null>(null);
@@ -460,18 +462,39 @@ export default function Insights() {
     }
   });
 
-  useEffect(() => {
-    return () => {
-      clearResumeTimeout();
-      if (mobileTimeoutRef.current) clearTimeout(mobileTimeoutRef.current);
-    };
-  }, []);
+useEffect(() => {
+  let timeout: ReturnType<typeof setTimeout>;
+
+  const onScroll = () => {
+    scrollingRef.current = true;
+
+    hoverPausedRef.current = false;
+    setActiveIndex(null);
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      scrollingRef.current = false;
+    }, 120);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  return () => {
+    clearResumeTimeout();
+
+    if (mobileTimeoutRef.current)
+      clearTimeout(mobileTimeoutRef.current);
+
+    window.removeEventListener("scroll", onScroll);
+  };
+}, []);
 
   /* ---------------- Static (reduced motion) layout ---------------- */
 
   if (prefersReducedMotion) {
     return (
-      <Section id="insights" className="relative overflow-hidden bg-[#F7F4EE]">
+      <Section id="insights" className="relative overflow-hidden bg-[#F8F5EF]">
         <Reveal>
           <SectionTitle
             eyebrow="INSIGHTS"
@@ -498,17 +521,17 @@ export default function Insights() {
   }
 
   return (
-    <Section id="insights" className="relative overflow-hidden bg-[#F7F4EE]">
+    <Section id="insights" className="relative overflow-hidden bg-[#F8F5EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
+          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 top-10 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
+          className="absolute -right-20 top-10 h-96 w-96 rounded-full bg-[#1F2428]/30 blur-[140px]"
         />
       </div>
 
@@ -523,8 +546,8 @@ export default function Insights() {
 
       <div ref={viewportRef} className="relative mt-16 overflow-hidden">
         {/* Edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#F7F4EE] to-transparent w-10 sm:w-16 lg:w-28" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#F7F4EE] to-transparent w-10 sm:w-16 lg:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#F8F5EF] to-transparent w-10 sm:w-16 lg:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#F8F5EF] to-transparent w-10 sm:w-16 lg:w-28" />
 
         <motion.div
           className="flex"

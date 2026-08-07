@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -16,7 +16,7 @@ import GlassCard from "@/components/shared/GlassCard";
 import Reveal from "@/components/shared/Reveal";
 
 const FEATURED = {
-  category: "Business Strategy",
+  category: "Corporate & Financial Strategy",
   title: "The Future of Business Transformation in the AI Era",
   description:
     "Explore how organizations are leveraging Artificial Intelligence, digital transformation, and strategic leadership to build resilient, future-ready enterprises.",
@@ -44,7 +44,7 @@ const ARTICLES = [
   },
   {
     category: "Cybersecurity",
-    title: "Cybersecurity as a Business Strategy",
+    title: "Cybersecurity as a Corporate & Financial Strategy",
     description:
       "Cyber resilience has become a strategic advantage, enabling organizations to innovate securely and protect trust.",
     read: "7 min read",
@@ -108,7 +108,7 @@ function EmberField() {
             width: p.size,
             height: p.size,
           }}
-          className="absolute bottom-0 rounded-full bg-[#C9A35F] shadow-[0_0_8px_2px_rgba(201,163,95,0.6)]"
+          className="absolute bottom-0 rounded-full bg-[#C49A4A] shadow-[0_0_8px_2px_rgba(201,163,95,0.6)]"
         />
       ))}
     </div>
@@ -117,11 +117,9 @@ function EmberField() {
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE]">
-
+    <main className="min-h-screen bg-[#F8F5EF]">
       {/* Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-
         <motion.div
           animate={{
             x: [0, 80, 0],
@@ -132,7 +130,7 @@ export default function InsightsPage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/12 blur-[170px]"
+          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[170px]"
         />
 
         <motion.div
@@ -147,13 +145,10 @@ export default function InsightsPage() {
           }}
           className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#123A53]/40 blur-[180px]"
         />
-
       </div>
 
       {/* HERO */}
-
       <Section className="relative pt-40">
-
         {/* Signature moment: a slow drift of embers rising through the hero,
             echoing the gold accent without competing with the copy. */}
         <EmberField />
@@ -161,7 +156,7 @@ export default function InsightsPage() {
         <Reveal>
           <Link
             href="/"
-            className="group relative z-10 inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#071F2D]/50 transition-colors hover:text-[#C9A35F]"
+            className="group relative z-10 inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#C49A4A]"
           >
             <ArrowLeft
               size={16}
@@ -172,246 +167,254 @@ export default function InsightsPage() {
         </Reveal>
 
         <div className="relative z-10">
+          <Reveal delay={0.1}>
+            <SectionTitle
+              eyebrow="VISWAS INSIGHTS"
+              title="Perspectives That Shape Tomorrow's Business Leaders"
+              description="Original research, executive perspectives, and strategic thinking from VISWAS Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
+              align="center"
+            />
+          </Reveal>
 
-        <Reveal delay={0.1}>
-
-          <SectionTitle
-            eyebrow="VISWAS INSIGHTS"
-            title="Perspectives That Shape Tomorrow's Business Leaders"
-            description="Original research, executive perspectives, and strategic thinking from VISWAS Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
-            align="center"
-          />
-
-        </Reveal>
-
-        <Reveal delay={0.2}>
-
-          <div className="mt-20">
-
-            <Link href={FEATURED.href}>
-
-              <GlassCard className="group overflow-hidden">
-
-                <div className="grid gap-10 lg:grid-cols-2">
-
-                  {/* LEFT */}
-
-                  <div>
-
-                    <div className="flex items-center gap-3">
-
-                      <span className="rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C9A35F]">
-                        Featured Insight
-                      </span>
-
-                    </div>
-
-                    <h1 className="mt-8 text-6xl tracking-tight font-semibold leading-tight" style={{ color: "#173F38" }}>
-
-                      {FEATURED.title}
-
-                    </h1>
-
-                    <p className="mt-8 text-lg leading-9 text-[#071F2D]/70">
-
-                      {FEATURED.description}
-
-                    </p>
-
-                    <div className="mt-10 flex flex-wrap gap-6 text-[#6B807A]">
-
-                      <div className="flex items-center gap-2">
-
-                        <Calendar size={18} />
-
-                        {FEATURED.date}
-
+          {/* FEATURED INSIGHT */}
+          <Reveal delay={0.2}>
+            <div className="mt-20">
+              <Link href={FEATURED.href}>
+                <GlassCard className="group overflow-hidden">
+                  <div className="grid gap-10 lg:grid-cols-2">
+                    {/* LEFT */}
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <span className="rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C49A4A]">
+                          Featured Insight
+                        </span>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <h1
+                        className="mt-8 text-6xl tracking-tight font-semibold leading-tight"
+                        style={{ color: "#2A2D31" }}
+                      >
+                        {FEATURED.title}
+                      </h1>
 
-                        <Clock3 size={18} />
+                      <p className="mt-8 text-lg leading-9 text-[#23272B]/70">
+                        {FEATURED.description}
+                      </p>
 
-                        {FEATURED.read}
+                      <div className="mt-10 flex flex-wrap gap-6 text-[#6B807A]">
+                        <div className="flex items-center gap-2">
+                          <Calendar size={18} />
+                          {FEATURED.date}
+                        </div>
 
-                      </div>
-
-                    </div>
-
-                    <motion.div
-                      whileHover={{ x: 6 }}
-                      className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C9A35F]"
-                    >
-
-                      Read Insight
-
-                      <ArrowRight size={18} />
-
-                    </motion.div>
-
-                  </div>
-
-                  {/* RIGHT */}
-
-                  <div className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#123A53] via-[#0E2B40] to-[#071F2D] min-h-[420px]">
-
-                    <motion.div
-                      animate={{
-                        rotate: [0, 360],
-                      }}
-                      transition={{
-                        duration: 35,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute h-72 w-72 rounded-full border border-[#C9A35F]/20"
-                    />
-
-                    <motion.div
-                      animate={{
-                        rotate: [360, 0],
-                      }}
-                      transition={{
-                        duration: 28,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute h-52 w-52 rounded-full border border-[#173F38]/8"
-                    />
-
-                    <TrendingUp
-                      size={72}
-                      className="relative z-10 text-[#C9A35F]"
-                    />
-
-                  </div>
-
-                </div>
-
-              </GlassCard>
-
-            </Link>
-
-          </div>
-
-        </Reveal>
-
-        </div>
-
-        {/* ARTICLE GRID STARTS BELOW */}
-
-        <Reveal delay={0.1}>
-
-          <div className="mt-24 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-
-            <div>
-
-              <span className="text-xs uppercase tracking-[0.35em] text-[#C9A35F]">
-                Latest Thinking
-              </span>
-
-              <h2 className="mt-4 text-3xl font-semibold" style={{ color: "#173F38" }}>
-                More Insights
-              </h2>
-
-            </div>
-
-            <p className="max-w-sm text-sm leading-6 text-[#071F2D]/50">
-              Perspectives across strategy, technology, and leadership from
-              our consulting practice.
-            </p>
-
-          </div>
-
-        </Reveal>
-
-        <div className="mt-12 grid gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3">
-
-          {ARTICLES.map((article, index) => (
-
-            <Reveal key={article.href} delay={0.1 + (index % 3) * 0.1}>
-
-              <Link href={article.href} className="block h-full">
-
-                <motion.div
-                  whileHover={{ y: -6 }}
-                  transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
-                  className="h-full"
-                >
-
-                  <GlassCard className="group flex h-full flex-col overflow-hidden">
-
-                    <span className="inline-flex w-fit items-center rounded-full border border-[#C9A35F]/30 bg-[#C9A35F]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C9A35F]">
-                      {article.category}
-                    </span>
-
-                    <h3 className="mt-6 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C9A35F]" style={{ color: "#173F38" }}>
-                      {article.title}
-                    </h3>
-
-                    <p className="mt-4 flex-1 text-sm leading-7 text-[#6B807A]">
-                      {article.description}
-                    </p>
-
-                    <div className="mt-8 flex items-center justify-between border-t border-[#173F38]/8 pt-6">
-
-                      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#071F2D]/50">
-                        <Clock3 size={14} />
-                        {article.read}
+                        <div className="flex items-center gap-2">
+                          <Clock3 size={18} />
+                          {FEATURED.read}
+                        </div>
                       </div>
 
                       <motion.div
-                        className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A35F]"
+                        whileHover={{ x: 6 }}
+                        className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C49A4A]"
                       >
-                        Read
-
-                        <ArrowRight
-                          size={15}
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        />
+                        Read Insight
+                        <ArrowRight size={18} />
                       </motion.div>
-
                     </div>
 
-                  </GlassCard>
+                {/* RIGHT - VISWAS Logo */}
 
-                </motion.div>
+<div className="relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-[32px] bg-[#0C2234]">
 
+  <div className="absolute h-[340px] w-[340px] rounded-full bg-[#C49A4A]/12 blur-[120px]" />
+
+  <motion.div
+    animate={{ rotate: [0, 360] }}
+    transition={{
+      duration: 40,
+      repeat: Infinity,
+      ease: "linear",
+    }}
+    className="absolute h-[420px] w-[420px] rounded-full border border-[#C49A4A]/15"
+  />
+
+  <motion.div
+    animate={{ rotate: [360, 0] }}
+    transition={{
+      duration: 30,
+      repeat: Infinity,
+      ease: "linear",
+    }}
+    className="absolute h-[300px] w-[300px] rounded-full border border-white/5"
+  />
+
+  <motion.div
+    animate={{
+      y: [-6, 6, -6],
+      scale: [1, 1.02, 1],
+    }}
+    transition={{
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="relative z-20"
+  >
+    <Image
+      src="/logo/MAIN LOGO.png"
+      alt="VISWAS"
+      width={300}
+      height={300}
+      className="object-contain"
+      priority
+    />
+  </motion.div>
+
+  <motion.span
+    animate={{ y: [-8, 8, -8] }}
+    transition={{ duration: 6, repeat: Infinity }}
+    className="absolute left-[20%] top-[25%] h-2 w-2 rounded-full bg-[#C49A4A]"
+  />
+
+  <motion.span
+    animate={{ y: [8, -8, 8] }}
+    transition={{ duration: 8, repeat: Infinity }}
+    className="absolute right-[18%] bottom-[28%] h-2 w-2 rounded-full bg-[#C49A4A]"
+  />
+
+</div>
+</div>
+                </GlassCard>
               </Link>
+            </div>
+          </Reveal>
 
-            </Reveal>
+          {/* ARTICLE GRID STARTS BELOW */}
+          <Reveal delay={0.1}>
+            <div className="mt-24 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+                  Latest Thinking
+                </span>
 
-          ))}
-
-        </div>
-
-        {/* NEWSLETTER / CTA STRIP */}
-
-        <Reveal delay={0.2}>
-
-          <div className="mt-24 mb-32">
-
-            <GlassCard className="relative overflow-hidden text-center">
-
-              <div className="pointer-events-none absolute inset-0 -z-10">
-
-                <motion.div
-                  animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C9A35F]/12 blur-[120px]"
-                />
-
+                <h2 className="mt-4 text-3xl font-semibold" style={{ color: "#2A2D31" }}>
+                  More Insights
+                </h2>
               </div>
 
-            
-            </GlassCard>
+              <p className="max-w-sm text-sm leading-6 text-[#23272B]/50">
+                Perspectives across strategy, technology, and leadership from
+                our consulting practice.
+              </p>
+            </div>
+          </Reveal>
 
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {ARTICLES.map((article, index) => (
+              <Reveal key={article.href} delay={0.1 + (index % 3) * 0.1}>
+                <Link href={article.href} className="block h-full">
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
+                    className="h-full"
+                  >
+                    <GlassCard className="group flex h-full flex-col overflow-hidden">
+                      <span className="inline-flex w-fit items-center rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C49A4A]">
+                        {article.category}
+                      </span>
+
+                      <h3
+                        className="mt-6 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C49A4A]"
+                        style={{ color: "#2A2D31" }}
+                      >
+                        {article.title}
+                      </h3>
+
+                      <p className="mt-4 flex-1 text-sm leading-7 text-[#6B807A]">
+                        {article.description}
+                      </p>
+
+                      <div className="mt-8 flex items-center justify-between border-t border-[#2A2D31]/8 pt-6">
+                        <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#23272B]/50">
+                          <Clock3 size={14} />
+                          {article.read}
+                        </div>
+
+                        <motion.div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C49A4A]">
+                          Read
+                          <ArrowRight
+                            size={15}
+                            className="transition-transform duration-300 group-hover:translate-x-1"
+                          />
+                        </motion.div>
+                      </div>
+                    </GlassCard>
+                  </motion.div>
+                </Link>
+              </Reveal>
+            ))}
           </div>
 
-        </Reveal>
+          {/* NEWSLETTER / CTA STRIP */}
+          <Reveal delay={0.2}>
+            <div className="mt-24 mb-32">
+              <GlassCard className="relative overflow-hidden text-center">
+                <div className="pointer-events-none absolute inset-0 -z-10">
+                  <motion.div
+                    animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C49A4A]/12 blur-[120px]"
+                  />
+                </div>
 
+                <div className="mx-auto max-w-xl px-6 py-14">
+                  <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+                    Stay Ahead
+                  </span>
+
+                  <h2
+                    className="mt-4 text-3xl font-semibold sm:text-4xl"
+                    style={{ color: "#2A2D31" }}
+                  >
+                    Insights delivered to your inbox.
+                  </h2>
+
+                  <p className="mt-4 text-sm leading-7 text-[#23272B]/60">
+                    One email, once a month — strategy, capital, and
+                    transformation perspectives from VISWAS. No noise.
+                  </p>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      // TODO: wire up to your newsletter provider / API route
+                    }}
+                    className="mt-8 flex flex-col gap-3 sm:flex-row"
+                  >
+                    <label htmlFor="newsletter-email" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="newsletter-email"
+                      type="email"
+                      required
+                      placeholder="you@company.com"
+                      className="w-full flex-1 rounded-full border border-[#2A2D31]/15 bg-white/70 px-5 py-3 text-sm text-[#2A2D31] placeholder:text-[#23272B]/35 outline-none transition-colors focus:border-[#C49A4A]"
+                    />
+                    <button
+                      type="submit"
+                      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#2A2D31] px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
+                    >
+                      Subscribe
+                      <ArrowRight size={16} />
+                    </button>
+                  </form>
+                </div>
+              </GlassCard>
+            </div>
+          </Reveal>
+        </div>
       </Section>
-
     </main>
   );
 }

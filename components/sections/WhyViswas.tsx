@@ -73,7 +73,7 @@ function CountUpStat({ value, delay }: { value: string; delay: number }) {
   }, [inView]);
 
   return (
-    <h3 ref={ref} className="text-6xl tracking-tight font-bold tabular-nums" style={{ color: "#173F38" }}>
+    <h3 ref={ref} className="text-6xl tracking-tight font-bold tabular-nums" style={{ color: "#2A2D31" }}>
       {display}
       {suffix}
     </h3>
@@ -141,12 +141,12 @@ function FeatureCard({
         >
           <GlassCard
             className={`relative h-full overflow-hidden ${
-              active ? "!border-[#C9A35F]/50" : ""
+              active ? "!border-[#C49A4A]/50" : ""
             }`}
           >
             <span
               className={`absolute right-6 top-6 font-serif text-6xl tracking-tight font-bold transition-colors duration-700 ease-out ${
-                active ? "text-[#C9A35F]/10" : "text-[#071F2D]/[0.04]"
+                active ? "text-[#C49A4A]/10" : "text-[#23272B]/[0.04]"
               }`}
             >
               {String(index + 1).padStart(2, "0")}
@@ -161,18 +161,18 @@ function FeatureCard({
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-700 ease-out ${
                   active
-                    ? "border-[#C9A35F]/50 bg-[#C9A35F]/20"
-                    : "border-[#C9A35F]/20 bg-[#C9A35F]/12"
+                    ? "border-[#C49A4A]/50 bg-[#C49A4A]/20"
+                    : "border-[#C49A4A]/20 bg-[#C49A4A]/12"
                 }`}
               >
-                <Icon size={30} className="text-[#C9A35F]" />
+                <Icon size={30} className="text-[#C49A4A]" />
               </motion.div>
 
-              <h3 className="mb-5 text-2xl font-semibold" style={{ color: "#173F38" }}>
+              <h3 className="mb-5 text-2xl font-semibold" style={{ color: "#2A2D31" }}>
                 {feature.title}
               </h3>
 
-              <p className="flex-1 leading-8 text-[#071F2D]/70">
+              <p className="flex-1 leading-8 text-[#23272B]/70">
                 {feature.description}
               </p>
             </div>
@@ -185,17 +185,17 @@ function FeatureCard({
 
 export default function WhyViswas() {
   return (
-    <Section id="approach" className="relative overflow-hidden bg-[#F7F4EE]">
+    <Section id="approach" className="relative overflow-hidden bg-[#F8F5EF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C9A35F]/12 blur-[140px]"
+          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
           transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#23363F]/30 blur-[140px]"
+          className="absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-[#1F2428]/30 blur-[140px]"
         />
       </div>
 
@@ -211,14 +211,14 @@ export default function WhyViswas() {
 
           <Reveal delay={0.2}>
             <div className="relative mt-14 space-y-10 pl-8">
-              <div className="absolute inset-y-0 left-0 w-px bg-[#F7F4EE]/10">
+              <div className="absolute inset-y-0 left-0 w-px bg-[#F8F5EF]/10">
                 <motion.div
                   initial={{ scaleY: 0 }}
                   whileInView={{ scaleY: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                   style={{ transformOrigin: "top" }}
-                  className="absolute inset-0 bg-gradient-to-b from-[#C9A35F] to-transparent"
+                  className="absolute inset-0 bg-gradient-to-b from-[#C49A4A] to-transparent"
                 />
               </div>
 
@@ -229,7 +229,7 @@ export default function WhyViswas() {
                   transition={{ type: "spring", stiffness: 250, damping: 20 }}
                 >
                   <CountUpStat value={item.value} delay={index * 0.15} />
-                  <p className="mt-4 font-[var(--font-sans)] text-sm uppercase tracking-[0.16em] text-[#6E847F]">
+                  <p className="mt-4 font-[var(--font-sans)] text-sm uppercase tracking-[0.16em] text-[#6C7278]">
                     {item.label}
                   </p>
                 </motion.div>

@@ -1,74 +1,173 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import ParallaxParticles from "./ParallaxParticles";
+import { useEffect, useRef, useState, RefObject } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Volume2 } from "lucide-react";
 
-export default function HeroBackground() {
-  const glowRef = useRef<HTMLDivElement>(null);
+interface Props {
+  sectionRef: RefObject<HTMLElement | null>;
+}
 
+export default function HeroVideoBackground({ sectionRef }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [needsInteraction, setNeedsInteraction] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const hasUnmutedRef = useRef(false);
+
+  // Initial autoplay attempt (sound first, then muted fallback)
   useEffect(() => {
-    const el = glowRef.current;
-    if (!el) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const xTo = gsap.quickTo(el, "x", { duration: 1.2, ease: "power3.out" });
-    const yTo = gsap.quickTo(el, "y", { duration: 1.2, ease: "power3.out" });
+    video.muted = true;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      xTo((e.clientX / window.innerWidth - 0.5) * 80);
-      yTo((e.clientY / window.innerHeight - 0.5) * 80);
+    const attemptSoundAutoplay = async () => {
+      try {
+        await video.play();
+        hasUnmutedRef.current = true;
+        setNeedsInteraction(false);
+      } catch {
+        try {
+          video.muted = true;
+          await video.play();
+        } catch {
+          /* mobile may block even muted autoplay until scroll */
+        }
+        setNeedsInteraction(true);
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    attemptSoundAutoplay();
   }, []);
 
+  // Pause when hero scrolls out of view, resume when it scrolls back in.
+  // This is the part that actually needs to observe the SECTION, not the
+  // video element itself — video is 100% of the section so observing the
+  // section is more reliable across mobile browsers where video dimensions
+  // can be reported late.
+  useEffect(() => {
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px",
+      }
+    );
+
+    observer.observe(section);
+
+    // Also pause on tab switch / app backgrounding — saves mobile battery
+    const handleVisibility = () => {
+      if (document.hidden) {
+        video.pause();
+      } else if (isElementInViewport(section)) {
+        video.play().catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [sectionRef]);
+
+const handleEnter = () => {
+  const video = videoRef.current;
+  if (!video) return;
+
+  video.pause();
+
+  video.muted = false;
+  video.defaultMuted = false;
+  video.volume = 1;
+
+  video
+    .play()
+    .then(() => {
+      hasUnmutedRef.current = true;
+      setNeedsInteraction(false);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
   return (
-    <div className="absolute inset-x-0 top-32 bottom-0 overflow-hidden -z-10">
-      {/* Gold Blob */}
-      <motion.div
-        animate={{ x: [0, 60, 0], y: [0, -40, 0], scale: [1, 1.15, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-40 left-16 h-80 w-80 rounded-full bg-[#C9A35F]/18 blur-[120px]"
-      />
+    <div className="absolute inset-0 h-full w-full overflow-hidden">
+      <div className="absolute inset-0 bg-[#0B1210]" />
+      {!isReady && (
+  <img
+    src="/hero-poster.jpg"
+    alt=""
+    className="absolute inset-0 h-full w-full object-cover"
+  />
+)}
 
-      {/* Blue Blob */}
-      <motion.div
-        animate={{ x: [0, -70, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-20 right-10 h-[32rem] w-[32rem] rounded-full bg-[#173F38]/8 blur-[150px]"
-      />
+      <video
+  ref={videoRef}
+  className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
+    isReady ? "opacity-100" : "opacity-0"
+  }`}
+  src="/hero-video.mp4"
+  poster="/hero-poster.jpg"
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  onCanPlay={() => setIsReady(true)}
+/>
 
-      {/* Center Glow — reacts to mouse via GSAP */}
-      <div
-        ref={glowRef}
-        className="absolute left-1/2 top-[58%] h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2"
-      >
-        <motion.div
-          animate={{ opacity: [0.35, 0.8, 0.35] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="h-full w-full rounded-full bg-[#FFFFFF]/70 blur-[150px]"
-        />
-      </div>
+      {/* Gradient overlays — natural color kept, contrast only where the
+          text sits. Tuned separately for the narrower mobile text column
+          vs the wider desktop one. */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10 sm:from-black/70 sm:via-black/30 sm:to-black/5" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
 
-      {/* Parallax Particles */}
-      <ParallaxParticles />
-
-      {/* Grid Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(23,63,56,.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(23,63,56,.08) 1px, transparent 1px)
-          `,
-          backgroundSize: "70px 70px",
-        }}
-      />
-
-      {/* Bottom Vignette */}
-      <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#071F2D]/12 via-[#071F2D]/6 to-transparent" />
+      <AnimatePresence>
+        {needsInteraction && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute inset-0 z-30 flex items-center justify-center bg-black/30 px-6 backdrop-blur-[2px]"
+          >
+            <motion.button
+              onClick={handleEnter}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-white/30 bg-white/10 px-7 py-3.5 uppercase tracking-[0.2em] text-white backdrop-blur-md transition-colors duration-500 hover:border-[#C49A4A]/70 hover:bg-white/15 sm:px-9 sm:py-4"
+            >
+              <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#C49A4A]/0 via-[#C49A4A]/25 to-[#C49A4A]/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <Volume2 className="h-4 w-4 shrink-0 text-[#C49A4A]" />
+              <span className="text-xs font-medium sm:text-sm">
+                Enter Experience
+              </span>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
+}
+
+function isElementInViewport(el: HTMLElement) {
+  const rect = el.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
 }

@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import { X, ArrowUpRight } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
-
+import SectionLink from "@/components/shared/SectionLink";
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
@@ -61,7 +61,10 @@ const itemVariants: Variants = {
   },
 };
 
-export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+export default function MobileMenu({
+  open,
+  onClose,
+}: MobileMenuProps) {
   // Lock body scroll
   useEffect(() => {
     const original = document.body.style.overflow;
@@ -92,7 +95,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             exit="exit"
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={onClose}
-            className="fixed inset-0 z-[110] bg-[#071F2D]/60 backdrop-blur-md"
+            className="fixed inset-0 z-[110] bg-[#23272B]/60 backdrop-blur-md"
             aria-hidden="true"
           />
 
@@ -120,7 +123,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                   whileTap={{ scale: 0.9, rotate: 90 }}
                   whileHover={{ scale: 1.1 }}
                   onClick={onClose}
-                  className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C9A35F] hover:text-[#C9A35F]"
+                  className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C49A4A] hover:text-[#C49A4A]"
                   aria-label="Close menu"
                 >
                   <X size={22} />
@@ -131,37 +134,38 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <nav className="mt-16 flex flex-col gap-2">
                 {NAVIGATION.map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>
-                   <Link
+                   <SectionLink
   href={item.href}
-  onClick={onClose}
+  onNavigate={onClose}
   className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#B7964A]/10"
 >
-  <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C9A35F]">
+  <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C49A4A]">
     {item.label}
   </span>
 
   <ArrowUpRight
     size={20}
-    className="text-[#C9A35F] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+    className="text-[#C49A4A] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
   />
-</Link>
+</SectionLink>
                   </motion.div>
                 ))}
               </nav>
 
-              {/* CTA */}
-              <motion.div variants={itemVariants} className="mt-auto pt-8">
-                <Link href={CTA_BUTTON.href} onClick={onClose}>
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
-                  >
-                    <span>{CTA_BUTTON.label}</span>
-                    <ArrowUpRight size={18} />
-                  </motion.div>
-                </Link>
-              </motion.div>
+              {/* CTA (left exactly as-is, per instruction) */}
+             {/* CTA */}
+<motion.div variants={itemVariants} className="mt-auto pt-8">
+  <SectionLink href={CTA_BUTTON.href} onNavigate={onClose}>
+    <motion.div
+      whileHover={{ scale: 1.02, y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
+    >
+      <span>{CTA_BUTTON.label}</span>
+      <ArrowUpRight size={18} />
+    </motion.div>
+  </SectionLink>
+</motion.div>
             </div>
           </motion.div>
         </>

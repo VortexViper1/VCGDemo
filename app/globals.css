@@ -14,23 +14,26 @@
 --font-display: var(--font-display); /* Playfair Display */
 --font-mono: var(--font-mono);       /* IBM Plex Mono */
 
-  --color-primary: #23363f;
-  --color-accent: #b7964a;
-  --color-ivory: #f4f0e8;
-  --color-ink: #1a1c20;
-  --color-slate: #8a9299;
+--color-primary: #2A2D31;
+--color-accent: #C89B3C;
 
-  --color-background: #f4f0e8;
-  --color-foreground: #1a1c20;
+--color-ivory: #FAF8F4;
 
-  --color-primary-foreground: #f4f0e8;
-  --color-secondary: #b7964a;
-  --color-secondary-foreground: #23363f;
+--color-ink: #2A2D31;
+--color-slate: #6C7278;
 
-  --color-card: #f4f0e8;
-  --color-card-foreground: #1a1c20;
+--color-background: #FAF8F4;
+--color-foreground: #2A2D31;
 
-  --color-muted: #8a9299;
+--color-primary-foreground: #FAF8F4;
+
+--color-secondary: #C89B3C;
+--color-secondary-foreground: #2A2D31;
+
+--color-card: #FEFCF9;
+--color-card-foreground: #2A2D31;
+
+--color-muted: #6C7278;
 
   /* Radius */
   --radius-sm: 0.5rem;
@@ -212,12 +215,12 @@ select {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.card-shadow {
-  box-shadow: 0 12px 35px rgba(26, 28, 32, 0.08); /* shadow tinted with Ink, not pure black */
+.card-shadow{
+box-shadow:0 14px 36px rgba(35,39,43,.08);
 }
 
-.luxury-shadow {
-  box-shadow: 0 25px 70px rgba(26, 28, 32, 0.16);
+.luxury-shadow{
+box-shadow:0 28px 70px rgba(35,39,43,.14);
 }
 
 .gold-gradient {
@@ -254,7 +257,7 @@ select {
 .text-gradient {
   background: linear-gradient(
     135deg,
-    #23363f,
+    #1f2428,
     #b7964a
   );
   -webkit-background-clip: text;

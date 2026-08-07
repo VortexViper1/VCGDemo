@@ -22,7 +22,7 @@ export interface Service {
 
 export const SERVICES: Service[] = [
   {
-    title: "Business Strategy",
+    title: "Business ",
     description:
       "Define long-term strategies that create sustainable competitive advantage and measurable business growth.",
     icon: TrendingUp,
@@ -36,7 +36,7 @@ export const SERVICES: Service[] = [
     href: "/services/capital",
   },
   {
-    title: "Digital Transformation",
+    title: "Governance, Compliance & Regulatory Advisory",
     description:
       "Modernize operations using AI, automation, cloud technologies, and enterprise digital solutions.",
     icon: Globe2,

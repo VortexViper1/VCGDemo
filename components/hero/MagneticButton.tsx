@@ -1,33 +1,38 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 
 interface MagneticButtonProps extends HTMLMotionProps<"button"> {
   strength?: number;
+  maxOffset?: number;
 }
 
 export default function MagneticButton({
   children,
   className = "",
   strength = 0.4,
+  maxOffset = 18,
   ...props
 }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
+
+  const clamp = (v: number) => Math.max(-maxOffset, Math.min(maxOffset, v));
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (prefersReducedMotion) return;
     const el = ref.current;
     if (!el) return;
 
     const rect = el.getBoundingClientRect();
-
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
     setPos({
-      x: x * strength,
-      y: y * strength,
+      x: clamp(x * strength),
+      y: clamp(y * strength),
     });
   };
 
@@ -38,9 +43,10 @@ export default function MagneticButton({
   return (
     <motion.button
       ref={ref}
+      type="button"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: pos.x, y: pos.y }}
+      animate={prefersReducedMotion ? { x: 0, y: 0 } : { x: pos.x, y: pos.y }}
       transition={{
         type: "spring",
         stiffness: 150,
@@ -51,10 +57,11 @@ export default function MagneticButton({
       {...props}
     >
       <motion.span
-        animate={{
-          x: pos.x * 0.4,
-          y: pos.y * 0.4,
-        }}
+        animate={
+          prefersReducedMotion
+            ? { x: 0, y: 0 }
+            : { x: pos.x * 0.4, y: pos.y * 0.4 }
+        }
         transition={{
           type: "spring",
           stiffness: 150,

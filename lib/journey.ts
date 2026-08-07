@@ -24,7 +24,7 @@ export interface JourneyStageType {
 export const JOURNEY: JourneyStageType[] = [
   {
     id: "start",
-    stage: "START",
+    stage: "START UP",
     headline: "Every great business begins with conviction.",
     description:
       "Transform an idea into a structured business with strategic planning, market validation and investment readiness.",
@@ -93,12 +93,12 @@ export const JOURNEY: JourneyStageType[] = [
         image: "/journey/capabilities/business-planning.jpg",
       },
     ],
-    accent: "#C9A35F",
+    accent: "#C49A4A",
   },
 
   {
     id: "gear",
-    stage: "GEAR",
+    stage: "GEAR UP",
     headline: "Growth deserves structure.",
     description:
       "Prepare your organization with scalable systems, financial clarity and operational excellence.",
@@ -163,12 +163,12 @@ export const JOURNEY: JourneyStageType[] = [
         image: "/journey/capabilities/governance.jpg",
       },
     ],
-    accent: "#173F38",
+    accent: "#2A2D31",
   },
 
   {
     id: "scale",
-    stage: "SCALE",
+    stage: "SCALE UP",
     headline: "Expansion without compromise.",
     description:
       "Accelerate sustainable growth through capital strategy, transformation and technology.",
@@ -191,7 +191,7 @@ export const JOURNEY: JourneyStageType[] = [
       },
       {
         id: "digital-transformation",
-        title: "Digital Transformation",
+        title: "Governance, Compliance & Regulatory Advisory",
         description:
           "Technology should compound your advantage, not complicate it. We modernize systems around real operational needs.",
         bullets: [
@@ -218,7 +218,7 @@ export const JOURNEY: JourneyStageType[] = [
       },
       {
         id: "growth-consulting",
-        title: "Growth Consulting",
+        title: "M&A and Transaction Advisory",
         description:
           "Hands-on advisory that turns strategic intent into measurable commercial momentum.",
         bullets: [
@@ -231,7 +231,7 @@ export const JOURNEY: JourneyStageType[] = [
         image: "/journey/capabilities/growth-consulting.jpg",
       },
     ],
-    accent: "#C9A35F",
+    accent: "#C49A4A",
   },
 
   {
@@ -300,6 +300,6 @@ export const JOURNEY: JourneyStageType[] = [
         image: "/journey/capabilities/investment-planning.jpg",
       },
     ],
-    accent: "#173F38",
+    accent: "#2A2D31",
   },
 ];

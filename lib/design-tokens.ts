@@ -6,7 +6,7 @@
  */
 
 export const COLORS = {
-  primary: "#23363F",
+  primary: "#1F2428",
   primaryLight: "#2F4A56",
   primaryDark: "#18272E",
 
@@ -20,7 +20,7 @@ export const COLORS = {
 
   text: "#1A1C20",
   textSecondary: "#4D545A",
-  textMuted: "#8A9299",
+  textMuted: "#6A7177",
 
   border: "#E7E2D8",
   borderStrong: "#D7D1C6",
@@ -141,7 +141,7 @@ export const BREAKPOINTS = {
 
 export const GRADIENTS = {
   hero:
-    "linear-gradient(135deg,#23363F 0%,#2F4A56 60%,#B7964A 100%)",
+    "linear-gradient(135deg,#1F2428 0%,#2F4A56 60%,#B7964A 100%)",
 
   light:
     "linear-gradient(180deg,#FFFFFF,#F4F0E8)",
@@ -150,7 +150,7 @@ export const GRADIENTS = {
     "linear-gradient(135deg,#D8BE7A,#B7964A)",
 
   mesh:
-    "radial-gradient(circle at top left,#B7964A22,transparent 45%), radial-gradient(circle at bottom right,#23363F22,transparent 45%)",
+    "radial-gradient(circle at top left,#B7964A22,transparent 45%), radial-gradient(circle at bottom right,#1F242822,transparent 45%)",
 } as const;
 
 export const BLUR = {

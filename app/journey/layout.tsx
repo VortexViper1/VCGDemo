@@ -8,11 +8,11 @@ export default function JourneyLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="relative min-h-screen bg-[#F7F4EE] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#F8F5EF] overflow-x-hidden">
       {/* Decorative Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 top-0 h-[420px] w-[420px] rounded-full bg-[#C9A35F]/8 blur-[120px]" />
-        <div className="absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#173F38]/8 blur-[140px]" />
+        <div className="absolute -left-40 top-0 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/8 blur-[120px]" />
+        <div className="absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#2A2D31]/8 blur-[140px]" />
       </div>
 
       {/* Back Link */}
@@ -29,10 +29,10 @@ export default function JourneyLayout({
             font-medium
             uppercase
             tracking-[0.18em]
-            text-[#173F38]/70
+            text-[#2A2D31]/70
             transition-all
             duration-300
-            hover:text-[#C9A35F]
+            hover:text-[#C49A4A]
           "
         >
           <ArrowLeft
