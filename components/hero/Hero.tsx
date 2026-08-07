@@ -20,26 +20,35 @@ export default function Hero() {
       <HeroVideoBackground sectionRef={sectionRef} />
 
       {/* Overlay lives in HeroVideoBackground only — do not re-add one here. */}
-<div
-  className="
-    relative
-    z-20
-    mx-auto
-    flex
-    h-full
-    w-full
-    max-w-[1600px]
-    items-start
-    px-8
-    sm:px-12
-    lg:px-20
-    xl:px-28
-    2xl:px-36
-    pt-40
-    lg:pt-40
-    pb-16
-  "
->
+
+      {/* Bottom fade — blends the hero into the next section's background
+          (#F8F5EF) instead of ending on a hard edge. Update the "to-" color
+          if the section right after Hero ever uses a different background. */}
+     <div
+  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-[#F8F5EF] via-[#F8F5EF]/60 to-transparent"
+  aria-hidden="true"
+/>
+
+      <div
+        className="
+          relative
+          z-20
+          mx-auto
+          flex
+          h-full
+          w-full
+          max-w-[1600px]
+          items-start
+          px-8
+          sm:px-12
+          lg:px-20
+          xl:px-28
+          2xl:px-36
+          pt-40
+          lg:pt-40
+          pb-16
+        "
+      >
         <div className="w-full max-w-3xl">
           <HeroContent />
         </div>

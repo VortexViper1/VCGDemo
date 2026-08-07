@@ -15,12 +15,6 @@ const lines = [
   "decisions.",
 ];
 
-const metrics = [
-  { value: "09", label: "Practice Areas" },
-  { value: "45+", label: "Capability Pages" },
-  { value: "200+", label: "Advisory Products" },
-];
-
 export default function HeroContent() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -29,7 +23,7 @@ export default function HeroContent() {
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
         gsap.set(
-          [".hero-line-inner", ".hero-sub", ".hero-cta", ".hero-metric"],
+          [".hero-line-inner", ".hero-sub", ".hero-cta"],
           { opacity: 1, yPercent: 0, y: 0 }
         );
         return;
@@ -49,11 +43,6 @@ export default function HeroContent() {
       })
         .to(".hero-sub", { opacity: 1, y: 0, duration: 0.9 }, "-=0.5")
         .to(".hero-cta", { opacity: 1, y: 0, duration: 0.9 }, "-=0.6")
-        .to(
-          ".hero-metric",
-          { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 },
-          "-=0.5"
-        );
     }, containerRef);
 
     return () => ctx.revert();
@@ -105,25 +94,5 @@ return (
         </MagneticButton>
       </Link>
     </div>
-
-    <div
-      role="list"
-      aria-label="VISWAS at a glance"
-      className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/15 pt-5 sm:mt-8 sm:gap-x-12 sm:pt-6"
-    >
-      {metrics.map((m) => (
-        <div key={m.label} role="listitem" className="hero-metric opacity-0">
-          <div
-            className="font-mono text-2xl font-bold leading-none tracking-tight text-[#C49A4A] sm:text-3xl"
-            style={{ fontVariantNumeric: "tabular-nums" }}
-          >
-            {m.value}
-          </div>
-          <div className="mt-1.5 text-[11px] uppercase tracking-[0.15em] text-white/60 sm:text-xs">
-            {m.label}
-          </div>
-        </div>
-      ))}
     </div>
-  </div>
 );}

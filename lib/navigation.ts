@@ -43,11 +43,7 @@ export const NAVIGATION: NavigationItem[] = [
     href: "/#journey",
     icon: Route,
   },
-  {
-    label: "Contact",
-    href: "/#contact",
-    icon: Phone,
-  },
+
 ];
 
 export const CTA_BUTTON = {

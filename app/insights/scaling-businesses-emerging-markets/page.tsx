@@ -1,28 +1,71 @@
 "use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Calendar,
-  Clock3,
-  Globe2,
-  Quote,
-} from "lucide-react";
+import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import Section from "@/components/shared/Section";
-import GlassCard from "@/components/shared/GlassCard";
 import Reveal from "@/components/shared/Reveal";
+
+const INK = "#2A2D31";
+const GOLD = "#C49A4A";
+const HAIRLINE = "rgba(35,39,43,0.12)";
 
 const ARTICLE = {
   category: "Growth Strategy",
   title: "Scaling Businesses in Emerging Markets",
-  description:
+  deck:
     "Sustainable growth requires strategic expansion, localized execution, and operational excellence.",
   date: "July 2026",
   read: "6 min read",
+  image: "/insights/scaling.png",
 };
+
+const LEDE =
+  "Emerging markets offer some of the most attractive growth curves available to an expanding business — and some of the least forgiving conditions for a strategy copied directly from a home market. The organizations that scale successfully treat expansion as a series of local strategies loosely connected by a shared brand, not a single playbook exported unchanged across borders.";
+
+const PULL_QUOTE =
+  "A strategy that worked at home is a hypothesis abroad, not a guarantee — and treating it as a guarantee is the most common way expansion plans quietly fail.";
+
+const CLOSING =
+  "Scaling into emerging markets rewards patience with sequencing and rigor in execution far more than it rewards speed alone. The businesses that get this right treat each market as its own strategic problem, worth solving on its own terms.";
+
+const SECTIONS = [
+  {
+    id: "sequencing",
+    label: "Sequencing entry",
+    heading: "Strategic expansion starts with sequencing",
+    paragraphs: [
+      "Which market to enter first, and in what order, often matters more than how quickly an organization enters any single one. Markets with regulatory familiarity, existing partner relationships, or customer bases similar to a proven market tend to offer faster, lower-risk learning than markets chosen purely for size. Early wins in the right sequence build the operational muscle and internal credibility needed to take on harder markets later.",
+    ],
+  },
+  {
+    id: "localized-execution",
+    label: "Localized execution",
+    heading: "Localized execution, not just localized marketing",
+    paragraphs: [
+      "Localization is often reduced to translating a website or adjusting a marketing campaign, but the deeper work happens in operations: payment methods customers actually trust, distribution partners who understand local logistics realities, pricing calibrated to local purchasing power, and hiring practices that reflect local labor norms. These operational details determine whether a locally adapted brand actually functions as a locally adapted business.",
+    ],
+  },
+  {
+    id: "operational-constraint",
+    label: "Operations as constraint",
+    heading: "Operational excellence as a growth constraint",
+    paragraphs: [
+      "Growth in a new market is frequently limited less by demand than by an organization's ability to deliver reliably — fulfillment, quality control, and customer support that hold up as volume increases. Investing in operational discipline before scaling aggressively prevents the common failure mode where early customer enthusiasm curdles into frustration once the business cannot keep pace with its own growth.",
+    ],
+  },
+  {
+    id: "governance",
+    label: "Governance that travels",
+    heading: "Governance that travels well",
+    paragraphs: [
+      "As organizations add markets, the temptation is to grant local teams full autonomy to avoid slowing them down. Sustainable scaling usually finds a middle path: clear non-negotiables around brand, quality, and compliance set centrally, with genuine latitude for local teams to adapt everything else. That balance keeps expansion coherent without recreating a rigid, one-size-fits-all model that emerging markets tend to punish.",
+    ],
+  },
+];
 
 const RELATED = [
   {
@@ -46,216 +89,252 @@ const RELATED = [
 ];
 
 export default function ScalingBusinessesEmergingMarketsPage() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
+  const [activeId, setActiveId] = useState(SECTIONS[0].id);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+    );
+
+    Object.values(sectionRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[#F8F5EF]">
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-32 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[170px]"
-        />
-        <motion.div
-          animate={{ x: [0, -70, 0], y: [0, 80, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[#123A53]/40 blur-[180px]"
-        />
-      </div>
+    <MotionConfig reducedMotion="user">
+      <main className="min-h-screen" style={{ backgroundColor: "#F8F5EF" }}>
+        <style jsx global>{`
+          @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&display=swap");
+          .font-display {
+            font-family: "Fraunces", Georgia, serif;
+          }
+        `}</style>
 
-      <Section className="pt-40">
-        <Reveal>
-          <Link
-            href="/insights"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#C49A4A]"
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            Back to Insights
-          </Link>
-        </Reveal>
+        {/* Masthead */}
+        <div className="border-b" style={{ borderColor: HAIRLINE }}>
+          <Section className="pb-6 pt-10">
+            <Link
+              href="/insights"
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#123A53]"
+            >
+              <ArrowLeft
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-x-1"
+              />
+              Back to Insights
+            </Link>
+          </Section>
+        </div>
 
-        <Reveal delay={0.1}>
-          <div className="mx-auto mt-10 max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#C49A4A]">
-              <Globe2 size={14} />
-              {ARTICLE.category}
-            </span>
-
-            <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-6xl tracking-tight"style={{ color: "#2A2D31" }} >
-              {ARTICLE.title}
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#23272B]/70">
-              {ARTICLE.description}
-            </p>
-
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-[#23272B]/50">
-              <div className="flex items-center gap-2">
-                <Calendar size={16} />
-                {ARTICLE.date}
+        {/* Header */}
+        <Section className="pb-0 pt-16">
+          <Reveal>
+            <div className="mx-auto max-w-3xl">
+              <div className="flex items-center gap-3">
+                <span
+                  className="text-xs font-semibold uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  {ARTICLE.category}
+                </span>
+                <span className="h-px w-10" style={{ backgroundColor: GOLD }} />
               </div>
-              <div className="flex items-center gap-2">
-                <Clock3 size={16} />
-                {ARTICLE.read}
+
+              <h1
+                className="font-display mt-6 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl"
+                style={{ color: INK }}
+              >
+                {ARTICLE.title}
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#23272B]/70">
+                {ARTICLE.deck}
+              </p>
+
+              <div className="mt-8 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#23272B]/45">
+                <span>{ARTICLE.date}</span>
+                <span aria-hidden="true">·</span>
+                <span>{ARTICLE.read}</span>
               </div>
             </div>
+          </Reveal>
+        </Section>
+
+        {/* Full-bleed hero photograph, subtle parallax */}
+        <Reveal delay={0.1}>
+          <div
+            ref={heroRef}
+            className="relative mt-14 h-[46vh] w-full overflow-hidden sm:h-[64vh]"
+          >
+            <motion.div style={{ scale: heroScale, y: heroY }} className="absolute inset-0">
+              <Image
+                src={ARTICLE.image}
+                fill
+                priority
+                unoptimized
+                alt=""
+                className="object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(18,58,83,0.35) 0%, rgba(18,58,83,0.05) 40%, rgba(248,245,239,0) 70%)",
+                }}
+              />
+            </motion.div>
           </div>
         </Reveal>
 
-       <Reveal delay={0.2}>
-  <div className="relative mx-auto mt-16 h-[280px] max-w-5xl overflow-hidden rounded-3xl sm:h-[340px] lg:h-[420px]">
-    <Image
-      src="/insights/scaling.png"
-      alt="Operational Excellence Through Process Optimization"
-      fill
-      priority
-      unoptimized
-      className="object-cover object-center"
-      sizes="(max-width: 768px) 100vw, 1280px"
-    />
-  </div>
-</Reveal>
-
-        <div className="mx-auto mt-20 max-w-3xl">
-          <Reveal>
-            <GlassCard className="prose-none">
-              <div className="space-y-8 leading-8 text-[#23272B]/75">
-                <p>
-                  Emerging markets offer some of the most attractive growth
-                  curves available to an expanding business — and some of
-                  the least forgiving conditions for a strategy copied
-                  directly from a home market. The organizations that scale
-                  successfully treat expansion as a series of local
-                  strategies loosely connected by a shared brand, not a
-                  single playbook exported unchanged across borders.
-                </p>
-
-                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
-                  Strategic expansion starts with sequencing
-                </h2>
-                <p>
-                  Which market to enter first, and in what order, often
-                  matters more than how quickly an organization enters any
-                  single one. Markets with regulatory familiarity, existing
-                  partner relationships, or customer bases similar to a
-                  proven market tend to offer faster, lower-risk learning
-                  than markets chosen purely for size. Early wins in the
-                  right sequence build the operational muscle and internal
-                  credibility needed to take on harder markets later.
-                </p>
-
-                <div className="my-10 rounded-2xl border-l-4 border-[#C49A4A] bg-[#23272B]/[0.03] p-6 md:p-8">
-                  <Quote size={22} className="text-[#C49A4A]" />
-                  <p className="mt-4 text-xl font-medium leading-9 "style={{ color: "#2A2D31" }}>
-                    A strategy that worked at home is a hypothesis abroad,
-                    not a guarantee — and treating it as a guarantee is the
-                    most common way expansion plans quietly fail.
-                  </p>
-                </div>
-
-                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
-                  Localized execution, not just localized marketing
-                </h2>
-                <p>
-                  Localization is often reduced to translating a website or
-                  adjusting a marketing campaign, but the deeper work happens
-                  in operations: payment methods customers actually trust,
-                  distribution partners who understand local logistics
-                  realities, pricing calibrated to local purchasing power,
-                  and hiring practices that reflect local labor norms. These
-                  operational details determine whether a locally adapted
-                  brand actually functions as a locally adapted business.
-                </p>
-
-                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
-                  Operational excellence as a growth constraint
-                </h2>
-                <p>
-                  Growth in a new market is frequently limited less by
-                  demand than by an organization's ability to deliver
-                  reliably — fulfillment, quality control, and customer
-                  support that hold up as volume increases. Investing in
-                  operational discipline before scaling aggressively
-                  prevents the common failure mode where early customer
-                  enthusiasm curdles into frustration once the business
-                  cannot keep pace with its own growth.
-                </p>
-
-                <h2 className="text-2xl font-semibold "style={{ color: "#2A2D31" }}>
-                  Governance that travels well
-                </h2>
-                <p>
-                  As organizations add markets, the temptation is to grant
-                  local teams full autonomy to avoid slowing them down.
-                  Sustainable scaling usually finds a middle path: clear
-                  non-negotiables around brand, quality, and compliance set
-                  centrally, with genuine latitude for local teams to adapt
-                  everything else. That balance keeps expansion coherent
-                  without recreating a rigid, one-size-fits-all model that
-                  emerging markets tend to punish.
-                </p>
-
-                <p>
-                  Scaling into emerging markets rewards patience with
-                  sequencing and rigor in execution far more than it rewards
-                  speed alone. The businesses that get this right treat each
-                  market as its own strategic problem, worth solving on its
-                  own terms.
-                </p>
+        {/* Body */}
+        <Section className="pb-0 pt-16 sm:pt-20">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-[200px_1fr]">
+            {/* Sticky contents rail — tracks reading position */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-28">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#23272B]/40">
+                  On this page
+                </span>
+                <ul className="mt-5 space-y-4 border-l" style={{ borderColor: HAIRLINE }}>
+                  {SECTIONS.map((s) => {
+                    const active = activeId === s.id;
+                    return (
+                      <li key={s.id} className="relative pl-4">
+                        <span
+                          className="absolute left-[-1px] top-0 h-full w-[2px] transition-colors duration-300"
+                          style={{ backgroundColor: active ? GOLD : "transparent" }}
+                        />
+                        <a
+                          href={`#${s.id}`}
+                          className="block text-sm leading-5 transition-colors duration-300"
+                          style={{
+                            color: active ? INK : "rgba(35,39,43,0.45)",
+                            fontWeight: active ? 600 : 400,
+                          }}
+                        >
+                          {s.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-            </GlassCard>
-          </Reveal>
+            </aside>
 
-        
-        </div>
+            {/* Article column */}
+            <div className="mx-auto w-full max-w-2xl">
+              <p className="text-lg leading-8 text-[#23272B]/80 first-letter:font-display first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-7xl first-letter:font-semibold first-letter:leading-[0.8]">
+                {LEDE}
+              </p>
 
-        <Reveal delay={0.1}>
-          <div className="mx-auto mt-24 mb-32 max-w-5xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
-              Continue Reading
-            </span>
-            <h2 className="mt-4 text-3xl font-semibold "style={{ color: "#2A2D31" }}>
-              Related Insights
-            </h2>
+              {SECTIONS.map((s, i) => (
+                <div key={s.id}>
+                  {i === 1 && (
+                    <div className="my-12 border-l-2 pl-6" style={{ borderColor: GOLD }}>
+                      <p className="font-display text-2xl italic leading-9" style={{ color: INK }}>
+                        {PULL_QUOTE}
+                      </p>
+                    </div>
+                  )}
+                  <section
+                    id={s.id}
+                    ref={(el) => {
+                      sectionRefs.current[s.id] = el;
+                    }}
+                    className="scroll-mt-28 pt-12"
+                  >
+                    <h2 className="font-display text-2xl font-semibold" style={{ color: INK }}>
+                      {s.heading}
+                    </h2>
+                    {s.paragraphs.map((p, pi) => (
+                      <p key={pi} className="mt-5 text-[17px] leading-8 text-[#23272B]/75">
+                        {p}
+                      </p>
+                    ))}
+                  </section>
+                </div>
+              ))}
 
-            <div className="mt-10 grid gap-6 md:p-8 md:grid-cols-3">
+              <p
+                className="font-display mt-14 border-t pt-10 text-xl italic leading-9"
+                style={{ color: INK, borderColor: HAIRLINE }}
+              >
+                {CLOSING}
+              </p>
+            </div>
+          </div>
+        </Section>
+
+        {/* Related — editorial index, not a card grid */}
+        <Section className="mb-32 mt-28">
+          <div className="mx-auto max-w-3xl">
+            <div
+              className="flex items-baseline justify-between border-b pb-4"
+              style={{ borderColor: HAIRLINE }}
+            >
+              <span
+                className="text-xs font-semibold uppercase tracking-[0.3em]"
+                style={{ color: GOLD }}
+              >
+                Continue reading
+              </span>
+            </div>
+
+            <div>
               {RELATED.map((article, index) => (
-                <Reveal key={article.href} delay={0.1 + index * 0.1}>
-                  <Link href={article.href} className="block h-full">
-                    <motion.div
-                      whileHover={{ y: -6 }}
-                      transition={{ type: "spring" as const, stiffness: 260, damping: 20 }}
-                      className="h-full"
-                    >
-                      <GlassCard className="group flex h-full flex-col">
-                        <span className="inline-flex w-fit items-center rounded-full border border-[#C49A4A]/30 bg-[#C49A4A]/12 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[#C49A4A]">
+                <Reveal key={article.href} delay={0.05 * index}>
+                  <Link
+                    href={article.href}
+                    className="group block border-b"
+                    style={{ borderColor: HAIRLINE }}
+                  >
+                    <div className="flex items-center justify-between gap-6 py-7">
+                      <div>
+                        <span className="text-[11px] uppercase tracking-[0.2em] text-[#23272B]/40">
                           {article.category}
                         </span>
-
-                        <h3 className="mt-6 flex-1 text-lg font-semibold leading-snug transition-colors duration-300 group-hover:text-[#C49A4A]"style={{ color: "#2A2D31" }} >
+                        <h3
+                          className="font-display mt-2 text-xl font-medium leading-snug transition-colors duration-300 group-hover:text-[#123A53]"
+                          style={{ color: INK }}
+                        >
                           {article.title}
                         </h3>
-
-                        <div className="mt-6 flex items-center justify-between border-t border-[#2A2D31]/8 pt-5">
-                          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#23272B]/50">
-                            <Clock3 size={14} />
-                            {article.read}
-                          </div>
-                          <ArrowRight
-                            size={15}
-                            className="text-[#C49A4A] transition-transform duration-300 group-hover:translate-x-1"
-                          />
-                        </div>
-                      </GlassCard>
-                    </motion.div>
+                      </div>
+                      <div className="flex shrink-0 items-center gap-4">
+                        <span className="text-xs uppercase tracking-[0.15em] text-[#23272B]/40">
+                          {article.read}
+                        </span>
+                        <ArrowRight
+                          size={16}
+                          style={{ color: GOLD }}
+                          className="transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                      </div>
+                    </div>
                   </Link>
                 </Reveal>
               ))}
             </div>
           </div>
-        </Reveal>
-      </Section>
-    </main>
+        </Section>
+      </main>
+    </MotionConfig>
   );
 }

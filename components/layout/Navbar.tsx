@@ -55,8 +55,10 @@ const MAIN_NAV_ITEMS = [
 ].filter((item): item is NonNullable<typeof item> => Boolean(item));
 
 /* Section ids to scrollspy, derived from the same NAVIGATION source
-   (no separate hardcoded list to fall out of sync). Order matters:
-   this is assumed to match top-to-bottom document order. */
+   (no separate hardcoded list to fall out of sync). NOTE: this array's
+   order follows NAVIGATION, not necessarily DOM order — MAIN_NAV_ITEMS
+   above deliberately reorders Journey for display, so the scrollspy
+   logic below must not assume this array matches document order. */
 const SECTION_IDS = NAVIGATION.map((item) => item.href.split("#")[1]).filter(
   (id): id is string => Boolean(id)
 );
@@ -81,7 +83,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const islandRef = useRef<HTMLDivElement>(null);
-const isNavigatingRef = useRef(false);
+  const isNavigatingRef = useRef(false);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -108,17 +110,22 @@ const isNavigatingRef = useRef(false);
      items (including Journey) can highlight themselves via
      aria-current, independent of hover.
 
-     Position-based rather than IntersectionObserver-based: we walk
-     the sections in document order and pick the last one whose top
-     has crossed SCROLLSPY_OFFSET. This recalculates fresh on every
-     scroll/resize, so it can never get stuck on stale state the way
-     a narrow IntersectionObserver rootMargin band can (e.g. a fast
-     scroll skipping past the band entirely, or the "no intersecting
-     entries" case bailing out and leaving the previous section
-     highlighted forever). Silently does nothing on routes where
-     these section ids don't exist.
+     Order-independent: on every scroll/resize we check EVERY section's
+     position and pick whichever has scrolled furthest past
+     SCROLLSPY_OFFSET (i.e. the largest `top` value that's still <= 0,
+     meaning "most recently passed the line"). This does NOT assume
+     SECTION_IDS is in DOM order — MAIN_NAV_ITEMS deliberately reorders
+     Journey between Home and Services for display, so array order and
+     DOM order diverge. The old implementation walked the array in
+     order and `break`-ed on the first section that hadn't crossed the
+     offset yet, which assumed array order == DOM order; when that
+     assumption broke, it got stuck highlighting Journey permanently.
 
-     Unchanged from before — this never calls the navigation hook and
+     Recalculates fresh on every scroll/resize, so it can never get
+     stuck on stale state. Silently does nothing on routes where these
+     section ids don't exist.
+
+     Unchanged otherwise — this never calls the navigation hook and
      never touches history, so it cannot conflict with SectionLink. */
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -128,19 +135,23 @@ const isNavigatingRef = useRef(false);
     );
     if (elements.length === 0) return;
 
-   const updateActive = () => {
-  let current: string | null = null;
+    const updateActive = () => {
+      let current: string | null = null;
+      let bestTop = -Infinity;
 
-  for (const el of elements) {
-    if (el.getBoundingClientRect().top - SCROLLSPY_OFFSET <= 0) {
-      current = el.id;
-    } else {
-      break;
-    }
-  }
+      for (const el of elements) {
+        const top = el.getBoundingClientRect().top - SCROLLSPY_OFFSET;
+        // Only consider sections we've actually scrolled past (top <= 0),
+        // and pick whichever is closest to the offset line — i.e. the
+        // section most recently passed, regardless of array order.
+        if (top <= 0 && top > bestTop) {
+          bestTop = top;
+          current = el.id;
+        }
+      }
 
-  setActiveSection(current);
-};
+      setActiveSection(current);
+    };
 
     updateActive();
     window.addEventListener("scroll", updateActive, { passive: true });
@@ -354,7 +365,10 @@ const isNavigatingRef = useRef(false);
                     transition={getTransition(0, 0.14)}
                     className="hidden overflow-hidden sm:block"
                   >
-                    <p className="whitespace-nowrap text-[11px] uppercase tracking-[0.34em] text-[#B7964A]">
+                    <p
+                      className="whitespace-nowrap font-medium uppercase tracking-[0.28em] text-[#B7964A]"
+                      style={{ fontSize: "15px" }}
+                    >
                       Strategy • Capital • Transformation
                     </p>
                   </motion.div>
@@ -404,11 +418,11 @@ const isNavigatingRef = useRef(false);
                         setHoveredNav((v) => (v === item.label ? null : v))
                       }
                     >
-                     <SectionLink
-  href={item.href}
-  aria-current={isActive ? "page" : undefined}
-  className={FOCUS_RING}
->
+                      <SectionLink
+                        href={item.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={FOCUS_RING}
+                      >
                         <motion.span
                           whileHover={{ y: -2 }}
                           animate={{ color: isHighlighted ? GOLD : IVORY }}
@@ -430,60 +444,60 @@ const isNavigatingRef = useRef(false);
               })}
             </motion.nav>
 
-           {/* ── CTA Button ── */}
-<motion.div
-  initial={{ width: 172, opacity: 1, scale: 1 }}
-  animate={{
-    width: 172 * (1 - effectiveProgress),
-    opacity: 1 - effectiveProgress,
-    scale: 1 - effectiveProgress * 0.16,
-  }}
-  transition={getTransition(0.015, 0.045)}
-  style={{ pointerEvents: compact ? "none" : "auto" }}
-  className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
->
-  <SectionLink href={CTA_BUTTON.href} className={FOCUS_RING}>
-    <motion.button
-      onHoverStart={() => setCtaHovered(true)}
-      onHoverEnd={() => setCtaHovered(false)}
-      animate={{ backgroundColor: "#B7964A" }}
-      whileHover={{
-        y: -3,
-        scale: 1.025,
-        boxShadow:
-          "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
-      }}
-      whileTap={{ scale: 0.97, y: 0 }}
-      transition={{
-        y: { type: "spring" as const, stiffness: 320, damping: 22 },
-        scale: { type: "spring" as const, stiffness: 320, damping: 22 },
-        boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-        backgroundColor: { duration: 0 },
-      }}
-      className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
-      style={{ background: "#B7964A" }}
-    >
-      <motion.span
-        initial={{ x: "-110%" }}
-        animate={{ x: ctaHovered ? "110%" : "-110%" }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
-        }}
-      />
-      <span className="relative z-10">{CTA_BUTTON.label}</span>
-      <motion.span
-        animate={{ x: ctaHovered ? 3 : 0, y: ctaHovered ? -3 : 0 }}
-        transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
-        className="relative z-10 flex"
-      >
-        <ArrowUpRight size={18} />
-      </motion.span>
-    </motion.button>
-  </SectionLink>
-</motion.div>
+            {/* ── CTA Button ── */}
+            <motion.div
+              initial={{ width: 172, opacity: 1, scale: 1 }}
+              animate={{
+                width: 172 * (1 - effectiveProgress),
+                opacity: 1 - effectiveProgress,
+                scale: 1 - effectiveProgress * 0.16,
+              }}
+              transition={getTransition(0.015, 0.045)}
+              style={{ pointerEvents: compact ? "none" : "auto" }}
+              className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
+            >
+              <SectionLink href={CTA_BUTTON.href} className={FOCUS_RING}>
+                <motion.button
+                  onHoverStart={() => setCtaHovered(true)}
+                  onHoverEnd={() => setCtaHovered(false)}
+                  animate={{ backgroundColor: "#B7964A" }}
+                  whileHover={{
+                    y: -3,
+                    scale: 1.025,
+                    boxShadow:
+                      "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
+                  }}
+                  whileTap={{ scale: 0.97, y: 0 }}
+                  transition={{
+                    y: { type: "spring" as const, stiffness: 320, damping: 22 },
+                    scale: { type: "spring" as const, stiffness: 320, damping: 22 },
+                    boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+                    backgroundColor: { duration: 0 },
+                  }}
+                  className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
+                  style={{ background: "#B7964A" }}
+                >
+                  <motion.span
+                    initial={{ x: "-110%" }}
+                    animate={{ x: ctaHovered ? "110%" : "-110%" }}
+                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
+                    }}
+                  />
+                  <span className="relative z-10">{CTA_BUTTON.label}</span>
+                  <motion.span
+                    animate={{ x: ctaHovered ? 3 : 0, y: ctaHovered ? -3 : 0 }}
+                    transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
+                    className="relative z-10 flex"
+                  >
+                    <ArrowUpRight size={18} />
+                  </motion.span>
+                </motion.button>
+              </SectionLink>
+            </motion.div>
 
             {/* ── Mobile Menu Button ── */}
             <motion.button
@@ -508,14 +522,11 @@ const isNavigatingRef = useRef(false);
         </div>
       </motion.header>
 
-<AnimatePresence>
-  {menuOpen && (
-    <MobileMenu
-      open={menuOpen}
-      onClose={() => setMenuOpen(false)}
-    />
-  )}
-</AnimatePresence>
+      <AnimatePresence>
+        {menuOpen && (
+          <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

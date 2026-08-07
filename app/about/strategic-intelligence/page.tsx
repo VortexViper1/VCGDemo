@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Lightbulb, LineChart, Target, Users, CheckCircle2 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Lightbulb, X, CheckCircle2 } from "lucide-react";
 
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
@@ -12,17 +14,17 @@ const POINTS = [
   {
     title: "Data-Driven Insights",
     description:
-      "Every recommendation is grounded in rigorous analysis, market data, and quantifiable evidence — not intuition alone.",
+      "Every recommendation is grounded in rigorous analysis, market data, and quantifiable evidence — not intuition alone. We combine quantitative modeling with qualitative context, so the numbers tell a story your team can act on with confidence.This means fewer decisions made on gut feel and more decisions backed by a clear, defensible evidence trail — one your board and stakeholders can trust.",
   },
   {
     title: "Executive Expertise",
     description:
-      "Decades of leadership experience across industries, applied directly to your specific business context.",
+      "Decades of leadership experience across industries, applied directly to your specific business context. Our consultants have sat where you sit — running P&Ls, leading transformations, and navigating boardroom pressure.That perspective means we don't just hand you a framework; we pressure-test it against the operational realities you actually face.",
   },
   {
     title: "Complex Problem Solving",
     description:
-      "We take on the hardest strategic questions — the ones that don't have obvious answers.",
+      "We take on the hardest strategic questions — the ones that don't have obvious answers. When the path forward is unclear, we bring structured thinking and cross-industry pattern recognition to cut through the ambiguity. The result is a defensible way forward, not a generic playbook — built specifically around the constraints and trade-offs unique to your business.",
   },
 ];
 
@@ -34,6 +36,9 @@ const OUTCOMES = [
 ];
 
 export default function StrategicIntelligencePage() {
+  const [activePoint, setActivePoint] = useState<number | null>(null);
+  const activeContent = activePoint !== null ? POINTS[activePoint] : null;
+
   return (
     <main className="min-h-screen bg-[#F8F5EF]">
       <Section className="pt-40 pb-32">
@@ -64,7 +69,7 @@ export default function StrategicIntelligencePage() {
           />
         </Reveal>
 
-        {/* Business photo — replace src with your own image in /public/about/ */}
+        {/* Business photo */}
         <Reveal delay={0.18}>
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
@@ -79,33 +84,36 @@ export default function StrategicIntelligencePage() {
           </div>
         </Reveal>
 
-        {/* Points — dark green-to-navy glass cards, plain icons (no badge circle) */}
+        {/* Points — tap to expand into a bottom-sheet modal, Amazon-insights style */}
         <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {POINTS.map((point, index) => {
-            return (
-              <Reveal key={point.title} delay={0.1 + index * 0.1}>
-                <div
-                  className="h-full rounded-[28px] border p-10 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
-                  style={{
-                    background:
-                      "linear-gradient(160deg, rgba(42,45,49, 0.92) 0%, rgba(31,35,39, 0.96) 100%)",
-                    borderColor: "rgba(255, 255, 255, 0.12)",
-                    boxShadow:
-                      "0 12px 40px rgba(31,35,39, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <h3
-  className="mb-3 text-xl font-semibold tracking-tight"
-  style={{ color: "#F8F6F2" }}
->{point.title}</h3>
-                  <p className="leading-7 text-white/65">{point.description}</p>
-                </div>
-              </Reveal>
-            );
-          })}
+          {POINTS.map((point, index) => (
+            <Reveal key={point.title} delay={0.1 + index * 0.1}>
+              <button
+                type="button"
+                onClick={() => setActivePoint(index)}
+                aria-haspopup="dialog"
+                className="group h-full w-full rounded-[28px] border p-10 text-left backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98]"
+                style={{
+                  background:
+                    "linear-gradient(160deg, rgba(42,45,49, 0.92) 0%, rgba(31,35,39, 0.96) 100%)",
+                  borderColor: "rgba(255, 255, 255, 0.12)",
+                  boxShadow:
+                    "0 12px 40px rgba(31,35,39, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
+              >
+                <h3 className="mb-3 text-xl font-semibold tracking-tight" style={{ color: "#F8F6F2" }}>
+                  {point.title}
+                </h3>
+                <p className="line-clamp-3 leading-7 text-white/65">{point.description}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-accent opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+                  Tap to read more
+                </span>
+              </button>
+            </Reveal>
+          ))}
         </div>
 
-        {/* Outcomes — plain spec-list on the page background, hairline top rule */}
+        {/* Outcomes */}
         <Reveal delay={0.2}>
           <div className="mt-24 border-t border-[#2A2D31]/10 pt-12">
             <h3 className="mb-8 text-2xl font-semibold tracking-tight text-[#2A2D31]">
@@ -122,6 +130,60 @@ export default function StrategicIntelligencePage() {
           </div>
         </Reveal>
       </Section>
+
+      {/* ── Insight modal: bottom-sheet on mobile, centered card on desktop ── */}
+      <AnimatePresence>
+        {activeContent && (
+          <>
+            {/* Dimmed + blurred backdrop, tap anywhere to close */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setActivePoint(null)}
+              className="fixed inset-0 z-[200] bg-[#0A0C0E]/55 backdrop-blur-sm"
+              aria-hidden="true"
+            />
+
+            {/* Sheet: slides up from bottom on mobile, scales in centered on desktop */}
+            <motion.div
+              key="sheet"
+              role="dialog"
+              aria-modal="true"
+              aria-label={activeContent.title}
+              initial={{ y: "100%", opacity: 0.9 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "100%", opacity: 0.9 }}
+              transition={{ type: "spring" as const, stiffness: 300, damping: 32, mass: 0.8 }}
+              className="fixed inset-x-0 bottom-0 z-[210] mx-auto w-full max-w-lg rounded-t-[28px] bg-[#F8F5EF] p-8 pb-10 shadow-[0_-12px_50px_rgba(10,12,14,0.35)] sm:bottom-8 sm:rounded-[28px] sm:p-10"
+            >
+              {/* Drag handle, mobile-sheet affordance */}
+              <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-[#2A2D31]/15 sm:hidden" />
+
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                  <Lightbulb size={22} className="text-accent" />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActivePoint(null)}
+                  aria-label="Close"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#2A2D31]/10 text-[#2A2D31]/60 transition-colors duration-300 hover:border-accent/40 hover:text-accent"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <h3 className="mt-6 text-2xl font-semibold tracking-tight text-[#2A2D31]">
+                {activeContent.title}
+              </h3>
+              <p className="mt-4 leading-8 text-[#2A2D31]/70">{activeContent.description}</p>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

@@ -354,65 +354,6 @@ export default function InsightsPage() {
               </Reveal>
             ))}
           </div>
-
-          {/* NEWSLETTER / CTA STRIP */}
-          <Reveal delay={0.2}>
-            <div className="mt-24 mb-32">
-              <GlassCard className="relative overflow-hidden text-center">
-                <div className="pointer-events-none absolute inset-0 -z-10">
-                  <motion.div
-                    animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C49A4A]/12 blur-[120px]"
-                  />
-                </div>
-
-                <div className="mx-auto max-w-xl px-6 py-14">
-                  <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
-                    Stay Ahead
-                  </span>
-
-                  <h2
-                    className="mt-4 text-3xl font-semibold sm:text-4xl"
-                    style={{ color: "#2A2D31" }}
-                  >
-                    Insights delivered to your inbox.
-                  </h2>
-
-                  <p className="mt-4 text-sm leading-7 text-[#23272B]/60">
-                    One email, once a month — strategy, capital, and
-                    transformation perspectives from VISWAS. No noise.
-                  </p>
-
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      // TODO: wire up to your newsletter provider / API route
-                    }}
-                    className="mt-8 flex flex-col gap-3 sm:flex-row"
-                  >
-                    <label htmlFor="newsletter-email" className="sr-only">
-                      Email address
-                    </label>
-                    <input
-                      id="newsletter-email"
-                      type="email"
-                      required
-                      placeholder="you@company.com"
-                      className="w-full flex-1 rounded-full border border-[#2A2D31]/15 bg-white/70 px-5 py-3 text-sm text-[#2A2D31] placeholder:text-[#23272B]/35 outline-none transition-colors focus:border-[#C49A4A]"
-                    />
-                    <button
-                      type="submit"
-                      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#2A2D31] px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
-                    >
-                      Subscribe
-                      <ArrowRight size={16} />
-                    </button>
-                  </form>
-                </div>
-              </GlassCard>
-            </div>
-          </Reveal>
         </div>
       </Section>
     </main>
