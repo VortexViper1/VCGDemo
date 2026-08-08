@@ -100,24 +100,25 @@ export default function PassportStamp({
         }
         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       >
-        <svg viewBox="0 0 108 108" width="100%" height="100%" fill="none">
-          <circle
-            cx="54"
-            cy="54"
-            r="49"
-            stroke={accent}
-            strokeWidth={active ? 2.4 : 1.6}
-            opacity={pressed ? 0.95 : 0.55}
-          />
-          <circle
-            cx="54"
-            cy="54"
-            r="41"
-            stroke={accent}
-            strokeWidth="1"
-            strokeDasharray="1.5 4.5"
-            opacity={pressed ? 0.85 : 0.4}
-          />
+<svg viewBox="0 0 108 108" width="100%" height="100%" fill="none">
+  {/* Amber fill — soft tint behind the ring, deepens on
+      active/hover so the pressed state reads as "filled in" */}
+  <circle
+    cx="54"
+    cy="54"
+    r="49"
+    fill="#ffa600"
+    fillOpacity={pressed ? 0.16 : 0.07}
+    style={{ transition: "fill-opacity 0.28s cubic-bezier(0.22,1,0.36,1)" }}
+  />
+  <circle
+    cx="54"
+    cy="54"
+    r="49"
+    stroke={accent}
+    strokeWidth={active ? 2.4 : 1.6}
+    opacity={pressed ? 0.95 : 0.55}
+  />
           {/* index tick, passport-stamp style */}
           <text
             x="54"

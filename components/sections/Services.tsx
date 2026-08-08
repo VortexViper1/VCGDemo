@@ -9,8 +9,8 @@ import {
   ArrowRight,
   BriefcaseBusiness,
   Landmark,
-  TrendingUp,
-  Workflow,
+  Handshake,
+  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -44,7 +44,9 @@ const SERVICES: {
   },
   {
     image: "/services/growth.jpg",
-    icon: TrendingUp,
+    // Handshake — reads as "deal/transaction" at a glance, unlike a
+    // generic stock-chart icon, so it actually maps to "M&A".
+    icon: Handshake,
     title: "M&A and Transaction Advisory",
     description:
       "Helping organizations identify opportunities, optimize operations, and scale with confidence.",
@@ -52,7 +54,9 @@ const SERVICES: {
   },
   {
     image: "/services/digital.jpg",
-    icon: Workflow,
+    // ShieldCheck — signals "protection/compliance", matching
+    // "Governance, Compliance & Regulatory" far better than a flowchart icon.
+    icon: ShieldCheck,
     title: "Governance, Compliance & Regulatory Advisory",
     description:
       "Modernizing enterprises using AI, automation, cloud technologies, and digital-first operating models.",
@@ -234,14 +238,14 @@ function ServiceCard({
                   </motion.div>
                 </div>
 
-                <h3
-                  className="mb-5 line-clamp-2 min-h-[4.5rem] text-3xl font-semibold transition-colors duration-500"
-                  style={{ color: "#2A2D31" }}
-                >
-                  <span className="transition-colors duration-500 group-hover:text-[#FFFFFF]">
-                    {service.title}
-                  </span>
-                </h3>
+               <h3
+  className="mb-5 line-clamp-3 min-h-[5.5rem] text-2xl font-semibold leading-snug transition-colors duration-500 sm:line-clamp-2 sm:min-h-[4.5rem] sm:text-3xl sm:leading-normal"
+  style={{ color: "#2A2D31" }}
+>
+  <span className="transition-colors duration-500 group-hover:text-[#FFFFFF]">
+    {service.title}
+  </span>
+</h3>
 
                 <p
                   className="line-clamp-3 font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C49A4A]"

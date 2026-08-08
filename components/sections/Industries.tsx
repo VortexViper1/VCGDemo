@@ -57,13 +57,18 @@ const FEATURES = [
  * Mobile vs desktop are two different visual treatments of the SAME
  * markup (no duplicated <Image>/content, so nothing double-loads):
  *  - mobile: compact card — small aspect-[4/3] photo up top, content
- *    flows normally below it, card height is just whatever the
- *    content needs.
+ *    flows below it. The slide is now `flex flex-col` and the title/
+ *    description are line-clamped with a matching min-height, so
+ *    every card ends up the same height no matter how much text it
+ *    holds — otherwise a 2-line title ("Strategic Intelligence")
+ *    made that card taller than its neighbors. The CTA uses
+ *    `mt-auto` so it always sits flush at the bottom.
  *  - md and up: the original full-bleed, text-over-image overlay.
  *    Both the photo and the content switch to `absolute` at md+, so
  *    the slide wrapper needs an explicit `aspect-*` there — otherwise
  *    it has nothing left in normal flow to derive a height from and
- *    collapses to zero. That aspect ratio is the fix below.
+ *    collapses to zero. That aspect ratio (fixed for every card)
+ *    is what already keeps desktop cards uniform.
  */
 function FeatureCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -104,31 +109,34 @@ function FeatureCarousel() {
   return (
     <div className="relative">
       {/* Track — full-bleed, large slides like apple.com's carousel on
-          desktop; compact cards on mobile */}
+          desktop; compact, equal-height cards on mobile */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6
+        className="flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6
                    px-[max(1.5rem,calc((100vw-1400px)/2))] sm:gap-6
                    [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {FEATURES.map((feature, index) => (
           <div
             key={feature.title}
-            className="relative shrink-0 snap-center overflow-hidden rounded-2xl bg-white
-                       w-[64vw] sm:w-[78vw] md:aspect-[21/9] md:w-[900px] md:rounded-3xl lg:w-[1100px]"
+            className="group relative flex shrink-0 flex-col snap-center overflow-hidden rounded-2xl bg-white
+                       shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                       w-[64vw] sm:w-[78vw]
+                       md:aspect-[21/9] md:w-[900px] md:flex-none md:rounded-3xl md:shadow-none md:ring-0 md:hover:translate-y-0
+                       lg:w-[1100px]"
           >
             {/* ── Photo ──
                 Mobile: small, fixed-ratio card image, normal document flow.
                 Desktop (md+): full-bleed background filling the whole slide
                 (the slide now has real height via md:aspect-[21/9] above,
                 so md:h-full here has something to fill). */}
-            <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] md:absolute md:inset-0 md:aspect-auto md:h-full">
+            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden sm:aspect-[16/10] md:absolute md:inset-0 md:aspect-auto md:h-full">
               <Image
                 src={feature.image}
                 alt={feature.title}
                 fill
                 sizes="(max-width: 767px) 64vw, 1100px"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 priority={index === 0}
               />
 
@@ -138,28 +146,32 @@ function FeatureCarousel() {
             </div>
 
             {/* ── Content ──
-                Mobile: normal flow, sits below the photo, card grows to
-                fit it — this is what keeps the photo small.
+                Mobile: flex-1 so it fills the remaining height of the
+                flex-column card (image is fixed-ratio, this takes the
+                rest) — combined with mt-auto on the CTA below, this is
+                what keeps every mobile card the same height.
                 Desktop (md+): absolutely positioned overlay at the
                 bottom of the full-bleed photo, as before. */}
             <div
-              className="relative z-20 flex flex-col p-4 sm:p-5 md:p-8 lg:p-14
-                         md:absolute md:inset-0 md:justify-end"
+              className="relative z-20 flex flex-1 flex-col p-4 sm:p-5
+                         md:absolute md:inset-0 md:justify-end md:p-8 lg:p-14"
             >
-              <span
-                className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-xs sm:tracking-[0.2em] md:mb-3"
-                style={{ color: "#C49A4A" }}
-              >
-                {feature.tag}
-              </span>
               <h3
-                className="mb-2 text-lg font-semibold sm:text-xl md:mb-3 md:text-3xl md:text-[#FAF8F4] lg:text-5xl"
-                style={{ color: "white" }}
+                className="mb-2 line-clamp-2 min-h-[3.25rem] text-lg font-semibold leading-snug
+                           sm:min-h-[3.75rem] sm:text-xl
+                           md:mb-3 md:min-h-0 md:text-3xl md:leading-tight md:line-clamp-none
+                           lg:text-5xl"
+                style={{ color: "#E8C275" }}
               >
                 {feature.title}
               </h3>
 
-              <p className="mb-4 max-w-md text-[13px] leading-5 text-[#646B70] sm:mb-5 sm:text-sm sm:leading-6 md:mb-6 md:max-w-lg md:leading-7 md:text-[#E8E3DA] lg:text-base">
+              <p
+                className="mb-4 line-clamp-2 min-h-[2.5rem] max-w-md text-[13px] leading-5 text-[#646B70]
+                           sm:mb-5 sm:min-h-[3rem] sm:text-sm sm:leading-6
+                           md:mb-6 md:min-h-0 md:max-w-lg md:line-clamp-3 md:leading-7 md:text-[#E8E3DA]
+                           lg:text-base"
+              >
                 {feature.description}
               </p>
 
@@ -173,10 +185,14 @@ function FeatureCarousel() {
                 text for contrast, so it reads as an intentional CTA
                 instead of a black glitch. Desktop keeps its original
                 white-pill-on-photo treatment, unchanged.
+
+                mt-auto pins this to the bottom of the flex-1 content
+                block on mobile, so the CTA lines up across every card
+                even when title/description lengths differ.
               */}
-<Link
+              <Link
                 href={feature.href}
-                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:px-5 sm:py-2.5 sm:text-sm md:bg-white/95 md:text-[#23272B] md:hover:bg-[#D9822B] md:hover:text-white"
+                className="relative z-30 mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:px-5 sm:py-2.5 sm:text-sm md:mt-0 md:bg-white/95 md:text-[#23272B] md:hover:bg-[#D9822B] md:hover:text-white"
               >
                 Discover More
                 <ArrowRight size={15} />
@@ -252,19 +268,19 @@ export default function WhyViswas() {
       </div>
 
       <Reveal>
-  <SectionTitle
-    eyebrow="WHY VISWAS"
-    title="Why organizations choose VISWAS."
-    description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
-    align="center"
-  />
-</Reveal>
+        <SectionTitle
+          eyebrow="WHY VISWAS"
+          title="Why organizations choose VISWAS."
+          description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
+          align="center"
+        />
+      </Reveal>
 
-<div className="mt-20">
-  <Reveal delay={0.15}>
-    <FeatureCarousel />
-  </Reveal>
-</div>
+      <div className="mt-20">
+        <Reveal delay={0.15}>
+          <FeatureCarousel />
+        </Reveal>
+      </div>
     </Section>
   );
 }

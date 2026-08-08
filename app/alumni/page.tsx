@@ -20,7 +20,7 @@ import VasaviImg from "./Vasavi.png";
 import KrishnaImg from "./Krishna.png"; // matched to Nagalla Krishna Sudhir
 import ChakradharImg from "./Chakradhar.png";
 import KalyaniImg from "./Kalyani.png";
-
+import SwaroopImg from "./swaroop.png"
 // Shown once in the header rather than repeated on every card, since
 // everyone here is from the same organization.
 const COMPANY_NAME = "VISWAS Consulting Group";
@@ -58,7 +58,7 @@ const LEADERSHIP: Alum[] = [
   },
   {
     name: "Vasavi Chouta",
-    role: "CEO",
+    role: "Senior Consultant",
     image: VasaviImg,
     linkedin: "https://www.linkedin.com/in/vasavi-chouta-296622277/",
   },
@@ -77,6 +77,7 @@ const LEADERSHIP: Alum[] = [
   {
     name: "Swaroop Gudipati",
     role: "Senior Consultant",
+    image:SwaroopImg,
     linkedin: "https://www.linkedin.com/in/ca-swaroop-g-8511a0313/",
   },
 ];

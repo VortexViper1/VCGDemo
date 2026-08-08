@@ -49,7 +49,7 @@ const FOCUS_RING =
 const MAIN_NAV_ITEMS = [
   NAVIGATION.find((item) => item.label === "Home"),
   NAVIGATION.find((item) => item.label === "Roadmap"),
-  NAVIGATION.find((item) => item.label === "Services"),
+  NAVIGATION.find((item) => item.label === "Capabilities"),
   NAVIGATION.find((item) => item.label === "Why Viswas"),
   NAVIGATION.find((item) => item.label === "Insights"),
 ].filter((item): item is NonNullable<typeof item> => Boolean(item));
@@ -392,7 +392,7 @@ export default function Navbar() {
                 overflowX: "hidden",
                 overflowY: "visible",
               }}
-              className="absolute left-[54%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
+              className="absolute left-[52%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
             >
               {MAIN_NAV_ITEMS.map((item, i) => {
                 const itemId = sectionIdFromHref(item.href);

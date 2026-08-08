@@ -22,7 +22,7 @@ export const NAVIGATION: NavigationItem[] = [
     icon: Home,
   },
   {
-    label: "Services",
+    label: "Capabilities",
     href: "/#services",
     icon: BriefcaseBusiness,
   },
