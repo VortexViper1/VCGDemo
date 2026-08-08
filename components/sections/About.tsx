@@ -56,7 +56,7 @@ export default function About() {
   return (
     <Section
       id="about"
-      className="bg-[#F8F5EF]"
+      className="bg-[#FFFFFF]"
     >
       <div className="grid items-center gap-24 lg:grid-cols-2 xl:gap-32">
         {/* Left */}

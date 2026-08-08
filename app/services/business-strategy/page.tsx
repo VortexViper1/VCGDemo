@@ -64,25 +64,24 @@ export default function BusinessStrategyPage() {
   const activeContent = activePillar !== null ? PILLARS[activePillar] : null;
 
   return (
-    <main className="min-h-screen bg-[#F8F5EF]">
+    <main className="min-h-screen bg-[#FFFFFF]">
       <Section className="pt-40 pb-32">
         <Reveal>
-          <Link
-            href="/#services"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors duration-300 hover:text-[#C49A4A]"
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            Back to Services
-          </Link>
+<Link href="/#services" className="group inline-flex focus-visible:outline-none">
+  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+    <ArrowLeft
+      size={15}
+      className="transition-transform duration-300 group-hover:-translate-x-1"
+    />
+    Back to Services
+  </span>
+</Link>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
             <span className="text-xs uppercase tracking-[0.3em] text-[#C49A4A]">
-              Our Services
+              Our Capabilities
             </span>
           </div>
         </Reveal>
@@ -123,9 +122,9 @@ export default function BusinessStrategyPage() {
                   {pillar.description}
                 </p>
 
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-xs font-medium uppercase tracking-[0.2em] text-[#C49A4A] opacity-80 transition-opacity duration-300 group-hover:opacity-100">
-                  Tap to read more
-                </span>
+<span className="pointer-events-auto relative z-30 mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[12px] font-medium text-[#23272B] opacity-90 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#D9822B] group-hover:text-white group-hover:opacity-100">
+  Tap to read more
+</span>
               </button>
             </Reveal>
           ))}
@@ -179,7 +178,7 @@ export default function BusinessStrategyPage() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "100%", opacity: 0.9 }}
               transition={{ type: "spring" as const, stiffness: 300, damping: 32, mass: 0.8 }}
-              className="fixed inset-x-0 bottom-0 z-[210] mx-auto w-full max-w-lg rounded-t-[28px] bg-[#F8F5EF] p-8 pb-10 shadow-[0_-12px_50px_rgba(10,12,14,0.35)] sm:bottom-8 sm:rounded-[28px] sm:p-10 sm:max-h-[85vh] sm:overflow-y-auto"
+              className="fixed inset-x-0 bottom-0 z-[210] mx-auto w-full max-w-lg rounded-t-[28px] bg-[#FFFFFF] p-8 pb-10 shadow-[0_-12px_50px_rgba(10,12,14,0.35)] sm:bottom-8 sm:rounded-[28px] sm:p-10 sm:max-h-[85vh] sm:overflow-y-auto"
             >
               <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-[#2A2D31]/15 sm:hidden" />
 

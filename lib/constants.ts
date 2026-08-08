@@ -26,7 +26,7 @@ export const COLORS = {
 
   gold: "#C49A4A",
 
-  text: "#F8F5EF",
+  text: "#FFFFFF",
 
   muted: "rgba(247,244,238,0.72)",
 };

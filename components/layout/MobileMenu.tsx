@@ -120,8 +120,8 @@ export default function MobileMenu({
                   VISWAS
                 </span>
                 <motion.button
-                  whileTap={{ scale: 0.9, rotate: 90 }}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ borderColor: "#D9822B", opacity: 1, color: "#D9822B" }}
+whileTap={{ scale: 0.9, rotate: 90, borderColor: "#D9822B", color: "#D9822B" }}
                   onClick={onClose}
                   className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C49A4A] hover:text-[#C49A4A]"
                   aria-label="Close menu"

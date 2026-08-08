@@ -174,9 +174,9 @@ function FeatureCarousel() {
                 instead of a black glitch. Desktop keeps its original
                 white-pill-on-photo treatment, unchanged.
               */}
-              <Link
+<Link
                 href={feature.href}
-                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-transform hover:scale-105 sm:px-5 sm:py-2.5 sm:text-sm md:bg-white/95 md:text-[#23272B]"
+                className="relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:px-5 sm:py-2.5 sm:text-sm md:bg-white/95 md:text-[#23272B] md:hover:bg-[#D9822B] md:hover:text-white"
               >
                 Discover More
                 <ArrowRight size={15} />
@@ -237,7 +237,7 @@ function FeatureCarousel() {
 
 export default function WhyViswas() {
   return (
-    <Section id="why-viswas" className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section id="why-viswas" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}

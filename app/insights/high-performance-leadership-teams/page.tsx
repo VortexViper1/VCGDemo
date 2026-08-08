@@ -119,7 +119,7 @@ export default function HighPerformanceLeadershipTeamsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <main className="min-h-screen" style={{ backgroundColor: "#F8F5EF" }}>
+      <main className="min-h-screen" style={{ backgroundColor: "#FFFFFF" }}>
         <style jsx global>{`
           @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&display=swap");
           .font-display {
@@ -130,16 +130,15 @@ export default function HighPerformanceLeadershipTeamsPage() {
         {/* Masthead */}
         <div className="border-b" style={{ borderColor: HAIRLINE }}>
           <Section className="pb-6 pt-10">
-            <Link
-              href="/insights"
-              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#123A53]"
-            >
-              <ArrowLeft
-                size={14}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
-              Back to Insights
-            </Link>
+<Link href="/insights" className="group inline-flex focus-visible:outline-none">
+  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+    <ArrowLeft
+      size={15}
+      className="transition-transform duration-300 group-hover:-translate-x-1"
+    />
+    Back to Insights
+  </span>
+</Link>
           </Section>
         </div>
 
@@ -317,16 +316,18 @@ export default function HighPerformanceLeadershipTeamsPage() {
                           {article.title}
                         </h3>
                       </div>
-                      <div className="flex shrink-0 items-center gap-4">
-                        <span className="text-xs uppercase tracking-[0.15em] text-[#23272B]/40">
-                          {article.read}
-                        </span>
-                        <ArrowRight
-                          size={16}
-                          style={{ color: GOLD }}
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        />
-                      </div>
+                     <div className="flex shrink-0 items-center gap-4">
+  <span className="text-xs uppercase tracking-[0.15em] text-[#23272B]/40">
+    {article.read}
+  </span>
+  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[12px] font-medium text-[#23272B] transition-all duration-300 group-hover:scale-105 group-hover:bg-[#D9822B] group-hover:text-white">
+    Read
+    <ArrowRight
+      size={14}
+      className="transition-transform duration-300 group-hover:translate-x-1"
+    />
+  </span>
+</div>
                     </div>
                   </Link>
                 </Reveal>

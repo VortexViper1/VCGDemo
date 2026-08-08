@@ -12,7 +12,7 @@ export default function Divider({
   return (
     <div
       className={cn(
-        "relative h-px w-full overflow-hidden bg-[#F8F5EF]/10",
+        "relative h-px w-full overflow-hidden bg-[#FFFFFF]/10",
         className
       )}
     >

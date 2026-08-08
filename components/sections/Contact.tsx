@@ -81,7 +81,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} resize-none ${
-              focused ? "border-[#C49A4A] bg-[#F8F5EF]/[0.07]" : "border-[#2A2D31]/8"
+              focused ? "border-[#C49A4A] bg-[#FFFFFF]/[0.07]" : "border-[#2A2D31]/8"
             }`}
           />
         ) : (
@@ -93,7 +93,7 @@ function FormField({
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             className={`${sharedClasses} ${
-              focused ? "border-[#C49A4A] bg-[#F8F5EF]/[0.07]" : "border-[#2A2D31]/8"
+              focused ? "border-[#C49A4A] bg-[#FFFFFF]/[0.07]" : "border-[#2A2D31]/8"
             }`}
           />
         )}
@@ -115,7 +115,6 @@ function MapPanel() {
     <Reveal delay={0.3}>
       <GlassCard className="overflow-hidden !p-0">
         <div className="flex flex-col gap-0 lg:flex-row">
-          {/* Map embed with gold hairline + ambient glow, matching the card language above */}
           <div className="relative h-[320px] w-full lg:h-[380px] lg:w-3/5">
             <motion.div
               animate={{ opacity: loaded ? 0 : 1 }}
@@ -144,18 +143,15 @@ function MapPanel() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#23272B]/70 via-transparent to-transparent lg:bg-gradient-to-r" />
           </div>
 
-          {/* Copy + CTA panel */}
           <div className="flex w-full flex-col justify-center gap-6 p-10 lg:w-2/5 lg:p-12">
             <div>
               <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
                 Find Us
               </span>
-              <h3 className="mt-4 text-2xl font-semibold "style={{ color: "#2A2D31" }}>
+              <h3 className="mt-4 text-2xl font-semibold" style={{ color: "#2A2D31" }}>
                 Visit our office
               </h3>
-              <p className="mt-4 leading-7 text-[#23272B]/70">
-                {OFFICE_ADDRESS}
-              </p>
+              <p className="mt-4 leading-7 text-[#23272B]/70">{OFFICE_ADDRESS}</p>
             </div>
 
             <motion.a
@@ -197,7 +193,6 @@ export default function Contact() {
 
     if (status !== "idle") return;
 
-    // Validation
     if (!form.firstName.trim()) {
       alert("Please enter your first name.");
       return;
@@ -263,7 +258,7 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section id="contact" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
@@ -286,64 +281,68 @@ export default function Contact() {
         />
       </Reveal>
 
-      <div className="mt-20 grid gap-10 lg:grid-cols-5">
-        <Reveal className="lg:col-span-2">
-          <GlassCard className="h-full">
-            <div className="space-y-10">
-              <div>
-                <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
-                  Office
-                </span>
-                <h3 className="mt-4 text-3xl font-semibold "style={{ color: "#2A2D31" }}>
-                  VISWAS Consulting Group
-                </h3>
-                <p className="mt-6 leading-8 text-[#23272B]/70">
-                  Partnering with visionary organizations to create
-                  sustainable business growth through strategy, capital
-                  advisory, and digital transformation.
-                </p>
-              </div>
+      <div className="mt-20 grid gap-10 lg:grid-cols-5 lg:items-stretch">
+        <Reveal className="flex h-full lg:col-span-2">
+          <GlassCard className="flex h-full w-full flex-col">
+            <div className="flex flex-1 flex-col justify-between space-y-10">
+              <div className="space-y-10">
+                <div>
+                  <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+                    Office
+                  </span>
+                  <h3 className="mt-4 text-3xl font-semibold" style={{ color: "#2A2D31" }}>
+                    VISWAS Consulting Group
+                  </h3>
+                  <p className="mt-6 leading-8 text-[#23272B]/70">
+                    Partnering with visionary organizations to create
+                    sustainable business growth through strategy, capital
+                    advisory, and digital transformation.
+                  </p>
+                </div>
 
-              <div className="space-y-8">
-                {CONTACT_ITEMS.map((item) => {
-                  const Icon = item.icon;
-                  const content = (
-                    <motion.div
-                      whileHover={item.href ? { x: 4 } : undefined}
-                      transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
-                      className="group flex gap-5"
-                    >
+                <div className="space-y-8">
+                  {CONTACT_ITEMS.map((item) => {
+                    const Icon = item.icon;
+                    const content = (
                       <motion.div
-                        whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
-                        transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                        className="rounded-2xl bg-[#C49A4A]/12 p-4 transition-colors duration-300 group-hover:bg-[#C49A4A]/20"
+                        whileHover={item.href ? { x: 4 } : undefined}
+                        transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
+                        className="group flex gap-5"
                       >
-                        <Icon size={22} className="text-[#C49A4A]" />
+                        <motion.div
+                          whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
+                          transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
+                          className="rounded-2xl bg-[#C49A4A]/12 p-4 transition-colors duration-300 group-hover:bg-[#C49A4A]/20"
+                        >
+                          <Icon size={22} className="text-[#C49A4A]" />
+                        </motion.div>
+
+                        <div>
+                          <p className="text-sm uppercase tracking-[0.25em] text-[#23272B]/50">
+                            {item.label}
+                          </p>
+                          <p className="mt-2" style={{ color: "#2A2D31" }}>
+                            {item.value}
+                          </p>
+                        </div>
                       </motion.div>
+                    );
 
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.25em] text-[#23272B]/50">
-                          {item.label}
-                        </p>
-                        <p className="mt-2 "style={{ color: "#2A2D31" }}>{item.value}</p>
-                      </div>
-                    </motion.div>
-                  );
-
-                  return item.href ? (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target={item.label === "Location" ? "_blank" : undefined}
-                      rel={item.label === "Location" ? "noopener noreferrer" : undefined}
-                      className="block"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={item.label}>{content}</div>
-                  );
-                })}
+                    return item.href ? (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        target={item.label === "Location" ? "_blank" : undefined}
+                        rel={item.label === "Location" ? "noopener noreferrer" : undefined}
+                        className="block"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={item.label}>{content}</div>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="border-t border-[#2A2D31]/8 pt-8">
@@ -362,9 +361,9 @@ export default function Contact() {
           </GlassCard>
         </Reveal>
 
-        <Reveal delay={0.2} className="lg:col-span-3">
-          <GlassCard>
-            <form className="space-y-6" onSubmit={handleSubmit}>
+        <Reveal delay={0.2} className="flex h-full lg:col-span-3">
+          <GlassCard className="flex h-full w-full flex-col">
+            <form className="flex flex-1 flex-col space-y-6" onSubmit={handleSubmit}>
               <div className="grid gap-6 md:grid-cols-2">
                 <FormField
                   label="First Name"
@@ -395,22 +394,26 @@ export default function Contact() {
                 onChange={updateField("company")}
               />
 
-              <FormField
-                label="Message"
-                as="textarea"
-                rows={6}
-                placeholder="Tell us about your project..."
-                value={form.message}
-                onChange={updateField("message")}
-              />
+              <div className="flex-1">
+                <FormField
+                  label="Message"
+                  as="textarea"
+                  rows={6}
+                  placeholder="Tell us about your project..."
+                  value={form.message}
+                  onChange={updateField("message")}
+                />
+              </div>
 
               <motion.button
                 whileHover={{ scale: status === "idle" ? 1.02 : 1 }}
                 whileTap={{ scale: status === "idle" ? 0.98 : 1 }}
                 type="submit"
                 disabled={status !== "idle"}
-                className={`group relative flex min-w-[200px] items-center justify-center gap-3 overflow-hidden rounded-full px-8 py-4 font-semibold text-[#23272B] transition-colors duration-300 ${
-                  status === "sent" ? "bg-emerald-400" : "bg-[#C49A4A]"
+                className={`group relative flex min-w-[200px] items-center justify-center gap-2 self-start overflow-hidden rounded-full px-5 py-2.5 text-[13px] font-medium shadow-sm ring-1 ring-[#2A2D31]/10 transition-all duration-300 sm:text-sm ${
+                  status === "sent"
+                    ? "bg-emerald-400 text-[#23272B]"
+                    : "bg-white/95 text-[#23272B] hover:bg-[#D9822B] hover:text-white"
                 }`}
               >
                 <AnimatePresence mode="wait">
@@ -421,10 +424,10 @@ export default function Contact() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.25 }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-2"
                     >
                       Send Inquiry
-                      <Send size={18} className="transition group-hover:translate-x-1" />
+                      <Send size={15} className="transition group-hover:translate-x-1" />
                     </motion.span>
                   )}
 
@@ -435,7 +438,7 @@ export default function Contact() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.25 }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-2"
                     >
                       <motion.span
                         animate={{ rotate: 360 }}
@@ -453,10 +456,10 @@ export default function Contact() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.25 }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-2"
                     >
                       Inquiry Sent
-                      <Check size={18} />
+                      <Check size={15} />
                     </motion.span>
                   )}
                 </AnimatePresence>

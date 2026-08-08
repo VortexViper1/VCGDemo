@@ -204,7 +204,7 @@ description="We build enduring partnerships by helping organizations solve compl
       </div>
 
       <Reveal delay={0.5}>
-  <div className="mt-24 rounded-[32px] border border-[#2A2D31]/8 bg-[#F8F5EF]/[0.03] px-8 py-10 backdrop-blur-2xl">
+  <div className="mt-24 rounded-[32px] border border-[#2A2D31]/8 bg-[#FFFFFF]/[0.03] px-8 py-10 backdrop-blur-2xl">
     <div className="grid grid-cols-2 items-center gap-8 opacity-50 md:grid-cols-3 lg:grid-cols-6">
       {LOGOS.map((logo) => (
         <motion.div

@@ -79,9 +79,9 @@ const INSIGHTS: Insight[] = [
   },
   {
     category: "Operations",
-    title: "Operational Excellence Through Process Optimization",
+    title: "Operational Excellence",
     description:
-      "How disciplined process redesign — not headcount — unlocks the next decade of margin improvement.",
+      "How disciplined process redesign not headcount unlocks the next decade of margin improvement.",
     date: "Apr 2026",
     read: "5 min read",
     href: "/insights/operational-excellence-process-optimization",
@@ -508,7 +508,7 @@ useEffect(() => {
 
   if (prefersReducedMotion) {
     return (
-      <Section id="insights" className="relative overflow-hidden bg-[#F8F5EF]">
+      <Section id="insights" className="relative overflow-hidden bg-[#FFFFFF]">
         <Reveal>
           <SectionTitle
             eyebrow="INSIGHTS"
@@ -535,7 +535,7 @@ useEffect(() => {
   }
 
   return (
-    <Section id="insights" className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section id="insights" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
@@ -560,8 +560,8 @@ useEffect(() => {
 
       <div ref={viewportRef} className="relative mt-16 overflow-hidden">
         {/* Edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#F8F5EF] to-transparent w-10 sm:w-16 lg:w-28" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#F8F5EF] to-transparent w-10 sm:w-16 lg:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#FFFFFF] to-transparent w-10 sm:w-16 lg:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#FFFFFF] to-transparent w-10 sm:w-16 lg:w-28" />
 
         <motion.div
           className="flex"

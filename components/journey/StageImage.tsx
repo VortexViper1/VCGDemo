@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Capability, JourneyStageType } from "@/lib/journey";
 
 interface Props {
@@ -54,28 +55,13 @@ export default function StageImage({ stage, activeService }: Props) {
       {/* Permanent dark amber gradient so white text always stays readable over any photo */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2A1B0D]/85 via-[#2A1B0D]/25 to-transparent" />
 
-      {/* CTA label — always visible, bold white text */}
-      <div className="pointer-events-none absolute bottom-7 left-7 flex items-center gap-4">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.35em] text-white">
-            Discover More
-          </p>
-        </div>
-
-        <div
-          className="flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-500 group-hover:translate-x-1"
-          style={{ backgroundColor: stage.accent }}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M2 8H14M14 8L8.5 2.5M14 8L8.5 13.5"
-              stroke="white"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
+      {/* CTA — white pill button, same treatment as the FeatureCarousel's
+          "Discover More", shifts to amber on hover */}
+      <div className="pointer-events-none absolute bottom-7 left-7">
+        <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+          Discover More
+          <ArrowRight size={15} />
+        </span>
       </div>
 
       <div

@@ -185,7 +185,7 @@ function FeatureCard({
 
 export default function WhyViswas() {
   return (
-    <Section id="approach" className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section id="approach" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
@@ -211,7 +211,7 @@ export default function WhyViswas() {
 
           <Reveal delay={0.2}>
             <div className="relative mt-14 space-y-10 pl-8">
-              <div className="absolute inset-y-0 left-0 w-px bg-[#F8F5EF]/10">
+              <div className="absolute inset-y-0 left-0 w-px bg-[#FFFFFF]/10">
                 <motion.div
                   initial={{ scaleY: 0 }}
                   whileInView={{ scaleY: 1 }}

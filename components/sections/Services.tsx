@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   ArrowUpRight,
+  ArrowRight,
   BriefcaseBusiness,
   Landmark,
   TrendingUp,
@@ -61,7 +62,7 @@ const SERVICES: {
 
 /*
   ── Hover overlay system ──────────────────────────────────────────
-  Palette: Ivory #F8F5EF · Primary Dark #071F2D · Accent Gold #C49A4A
+  Palette: Ivory #FFFFFF · Primary Dark #071F2D · Accent Gold #C49A4A
 
   Every layer below is fully rendered at all times and toggled purely
   via `opacity` (plus one `transform` on the sweep) — never by
@@ -119,7 +120,7 @@ function ServiceCard({
       <div style={{ perspective: 1200 }}>
         <Link
           href={service.href}
-          className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C49A4A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F5EF]"
+          className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C49A4A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFFFFF]"
         >
           <motion.div
             ref={cardRef}
@@ -148,7 +149,7 @@ function ServiceCard({
                 {/* 2. Ivory rest-scrim — the clean default state */}
                 <div
                   aria-hidden
-                  className="absolute inset-0 bg-[#F8F5EF] transition-opacity duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0"
+                  className="absolute inset-0 bg-[#FFFFFF] transition-opacity duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0"
                 />
 
                 {/* 3. Dark boardroom base — navy, not gold; this is the
@@ -215,7 +216,7 @@ function ServiceCard({
                 strokeWidth={1}
               />
 
-              <div className="relative flex h-full flex-col p-10">
+             <div className="relative flex h-full min-h-[420px] flex-col p-10">
                 <div className="mb-8 flex items-center justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C49A4A]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C49A4A]/60 group-hover:bg-[#C49A4A]/10">
                     <Icon
@@ -234,22 +235,22 @@ function ServiceCard({
                 </div>
 
                 <h3
-                  className="mb-5 text-3xl font-semibold transition-colors duration-500"
+                  className="mb-5 line-clamp-2 min-h-[4.5rem] text-3xl font-semibold transition-colors duration-500"
                   style={{ color: "#2A2D31" }}
                 >
-                  <span className="transition-colors duration-500 group-hover:text-[#F8F5EF]">
+                  <span className="transition-colors duration-500 group-hover:text-[#FFFFFF]">
                     {service.title}
                   </span>
                 </h3>
 
                 <p
-                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C49A4A]"
+                  className="line-clamp-3 font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C49A4A]"
                   style={{ color: "#6C7278" }}
                 >
                   {service.description}
                 </p>
 
-                <div className="relative mt-10 h-px bg-[#E6DDD0] group-hover:bg-[#F8F5EF]/15">
+                <div className="relative mt-10 h-px bg-[#E6DDD0] group-hover:bg-[#FFFFFF]/15">
                   <motion.div
                     initial={{ width: "0%" }}
                     whileInView={{ width: "40%" }}
@@ -259,11 +260,17 @@ function ServiceCard({
                   />
                 </div>
 
-                <div className="mt-8 flex items-center gap-3 text-sm uppercase tracking-[0.25em] text-[#C49A4A]">
-                  Learn More
-                  <motion.div whileHover={{ x: 4 }}>
-                    <ArrowUpRight size={16} />
-                  </motion.div>
+                {/* Learn More — same white/95 pill treatment as
+                    StageImage's "Discover More" CTA, amber-orange fill
+                    on hover, icon nudges toward the arrow's direction */}
+                <div className="mt-auto pt-8">
+                  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+                    Learn More
+                    <ArrowRight
+                      size={15}
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </span>
                 </div>
               </div>
             </GlassCard>
@@ -276,7 +283,7 @@ function ServiceCard({
 
 export default function Services() {
   return (
-    <Section id="services" className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section id="services" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
@@ -292,7 +299,7 @@ export default function Services() {
 
       <Reveal>
         <SectionTitle
-          eyebrow="OUR SERVICES"
+          eyebrow="OUR CAPABILITIES"
           title="Consulting solutions designed for enduring business excellence."
           description="We combine strategic thinking, financial expertise, and digital innovation to create measurable outcomes across every engagement."
           align="center"

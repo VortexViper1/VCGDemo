@@ -16,7 +16,7 @@ import SectionLink from "@/components/shared/SectionLink";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#2A2D31]/8 bg-[#F8F5EF]">
+    <footer className="relative overflow-hidden border-t border-[#2A2D31]/8 bg-[#FFFFFF]">
       {/* Background Glow */}
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C49A4A]/12 blur-[140px]" />
@@ -29,7 +29,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-24 rounded-[32px] border border-[#2A2D31]/8 bg-[#F8F5EF]/[0.04] p-10 backdrop-blur-3xl md:p-16"
+          className="mb-24 rounded-[32px] border border-[#2A2D31]/8 bg-[#FFFFFF]/[0.04] p-10 backdrop-blur-3xl md:p-16"
         >
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div>
@@ -47,14 +47,17 @@ export default function Footer() {
               </h2>
             </div>
 
+            {/* Start a Conversation — same white/95-to-amber-orange
+                pill treatment as the "Discover More" CTA elsewhere on
+                the site, kept at the larger footer scale */}
             <SectionLink href="/#contact">
               <motion.button
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 rounded-full bg-[#C49A4A] px-8 py-5 font-semibold text-[#23272B] transition-all hover:shadow-[0_0_40px_rgba(201,163,95,.45)]"
+                className="group flex items-center gap-3 rounded-full bg-white/95 px-8 py-5 font-semibold text-[#23272B] transition-all duration-300 hover:bg-[#D9822B] hover:text-white"
               >
                 Start a Conversation
-                <ArrowUpRight className="transition group-hover:-translate-y-1 group-hover:translate-x-1" />
+                <ArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </motion.button>
             </SectionLink>
           </div>
@@ -145,7 +148,7 @@ export default function Footer() {
 
           <div className="flex gap-6 md:p-8">
             <Link
-              href="/privacy"
+              href="/privacy-policy"
               className="transition hover:text-[#C49A4A]"
               style={{ color: "#2A2D31" }}
             >
@@ -153,7 +156,7 @@ export default function Footer() {
             </Link>
 
             <Link
-              href="/terms"
+              href="/terms-of-use"
               className="transition hover:text-[#C49A4A]"
               style={{ color: "#2A2D31" }}
             >

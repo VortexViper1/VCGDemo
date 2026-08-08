@@ -39,7 +39,7 @@ export const NAVIGATION: NavigationItem[] = [
     icon: Newspaper,
   },
   {
-    label: "Journey",
+    label: "Roadmap",
     href: "/#journey",
     icon: Route,
   },

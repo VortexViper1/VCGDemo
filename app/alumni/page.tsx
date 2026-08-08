@@ -256,7 +256,7 @@ function AlumniGrid({ people }: { people: Alum[] }) {
 
 export default function AlumniPage() {
   return (
-    <main className="min-h-screen bg-[#F8F5EF]">
+    <main className="min-h-screen bg-[#FFFFFF]">
       {/* Ambient background, consistent with the rest of the site */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
@@ -274,16 +274,15 @@ export default function AlumniPage() {
       <Section className="pt-40">
         <Reveal>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <Link
-              href="/#leadership"
-              className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors duration-300 hover:text-[#C49A4A]"
-            >
-              <ArrowLeft
-                size={16}
-                className="transition-transform duration-300 group-hover:-translate-x-1"
-              />
-              Back to Leadership
-            </Link>
+<Link href="/#leadership" className="group inline-flex focus-visible:outline-none">
+  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+    <ArrowLeft
+      size={15}
+      className="transition-transform duration-300 group-hover:-translate-x-1"
+    />
+    Back to Leadership
+  </span>
+</Link>
 
             <div className="inline-flex items-center gap-2 rounded-full border border-[#2A2D31]/8 bg-white px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[#6B807A]">
               <Globe size={12} className="text-[#C49A4A]" />

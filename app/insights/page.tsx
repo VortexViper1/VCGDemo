@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Calendar,
   Clock3,
-  TrendingUp,
 } from "lucide-react";
 
 import Section from "@/components/shared/Section";
@@ -117,7 +116,7 @@ function EmberField() {
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen bg-[#F8F5EF]">
+    <main className="min-h-screen bg-[#FFFFFF]">
       {/* Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <motion.div
@@ -154,15 +153,14 @@ export default function InsightsPage() {
         <EmberField />
 
         <Reveal>
-          <Link
-            href="/"
-            className="group relative z-10 inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#23272B]/50 transition-colors hover:text-[#C49A4A]"
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-            Back to Home
+          <Link href="/" className="group relative z-10 inline-flex focus-visible:outline-none">
+            <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+              <ArrowLeft
+                size={15}
+                className="transition-transform duration-300 group-hover:-translate-x-1"
+              />
+              Back to Home
+            </span>
           </Link>
         </Reveal>
 
@@ -179,8 +177,8 @@ export default function InsightsPage() {
           {/* FEATURED INSIGHT */}
           <Reveal delay={0.2}>
             <div className="mt-20">
-              <Link href={FEATURED.href}>
-                <GlassCard className="group overflow-hidden">
+              <Link href={FEATURED.href} className="group block">
+                <GlassCard className="overflow-hidden">
                   <div className="grid gap-10 lg:grid-cols-2">
                     {/* LEFT */}
                     <div>
@@ -213,13 +211,13 @@ export default function InsightsPage() {
                         </div>
                       </div>
 
-                      <motion.div
-                        whileHover={{ x: 6 }}
-                        className="mt-12 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#C49A4A]"
-                      >
+                      <span className="pointer-events-auto relative z-30 mt-12 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
                         Read Insight
-                        <ArrowRight size={18} />
-                      </motion.div>
+                        <ArrowRight
+                          size={15}
+                          className="transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                      </span>
                     </div>
 
                 {/* RIGHT - VISWAS Logo */}
@@ -340,13 +338,13 @@ export default function InsightsPage() {
                           {article.read}
                         </div>
 
-                        <motion.div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#C49A4A]">
+                        <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[12px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white">
                           Read
                           <ArrowRight
-                            size={15}
+                            size={14}
                             className="transition-transform duration-300 group-hover:translate-x-1"
                           />
-                        </motion.div>
+                        </span>
                       </div>
                     </GlassCard>
                   </motion.div>

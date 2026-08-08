@@ -30,7 +30,7 @@ const handleContactClick = (
 
 export default function CTA() {
   return (
-    <Section className="relative overflow-hidden bg-[#F8F5EF]">
+    <Section className="relative overflow-hidden bg-[#FFFFFF]">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#C49A4A]/12 blur-[180px]" />
@@ -39,7 +39,7 @@ export default function CTA() {
       </div>
 
       <Reveal>
-        <div className="glass-island relative overflow-hidden rounded-[40px] border border-[#2A2D31]/8 bg-[#F8F5EF]/[0.04] backdrop-blur-3xl">
+        <div className="glass-island relative overflow-hidden rounded-[40px] border border-[#2A2D31]/8 bg-[#FFFFFF]/[0.04] backdrop-blur-3xl">
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent" />
 
           <div className="relative px-8 py-20 md:px-16 lg:px-24">
@@ -97,7 +97,7 @@ export default function CTA() {
                   <Link href="/#services">
                     <motion.button
                       whileHover={{ y: -2 }}
-                      className="rounded-full border border-white/15 bg-white px-9 py-5 font-medium  backdrop-blur-xl transition hover:border-[#C49A4A]/30 hover:bg-[#F8F5EF]/10"
+                      className="rounded-full border border-white/15 bg-white px-9 py-5 font-medium  backdrop-blur-xl transition hover:border-[#C49A4A]/30 hover:bg-[#FFFFFF]/10"
                        style={{ color: "#2A2D31" }}
                     >
                       Explore Services

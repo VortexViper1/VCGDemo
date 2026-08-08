@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, HeartHandshake, X, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, X, CheckCircle2 } from "lucide-react";
 
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
@@ -40,23 +40,22 @@ export default function TrustedPartnershipPage() {
   const activeContent = activePoint !== null ? POINTS[activePoint] : null;
 
   return (
-    <main className="min-h-screen bg-[#F8F5EF]">
+    <main className="min-h-screen bg-[#FFFFFF]">
       <Section className="pt-40 pb-32">
         <Reveal>
-          <Link
-            href="/#why-viswas"
-            className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#44665F] transition-colors duration-300 hover:text-accent"
-          >
-            <ArrowLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-1" />
-            Back to Why VISWAS
-          </Link>
+<Link href="/#why-viswas" className="group inline-flex focus-visible:outline-none">
+  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+    <ArrowLeft
+      size={15}
+      className="transition-transform duration-300 group-hover:-translate-x-1"
+    />
+    Back to Why VISWAS
+  </span>
+</Link>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
-              <HeartHandshake size={26} className="text-accent" />
-            </div>
             <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAS — 03</span>
           </div>
         </Reveal>
@@ -105,9 +104,9 @@ export default function TrustedPartnershipPage() {
                   {point.title}
                 </h3>
                 <p className="line-clamp-3 leading-7 text-white/65">{point.description}</p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-accent opacity-80 transition-opacity duration-300 group-hover:opacity-100">
-                  Tap to read more
-                </span>
+<span className="pointer-events-auto relative z-30 mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-[12px] font-medium text-[#23272B] opacity-90 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#D9822B] group-hover:text-white group-hover:opacity-100">
+  Tap to read more
+</span>
               </button>
             </Reveal>
           ))}
@@ -157,15 +156,12 @@ export default function TrustedPartnershipPage() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "100%", opacity: 0.9 }}
               transition={{ type: "spring" as const, stiffness: 300, damping: 32, mass: 0.8 }}
-              className="fixed inset-x-0 bottom-0 z-[210] mx-auto w-full max-w-lg rounded-t-[28px] bg-[#F8F5EF] p-8 pb-10 shadow-[0_-12px_50px_rgba(10,12,14,0.35)] sm:bottom-8 sm:rounded-[28px] sm:p-10"
+              className="fixed inset-x-0 bottom-0 z-[210] mx-auto w-full max-w-lg rounded-t-[28px] bg-[#FFFFFF] p-8 pb-10 shadow-[0_-12px_50px_rgba(10,12,14,0.35)] sm:bottom-8 sm:rounded-[28px] sm:p-10"
             >
               {/* Drag handle, mobile-sheet affordance */}
               <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-[#2A2D31]/15 sm:hidden" />
 
               <div className="flex items-start justify-between gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                  <HeartHandshake size={22} className="text-accent" />
-                </div>
                 <button
                   type="button"
                   onClick={() => setActivePoint(null)}

@@ -252,7 +252,8 @@ export default function App() {
             promoters make confident decisions with long-term impact.
           </motion.p>
 
-          {/* CTA */}
+          {/* CTA — same white/95-to-amber-orange pill treatment as the
+              "Discover More" CTA used elsewhere on the site */}
           <motion.div
             initial={fromBelow}
             animate={toVisible}
@@ -262,13 +263,11 @@ export default function App() {
               href="#contact"
               className="
                 group inline-flex w-full items-center justify-center gap-[10px]
-                rounded-full bg-[#C49A4A]
+                rounded-full bg-white/95
                 px-7 py-3.5
-                text-[12px] font-semibold uppercase tracking-[0.1em] text-[#2A1D0F]
-                transition-all duration-500 ease-out
-                hover:-translate-y-px hover:bg-[#D4AE5E]
-                hover:shadow-[0_12px_40px_-4px_rgba(196,154,74,0.5)]
-                active:translate-y-0 active:shadow-none
+                text-[12px] font-semibold uppercase tracking-[0.1em] text-[#23272B]
+                transition-all duration-300 ease-out
+                hover:scale-105 hover:bg-[#D9822B] hover:text-white
                 sm:w-auto sm:justify-start sm:px-9 sm:py-[13px] sm:text-[13px]
               "
             >

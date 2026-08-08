@@ -13,7 +13,7 @@ export default function ScrollIndicator() {
       <span className="text-[10px] uppercase tracking-[0.4em] text-[#23272B]/50">
         Scroll
       </span>
-      <div className="relative h-12 w-[1px] overflow-hidden bg-[#F8F5EF]/15">
+      <div className="relative h-12 w-[1px] overflow-hidden bg-[#FFFFFF]/15">
         <motion.div
           animate={{ y: ["-100%", "100%"] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}

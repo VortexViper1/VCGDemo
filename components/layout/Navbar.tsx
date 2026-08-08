@@ -48,7 +48,7 @@ const FOCUS_RING =
    array's order is the single source of truth for desktop nav order. */
 const MAIN_NAV_ITEMS = [
   NAVIGATION.find((item) => item.label === "Home"),
-  NAVIGATION.find((item) => item.label === "Journey"),
+  NAVIGATION.find((item) => item.label === "Roadmap"),
   NAVIGATION.find((item) => item.label === "Services"),
   NAVIGATION.find((item) => item.label === "Why Viswas"),
   NAVIGATION.find((item) => item.label === "Insights"),
@@ -392,7 +392,7 @@ export default function Navbar() {
                 overflowX: "hidden",
                 overflowY: "visible",
               }}
-              className="absolute left-[56%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
+              className="absolute left-[54%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
             >
               {MAIN_NAV_ITEMS.map((item, i) => {
                 const itemId = sectionIdFromHref(item.href);
@@ -500,24 +500,24 @@ export default function Navbar() {
             </motion.div>
 
             {/* ── Mobile Menu Button ── */}
-            <motion.button
-              initial={{ opacity: 1, scale: 1 }}
-              animate={{
-                opacity: compact ? 0.55 : 1,
-                scale: 1 - effectiveProgress * 0.06,
-              }}
-              transition={getTransition(0.015, 0.045)}
-              style={{ pointerEvents: "auto" }}
-              onClick={() => setMenuOpen(true)}
-              whileTap={{ scale: 0.9, rotate: 90 }}
-              whileHover={{ borderColor: GOLD, opacity: 1 }}
-              aria-label="Open menu"
-              aria-haspopup="true"
-              aria-expanded={menuOpen}
-              className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md lg:hidden ${FOCUS_RING}`}
-            >
-              <Menu size={22} />
-            </motion.button>
+<motion.button
+  initial={{ opacity: 1, scale: 1 }}
+  animate={{
+    opacity: compact ? 0.55 : 1,
+    scale: 1 - effectiveProgress * 0.06,
+  }}
+  transition={getTransition(0.015, 0.045)}
+  style={{ pointerEvents: "auto" }}
+  onClick={() => setMenuOpen(true)}
+  whileTap={{ scale: 0.9, rotate: 90, backgroundColor: "#D9822B", color: "#FFFFFF" }}
+  whileHover={{ opacity: 1, backgroundColor: "#D9822B", color: "#FFFFFF" }}
+  aria-label="Open menu"
+  aria-haspopup="true"
+  aria-expanded={menuOpen}
+  className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md transition-colors duration-300 lg:hidden ${FOCUS_RING}`}
+>
+  <Menu size={22} />
+</motion.button>
           </motion.div>
         </div>
       </motion.header>
