@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, Suspense } from "react";
+import { useState, useEffect, useMemo, useRef, Suspense } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { JOURNEY } from "@/lib/journey";
@@ -25,7 +25,20 @@ function BusinessJourneyInner() {
   const [active, setActive] = useState(initialIndex);
   const reduceMotion = useReducedMotion();
 
+  // Guards the URL-sync effect below against firing on initial mount.
+  // `active` already reflects either the incoming ?stage= param or the
+  // default (0) on first render, so there is nothing to write back yet —
+  // doing so anyway was rewriting a plain "/" load into
+  // "/?stage=<id>#journey" on every single page visit, appending a hash
+  // that didn't come from any user action.
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     const stageId = JOURNEY[active]?.id;
     if (!stageId) return;
     const params = new URLSearchParams(searchParams.toString());

@@ -3,11 +3,9 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Home,
-  Users,
   BriefcaseBusiness,
   Building2,
   Newspaper,
-  Phone,
   Route,
 } from "lucide-react";
 
@@ -43,7 +41,6 @@ export const NAVIGATION: NavigationItem[] = [
     href: "/#journey",
     icon: Route,
   },
-
 ];
 
 export const CTA_BUTTON = {

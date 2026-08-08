@@ -83,7 +83,6 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const islandRef = useRef<HTMLDivElement>(null);
-  const isNavigatingRef = useRef(false);
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY;
@@ -116,37 +115,38 @@ export default function Navbar() {
      meaning "most recently passed the line"). This does NOT assume
      SECTION_IDS is in DOM order — MAIN_NAV_ITEMS deliberately reorders
      Journey between Home and Services for display, so array order and
-     DOM order diverge. The old implementation walked the array in
-     order and `break`-ed on the first section that hadn't crossed the
-     offset yet, which assumed array order == DOM order; when that
-     assumption broke, it got stuck highlighting Journey permanently.
+     DOM order diverge.
 
-     Recalculates fresh on every scroll/resize, so it can never get
-     stuck on stale state. Silently does nothing on routes where these
-     section ids don't exist.
+     Queries the DOM fresh inside updateActive() on every call, rather
+     than caching a single element list at mount time. The previous
+     version cached the list once and bailed out permanently if any
+     section wasn't in the DOM yet on that first tick (a real risk in
+     Next.js, where images/fonts/client hydration can delay a section's
+     mount past this effect's first run) — that early return meant the
+     scroll/resize listeners never got attached at all, leaving
+     activeSection stuck. Re-querying per call makes late-mounting
+     sections self-heal on the very next scroll/resize event.
 
      Unchanged otherwise — this never calls the navigation hook and
      never touches history, so it cannot conflict with SectionLink. */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => el !== null
-    );
-    if (elements.length === 0) return;
-
     const updateActive = () => {
       let current: string | null = null;
       let bestTop = -Infinity;
 
-      for (const el of elements) {
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+
         const top = el.getBoundingClientRect().top - SCROLLSPY_OFFSET;
         // Only consider sections we've actually scrolled past (top <= 0),
         // and pick whichever is closest to the offset line — i.e. the
         // section most recently passed, regardless of array order.
         if (top <= 0 && top > bestTop) {
           bestTop = top;
-          current = el.id;
+          current = id;
         }
       }
 
@@ -398,7 +398,6 @@ export default function Navbar() {
                 const itemId = sectionIdFromHref(item.href);
                 const isActive = itemId !== null && activeSection === itemId;
                 const isHighlighted = hoveredNav === item.label || isActive;
-                const isJourney = itemId === "journey";
 
                 return (
                   <motion.div
@@ -500,24 +499,24 @@ export default function Navbar() {
             </motion.div>
 
             {/* ── Mobile Menu Button ── */}
-<motion.button
-  initial={{ opacity: 1, scale: 1 }}
-  animate={{
-    opacity: compact ? 0.55 : 1,
-    scale: 1 - effectiveProgress * 0.06,
-  }}
-  transition={getTransition(0.015, 0.045)}
-  style={{ pointerEvents: "auto" }}
-  onClick={() => setMenuOpen(true)}
-  whileTap={{ scale: 0.9, rotate: 90, backgroundColor: "#D9822B", color: "#FFFFFF" }}
-  whileHover={{ opacity: 1, backgroundColor: "#D9822B", color: "#FFFFFF" }}
-  aria-label="Open menu"
-  aria-haspopup="true"
-  aria-expanded={menuOpen}
-  className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md transition-colors duration-300 lg:hidden ${FOCUS_RING}`}
->
-  <Menu size={22} />
-</motion.button>
+            <motion.button
+              initial={{ opacity: 1, scale: 1 }}
+              animate={{
+                opacity: compact ? 0.55 : 1,
+                scale: 1 - effectiveProgress * 0.06,
+              }}
+              transition={getTransition(0.015, 0.045)}
+              style={{ pointerEvents: "auto" }}
+              onClick={() => setMenuOpen(true)}
+              whileTap={{ scale: 0.9, rotate: 90, backgroundColor: "#D9822B", color: "#FFFFFF" }}
+              whileHover={{ opacity: 1, backgroundColor: "#D9822B", color: "#FFFFFF" }}
+              aria-label="Open menu"
+              aria-haspopup="true"
+              aria-expanded={menuOpen}
+              className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md transition-colors duration-300 lg:hidden ${FOCUS_RING}`}
+            >
+              <Menu size={22} />
+            </motion.button>
           </motion.div>
         </div>
       </motion.header>

@@ -6,10 +6,10 @@ import {
   AnimatePresence,
   type Variants,
 } from "framer-motion";
-import Link from "next/link";
 import { X, ArrowUpRight } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
 import SectionLink from "@/components/shared/SectionLink";
+
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
@@ -121,7 +121,7 @@ export default function MobileMenu({
                 </span>
                 <motion.button
                   whileHover={{ borderColor: "#D9822B", opacity: 1, color: "#D9822B" }}
-whileTap={{ scale: 0.9, rotate: 90, borderColor: "#D9822B", color: "#D9822B" }}
+                  whileTap={{ scale: 0.9, rotate: 90, borderColor: "#D9822B", color: "#D9822B" }}
                   onClick={onClose}
                   className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C49A4A] hover:text-[#C49A4A]"
                   aria-label="Close menu"
@@ -134,38 +134,37 @@ whileTap={{ scale: 0.9, rotate: 90, borderColor: "#D9822B", color: "#D9822B" }}
               <nav className="mt-16 flex flex-col gap-2">
                 {NAVIGATION.map((item) => (
                   <motion.div key={item.label} variants={itemVariants}>
-                   <SectionLink
-  href={item.href}
-  onNavigate={onClose}
-  className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#B7964A]/10"
->
-  <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C49A4A]">
-    {item.label}
-  </span>
+                    <SectionLink
+                      href={item.href}
+                      onNavigate={onClose}
+                      className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#B7964A]/10"
+                    >
+                      <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C49A4A]">
+                        {item.label}
+                      </span>
 
-  <ArrowUpRight
-    size={20}
-    className="text-[#C49A4A] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-  />
-</SectionLink>
+                      <ArrowUpRight
+                        size={20}
+                        className="text-[#C49A4A] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                      />
+                    </SectionLink>
                   </motion.div>
                 ))}
               </nav>
 
-              {/* CTA (left exactly as-is, per instruction) */}
-             {/* CTA */}
-<motion.div variants={itemVariants} className="mt-auto pt-8">
-  <SectionLink href={CTA_BUTTON.href} onNavigate={onClose}>
-    <motion.div
-      whileHover={{ scale: 1.02, y: -2 }}
-      whileTap={{ scale: 0.97 }}
-      className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
-    >
-      <span>{CTA_BUTTON.label}</span>
-      <ArrowUpRight size={18} />
-    </motion.div>
-  </SectionLink>
-</motion.div>
+              {/* CTA */}
+              <motion.div variants={itemVariants} className="mt-auto pt-8">
+                <SectionLink href={CTA_BUTTON.href} onNavigate={onClose}>
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
+                  >
+                    <span>{CTA_BUTTON.label}</span>
+                    <ArrowUpRight size={18} />
+                  </motion.div>
+                </SectionLink>
+              </motion.div>
             </div>
           </motion.div>
         </>

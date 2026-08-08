@@ -124,17 +124,16 @@ export default function Footer() {
                 <span className="text-[#23272B]/70">{SITE_CONFIG.location}</span>
               </div>
 
-              
-             <a
-  href="https://linkedin.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-3 transition hover:text-[#C49A4A]"
-  style={{ color: "#2A2D31" }}
->
-  <Globe size={20} className="text-[#C49A4A]" />
-  LinkedIn
-</a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 transition hover:text-[#C49A4A]"
+                style={{ color: "#2A2D31" }}
+              >
+                <Globe size={20} className="text-[#C49A4A]" />
+                LinkedIn
+              </a>
             </div>
           </div>
         </div>

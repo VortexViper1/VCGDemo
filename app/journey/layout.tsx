@@ -29,15 +29,34 @@ export default function JourneyLayout({
 
       {/* Back Link */}
       <div className="relative z-20 mx-auto w-full max-w-[1500px] px-6 pt-32 lg:px-10 lg:pt-36">
-       <Link href={backHref} className="group inline-flex focus-visible:outline-none">
-  <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
-    <ArrowLeft
-      size={15}
-      className="transition-transform duration-300 group-hover:-translate-x-1"
-    />
-    Back to Journey
-  </span>
-</Link>
+        {/*
+          scroll={false} is deliberate here — this link carries a hash
+          (#journey) to a route that ALSO mounts HashScroll, which owns
+          scrolling to hash targets on "/" (see components/HashScroll.tsx).
+          Next's <Link> has its own built-in behavior for hrefs containing
+          a hash: by default it will try to scroll the target element into
+          view itself as soon as it appears, on top of whatever HashScroll
+          then also does a moment later (retry loop + smooth scroll +
+          history.replaceState to strip the hash). Two independent things
+          both trying to own the scroll produces a visible jump-then-smooth-
+          scroll artifact and can race with the hash being stripped mid-
+          animation. Setting scroll={false} here makes Next hand off
+          scrolling entirely to HashScroll — the single source of truth —
+          exactly like SectionLink already does for every other in-app link.
+        */}
+        <Link
+          href={backHref}
+          scroll={false}
+          className="group inline-flex focus-visible:outline-none"
+        >
+          <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
+            <ArrowLeft
+              size={15}
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            />
+            Back to Journey
+          </span>
+        </Link>
       </div>
 
       {/* Page Content */}
