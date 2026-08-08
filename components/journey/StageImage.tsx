@@ -51,47 +51,32 @@ export default function StageImage({ stage, activeService }: Props) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Hover overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: EASE }}
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D211D]/70 via-[#0D211D]/10 to-transparent"
-      />
+      {/* Permanent dark amber gradient so white text always stays readable over any photo */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2A1B0D]/85 via-[#2A1B0D]/25 to-transparent" />
 
-      {/* CTA label, slides up on hover */}
-      <motion.div
-        initial={{ y: 14, opacity: 0 }}
-        whileHover={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.35, ease: EASE }}
-        className="pointer-events-none absolute bottom-6 left-6 flex items-center gap-3 sm:bottom-8 sm:left-8"
-      >
-        <span
-          className="font-[var(--font-sans)] text-[11px] uppercase tracking-[0.3em] text-white"
-        >
-          Explore {label}
-        </span>
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1"
+      {/* CTA label — always visible, bold white text */}
+      <div className="pointer-events-none absolute bottom-7 left-7 flex items-center gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.35em] text-white">
+            Discover More
+          </p>
+        </div>
+
+        <div
+          className="flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-500 group-hover:translate-x-1"
           style={{ backgroundColor: stage.accent }}
         >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
-              d="M1 7H13M13 7L7.5 1.5M13 7L7.5 12.5"
+              d="M2 8H14M14 8L8.5 2.5M14 8L8.5 13.5"
               stroke="white"
-              strokeWidth="1.5"
+              strokeWidth="1.8"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
-        </span>
-      </motion.div>
+        </div>
+      </div>
 
       <div
         className="pointer-events-none absolute bottom-0 left-0 h-px w-full"
