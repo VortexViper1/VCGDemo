@@ -70,7 +70,7 @@ const ARTICLES = [
     category: "Sustainability",
     title: "Creating Sustainable Value Through ESG Leadership",
     description:
-      "Organizations integrating sustainability into strategy strengthen resilience and long-term stakeholder value.",
+      "Organizations integrating sustainability into strategy strengthen resilience and Long term stakeholder value.",
     read: "6 min read",
     href: "/insights/esg-sustainable-value-creation",
   },

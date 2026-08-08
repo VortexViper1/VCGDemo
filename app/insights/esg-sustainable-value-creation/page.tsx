@@ -17,17 +17,17 @@ const ARTICLE = {
   category: "Sustainability",
   title: "Creating Sustainable Value Through ESG Leadership",
   deck:
-    "Organizations integrating sustainability into strategy strengthen resilience and long-term stakeholder value.",
+    "Organizations integrating sustainability into strategy strengthen resilience and Long term stakeholder value.",
   date: "July 2026",
   read: "6 min read",
   image: "/insights/sustainable.png",
 };
 
 const LEDE =
-  "Environmental, social, and governance practice was once treated as a reporting obligation — a set of disclosures compiled once a year to satisfy investors and regulators. That framing undersells what ESG has become for organizations that use it well: a discipline for managing long-term risk and building the kind of stakeholder trust that shows up directly in commercial outcomes.";
+  "Environmental, social, and governance practice was once treated as a reporting obligation — a set of disclosures compiled once a year to satisfy investors and regulators. That framing undersells what ESG has become for organizations that use it well: a discipline for managing Long term risk and building the kind of stakeholder trust that shows up directly in commercial outcomes.";
 
 const PULL_QUOTE =
-  "ESG done well is simply long-term risk management, made visible to the people who will eventually pay for it if it is ignored.";
+  "ESG done well is simply Long term risk management, made visible to the people who will eventually pay for it if it is ignored.";
 
 const CLOSING =
   "Sustainable value creation is not a separate strategy that runs alongside the business plan — in organizations that do it well, it is simply how the business plan accounts for risks and relationships that play out over years rather than quarters.";

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
-  BriefcaseBusiness,
   CheckCircle2,
   X,
 } from "lucide-react";
@@ -18,7 +17,7 @@ const PILLARS = [
   {
     title: "Enterprise Strategy",
     description:
-      "Defining the organisation's strategic direction, priorities and long-term vision to create sustainable competitive advantage.",
+      "Defining the organisation's strategic direction, priorities and Long term vision to create sustainable competitive advantage.",
     points: [
       "Vision-to-strategy translation",
       "Corporate growth agenda",
@@ -30,7 +29,7 @@ const PILLARS = [
   {
     title: "Financial Strategy",
     description:
-      "Connecting strategic decisions with capital allocation, financial architecture and value creation to maximize long-term enterprise performance.",
+      "Connecting strategic decisions with capital allocation, financial architecture and value creation to maximize Long term enterprise performance.",
     points: [
       "Capital allocation strategy",
       "Funding and capital structure strategy",
@@ -82,9 +81,6 @@ export default function BusinessStrategyPage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#C49A4A]/10">
-              <BriefcaseBusiness size={26} className="text-[#C49A4A]" />
-            </div>
             <span className="text-xs uppercase tracking-[0.3em] text-[#C49A4A]">
               Our Services
             </span>
@@ -188,9 +184,6 @@ export default function BusinessStrategyPage() {
               <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-[#2A2D31]/15 sm:hidden" />
 
               <div className="flex items-start justify-between gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#C49A4A]/10">
-                  <BriefcaseBusiness size={22} className="text-[#C49A4A]" />
-                </div>
                 <button
                   type="button"
                   onClick={() => setActivePillar(null)}

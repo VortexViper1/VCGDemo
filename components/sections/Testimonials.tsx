@@ -22,7 +22,7 @@ const EXHIBITS = [
   {
     letter: "A",
     quote:
-      "We begin every engagement by understanding the organization's ambitions, challenges, and long-term vision. Our recommendations are practical, measurable, and designed to create lasting enterprise value.",
+      "We begin every engagement by understanding the organization's ambitions, challenges, and Long term vision. Our recommendations are practical, measurable, and designed to create lasting enterprise value.",
     author: "Strategic Thinking",
   },
   {
@@ -35,7 +35,7 @@ const EXHIBITS = [
     letter: "C",
     quote:
       "Our multidisciplinary approach combines strategy, transformation, governance, and technology to help organizations navigate complexity and build sustainable competitive advantage.",
-    author: "Long-Term Partnership",
+    author: "Long term Partnership",
   },
 ];
 

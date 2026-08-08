@@ -24,7 +24,7 @@ export const SERVICES: Service[] = [
   {
     title: "Business ",
     description:
-      "Define long-term strategies that create sustainable competitive advantage and measurable business growth.",
+      "Define Long term strategies that create sustainable competitive advantage and measurable business growth.",
     icon: TrendingUp,
     href: "/services/strategy",
   },

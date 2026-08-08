@@ -59,6 +59,34 @@ const SERVICES: {
   },
 ];
 
+/*
+  ── Hover overlay system ──────────────────────────────────────────
+  Palette: Ivory #F8F5EF · Primary Dark #071F2D · Accent Gold #C49A4A
+
+  Every layer below is fully rendered at all times and toggled purely
+  via `opacity` (plus one `transform` on the sweep) — never by
+  animating background-position, filter, or box-shadow directly — so
+  every transition is GPU-compositable.
+
+  Stack, bottom → top:
+    1. Photograph (existing, untouched)
+    2. Ivory rest-scrim            — hides the photo at rest, fades out
+    3. Dark boardroom base          — a moody navy gradient, not gold
+    4. Top-left key light           — soft warm radial, "sunlight in"
+    5. Low bounce light             — smaller, dimmer, second source
+    6. Directional vignette         — two radials, weight toward the
+                                       corner opposite the key light
+    7. Grain                        — tiny repeating radial dots,
+                                       mix-blend-overlay, barely-there
+    8. Sweep                        — a real ::before pseudo-element,
+                                       skewed soft beam, slides across
+    9. Gold border glow             — static box-shadow, opacity-toggled
+  All transitions share one duration/easing family (850–1000ms,
+  cubic-bezier(0.22,1,0.36,1)) — the same "luxury" ease already used
+  for hover states in Navbar.tsx, so the motion language matches the
+  rest of the site.
+*/
+
 function ServiceCard({
   service,
   index,
@@ -89,7 +117,10 @@ function ServiceCard({
   return (
     <Reveal delay={index * 0.12}>
       <div style={{ perspective: 1200 }}>
-        <Link href={service.href} className="block h-full">
+        <Link
+          href={service.href}
+          className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C49A4A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F5EF]"
+        >
           <motion.div
             ref={cardRef}
             onMouseMove={handleMouseMove}
@@ -103,54 +134,100 @@ function ServiceCard({
             className="h-full cursor-pointer transition-transform duration-300 ease-out"
           >
             <GlassCard className="group relative h-full overflow-hidden">
-              {/* Background image, quiet at rest */}
+              {/* ── Layer stack — see comment block above component ── */}
               <div className="absolute inset-0 -z-10">
+                {/* 1. Photograph */}
                 <Image
                   src={service.image}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover opacity-[0.08] grayscale transition-all duration-700 ease-out group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                  className="object-cover opacity-[0.08] grayscale transition-all duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
                 />
 
-                {/* Scrim: light at rest */}
+                {/* 2. Ivory rest-scrim — the clean default state */}
                 <div
-                  className="absolute inset-0 bg-[#F8F5EF] transition-opacity duration-700 ease-out group-hover:opacity-0"
                   aria-hidden
+                  className="absolute inset-0 bg-[#F8F5EF] transition-opacity duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0"
                 />
 
-                {/* Scrim: #C89B3C amber-lit dark base on hover */}
+                {/* 3. Dark boardroom base — navy, not gold; this is the
+                       canvas the light layers below fall onto */}
                 <div
-                  className="absolute inset-0 bg-gradient-to-br from-[#1A1206] via-[#7A5A1E] to-[#120D04] opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
                   aria-hidden
+                  className="absolute inset-0 bg-[linear-gradient(135deg,#0B2635_0%,#071F2D_55%,#05161F_100%)] opacity-0 transition-opacity duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100"
                 />
 
-                {/* Amber glow, light-source feel, sits on top of the base */}
+                {/* 4. Top-left key light — golden-hour sun entering the
+                       room; deliberately soft and large, never a hard
+                       edge */}
                 <div
-                  className="absolute inset-0 bg-[radial-gradient(120%_100%_at_20%_0%,rgba(200,155,60,0.4),transparent_60%)] opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
                   aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(65%_55%_at_8%_0%,rgba(196,154,74,0.38),transparent_60%)] opacity-0 transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100"
+                />
+
+                {/* 5. Low bounce light — a second, dimmer, lower source,
+                       as if reflected off a wood table — this is what
+                       gives the lighting real depth instead of one flat
+                       radial */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(45%_40%_at_20%_65%,rgba(196,154,74,0.16),transparent_65%)] opacity-0 transition-opacity delay-[80ms] duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100"
+                />
+
+                {/* 6. Directional vignette — weighted toward the corner
+                       opposite the key light, reinforcing "light falls
+                       from the top-left" rather than just darkening
+                       evenly */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(120%_100%_at_100%_100%,rgba(5,15,20,0.55),transparent_55%),radial-gradient(140%_140%_at_50%_50%,transparent_55%,rgba(5,15,20,0.45)_100%)] opacity-0 transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100"
+                />
+
+                {/* 7. Grain — a lightweight CSS approximation of film
+                       grain (true noise needs an SVG turbulence filter;
+                       this tiny repeating dot pattern gets close enough
+                       at near-invisible opacity, no extra asset needed) */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 [background-size:3px_3px] bg-[radial-gradient(rgba(255,255,255,0.5)_1px,transparent_1px)] opacity-0 mix-blend-overlay transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-[0.05]"
+                />
+
+                {/* 8. Sweep — a genuine ::before pseudo-element: a
+                       skewed, blurred beam that slides across the card
+                       once on hover. transform + opacity only. */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 overflow-hidden before:absolute before:-left-1/3 before:inset-y-[-20%] before:w-1/3 before:-skew-x-[20deg] before:translate-x-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent before:opacity-0 before:blur-md before:transition-[transform,opacity] before:duration-[950ms] before:ease-[cubic-bezier(0.22,1,0.36,1)] before:content-[''] group-hover:before:translate-x-[420%] group-hover:before:opacity-100"
+                />
+
+                {/* 9. Gold border glow — pre-rendered box-shadow, only
+                       its opacity is animated */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-[inherit] opacity-0 shadow-[inset_0_0_0_1px_rgba(196,154,74,0.55),0_0_50px_-12px_rgba(196,154,74,0.6)] transition-opacity duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100"
                 />
               </div>
 
               {/* Oversized ghost icon, watermark-style */}
               <Icon
-                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#23272B]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C89B3C]/20"
+                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#23272B]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C49A4A]/20"
                 strokeWidth={1}
               />
 
               <div className="relative flex h-full flex-col p-10">
                 <div className="mb-8 flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C89B3C]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C89B3C]/60 group-hover:bg-[#C89B3C]/10">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C49A4A]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C49A4A]/60 group-hover:bg-[#C49A4A]/10">
                     <Icon
                       size={24}
                       strokeWidth={1.5}
-                      className="text-[#2A2D31] transition-colors duration-500 group-hover:text-[#C89B3C]"
+                      className="text-[#2A2D31] transition-colors duration-500 group-hover:text-[#C49A4A]"
                     />
                   </div>
 
                   <motion.div whileHover={{ x: 5, y: -5 }}>
                     <ArrowUpRight
-                      className="text-[#23272B]/40 transition-colors duration-500 group-hover:text-[#C89B3C]"
+                      className="text-[#23272B]/40 transition-colors duration-500 group-hover:text-[#C49A4A]"
                       size={24}
                     />
                   </motion.div>
@@ -166,7 +243,7 @@ function ServiceCard({
                 </h3>
 
                 <p
-                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C89B3C]"
+                  className="font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C49A4A]"
                   style={{ color: "#6C7278" }}
                 >
                   {service.description}
@@ -178,11 +255,11 @@ function ServiceCard({
                     whileInView={{ width: "40%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C89B3C] to-transparent transition-all duration-700 ease-out group-hover:w-full"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C49A4A] to-transparent transition-all duration-700 ease-out group-hover:w-full"
                   />
                 </div>
 
-                <div className="mt-8 flex items-center gap-3 text-sm uppercase tracking-[0.25em] text-[#C89B3C]">
+                <div className="mt-8 flex items-center gap-3 text-sm uppercase tracking-[0.25em] text-[#C49A4A]">
                   Learn More
                   <motion.div whileHover={{ x: 4 }}>
                     <ArrowUpRight size={16} />
@@ -204,12 +281,12 @@ export default function Services() {
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C89B3C]/12 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#C89B3C]/15 blur-[140px]"
+          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#C49A4A]/15 blur-[140px]"
         />
       </div>
 

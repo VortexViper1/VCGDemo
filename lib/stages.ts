@@ -248,8 +248,8 @@ export const TRANSFORM_CONTENT: StageContent = {
       description: "Ownership restructuring, demerger, divestiture, family governance and succession planning.",
     },
     {
-      title: "Long-term value and institutional legacy",
-      description: "ESG strategy, stakeholder architecture, governance renewal and long-term value creation systems.",
+      title: "Long term value and institutional legacy",
+      description: "ESG strategy, stakeholder architecture, governance renewal and Long term value creation systems.",
     },
   ],
   tags: ["Corporate Strategy", "Portfolio Review", "Turnaround", "Restructuring", "Succession", "Institutional Governance"],

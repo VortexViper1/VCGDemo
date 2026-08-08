@@ -239,7 +239,7 @@ export const JOURNEY: JourneyStageType[] = [
     stage: "TRANSFORM",
     headline: "Build an enduring legacy.",
     description:
-      "Position your organization for long-term value creation through governance, innovation and strategic leadership.",
+      "Position your organization for Long term value creation through governance, innovation and strategic leadership.",
     image: "/journey/transform.jpg",
     challenges: ["Innovation", "Succession", "Governance", "Global Expansion", "ESG"],
     services: [
@@ -263,7 +263,7 @@ export const JOURNEY: JourneyStageType[] = [
         description:
           "Long-horizon strategy that balances legacy with reinvention, guiding capital and leadership toward durable value.",
         bullets: [
-          "Long-term value creation planning",
+          "Long term value creation planning",
           "M&A and portfolio strategy",
           "Organizational design review",
           "Strategic partnership development",
@@ -292,7 +292,7 @@ export const JOURNEY: JourneyStageType[] = [
         description:
           "Disciplined capital deployment aligned to a multi-generational view of the business.",
         bullets: [
-          "Long-term capital allocation strategy",
+          "Long term capital allocation strategy",
           "Legacy and wealth structuring",
           "Investment portfolio governance",
           "Succession-linked financial planning",

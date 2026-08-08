@@ -71,7 +71,7 @@ export default function CTA() {
                 </h2>
 
                 <p className="mx-auto mt-10 max-w-3xl text-xl leading-9 text-[#23272B]/70">
-                  Whether you're defining a long-term strategy, raising
+                  Whether you're defining a Long term strategy, raising
                   capital, modernizing operations, or accelerating growth,
                   VISWAS partners with you from vision to execution.
                 </p>

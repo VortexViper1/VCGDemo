@@ -32,7 +32,7 @@ const FEATURES = [
     tag: "Partnership",
     title: "Trusted Partnership",
     description:
-      "Working alongside leadership teams as long-term advisors rather than short-term consultants.",
+      "Working alongside leadership teams as Long term advisors rather than short-term consultants.",
     // TODO: replace with real image — /public/images/why/trusted-partnership.jpg
     image: "/why/Trusted Partnership.jpg",
     href: "/about/trusted-partnership",

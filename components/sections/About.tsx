@@ -29,7 +29,7 @@ const VALUES = [
     icon: Workflow,
   },
   {
-    label: "Long-term partnerships",
+    label: "Long term partnerships",
     icon: Handshake,
   },
 ];

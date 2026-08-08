@@ -64,7 +64,7 @@ export default function TrustedPartnershipPage() {
         <Reveal delay={0.15}>
           <SectionTitle
             title="Trusted Partnership"
-            description="Building long-term relationships grounded in transparency, collaboration, and consistent results."
+            description="Building Long term relationships grounded in transparency, collaboration, and consistent results."
             align="left"
           />
         </Reveal>

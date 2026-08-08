@@ -24,7 +24,7 @@ const POINTS = [
   {
     title: "Sustainable Growth Models",
     description:
-      "Strategies built to scale responsibly, balancing near-term wins with long-term market positioning. We design growth plans that hold up under scrutiny — financially, operationally, and reputationally — not just ones that look good on a slide. That balance protects you from short-term gains that quietly undermine the foundation you'll need for the next stage of growth.",
+      "Strategies built to scale responsibly, balancing near-term wins with Long term market positioning. We design growth plans that hold up under scrutiny — financially, operationally, and reputationally — not just ones that look good on a slide. That balance protects you from short-term gains that quietly undermine the foundation you'll need for the next stage of growth.",
   },
 ];
 

@@ -61,7 +61,7 @@ export const SERVICES = [
   {
     title: "Corporate & Financial Strategy",
     description:
-      "Helping organizations define long-term strategic direction with measurable execution.",
+      "Helping organizations define Long term strategic direction with measurable execution.",
   },
   {
     title: "Capital Advisory",
