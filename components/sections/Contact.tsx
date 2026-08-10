@@ -10,7 +10,7 @@ import Reveal from "@/components/shared/Reveal";
 import GlassCard from "@/components/shared/GlassCard";
 
 // TODO: replace with your real LinkedIn company URL
-const LINKEDIN_URL = "https://linkedin.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/viswaas-consulting-group-148b39428/";
 
 const EMAIL = "vcg@viswaas.com";
 const PHONE = "+91 77948 37878";

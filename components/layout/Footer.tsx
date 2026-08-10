@@ -125,7 +125,7 @@ export default function Footer() {
 
               {/* LINKEDIN LINK - check "<a" is here */}
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/viswaas-consulting-group-148b39428/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 transition hover:text-[#C49A4A]"
