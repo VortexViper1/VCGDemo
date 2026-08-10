@@ -32,7 +32,7 @@ const HOVER_TWEEN = {
 const COLOR_TRANSITION = { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
 
 const IVORY = "#2A2D31";
-const GOLD = "#B7964A";
+const GOLD = "#D9822B";
 
 const ISLAND_MAX_WIDTH = 1160;
 const TAGLINE_MAX_WIDTH = 420;
@@ -50,7 +50,7 @@ const MAIN_NAV_ITEMS = [
   NAVIGATION.find((item) => item.label === "Home"),
   NAVIGATION.find((item) => item.label === "Roadmap"),
   NAVIGATION.find((item) => item.label === "Capabilities"),
-  NAVIGATION.find((item) => item.label === "Why VISWAAS"),
+  NAVIGATION.find((item) => item.label === "Why Viswaas"),
   NAVIGATION.find((item) => item.label === "Insights"),
 ].filter((item): item is NonNullable<typeof item> => Boolean(item));
 
@@ -366,7 +366,7 @@ export default function Navbar() {
                     className="hidden overflow-hidden sm:block"
                   >
                     <p
-                      className="whitespace-nowrap font-medium uppercase tracking-[0.28em] text-[#B7964A]"
+                      className="whitespace-nowrap font-medium uppercase tracking-[0.28em] text-[#D9822B]"
                       style={{ fontSize: "15px" }}
                     >
                       Strategy • Capital • Transformation
@@ -459,7 +459,7 @@ export default function Navbar() {
                 <motion.button
                   onHoverStart={() => setCtaHovered(true)}
                   onHoverEnd={() => setCtaHovered(false)}
-                  animate={{ backgroundColor: "#B7964A" }}
+                  animate={{ backgroundColor: "#D9822B" }}
                   whileHover={{
                     y: -3,
                     scale: 1.025,

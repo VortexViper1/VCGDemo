@@ -86,13 +86,13 @@ export default function GrowthConsultingPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <SectionTitle
-            title="M&A and Transaction Advisory"
-            description="Helping organizations identify opportunities, optimize operations, and scale with confidence."
-            align="left"
-          />
-        </Reveal>
+<Reveal delay={0.15}>
+<SectionTitle
+  title="M&A and Transaction Advisory"
+  description="Advising organizations across mergers, acquisitions, divestitures and strategic transactions to navigate complexity, strengthen deal outcomes and maximize long-term value."
+  align="left"
+/>
+</Reveal>
 
         {/* Pillars — teaser card (title + clamped description only), tap to expand into full modal */}
         <div className="mt-16 grid gap-6 md:grid-cols-3">

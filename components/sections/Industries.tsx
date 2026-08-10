@@ -11,6 +11,15 @@ import Section from "@/components/shared/Section";
 
 const FEATURES = [
   {
+    tag: "Philosophy",
+    title: "One North Star",
+    description:
+      "Every enterprise needs a true north we align strategy, capital and transformation so every decision moves toward the same destination.",
+    // TODO: replace with real image — /public/images/why/one-north-star.jpg
+    image: "/about/One North Star.jpg",
+    href: "/about/north-star",
+  },
+  {
     tag: "Strategy",
     title: "Strategic Intelligence",
     description:
@@ -269,7 +278,7 @@ export default function WhyVISWAAS() {
 
       <Reveal>
         <SectionTitle
-          eyebrow="WHY VISWAAS"
+          eyebrow="WHY Viswaas"
           title="Why organizations choose VISWAAS."
           description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
           align="center"

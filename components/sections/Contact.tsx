@@ -154,21 +154,20 @@ function MapPanel() {
               <p className="mt-4 leading-7 text-[#23272B]/70">{OFFICE_ADDRESS}</p>
             </div>
 
-            <motion.a
-              href={MAPS_DIRECTIONS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full bg-[#C49A4A] px-7 py-3.5 font-semibold text-[#23272B] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
-            >
-              
-              Get Directions
-              <ArrowUpRight
-                size={18}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </motion.a>
+<motion.a
+  href={MAPS_DIRECTIONS_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.05, color: "#FFFFFF" }}
+  whileTap={{ scale: 0.97 }}
+  className="group flex items-center justify-center gap-3 rounded-full bg-white/95 px-8 py-5 font-semibold text-[#23272B] transition-all duration-300 hover:bg-[#D9822B]"
+>
+  Get Directions
+  <ArrowUpRight
+    size={18}
+    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+  />
+</motion.a>
           </div>
         </div>
       </GlassCard>

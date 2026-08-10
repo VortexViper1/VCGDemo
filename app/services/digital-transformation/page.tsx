@@ -86,13 +86,13 @@ export default function DigitalTransformationPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <SectionTitle
-            title="Governance, Compliance & Regulatory Advisory"
-            description="Modernizing enterprises using AI, automation, cloud technologies, and digital-first operating models."
-            align="left"
-          />
-        </Reveal>
+<Reveal delay={0.15}>
+  <SectionTitle
+    title="Governance, Compliance & Regulatory Advisory"
+    description="Strengthening governance, regulatory compliance and risk frameworks to build resilient, accountable and well-governed enterprises."
+    align="left"
+  />
+</Reveal>
 
         {/* Pillars — teaser card (title + clamped description only), tap to expand into full modal */}
         <div className="mt-16 grid gap-6 md:grid-cols-3">

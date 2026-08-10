@@ -293,35 +293,49 @@ drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]
 
           {/* Read More — slides up on active */}
           <motion.div
-            className="
-mt-4 sm:mt-5
-flex
-items-center
-gap-3
-text-[11px] sm:text-[13px]
-font-bold
-uppercase
-tracking-[0.22em] md:tracking-[0.28em]
-text-[#D4AF37]
-drop-shadow-[0_2px_10px_rgba(212,175,55,0.35)]
-"
-            initial={false}
-            animate={
-              active
-                ? { opacity: 1, y: 0, height: "auto", marginTop: 20 }
-                : { opacity: 0, y: 12, height: 0, marginTop: 0 }
-            }
-            transition={{ duration: 0.4, delay: active ? 0.1 : 0, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Read More
-            <motion.span
-              animate={{ rotate: active ? 45 : 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex"
-            >
-              <ArrowUpRight size={16} />
-            </motion.span>
-          </motion.div>
+  className="
+    mt-4 sm:mt-5
+    inline-flex
+    items-center
+    gap-3
+    rounded-full
+    bg-white
+    px-5 py-2.5
+    text-[11px] sm:text-[13px]
+    font-bold
+    uppercase
+    tracking-[0.22em] md:tracking-[0.28em]
+    text-[#1C1C1C]
+    transition-all duration-300
+    hover:bg-[#D9822B]
+    hover:text-white
+    hover:shadow-[0_8px_24px_rgba(201,163,95,0.25)]
+  "
+  initial={false}
+  animate={
+    active
+      ? { opacity: 1, y: 0, height: "auto", marginTop: 20 }
+      : { opacity: 0, y: 12, height: 0, marginTop: 0 }
+  }
+  transition={{
+    duration: 0.4,
+    delay: active ? 0.1 : 0,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+>
+  Read More
+
+  <motion.span
+    animate={{ rotate: active ? 45 : 0 }}
+    transition={{
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1],
+    }}
+    className="inline-flex"
+  >
+    <ArrowUpRight size={16} />
+  </motion.span>
+</motion.div>
         </div>
       </div>
     </Link>

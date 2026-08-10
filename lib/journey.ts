@@ -264,7 +264,7 @@ export const JOURNEY: JourneyStageType[] = [
           "Long-horizon strategy that balances legacy with reinvention, guiding capital and leadership toward durable value.",
         bullets: [
           "Long term value creation planning",
-          "M&A and portfolio strategy",
+          "portfolio strategy",
           "Organizational design review",
           "Strategic partnership development",
           "Legacy and succession alignment",

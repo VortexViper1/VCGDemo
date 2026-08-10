@@ -49,7 +49,7 @@ export default function StrategicIntelligencePage() {
       size={15}
       className="transition-transform duration-300 group-hover:-translate-x-1"
     />
-    Back to Why VISWAAS
+    Back to Why Viswaas
   </span>
 </Link>
         </Reveal>

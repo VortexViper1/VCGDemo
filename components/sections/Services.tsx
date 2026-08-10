@@ -42,26 +42,22 @@ const SERVICES: {
       "Strategic fundraising, investment planning, mergers, acquisitions, and financial restructuring.",
     href: "/services/capital-advisory",
   },
-  {
-    image: "/services/growth.jpg",
-    // Handshake — reads as "deal/transaction" at a glance, unlike a
-    // generic stock-chart icon, so it actually maps to "M&A".
-    icon: Handshake,
-    title: "M&A and Transaction Advisory",
-    description:
-      "Helping organizations identify opportunities, optimize operations, and scale with confidence.",
-    href: "/services/growth-consulting",
-  },
-  {
-    image: "/services/digital.jpg",
-    // ShieldCheck — signals "protection/compliance", matching
-    // "Governance, Compliance & Regulatory" far better than a flowchart icon.
-    icon: ShieldCheck,
-    title: "Governance, Compliance & Regulatory Advisory",
-    description:
-      "Modernizing enterprises using AI, automation, cloud technologies, and digital-first operating models.",
-    href: "/services/digital-transformation",
-  },
+{
+  image: "/services/growth.jpg",
+  icon: Handshake,
+  title: "M&A and Transaction Advisory",
+  description:
+    "Supporting acquisitions, divestitures and strategic transactions through disciplined evaluation, execution and value creation.",
+  href: "/services/growth-consulting",
+},
+{
+  image: "/services/digital.jpg",
+  icon: ShieldCheck,
+  title: "Governance, Compliance & Regulatory Advisory",
+  description:
+    "Strengthening governance, regulatory compliance and risk frameworks to build resilient, accountable and well-governed enterprises.",
+  href: "/services/digital-transformation",
+},
 ];
 
 /*

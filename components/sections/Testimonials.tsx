@@ -22,20 +22,23 @@ const EXHIBITS = [
   {
     letter: "A",
     quote:
-      "We begin every engagement by understanding the organization's ambitions, challenges, and Long term vision. Our recommendations are practical, measurable, and designed to create lasting enterprise value.",
-    author: "Strategic Thinking",
+      "Viswaas helped us look beyond the immediate fundraise and think strategically about valuation, dilution, future capital and market positioning. Their investor-led perspective brought greater clarity to both our capital structure and how we present Chaiomi to the market.",
+    name: "Phani Kumar Madireddy",
+    author: "Founder, Chaiomi",
   },
   {
     letter: "B",
     quote:
-      "Every recommendation is supported by rigorous financial analysis, governance best practices, and disciplined execution planning, enabling leaders to make confident decisions with clarity.",
-    author: "Execution Excellence",
+      "Viswaas helped us uncover the potential already within our business and turn it into a focused growth strategy. Their advice on financial planning, business decisions, and multiple revenue streams gave us a clearer path to scale, and we have since seen substantial growth.",
+    name: "Madhu Naik",
+    author: "Director, Wings Infra",
   },
   {
     letter: "C",
     quote:
-      "Our multidisciplinary approach combines strategy, transformation, governance, and technology to help organizations navigate complexity and build sustainable competitive advantage.",
-    author: "Long term Partnership",
+      "Viswaas guided us through company setup and Board formation with clarity and foresight. Their advice helped us make the right structural and governance decisions early, giving us a stronger foundation to build and grow the business.",
+    name: "Santosh",
+    author: "Founder, OutsideIn",
   },
 ];
 
@@ -178,7 +181,7 @@ description="We build enduring partnerships by helping organizations solve compl
                   “{item.quote}”
                 </blockquote>
 
-                <figcaption className="mt-8">
+               <figcaption className="mt-8">
                   <div className="h-px w-full" style={{ background: PAPER_LINE }} />
                   <div className="mt-4 flex items-end justify-between">
                     <div>
@@ -186,6 +189,7 @@ description="We build enduring partnerships by helping organizations solve compl
                         className="text-[13px] font-semibold"
                         style={{ color: INK, fontFamily: DISPLAY_SERIF }}
                       >
+                        {item.name}
                       </p>
                       <p
                         className="mt-0.5 text-[10px] uppercase tracking-[0.25em]"

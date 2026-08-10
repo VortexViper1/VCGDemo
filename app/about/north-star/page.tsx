@@ -12,30 +12,30 @@ import Reveal from "@/components/shared/Reveal";
 
 const POINTS = [
   {
-    title: "Radical Transparency",
+    title: "The Enterprise as a Whole",
     description:
-      "Clear communication at every stage — no surprises, no hidden agendas, just honest counsel. We tell you what you need to hear, even when it complicates the timeline or challenges an assumption your team has held for years. That candor builds the kind of trust that makes engagements more efficient — less time spent managing the message, more time spent solving the actual problem.",
+      "We never treat a problem as isolated. What looks like a capital problem is often a strategy problem in disguise. What looks like a growth problem often starts in the operating model. So before we recommend anything, we look at the full picture: ambition, strategy, capital, governance, capabilities and execution, and how each one is pulling on the others.",
   },
   {
-    title: "Collaborative Engagement",
+    title: "Aligning the Constellation",
     description:
-      "We work alongside your team, not above it — building capability, not dependency. Our consultants embed with yours, transferring judgment and method, not just delivering a final report. The goal is a team that's stronger after we leave than before we arrived, with the tools and confidence to carry the work forward independently.",
+      "Our job isn't just to point toward a direction. It's to align every decision around it. That means bringing strategy, capital and transformation into the same conversation instead of treating them as separate workstreams run by separate teams with separate agendas.",
   },
   {
-    title: "Long Term Relationships",
+    title: "One Destination, Every Time",
     description:
-      "98% client retention reflects partnerships built to last well beyond a single engagement. Clients return because the relationship compounds — each engagement builds on institutional knowledge from the last, so we get faster and sharper over time. That continuity means less time re-explaining context and more time focused on what's next for your business.",
+      "Markets shift, capital moves, competition sharpens, and businesses evolve. Through all of it, the enterprises that endure are the ones with a clear sense of where they're going and why. We help you build that clarity, then keep every major decision pointed at the same star.",
   },
 ];
 
 const OUTCOMES = [
-  "A consulting partner invested in your success",
-  "Consistent points of contact, not rotating teams",
-  "Institutional knowledge that compounds over time",
-  "Honest counsel, even when it's not what you want to hear",
+  "A clear, shared sense of where the enterprise is headed",
+  "Strategy, capital and transformation decisions that reinforce each other",
+  "Root-cause clarity on problems that look bigger than they are",
+  "An organization built for enduring value, not short-term fixes",
 ];
 
-export default function TrustedPartnershipPage() {
+export default function OneNorthStarPage() {
   const [activePoint, setActivePoint] = useState<number | null>(null);
   const activeContent = activePoint !== null ? POINTS[activePoint] : null;
 
@@ -56,14 +56,14 @@ export default function TrustedPartnershipPage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 03</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">The Viswaas Philosophy</span>
           </div>
         </Reveal>
 
         <Reveal delay={0.15}>
           <SectionTitle
-            title="Trusted Partnership"
-            description="Building Long term relationships grounded in transparency, collaboration, and consistent results."
+            title="One North Star"
+            description="Every enterprise needs a true north. We align strategy, capital and transformation so every decision moves toward the same destination."
             align="left"
           />
         </Reveal>
@@ -72,8 +72,8 @@ export default function TrustedPartnershipPage() {
         <Reveal delay={0.18}>
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
-              src="/about/trusted-partnership.png"
-              alt="Trusted Partnership — VISWAAS advisors meeting with a client"
+              src="/about/one-north-star.jpg"
+              alt="One North Star — VISWAAS leadership aligning around a shared direction"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"
