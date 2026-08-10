@@ -73,7 +73,7 @@ export default function CTA() {
                 <p className="mx-auto mt-10 max-w-3xl text-xl leading-9 text-[#23272B]/70">
                   Whether you're defining a Long term strategy, raising
                   capital, modernizing operations, or accelerating growth,
-                  VISWAS partners with you from vision to execution.
+                  VISWAAS partners with you from vision to execution.
                 </p>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-6 sm:flex-row">

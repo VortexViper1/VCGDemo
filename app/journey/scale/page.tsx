@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ScaleExperience from "@/components/stages/ScaleExperience";
 
 export const metadata: Metadata = {
-  title: "Scale Up | VISWAS Consulting Group",
+  title: "Scale Up | VISWAAS Consulting Group",
   description: "From growth engine to institution.",
 };
 

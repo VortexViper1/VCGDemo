@@ -4,7 +4,7 @@ import { TERMS_OF_USE } from "@/lib/legal-content";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "The terms governing your use of the VISWAS Consulting Group website.",
+  description: "The terms governing your use of the VISWAAS Consulting Group website.",
 };
 
 export default function TermsOfUsePage() {

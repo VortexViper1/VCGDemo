@@ -100,7 +100,7 @@ export default function HeroStats() {
             <div className="mb-9">
               <div className="flex items-center gap-3">
                 <p className="text-sm uppercase tracking-[0.35em] text-[#B7964A]">
-                  VISWAS
+                  VISWAAS
                 </p>
                 <motion.span
                   initial={{ scaleX: 0 }}

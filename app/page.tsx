@@ -6,7 +6,6 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import Industries from "@/components/sections/Industries";
-import WhyViswas from "@/components/sections/WhyViswas";
 import Leadership from "@/components/sections/Leadership";
 import Testimonials from "@/components/sections/Testimonials";
 import Insights from "@/components/sections/Insights";
@@ -15,6 +14,7 @@ import Contact from "@/components/sections/Contact";
 import CursorGlow from "@/components/shared/CursorGlow";
 import FloatingContact from "@/components/shared/FloatingContact";
 import BusinessJourney from "@/components/journey/BusinessJourney";
+import ViswasAssistant from "@/components/Viswasassistant";
 
 export default function HomePage() {
 
@@ -36,7 +36,7 @@ export default function HomePage() {
   return (
     <>
       <CursorGlow />
-
+      <ViswasAssistant/>
       <Hero />
       <BusinessJourney />
       <Services />

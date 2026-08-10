@@ -167,9 +167,9 @@ export default function InsightsPage() {
         <div className="relative z-10">
           <Reveal delay={0.1}>
             <SectionTitle
-              eyebrow="VISWAS INSIGHTS"
+              eyebrow="VISWAAS INSIGHTS"
               title="Perspectives That Shape Tomorrow's Business Leaders"
-              description="Original research, executive perspectives, and strategic thinking from VISWAS Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
+              description="Original research, executive perspectives, and strategic thinking from VISWAAS Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
               align="center"
             />
           </Reveal>
@@ -220,7 +220,7 @@ export default function InsightsPage() {
                       </span>
                     </div>
 
-                {/* RIGHT - VISWAS Logo */}
+                {/* RIGHT - VISWAAS Logo */}
 
 <div className="relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-[32px] bg-[#0C2234]">
 
@@ -260,7 +260,7 @@ export default function InsightsPage() {
   >
     <Image
       src="/logo/MAIN LOGO.png"
-      alt="VISWAS"
+      alt="VISWAAS"
       width={300}
       height={300}
       className="object-contain"

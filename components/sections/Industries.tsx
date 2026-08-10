@@ -251,9 +251,9 @@ function FeatureCarousel() {
   );
 }
 
-export default function WhyViswas() {
+export default function WhyVISWAAS() {
   return (
-    <Section id="why-viswas" className="relative overflow-hidden bg-[#FFFFFF]">
+    <Section id="why-VISWAAS" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
@@ -269,8 +269,8 @@ export default function WhyViswas() {
 
       <Reveal>
         <SectionTitle
-          eyebrow="WHY VISWAS"
-          title="Why organizations choose VISWAS."
+          eyebrow="WHY VISWAAS"
+          title="Why organizations choose VISWAAS."
           description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
           align="center"
         />

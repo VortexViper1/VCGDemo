@@ -2,28 +2,25 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  Phone,
-  Globe,
-} from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone, Globe } from "lucide-react";
 
 import { NAVIGATION } from "@/lib/navigation";
 import { SITE_CONFIG } from "@/lib/constants";
 import SectionLink from "@/components/shared/SectionLink";
 
 export default function Footer() {
+  const phoneHref = SITE_CONFIG.phone.replace(/[^+\d]/g, "");
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    SITE_CONFIG.location
+  )}`;
+
   return (
     <footer className="relative overflow-hidden border-t border-[#2A2D31]/8 bg-[#FFFFFF]">
-      {/* Background Glow */}
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C49A4A]/12 blur-[140px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,9 +31,8 @@ export default function Footer() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
-                Let's Build Together
+                Let&apos;s Build Together
               </p>
-
               <h2
                 className="max-w-3xl text-4xl font-semibold leading-tight md:text-6xl"
                 style={{ color: "#2A2D31" }}
@@ -47,9 +43,6 @@ export default function Footer() {
               </h2>
             </div>
 
-            {/* Start a Conversation — same white/95-to-amber-orange
-                pill treatment as the "Discover More" CTA elsewhere on
-                the site, kept at the larger footer scale */}
             <SectionLink href="/#contact">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -63,18 +56,14 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Main Grid */}
         <div className="grid gap-14 lg:grid-cols-12">
-          {/* Brand */}
           <div className="lg:col-span-5">
             <h2 className="text-3xl font-semibold" style={{ color: "#2A2D31" }}>
-              VISWAS
+              VISWAAS
             </h2>
-
             <p className="mt-3 text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
               Strategy • Capital • Transformation
             </p>
-
             <p className="mt-8 max-w-md leading-8 text-[#23272B]/70">
               We partner with organizations, investors, and visionary
               leaders to shape sustainable growth through strategic
@@ -82,12 +71,10 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
           <div className="lg:col-span-3">
             <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#C49A4A]">
               Navigation
             </h4>
-
             <div className="space-y-5">
               {NAVIGATION.map((item) => (
                 <SectionLink
@@ -102,28 +89,41 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact */}
           <div className="lg:col-span-4">
             <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#C49A4A]">
               Contact
             </h4>
-
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
+              {/* EMAIL LINK - check "<a" is here */}
+              <a
+                href={`mailto:${SITE_CONFIG.email}`}
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+              >
                 <Mail size={18} className="mt-1 text-[#C49A4A]" />
-                <span className="text-[#23272B]/70">{SITE_CONFIG.email}</span>
-              </div>
+                <span>{SITE_CONFIG.email}</span>
+              </a>
 
-              <div className="flex items-start gap-4">
+              {/* PHONE LINK - check "<a" is here */}
+              <a
+                href={`tel:${phoneHref}`}
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+              >
                 <Phone size={18} className="mt-1 text-[#C49A4A]" />
-                <span className="text-[#23272B]/70">{SITE_CONFIG.phone}</span>
-              </div>
+                <span>{SITE_CONFIG.phone}</span>
+              </a>
 
-              <div className="flex items-start gap-4">
+              {/* MAP LINK - check "<a" is here */}
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+              >
                 <MapPin size={18} className="mt-1 text-[#C49A4A]" />
-                <span className="text-[#23272B]/70">{SITE_CONFIG.location}</span>
-              </div>
+                <span>{SITE_CONFIG.location}</span>
+              </a>
 
+              {/* LINKEDIN LINK - check "<a" is here */}
               <a
                 href="https://linkedin.com"
                 target="_blank"
@@ -138,13 +138,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="mt-20 flex flex-col gap-6 border-t border-[#2A2D31]/8 pt-8 text-sm text-[#23272B]/40 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} VISWAS Consulting Group.
-            All Rights Reserved.
+            © {new Date().getFullYear()} VISWAAS Consulting Group. All Rights
+            Reserved.
           </p>
-
           <div className="flex gap-6 md:p-8">
             <Link
               href="/privacy-policy"
@@ -153,7 +151,6 @@ export default function Footer() {
             >
               Privacy Policy
             </Link>
-
             <Link
               href="/terms-of-use"
               className="transition hover:text-[#C49A4A]"

@@ -60,7 +60,7 @@ export default function App() {
     <section
       id="home"
       ref={sectionRef}
-      aria-label="VISWAS Consulting Group"
+      aria-label="VISWAAS Consulting Group"
       style={{ fontFamily: "var(--font-body)" }}
       className="
         relative w-full overflow-hidden
@@ -247,7 +247,7 @@ export default function App() {
               md:text-white/78 md:[text-shadow:0_1px_18px_rgba(0,0,0,0.5)]
             "
           >
-            VISWAS integrates strategy, corporate finance, governance and
+            VISWAAS integrates strategy, corporate finance, governance and
             transformation into one advisory experience, helping boards and
             promoters make confident decisions with long-term impact.
           </motion.p>

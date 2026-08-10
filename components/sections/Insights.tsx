@@ -513,7 +513,7 @@ useEffect(() => {
           <SectionTitle
             eyebrow="INSIGHTS"
             title="Perspectives shaping tomorrow's business leaders."
-            description="Thought leadership, market intelligence, and strategic insights from VISWAS Consulting Group."
+            description="Thought leadership, market intelligence, and strategic insights from VISWAAS Consulting Group."
             align="center"
           />
         </Reveal>
@@ -553,7 +553,7 @@ useEffect(() => {
         <SectionTitle
           eyebrow="INSIGHTS"
           title="Perspectives shaping tomorrow's business leaders."
-          description="Thought leadership, market intelligence, and strategic insights from VISWAS Consulting Group."
+          description="Thought leadership, market intelligence, and strategic insights from VISWAAS Consulting Group."
           align="center"
         />
       </Reveal>

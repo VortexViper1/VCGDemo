@@ -50,7 +50,7 @@ const MAIN_NAV_ITEMS = [
   NAVIGATION.find((item) => item.label === "Home"),
   NAVIGATION.find((item) => item.label === "Roadmap"),
   NAVIGATION.find((item) => item.label === "Capabilities"),
-  NAVIGATION.find((item) => item.label === "Why Viswas"),
+  NAVIGATION.find((item) => item.label === "Why VISWAAS"),
   NAVIGATION.find((item) => item.label === "Insights"),
 ].filter((item): item is NonNullable<typeof item> => Boolean(item));
 
@@ -306,7 +306,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 className={`flex items-center gap-3 ${FOCUS_RING}`}
-                aria-label="VISWAS home"
+                aria-label="VISWAAS home"
               >
                 <motion.div
                   whileHover={{
@@ -318,7 +318,7 @@ export default function Navbar() {
                 >
                   <Image
                     src="/logo/MAIN LOGO.png"
-                    alt="VISWAS"
+                    alt="VISWAAS"
                     width={42}
                     height={42}
                     priority
@@ -327,7 +327,7 @@ export default function Navbar() {
                 </motion.div>
 
                 <div className="whitespace-nowrap">
-                  {/* ── Name row: VISWAS wordmark ── */}
+                  {/* ── Name row: VISWAAS wordmark ── */}
                   <div className="flex items-center">
                     <motion.div
                       className="relative inline-block"
@@ -343,7 +343,7 @@ export default function Navbar() {
                         transition={COLOR_TRANSITION}
                         className="text-lg font-semibold"
                       >
-                        VISWAS
+                        VISWAAS
                       </motion.h2>
                       <motion.span
                         variants={{ rest: { width: "0%" }, hover: { width: "100%" } }}
@@ -354,7 +354,7 @@ export default function Navbar() {
                     </motion.div>
                   </div>
 
-                  {/* ── Tagline, full width, below the VISWAS row ── */}
+                  {/* ── Tagline, full width, below the VISWAAS row ── */}
                   <motion.div
                     initial={{ maxWidth: TAGLINE_MAX_WIDTH, opacity: 1, marginTop: 2 }}
                     animate={{

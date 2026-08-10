@@ -72,7 +72,7 @@ function Seal({ active }: { active: boolean }) {
       <path id="sealRingPath" fill="none" d="M28,28 m-17,0 a17,17 0 1,1 34,0 a17,17 0 1,1 -34,0" />
       <text fontSize="5.4" fill={SEAL} opacity="0.75" letterSpacing="2.5" style={{ fontFamily: MONO }}>
         <textPath href="#sealRingPath" startOffset="2%">
-          VISWAS · ATTESTED ·
+          VISWAAS · ATTESTED ·
         </textPath>
       </text>
       <path d="M22 30 L27 35 L36 22" stroke={SEAL} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.85" />

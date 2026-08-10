@@ -182,7 +182,7 @@ export default function ScaleExperience() {
               className="pt-8 font-[var(--font-sans)] text-[11px] uppercase tracking-[0.35em]"
               style={{ color: content.accent }}
             >
-              How VISWAS responds
+              How VISWAAS responds
             </span>
           </div>
 
@@ -347,7 +347,7 @@ export default function ScaleExperience() {
                       color: content.accent,
                     }}
                   >
-                    VISWAS Response
+                    VISWAAS Response
                   </span>
 
                   <h3
@@ -446,7 +446,7 @@ export default function ScaleExperience() {
           >
             <Image
               src={content.images.primary}
-              alt="VISWAS institutional advisory boardroom"
+              alt="VISWAAS institutional advisory boardroom"
               fill
               loading="lazy"
               sizes="(min-width: 1536px) 60vw, (min-width: 1024px) 58vw, 100vw"

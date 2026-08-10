@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import GearExperience from "@/components/stages/GearExperience";
 
 export const metadata: Metadata = {
-  title: "Gear Up | VISWAS Consulting Group",
+  title: "Gear Up | VISWAAS Consulting Group",
   description: "From early traction to disciplined growth.",
 };
 

@@ -64,9 +64,9 @@ export default function About() {
         <Reveal>
           <div>
             <SectionTitle
-              eyebrow="ABOUT VISWAS"
+              eyebrow="ABOUT VISWAAS"
               title="Building enduring businesses through strategy, capital, and transformation."
-              description="VISWAS Consulting Group partners with ambitious organizations, investors, and institutions to solve complex business challenges with clarity, innovation, and measurable impact."
+              description="VISWAAS Consulting Group partners with ambitious organizations, investors, and institutions to solve complex business challenges with clarity, innovation, and measurable impact."
             />
             <div className="mt-10 mb-12 flex items-center gap-4">
   <div className="h-px w-16 bg-[#C49A4A]" />

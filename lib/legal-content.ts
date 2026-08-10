@@ -18,7 +18,7 @@ export const PRIVACY_POLICY: LegalDocumentContent = {
   title: "Privacy Policy",
   updated: "Last updated 8 August 2026",
   intro:
-    "This policy explains what information VISWAS Consulting Group collects when you visit this website or engage us for advisory services, why we collect it, and the choices available to you.",
+    "This policy explains what information VISWAAS Consulting Group collects when you visit this website or engage us for advisory services, why we collect it, and the choices available to you.",
   sections: [
     {
       id: "information-we-collect",
@@ -111,7 +111,7 @@ export const PRIVACY_POLICY: LegalDocumentContent = {
       id: "contact",
       heading: "Contact us",
       body: [
-        "If you have questions about this policy or how your information is handled, contact us at privacy@viswasconsulting.com or write to our registered office address, available on request.",
+        "If you have questions about this policy or how your information is handled, contact us at privacy@VISWAASconsulting.com or write to our registered office address, available on request.",
       ],
     },
   ],
@@ -128,14 +128,14 @@ export const TERMS_OF_USE: LegalDocumentContent = {
       id: "acceptance",
       heading: "Acceptance of terms",
       body: [
-        "These Terms of Use, together with our Privacy Policy, form the agreement between you and VISWAS Consulting Group governing your access to and use of this website. We may revise these terms at any time by updating this page, and continued use of the site constitutes acceptance of the revised terms.",
+        "These Terms of Use, together with our Privacy Policy, form the agreement between you and VISWAAS Consulting Group governing your access to and use of this website. We may revise these terms at any time by updating this page, and continued use of the site constitutes acceptance of the revised terms.",
       ],
     },
     {
       id: "use-of-site",
       heading: "Use of this website",
       body: [
-        "This website and its content are provided for general informational purposes about VISWAS Consulting Group and our services. You may view, download, and print content from this site for personal, non-commercial reference, provided you retain all copyright and proprietary notices.",
+        "This website and its content are provided for general informational purposes about VISWAAS Consulting Group and our services. You may view, download, and print content from this site for personal, non-commercial reference, provided you retain all copyright and proprietary notices.",
       ],
       list: [
         "You will not use the site for any unlawful purpose or in a way that could damage, disable, or impair it",
@@ -147,14 +147,14 @@ export const TERMS_OF_USE: LegalDocumentContent = {
       id: "intellectual-property",
       heading: "Intellectual property",
       body: [
-        "All content on this website — including text, graphics, logos, frameworks, and methodologies — is the property of VISWAS Consulting Group or its licensors and is protected by applicable intellectual property laws. Nothing on this site grants you any licence or right to use our trademarks or proprietary materials without prior written permission.",
+        "All content on this website — including text, graphics, logos, frameworks, and methodologies — is the property of VISWAAS Consulting Group or its licensors and is protected by applicable intellectual property laws. Nothing on this site grants you any licence or right to use our trademarks or proprietary materials without prior written permission.",
       ],
     },
     {
       id: "no-advice",
       heading: "No professional advice",
       body: [
-        "Content published on this website, including insights, articles, and commentary, is provided for general informational purposes only and does not constitute strategic, financial, legal, tax, or investment advice. Any advisory relationship is established only through a signed engagement letter with VISWAS Consulting Group, and the terms of that engagement will govern the services provided.",
+        "Content published on this website, including insights, articles, and commentary, is provided for general informational purposes only and does not constitute strategic, financial, legal, tax, or investment advice. Any advisory relationship is established only through a signed engagement letter with VISWAAS Consulting Group, and the terms of that engagement will govern the services provided.",
       ],
     },
     {
@@ -169,21 +169,21 @@ export const TERMS_OF_USE: LegalDocumentContent = {
       heading: "Disclaimers and limitation of liability",
       body: [
         "This website is provided on an 'as is' and 'as available' basis without warranties of any kind, whether express or implied. We do not warrant that the site will be uninterrupted, error-free, or free of harmful components.",
-        "To the fullest extent permitted by law, VISWAS Consulting Group will not be liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this website.",
+        "To the fullest extent permitted by law, VISWAAS Consulting Group will not be liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this website.",
       ],
     },
     {
       id: "indemnification",
       heading: "Indemnification",
       body: [
-        "You agree to indemnify and hold VISWAS Consulting Group, its partners, and employees harmless from any claims, damages, or expenses arising from your misuse of this website or violation of these terms.",
+        "You agree to indemnify and hold VISWAAS Consulting Group, its partners, and employees harmless from any claims, damages, or expenses arising from your misuse of this website or violation of these terms.",
       ],
     },
     {
       id: "governing-law",
       heading: "Governing law",
       body: [
-        "These terms are governed by the laws applicable in the jurisdiction in which VISWAS Consulting Group is registered, without regard to conflict-of-law principles. Any disputes arising from these terms will be subject to the exclusive jurisdiction of the courts in that jurisdiction.",
+        "These terms are governed by the laws applicable in the jurisdiction in which VISWAAS Consulting Group is registered, without regard to conflict-of-law principles. Any disputes arising from these terms will be subject to the exclusive jurisdiction of the courts in that jurisdiction.",
       ],
     },
     {
@@ -204,7 +204,7 @@ export const TERMS_OF_USE: LegalDocumentContent = {
       id: "contact",
       heading: "Contact us",
       body: [
-        "Questions about these terms can be directed to legal@viswasconsulting.com or to our registered office address, available on request.",
+        "Questions about these terms can be directed to legal@VISWAASconsulting.com or to our registered office address, available on request.",
       ],
     },
   ],

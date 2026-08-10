@@ -1,18 +1,18 @@
 // lib/constants.ts
 
 export const SITE_CONFIG = {
-  name: "VISWAS Consulting Group",
-  shortName: "VISWAS",
+  name: "VISWAAS Consulting Group",
+  shortName: "VISWAAS",
   tagline: "Strategy • Capital • Transformation",
 
   description:
-    "VISWAS Consulting Group partners with businesses, investors, and institutions to unlock sustainable growth through strategy, capital advisory, and digital transformation.",
+    "VISWAAS Consulting Group partners with businesses, investors, and institutions to unlock sustainable growth through strategy, capital advisory, and digital transformation.",
 
-  url: "https://viswasconsulting.com",
+  url: "https://viswaas.com",
 
-  email: "info@viswasconsulting.com",
+  email: "vcg@viswaas.com",
 
-  phone: "+91 94918 91866",
+  phone: "+91 77948 37878",
 
   location: "India",
 };
@@ -95,7 +95,7 @@ export const TESTIMONIALS = [
   {
     company: "Global Enterprise",
     quote:
-      "VISWAS transformed our strategic planning process with exceptional clarity and measurable impact.",
+      "VISWAAS transformed our strategic planning process with exceptional clarity and measurable impact.",
     author: "Managing Director",
   },
   {

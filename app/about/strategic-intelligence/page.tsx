@@ -43,20 +43,20 @@ export default function StrategicIntelligencePage() {
     <main className="min-h-screen bg-[#FFFFFF]">
       <Section className="pt-40 pb-32">
         <Reveal>
-<Link href="/#why-viswas" className="group inline-flex focus-visible:outline-none">
+<Link href="/#why-VISWAAS" className="group inline-flex focus-visible:outline-none">
   <span className="pointer-events-auto relative z-30 inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-5 py-2.5 text-[13px] font-medium text-[#23272B] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:text-sm">
     <ArrowLeft
       size={15}
       className="transition-transform duration-300 group-hover:-translate-x-1"
     />
-    Back to Why VISWAS
+    Back to Why VISWAAS
   </span>
 </Link>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAS — 01</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 01</span>
           </div>
         </Reveal>
 
@@ -73,7 +73,7 @@ export default function StrategicIntelligencePage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/strategic-intelligence.png"
-              alt="Strategic Intelligence — VISWAS consulting team in a data review session"
+              alt="Strategic Intelligence — VISWAAS consulting team in a data review session"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

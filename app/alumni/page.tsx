@@ -23,7 +23,7 @@ import KalyaniImg from "./Kalyani.png";
 import SwaroopImg from "./swaroop.png"
 // Shown once in the header rather than repeated on every card, since
 // everyone here is from the same organization.
-const COMPANY_NAME = "VISWAS Consulting Group";
+const COMPANY_NAME = "VISWAAS Consulting Group";
 
 type Alum = {
   name: string;

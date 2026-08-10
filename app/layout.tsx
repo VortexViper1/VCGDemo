@@ -30,48 +30,48 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://viswasconsulting.com"),
+  metadataBase: new URL("https://VISWAASconsulting.com"),
 
   title: {
-    default: "VISWAS Consulting Group",
-    template: "%s | VISWAS Consulting Group",
+    default: "VISWAAS Consulting Group",
+    template: "%s | VISWAAS Consulting Group",
   },
 
   description:
-    "VISWAS Consulting Group provides strategy, capital advisory, business transformation, and digital consulting services.",
+    "VISWAAS Consulting Group provides strategy, capital advisory, business transformation, and digital consulting services.",
 
   keywords: [
     "Consulting",
     "",
     "Capital Advisory",
     "Transformation",
-    "VISWAS",
+    "VISWAAS",
     "Corporate Consulting",
   ],
 
   authors: [
     {
-      name: "VISWAS Consulting Group",
+      name: "VISWAAS Consulting Group",
     },
   ],
 
-  creator: "VISWAS Consulting Group",
+  creator: "VISWAAS Consulting Group",
 
-  publisher: "VISWAS Consulting Group",
+  publisher: "VISWAAS Consulting Group",
 
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://viswasconsulting.com",
-    title: "VISWAS Consulting Group",
+    url: "https://VISWAASconsulting.com",
+    title: "VISWAAS Consulting Group",
     description:
       "Strategy • Capital • Transformation",
-    siteName: "VISWAS Consulting Group",
+    siteName: "VISWAAS Consulting Group",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "VISWAS Consulting Group",
+    title: "VISWAAS Consulting Group",
     description:
       "Strategy • Capital • Transformation",
   },

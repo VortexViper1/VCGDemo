@@ -43,7 +43,7 @@ export default function Leadership() {
         <SectionTitle
           eyebrow="OUR PEOPLE"
           title="Leadership"
-          description="Meet the leaders and distinguished professionals who have shaped VISWAS Consulting Group and continue to make an impact across industries."
+          description="Meet the leaders and distinguished professionals who have shaped VISWAAS Consulting Group and continue to make an impact across industries."
           align="center"
         />
       </Reveal>
@@ -70,7 +70,7 @@ export default function Leadership() {
                   >
                     <Image
                       src="/logo/MAIN LOGO.png"
-                      alt="VISWAS Consulting Group"
+                      alt="VISWAAS Consulting Group"
                       fill
                       sizes="160px"
                       className="object-contain p-8"
@@ -92,7 +92,7 @@ export default function Leadership() {
                   <p className="mt-8 max-w-3xl text-lg leading-9 text-[#23272B]/70">
                     Behind every successful organization is a community of
                     visionary leaders. Meet the professionals who have guided
-                    VISWAS Consulting Group and explore our growing alumni
+                    VISWAAS Consulting Group and explore our growing alumni
                     network of leaders creating impact across consulting,
                     technology, Corporate & Financial Strategy and innovation.
                   </p>

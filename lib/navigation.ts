@@ -32,8 +32,8 @@ export const NAVIGATION: NavigationItem[] = [
     icon: BriefcaseBusiness,
   },
   {
-    label: "Why Viswas",
-    href: "/#why-viswas",
+    label: "Why VISWAAS",
+    href: "/#why-VISWAAS",
     icon: Building2,
   },
   {

@@ -183,7 +183,7 @@ function FeatureCard({
   );
 }
 
-export default function WhyViswas() {
+export default function WhyVISWAAS() {
   return (
     <Section id="approach" className="relative overflow-hidden bg-[#FFFFFF]">
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -203,7 +203,7 @@ export default function WhyViswas() {
         <div className="lg:col-span-5">
           <Reveal>
             <SectionTitle
-              eyebrow="THE VISWAS DIFFERENCE"
+              eyebrow="THE VISWAAS DIFFERENCE"
               title="Built for outcomes, not optics."
               description="We measure success the way our clients do — in decisions made faster, risks avoided, and value created that compounds."
             />

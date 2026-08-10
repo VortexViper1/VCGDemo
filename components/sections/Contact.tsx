@@ -10,14 +10,14 @@ import Reveal from "@/components/shared/Reveal";
 import GlassCard from "@/components/shared/GlassCard";
 
 // TODO: replace with your real LinkedIn company URL
-const LINKEDIN_URL = "https://linkedin.com/company/REPLACE_ME";
+const LINKEDIN_URL = "https://linkedin.com";
 
-const EMAIL = "info@viswasconsulting.com";
-const PHONE = "+91 94918 91866";
-const PHONE_TEL = "+919491891866"; // digits only for tel: link
+const EMAIL = "vcg@viswaas.com";
+const PHONE = "+91 77948 37878";
+const PHONE_TEL = "+917794837878"; // digits only for tel: link
 
 // TODO: replace with your real office address
-const OFFICE_ADDRESS = "Hyderabad, India";
+const OFFICE_ADDRESS = "TRENDZ UNITY, KAMALDEEP SINGH LAMBA, HYDERABAD, India";
 const MAPS_QUERY = encodeURIComponent(OFFICE_ADDRESS);
 const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`;
 const MAPS_EMBED_URL = `https://www.google.com/maps?q=${MAPS_QUERY}&output=embed`;
@@ -131,7 +131,7 @@ function MapPanel() {
             <div className="pointer-events-none absolute -inset-px z-20 rounded-none ring-1 ring-inset ring-[#C49A4A]/15" />
 
             <iframe
-              title="VISWAS Consulting Group location"
+              title="VISWAAS Consulting Group location"
               src={MAPS_EMBED_URL}
               loading="lazy"
               onLoad={() => setLoaded(true)}
@@ -162,6 +162,7 @@ function MapPanel() {
               whileTap={{ scale: 0.98 }}
               className="group relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full bg-[#C49A4A] px-7 py-3.5 font-semibold text-[#23272B] transition-shadow duration-300 hover:shadow-[0_0_30px_-6px_rgba(201,163,95,0.6)]"
             >
+              
               Get Directions
               <ArrowUpRight
                 size={18}
@@ -291,7 +292,7 @@ export default function Contact() {
                     Office
                   </span>
                   <h3 className="mt-4 text-3xl font-semibold" style={{ color: "#2A2D31" }}>
-                    VISWAS Consulting Group
+                    VISWAAS Consulting Group
                   </h3>
                   <p className="mt-6 leading-8 text-[#23272B]/70">
                     Partnering with visionary organizations to create

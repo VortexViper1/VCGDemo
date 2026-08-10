@@ -11,7 +11,7 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "Global Enterprise",
     designation: "CEO",
     quote:
-      "VISWAS transformed our strategic planning process and helped us unlock significant business growth.",
+      "VISWAAS transformed our strategic planning process and helped us unlock significant business growth.",
   },
   {
     name: "Client Name",
