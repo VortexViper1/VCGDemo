@@ -61,6 +61,16 @@ const itemVariants: Variants = {
   },
 };
 
+/* ── Palette for this panel ──
+   Panel bg: amber (#C89B3C)
+   Text: graphite (#2A2D31) — matches --color-ink
+   Hover: warm slate (#5C5347) — desaturated, warm-toned grey
+   CTA: graphite bg / ivory text — deliberate contrast against the
+   amber panel, reads as the "action" surface rather than blending in */
+const GRAPHITE = "#2A2D31";
+const WARM_SLATE = "#5C5347";
+const IVORY = "#FAF8F4";
+
 export default function MobileMenu({
   open,
   onClose,
@@ -105,25 +115,29 @@ export default function MobileMenu({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-[120] w-full max-w-sm bg-[#0F1E26] shadow-2xl shadow-black/40"
+            className="fixed inset-y-0 right-0 z-[120] w-full max-w-sm bg-[#C89B3C] shadow-2xl shadow-black/40"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
           >
             {/* Decorative gradient orb */}
-            <div className="pointer-events-none absolute -top-32 -right-32 h-64 w-64 rounded-full bg-[#B7964A]/10 blur-3xl" />
+            <div className="pointer-events-none absolute -top-32 -right-32 h-64 w-64 rounded-full bg-[#2A2D31]/10 blur-3xl" />
 
             <div className="flex h-full flex-col px-8 py-10">
               {/* Header */}
               <div className="flex items-center justify-between">
-                <span className="text-lg font-semibold tracking-[0.06em] text-white">
+                <span
+                  className="text-lg font-semibold tracking-[0.06em]"
+                  style={{ color: GRAPHITE }}
+                >
                   VISWAS
                 </span>
                 <motion.button
-                  whileHover={{ borderColor: "#D9822B", opacity: 1, color: "#D9822B" }}
-                  whileTap={{ scale: 0.9, rotate: 90, borderColor: "#D9822B", color: "#D9822B" }}
+                  whileHover={{ borderColor: WARM_SLATE, opacity: 1, color: WARM_SLATE }}
+                  whileTap={{ scale: 0.9, rotate: 90, borderColor: WARM_SLATE, color: WARM_SLATE }}
                   onClick={onClose}
-                  className="rounded-full border border-white/20 p-3 text-white transition-all duration-300 hover:border-[#C49A4A] hover:text-[#C49A4A]"
+                  className="rounded-full border border-[#2A2D31]/30 p-3 transition-all duration-300"
+                  style={{ color: GRAPHITE }}
                   aria-label="Close menu"
                 >
                   <X size={22} />
@@ -137,28 +151,33 @@ export default function MobileMenu({
                     <SectionLink
                       href={item.href}
                       onNavigate={onClose}
-                      className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#B7964A]/10"
+                      className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#2A2D31]/5"
                     >
-                      <span className="text-2xl font-medium !text-white transition-colors duration-300 group-hover:!text-[#C49A4A]">
+                      <span
+                        className="text-2xl font-medium transition-colors duration-300 group-hover:!text-[#5C5347]"
+                        style={{ color: GRAPHITE }}
+                      >
                         {item.label}
                       </span>
 
                       <ArrowUpRight
                         size={20}
-                        className="text-[#C49A4A] opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                        className="opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                        style={{ color: WARM_SLATE }}
                       />
                     </SectionLink>
                   </motion.div>
                 ))}
               </nav>
 
-              {/* CTA */}
+              {/* CTA — graphite surface for deliberate contrast against the amber panel */}
               <motion.div variants={itemVariants} className="mt-auto pt-8">
                 <SectionLink href={CTA_BUTTON.href} onNavigate={onClose}>
                   <motion.div
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center justify-center gap-2 rounded-full bg-[#B7964A] px-8 py-4 text-base font-semibold text-[#1A1C20] shadow-lg shadow-[#B7964A]/20"
+                    className="flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold shadow-lg shadow-black/20"
+                    style={{ backgroundColor: GRAPHITE, color: IVORY }}
                   >
                     <span>{CTA_BUTTON.label}</span>
                     <ArrowUpRight size={18} />

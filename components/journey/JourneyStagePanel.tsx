@@ -55,10 +55,27 @@ export default function JourneyStagePanel({ stage, index, total }: Props) {
 
             <div className="lg:border-l lg:border-[#2A2D31]/10 lg:pl-24">
               <span
-                className="text-[11px] uppercase tracking-[0.35em]"
+                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em]"
                 style={{ color: stage.accent }}
               >
                 Our Capabilities
+                <motion.svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 10 10"
+                  fill="none"
+                  aria-hidden="true"
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <path
+                    d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </motion.svg>
               </span>
               <div className="mt-4">
                 <ServiceCluster

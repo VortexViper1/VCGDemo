@@ -22,6 +22,11 @@ export const NAVIGATION: NavigationItem[] = [
     icon: Home,
   },
   {
+    label: "Roadmap",
+    href: "/#journey",
+    icon: Route,
+  },
+  {
     label: "Capabilities",
     href: "/#services",
     icon: BriefcaseBusiness,
@@ -35,11 +40,6 @@ export const NAVIGATION: NavigationItem[] = [
     label: "Insights",
     href: "/#insights",
     icon: Newspaper,
-  },
-  {
-    label: "Roadmap",
-    href: "/#journey",
-    icon: Route,
   },
 ];
 

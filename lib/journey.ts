@@ -236,12 +236,12 @@ export const JOURNEY: JourneyStageType[] = [
 
   {
     id: "transform",
-    stage: "TRANSFORM",
+    stage: "Keep it Up",
     headline: "Build an enduring legacy.",
     description:
       "Position your organization for Long term value creation through governance, innovation and strategic leadership.",
     image: "/journey/transform.jpg",
-    challenges: ["Innovation", "Succession", "Governance", "Global Expansion", "ESG"],
+    challenges: ["Innovation", "Succession", "Governance", "Global Expansion", "ESG", "IPO Readiness"],
     services: [
       {
         id: "board-advisory",

@@ -50,6 +50,23 @@
 *::after {
   box-sizing: border-box;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Kill default mobile tap-highlight (shows as a green flash on
+   Android Chrome/WebView) and replace with a subtle gold flash
+   that matches the brand accent. */
+* {
+  -webkit-tap-highlight-color: rgba(200, 155, 60, 0.15); /* accent gold, low opacity */
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
 /* ── Navbar Island ── */
 .nav-island {
   /* Hardware acceleration for the pill */

@@ -232,6 +232,11 @@ export const TRANSFORM_CONTENT: StageContent = {
       description:
         "Leadership transition, family governance and ownership alignment become central to continuity and value preservation.",
     },
+    {
+      title: "Capital & Market Valuation",
+      description:
+        "Capital structures, investor expectations and market perceptions create pressure on valuation, liquidity and long-term value.",
+    },
   ],
   solutions: [
     {
@@ -251,6 +256,11 @@ export const TRANSFORM_CONTENT: StageContent = {
       title: "Long term value and institutional legacy",
       description: "ESG strategy, stakeholder architecture, governance renewal and Long term value creation systems.",
     },
+{
+  title: "IPO Readiness",
+  description:
+    "Legacy brand establishment, governance and institutional readiness create the foundation for market validation and long-term value creation.",
+},
   ],
   tags: ["Corporate Strategy", "Portfolio Review", "Turnaround", "Restructuring", "Succession", "Institutional Governance"],
   outcome:

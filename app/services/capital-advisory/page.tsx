@@ -24,6 +24,7 @@ const PILLARS = [
       "Funding strategy and sequencing",
       "Investor identification support",
       "Negotiation and transaction assistance",
+      "IPO readiness"
     ],
   },
   {

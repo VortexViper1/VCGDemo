@@ -11,9 +11,11 @@ interface Props {
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const GRAPHITE = "#2A2D31";
 
 export default function ServiceCluster({ services, accent, onActiveServiceChange }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleToggle = (service: Capability) => {
     const next = activeId === service.id ? null : service.id;
@@ -26,6 +28,7 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
       <div className="space-y-2 border-t border-[#2A2D31]/10">
         {services.map((service, index) => {
           const isOpen = activeId === service.id;
+          const isHovered = hoveredId === service.id;
 
           return (
             <div key={service.id} className="border-b border-[#2A2D31]/10 py-6">
@@ -38,6 +41,8 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
 
               <button
                 onClick={() => handleToggle(service)}
+                onMouseEnter={() => setHoveredId(service.id)}
+                onMouseLeave={() => setHoveredId(null)}
                 className="group flex w-full items-baseline gap-5 text-left outline-none"
                 aria-expanded={isOpen}
               >
@@ -51,13 +56,41 @@ export default function ServiceCluster({ services, accent, onActiveServiceChange
                 <motion.h3
                   layout="position"
                   transition={{ duration: 0.42, ease: EASE }}
-                  className={`font-[var(--font-display)] leading-[1.05] tracking-[-0.02em] transition-all duration-300 ${
+                  className={`inline-flex items-baseline gap-3 font-[var(--font-display)] leading-[1.05] tracking-[-0.02em] transition-all duration-300 ${
                     isOpen
                       ? "text-[28px] text-[#2A2D31] sm:text-[32px]"
                       : "text-[19px] text-[#2A2D31]/70 group-hover:text-[#2A2D31] sm:text-[21px]"
                   }`}
                 >
                   {service.title}
+                  <motion.svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    aria-hidden="true"
+                    className="shrink-0 self-center"
+                    style={{ color: GRAPHITE, opacity: isOpen || isHovered ? 0.7 : 0.35 }}
+                    animate={{
+                      rotate: isOpen ? 90 : 0,
+                      x: isHovered ? [0, 3, 0] : 0,
+                    }}
+                    transition={{
+                      rotate: { duration: 0.42, ease: EASE },
+                      opacity: { duration: 0.3, ease: EASE },
+                      x: isHovered
+                        ? { duration: 0.8, repeat: Infinity, ease: "easeInOut" }
+                        : { duration: 0.2, ease: EASE },
+                    }}
+                  >
+                    <path
+                      d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </motion.svg>
                 </motion.h3>
               </button>
 

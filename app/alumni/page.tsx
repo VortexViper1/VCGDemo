@@ -46,12 +46,6 @@ const LEADERSHIP: Alum[] = [
     linkedin: "https://www.linkedin.com/in/venkata-satish-maddula-574333198/",
   },
   {
-    name: "Phani Kumar Madireddy",
-    role: "Senior Consultant",
-    image: PhaniImg,
-    linkedin: "https://www.linkedin.com/in/phani-kumar-madireddy-96803752/",
-  },
-  {
     name: "CA Chaitanya Kishore",
     role: "Senior Consultant",
     linkedin: "https://www.linkedin.com/in/ca-chaitanya-kishore-076983a3/",

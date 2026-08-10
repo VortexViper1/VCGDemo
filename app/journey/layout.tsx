@@ -13,7 +13,7 @@ export default function JourneyLayout({
   const pathname = usePathname();
 
   // Pull the stage id out of /journey/<stageId> (and /journey/<stageId>/<serviceId>
-  // if you have nested service routes too), so "Back to Journey" returns to
+  // if you have nested service routes too), so "Back to Roadmap" returns to
   // the exact stage you came from instead of always resetting to the first one.
   const stageId = pathname.split("/")[2]; // "" | "startup" | "gearup" | ...
 
@@ -54,7 +54,7 @@ export default function JourneyLayout({
               size={15}
               className="transition-transform duration-300 group-hover:-translate-x-1"
             />
-            Back to Journey
+            Back to Roadmap
           </span>
         </Link>
       </div>
