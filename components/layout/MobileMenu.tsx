@@ -130,7 +130,7 @@ export default function MobileMenu({
                   className="text-lg font-semibold tracking-[0.06em]"
                   style={{ color: GRAPHITE }}
                 >
-                  VISWAAS
+                  Viswaas
                 </span>
                 <motion.button
                   whileHover={{ borderColor: WARM_SLATE, opacity: 1, color: WARM_SLATE }}

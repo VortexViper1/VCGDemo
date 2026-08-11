@@ -88,7 +88,7 @@ export default function JourneyCTA() {
           "
         >
           Whether you're building your first venture or transforming
-          an established enterprise, VISWAAS partners with you to
+          an established enterprise, Viswaas partners with you to
           navigate complexity with confidence.
         </motion.p>
 

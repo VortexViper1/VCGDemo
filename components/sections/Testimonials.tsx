@@ -22,21 +22,21 @@ const EXHIBITS = [
   {
     letter: "A",
     quote:
-      "Viswaas helped us look beyond the immediate fundraise and think strategically about valuation, dilution, future capital and market positioning. Their investor-led perspective brought greater clarity to both our capital structure and how we present Chaiomi to the market.",
+      "What changed for us was the way we began looking at capital. The conversation moved beyond the immediate fundraise to valuation, dilution, future capital requirements and how Chaiomi should position itself in the market. Viswaas brought an investor’s perspective to the table and gave us much greater clarity on the capital decisions ahead.",
     name: "Phani Kumar Madireddy",
     author: "Founder, Chaiomi",
   },
   {
     letter: "B",
     quote:
-      "Viswaas helped us uncover the potential already within our business and turn it into a focused growth strategy. Their advice on financial planning, business decisions, and multiple revenue streams gave us a clearer path to scale, and we have since seen substantial growth.",
+      "There was considerably more potential within our existing business than we had recognised. The engagement uncovered those opportunities and translated them into a focused growth plan strengthening our financial planning, sharpening business decisions and opening multiple revenue streams. That clarity gave us a practical path to scale, and we have since seen substantial growth.",
     name: "Madhu Naik",
     author: "Director, Wings Infra",
   },
   {
     letter: "C",
     quote:
-      "Viswaas guided us through company setup and Board formation with clarity and foresight. Their advice helped us make the right structural and governance decisions early, giving us a stronger foundation to build and grow the business.",
+      "Starting a company brings a surprising number of decisions that can have long-term consequences. Having Viswaas alongside us during company setup and Board formation made those decisions far easier to navigate. We were able to put the right structure and governance foundations in place early, with the confidence that they could support the business as it grows.",
     name: "Santosh",
     author: "Founder, OutsideIn",
   },
@@ -178,7 +178,7 @@ description="We build enduring partnerships by helping organizations solve compl
                   className="mt-6 flex-1 text-[18px] italic leading-[1.6]"
                   style={{ color: INK, fontFamily: DISPLAY_SERIF }}
                 >
-                  “{item.quote}”
+                  "{item.quote}"
                 </blockquote>
 
                <figcaption className="mt-8">

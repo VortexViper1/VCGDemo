@@ -140,7 +140,7 @@ export default function Footer() {
 
         <div className="mt-20 flex flex-col gap-6 border-t border-[#2A2D31]/8 pt-8 text-sm text-[#23272B]/40 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} VISWAAS Consulting Group. All Rights
+            © {new Date().getFullYear()} Viswaas Consulting Group. All Rights
             Reserved.
           </p>
           <div className="flex gap-6 md:p-8">

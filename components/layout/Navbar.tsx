@@ -293,21 +293,40 @@ export default function Navbar() {
               className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-[#B7964A] to-transparent"
             />
 
-            {/* ── Logo + Wordmark ── */}
+            {/* ── Logo + Wordmark ──
+               Centering is pure flexbox (`justify-center`) in both
+               breakpoints — no JS measurement, no `x` transform math.
+
+               Mobile/tablet (<lg): box stops short of the hamburger
+               button (`right-20`) so centering accounts for it.
+
+               Desktop (lg+): no hamburger to avoid, so the box spans
+               the full pill via explicit `lg:left-0 lg:right-0` and
+               centers within it. (Previously used `lg:inset-x-0`
+               paired with `lg:right-auto` — those are two utilities
+               that both set `right`, and Tailwind's generated
+               stylesheet order made `right-auto` win regardless of
+               className order, silently collapsing the box back to
+               left-anchored. Explicit left-0/right-0 touches disjoint
+               properties, so there's nothing left to conflict.) */}
             <motion.div
               animate={{
                 scale: 1 + effectiveProgress * 0.08,
-                x: 8 * effectiveProgress,
+                x: compact ? 0 : 8 * effectiveProgress,
                 gap: `${12 - effectiveProgress * 2}px`,
               }}
               transition={getTransition(0.01, 0.08)}
-              className="absolute left-5 z-10 flex shrink-0 items-center sm:left-6"
+              className={`absolute inset-y-0 z-10 flex shrink-0 items-center ${
+                compact
+                  ? "left-5 right-20 justify-center lg:left-0 lg:right-0"
+                  : "left-5 right-auto justify-start sm:left-6"
+              }`}
             >
-              <Link
-                href="/"
-                className={`flex items-center gap-3 ${FOCUS_RING}`}
-                aria-label="VISWAAS home"
-              >
+<Link
+  href="/"
+  className={`flex items-center gap-3 lg:gap-2 ${FOCUS_RING}`}
+  aria-label="VISWAAS home"
+>
                 <motion.div
                   whileHover={{
                     rotate: 6,
@@ -315,6 +334,7 @@ export default function Navbar() {
                     boxShadow: "0 12px 30px rgba(183,150,74,.18)",
                   }}
                   transition={{ type: "spring" as const, stiffness: 320, damping: 16 }}
+                  className="-ml-1000.0"
                 >
                   <Image
                     src="/logo/MAIN LOGO.png"
@@ -326,7 +346,9 @@ export default function Navbar() {
                   />
                 </motion.div>
 
-                <div className="whitespace-nowrap">
+<div className={`whitespace-nowrap -translate-y-[3px] ${
+  compact ? "lg:translate-y-[12px]" : "lg:translate-y-[2px]"
+}`}>
                   {/* ── Name row: VISWAAS wordmark ── */}
                   <div className="flex items-center">
                     <motion.div
@@ -341,7 +363,7 @@ export default function Navbar() {
                           hover: { color: GOLD, letterSpacing: "0.085em" },
                         }}
                         transition={COLOR_TRANSITION}
-                        className="text-lg font-semibold"
+                        className="text-lg font-semibold leading-none lg:leading-normal"
                       >
                         VISWAAS
                       </motion.h2>
@@ -513,7 +535,7 @@ export default function Navbar() {
               aria-label="Open menu"
               aria-haspopup="true"
               aria-expanded={menuOpen}
-              className={`absolute right-5 z-10 flex rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md transition-colors duration-300 lg:hidden ${FOCUS_RING}`}
+className={`absolute right-5 z-10 flex -translate-y-[3px] rounded-full border border-[#2A2D31]/8 bg-white p-3 text-[#23272B] backdrop-blur-md transition-colors duration-300 lg:hidden lg:translate-y-0 ${FOCUS_RING}`}
             >
               <Menu size={22} />
             </motion.button>

@@ -115,7 +115,7 @@ function Mark({ logoSrc, className }: { logoSrc?: string; className?: string }) 
 
 export default function ViswasConcierge({
   logoSrc,
-  launcherLabel = "Ask VISWAAS",
+  launcherLabel = "Ask Viswaas",
   navbarOffset = 96,
 }: ViswasConciergeProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -211,7 +211,7 @@ export default function ViswasConcierge({
               onKeyDown={onLauncherKeyDown}
               aria-haspopup="dialog"
               aria-expanded={panelVisible}
-              aria-label={`${launcherLabel} — open the VISWAAS digital concierge`}
+              aria-label={`${launcherLabel} — open the Viswaas digital concierge`}
               className="vc-glass vc-launcher pointer-events-auto group relative flex items-center gap-2.5 overflow-hidden rounded-full px-4 py-3"
               initial={{ opacity: 0, y: 10, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -251,7 +251,7 @@ export default function ViswasConcierge({
             <span className="vc-aurora" aria-hidden />
             <span className="relative z-10 h-1.5 w-1.5 rounded-full bg-[color:var(--vc-amber)]" />
             <span className="relative z-10 text-[11px] font-medium uppercase tracking-[0.14em] text-[color:var(--vc-ivory)]">
-              VISWAAS
+              Viswaas
             </span>
           </motion.button>
         )}
@@ -301,7 +301,7 @@ export default function ViswasConcierge({
                     id={headingId}
                     className="text-[13px] font-semibold uppercase tracking-[0.22em] text-[color:var(--vc-ivory)]"
                   >
-                    VISWAAS
+                    Viswaas
                   </p>
                   <p
                     id={subheadingId}
@@ -423,7 +423,7 @@ export default function ViswasConcierge({
                     <div className="mt-5 flex items-center gap-2">
                       <Mark logoSrc={logoSrc} className="vc-mark--answer shrink-0" />
                       <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--vc-amber)]">
-                        VISWAAS
+                        Viswaas
                       </span>
                     </div>
 

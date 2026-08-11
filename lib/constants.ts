@@ -95,7 +95,7 @@ export const TESTIMONIALS = [
   {
     company: "Global Enterprise",
     quote:
-      "VISWAAS transformed our strategic planning process with exceptional clarity and measurable impact.",
+      "Viswaas transformed our strategic planning process with exceptional clarity and measurable impact.",
     author: "Managing Director",
   },
   {

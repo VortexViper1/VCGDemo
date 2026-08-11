@@ -169,7 +169,7 @@ export default function InsightsPage() {
             <SectionTitle
               eyebrow="VISWAAS INSIGHTS"
               title="Perspectives That Shape Tomorrow's Business Leaders"
-              description="Original research, executive perspectives, and strategic thinking from VISWAAS Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
+              description="Original research, executive perspectives, and strategic thinking from Viswaas Consulting Group designed to help organizations navigate transformation, innovation, and sustainable growth."
               align="center"
             />
           </Reveal>

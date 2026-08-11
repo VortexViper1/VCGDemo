@@ -56,7 +56,7 @@ export default function StrategicIntelligencePage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 01</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why Viswaas</span>
           </div>
         </Reveal>
 
@@ -73,7 +73,7 @@ export default function StrategicIntelligencePage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/strategic-intelligence.png"
-              alt="Strategic Intelligence — VISWAAS consulting team in a data review session"
+              alt="Strategic Intelligence — Viswaas consulting team in a data review session"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

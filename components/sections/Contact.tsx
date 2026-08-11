@@ -17,7 +17,7 @@ const PHONE = "+91 77948 37878";
 const PHONE_TEL = "+917794837878"; // digits only for tel: link
 
 // TODO: replace with your real office address
-const OFFICE_ADDRESS = "TRENDZ UNITY, KAMALDEEP SINGH LAMBA, HYDERABAD, India";
+const OFFICE_ADDRESS = "Trendz Unity, Kamaldeep Singh Lamba, Hyderabad, India";
 const MAPS_QUERY = encodeURIComponent(OFFICE_ADDRESS);
 const MAPS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`;
 const MAPS_EMBED_URL = `https://www.google.com/maps?q=${MAPS_QUERY}&output=embed`;
@@ -131,7 +131,7 @@ function MapPanel() {
             <div className="pointer-events-none absolute -inset-px z-20 rounded-none ring-1 ring-inset ring-[#C49A4A]/15" />
 
             <iframe
-              title="VISWAAS Consulting Group location"
+              title="Viswaas Consulting Group location"
               src={MAPS_EMBED_URL}
               loading="lazy"
               onLoad={() => setLoaded(true)}
@@ -182,6 +182,7 @@ export default function Contact() {
     lastName: "",
     email: "",
     company: "",
+    subject: "",
     message: "",
   });
 
@@ -215,6 +216,11 @@ export default function Contact() {
       return;
     }
 
+    if (!form.subject.trim()) {
+      alert("Please enter a subject.");
+      return;
+    }
+
     if (!form.message.trim()) {
       alert("Please enter your message.");
       return;
@@ -244,6 +250,7 @@ export default function Contact() {
         lastName: "",
         email: "",
         company: "",
+        subject: "",
         message: "",
       });
 
@@ -252,7 +259,8 @@ export default function Contact() {
       }, 2500);
     } catch (err) {
       console.error(err);
-      alert("Failed to send inquiry.");
+      const message = err instanceof Error ? err.message : "Failed to send inquiry.";
+      alert(message);
       setStatus("idle");
     }
   };
@@ -291,7 +299,7 @@ export default function Contact() {
                     Office
                   </span>
                   <h3 className="mt-4 text-3xl font-semibold" style={{ color: "#2A2D31" }}>
-                    VISWAAS Consulting Group
+                    Viswaas Consulting Group
                   </h3>
                   <p className="mt-6 leading-8 text-[#23272B]/70">
                     Partnering with visionary organizations to create
@@ -385,6 +393,13 @@ export default function Contact() {
                 placeholder="Nicholas@company.com"
                 value={form.email}
                 onChange={updateField("email")}
+              />
+
+              <FormField
+                label="Subject"
+                placeholder="What's this about?"
+                value={form.subject}
+                onChange={updateField("subject")}
               />
 
               <FormField

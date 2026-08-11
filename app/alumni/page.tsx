@@ -24,7 +24,7 @@ import SwaroopImg from "./swaroop.png"
 
 // Shown once in the header rather than repeated on every card, since
 // everyone here is from the same organization.
-const COMPANY_NAME = "VISWAAS Consulting Group";
+const COMPANY_NAME = "Viswaas Consulting Group";
 
 const DISPLAY_SERIF = "var(--font-display)";
 const MONO = "var(--font-sans)";

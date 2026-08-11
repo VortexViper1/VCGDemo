@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import TransformExperience from "@/components/stages/TransformExperience";
 
 export const metadata: Metadata = {
-  title: "Mature & Transform | VISWAAS Consulting Group",
+  title: "Mature & Transform | Viswaas Consulting Group",
   description: "From established success to renewed relevance.",
 };
 

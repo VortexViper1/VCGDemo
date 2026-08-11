@@ -60,7 +60,7 @@ export default function App() {
     <section
       id="home"
       ref={sectionRef}
-      aria-label="VISWAAS Consulting Group"
+      aria-label="Viswaas Consulting Group"
       style={{ fontFamily: "var(--font-body)" }}
       className="
         relative w-full overflow-hidden

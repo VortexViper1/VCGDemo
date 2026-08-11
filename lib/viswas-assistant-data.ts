@@ -15,7 +15,7 @@ export interface ConciergeEntry {
 export const CONCIERGE_ENTRIES: ConciergeEntry[] = [
   {
     id: "01",
-    question: "What does viswaas help businesses achieve?",
+    question: "What does Viswaas help businesses achieve?",
     answer:
       "We work with leadership teams to navigate strategic complexity, unlock enterprise value, and build resilient foundations for long-term growth.",
   },
@@ -39,13 +39,13 @@ export const CONCIERGE_ENTRIES: ConciergeEntry[] = [
   },
   {
     id: "05",
-    question: "What makes viswaas different from other advisors?",
+    question: "What makes Viswaas different from other advisors?",
     answer:
       "We stay in the work through execution, not just the diagnosis. Strategy and delivery sit with the same team, so recommendations are built to survive contact with the organization.",
   },
   {
     id: "06",
-    question: "How can I speak with the viswaas team?",
+    question: "How can I speak with the Viswaas team?",
     answer:
       "Visit the Contact page and a member of our team will follow up to arrange a conversation about your organization's priorities.",
   },

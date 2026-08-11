@@ -16,7 +16,7 @@ interface Props {
  */
 export default function JourneyRoadmap({ stages, active, onSelect }: Props) {
   return (
-    <nav aria-label="VISWAAS journey stages">
+    <nav aria-label="Viswaas journey stages">
       <HandDrawnRoad stages={stages} active={active} onSelect={onSelect} />
       <MobileJourneyRail stages={stages} active={active} onSelect={onSelect} />
     </nav>

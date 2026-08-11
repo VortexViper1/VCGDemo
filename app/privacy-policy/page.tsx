@@ -5,7 +5,7 @@ import { PRIVACY_POLICY } from "@/lib/legal-content";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How VISWAAS Consulting Group collects, uses, and protects your information.",
+    "How Viswaas Consulting Group collects, uses, and protects your information.",
 };
 
 export default function PrivacyPolicyPage() {

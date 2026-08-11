@@ -182,7 +182,7 @@ export default function GearExperience() {
               className="pt-8 font-[var(--font-sans)] text-[11px] uppercase tracking-[0.35em]"
               style={{ color: content.accent }}
             >
-              How VISWAAS responds
+              How Viswaas responds
             </span>
           </div>
 
@@ -347,7 +347,7 @@ export default function GearExperience() {
                       color: content.accent,
                     }}
                   >
-                    VISWAAS Response
+                    Viswaas Response
                   </span>
 
                   <h3
@@ -446,7 +446,7 @@ export default function GearExperience() {
           >
             <Image
               src={content.images.primary}
-              alt="Operating rhythm review at VISWAAS"
+              alt="Operating rhythm review at Viswaas"
               fill
               loading="lazy"
               sizes="(min-width: 1536px) 60vw, (min-width: 1024px) 58vw, 100vw"

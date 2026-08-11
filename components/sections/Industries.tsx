@@ -279,7 +279,7 @@ export default function WhyVISWAAS() {
       <Reveal>
         <SectionTitle
           eyebrow="WHY Viswaas"
-          title="Why organizations choose VISWAAS."
+          title="Why organizations choose Viswaas."
           description="Our approach is built on strategic thinking, trusted partnerships, global perspective, and disciplined execution helping businesses navigate complexity with confidence."
           align="center"
         />

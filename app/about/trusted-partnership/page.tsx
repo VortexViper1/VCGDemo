@@ -56,7 +56,7 @@ export default function TrustedPartnershipPage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 03</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why Viswaas</span>
           </div>
         </Reveal>
 
@@ -73,7 +73,7 @@ export default function TrustedPartnershipPage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/trusted-partnership.png"
-              alt="Trusted Partnership — VISWAAS advisors meeting with a client"
+              alt="Trusted Partnership — Viswaas advisors meeting with a client"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

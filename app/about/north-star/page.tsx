@@ -73,7 +73,7 @@ export default function OneNorthStarPage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/one-north-star.jpg"
-              alt="One North Star — VISWAAS leadership aligning around a shared direction"
+              alt="One North Star — Viswaas leadership aligning around a shared direction"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

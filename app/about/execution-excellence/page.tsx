@@ -56,7 +56,7 @@ export default function ExecutionExcellencePage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 04</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why Viswaas</span>
           </div>
         </Reveal>
 
@@ -73,7 +73,7 @@ export default function ExecutionExcellencePage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/execution.png"
-              alt="Execution Excellence — VISWAAS team tracking project delivery metrics"
+              alt="Execution Excellence — Viswaas team tracking project delivery metrics"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

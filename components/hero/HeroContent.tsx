@@ -86,7 +86,7 @@ export default function HeroContent() {
       </h1>
 
       <p className="hero-sub mt-4 max-w-md text-[15px] leading-7 text-[#3F454B] opacity-0 sm:mt-6 sm:text-[17px] sm:leading-8 md:text-white/85 md:[text-shadow:0_1px_14px_rgba(0,0,0,0.45)]">
-        VISWAAS integrates strategy, corporate finance, governance and
+        Viswaas integrates strategy, corporate finance, governance and
         transformation into one advisory experience, helping boards and
         promoters make confident decisions with Long term impact.
       </p>

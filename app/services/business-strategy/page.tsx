@@ -73,7 +73,7 @@ export default function BusinessStrategyPage() {
       size={15}
       className="transition-transform duration-300 group-hover:-translate-x-1"
     />
-    Back to Services
+    Back to Capabilities
   </span>
 </Link>
         </Reveal>

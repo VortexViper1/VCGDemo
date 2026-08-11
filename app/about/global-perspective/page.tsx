@@ -56,7 +56,7 @@ export default function GlobalPerspectivePage() {
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex items-center gap-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why VISWAAS — 02</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent">Why Viswaas</span>
           </div>
         </Reveal>
 
@@ -73,7 +73,7 @@ export default function GlobalPerspectivePage() {
           <div className="relative mt-12 h-[360px] w-full overflow-hidden rounded-[28px] border border-[#2A2D31]/10 md:h-[440px]">
             <Image
               src="/about/global-perspective.png"
-              alt="Global Perspective — VISWAAS team collaborating across international markets"
+              alt="Global Perspective — Viswaas team collaborating across international markets"
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover"

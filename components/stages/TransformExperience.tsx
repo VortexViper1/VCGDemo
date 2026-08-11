@@ -182,7 +182,7 @@ export default function TransformExperience() {
               className="pt-8 font-[var(--font-sans)] text-[11px] uppercase tracking-[0.35em]"
               style={{ color: content.accent }}
             >
-              How VISWAAS responds
+              How Viswaas responds
             </span>
           </div>
 
@@ -347,7 +347,7 @@ export default function TransformExperience() {
                       color: content.accent,
                     }}
                   >
-                    VISWAAS Response
+                    Viswaas Response
                   </span>
 
                   <h3
