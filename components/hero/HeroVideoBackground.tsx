@@ -65,7 +65,7 @@ export default function HeroVideoBackground({ sectionRef }: Props) {
   const handleError = () => {
     const video = videoRef.current;
     console.error(
-      "Hero video failed to load. Check that /hero-video.mp4 exists in your public/ folder.",
+      "Hero video failed to load. Check that /hero-video1.mp4 exists in your public/ folder.",
       video?.error
     );
     setHasError(true);
@@ -81,7 +81,7 @@ export default function HeroVideoBackground({ sectionRef }: Props) {
         bars to appear in — no zoom/crop trick needed.
 
         ⚠️ REPLACE THE RATIO: run the ffmpeg cropdetect command from
-        the terminal against your actual hero-video.mp4, then swap
+        the terminal against your actual hero-video1.mp4, then swap
         aspect-[4/5] below for the real width:height it reports
         (e.g. crop=1080:1350:0:135 → aspect-[1080/1350], i.e. 4/5).
 
@@ -112,7 +112,7 @@ export default function HeroVideoBackground({ sectionRef }: Props) {
             onLoadedData={markReady}
             onError={handleError}
           >
-            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="/hero-video1.mp4" type="video/mp4" />
             <track kind="captions" src="/hero-captions.vtt" srcLang="en" label="English" />
           </video>
         </motion.div>

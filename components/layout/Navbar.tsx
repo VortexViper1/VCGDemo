@@ -5,8 +5,9 @@ import type { MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import { Menu, ArrowUpRight } from "lucide-react";
+import { Menu, ArrowUpRight, ChevronDown } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
+import { NAV_DROPDOWNS } from "@/lib/nav-dropdowns";
 import MobileMenu from "./MobileMenu";
 import SectionLink from "@/components/shared/SectionLink";
 
@@ -30,6 +31,7 @@ const HOVER_TWEEN = {
 };
 
 const COLOR_TRANSITION = { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
+const DROPDOWN_TRANSITION = { duration: 0.18, ease: [0.22, 1, 0.36, 1] as const };
 
 const IVORY = "#2A2D31";
 const GOLD = "#D9822B";
@@ -53,6 +55,10 @@ const MAIN_NAV_ITEMS = [
   NAVIGATION.find((item) => item.label === "Why Viswaas"),
   NAVIGATION.find((item) => item.label === "Insights"),
 ].filter((item): item is NonNullable<typeof item> => Boolean(item));
+
+/* NAV_DROPDOWNS now lives in @/lib/nav-dropdowns so the desktop mega-menu
+   and the mobile accordion (MobileMenu.tsx) read from one shared source —
+   edit labels/hrefs there, both surfaces update automatically. */
 
 /* Section ids to scrollspy, derived from the same NAVIGATION source
    (no separate hardcoded list to fall out of sync). NOTE: this array's
@@ -399,27 +405,42 @@ export default function Navbar() {
             </motion.div>
 
             {/* ── Desktop Navigation ── */}
-            <motion.nav
-              initial={{ width: 600, opacity: 1, x: 0, scale: 1 }}
-              animate={{
-                width: 600 * (1 - effectiveProgress),
-                opacity: 1 - effectiveProgress,
-                x: -120 * (1 - effectiveProgress),
-                scale: 1 - effectiveProgress * 0.06,
-                gap: `${36 - effectiveProgress * 12}px`,
-              }}
+<motion.nav
+  initial={{ width: 540, opacity: 1, x: 0, scale: 1 }}
+  animate={{
+    width: 540 * (1 - effectiveProgress),
+    opacity: 1 - effectiveProgress,
+    x: -120 * (1 - effectiveProgress),
+    scale: 1 - effectiveProgress * 0.06,
+    gap: `${30 - effectiveProgress * 10}px`,
+  }}
               transition={getTransition(0.01, 0.08)}
               style={{
                 pointerEvents: compact ? "none" : "auto",
-                overflowX: "hidden",
+                // NOTE: overflowX must only be "hidden" while compact.
+                // If overflowX is "hidden" and overflowY is "visible" at
+                // the same time, the CSS spec forces the "visible" axis
+                // to compute as "auto" instead — silently clipping the
+                // dropdown panels below, even though this said "visible".
+                // Keeping both axes "visible" at rest (the only state
+                // where dropdowns are interactive, since pointerEvents
+                // is "none" while compact anyway) avoids that trap.
+                overflowX: compact ? "hidden" : "visible",
                 overflowY: "visible",
               }}
-              className="absolute left-[52%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
+className="absolute left-[48%] z-10 hidden origin-center items-center whitespace-nowrap lg:flex"
             >
               {MAIN_NAV_ITEMS.map((item, i) => {
                 const itemId = sectionIdFromHref(item.href);
                 const isActive = itemId !== null && activeSection === itemId;
                 const isHighlighted = hoveredNav === item.label || isActive;
+
+                // Dropdown wiring — see NAV_DROPDOWNS above. Rename
+                // labels/hrefs there whenever content changes; no
+                // changes needed here.
+                const dropdownItems = NAV_DROPDOWNS[item.label];
+                const hasDropdown = Boolean(dropdownItems?.length);
+                const isDropdownOpen = hasDropdown && hoveredNav === item.label;
 
                 return (
                   <motion.div
@@ -442,15 +463,26 @@ export default function Navbar() {
                       <SectionLink
                         href={item.href}
                         aria-current={isActive ? "page" : undefined}
+                        aria-haspopup={hasDropdown ? "true" : undefined}
+                        aria-expanded={hasDropdown ? isDropdownOpen : undefined}
                         className={FOCUS_RING}
                       >
                         <motion.span
                           whileHover={{ y: -2 }}
                           animate={{ color: isHighlighted ? GOLD : IVORY }}
                           transition={COLOR_TRANSITION}
-                          className="block text-sm font-medium"
+                          className="flex items-center gap-1 text-sm font-medium"
                         >
                           {item.label}
+                          {hasDropdown && (
+                            <motion.span
+                              animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                              transition={COLOR_TRANSITION}
+                              className="inline-flex"
+                            >
+                              <ChevronDown size={14} strokeWidth={2.25} />
+                            </motion.span>
+                          )}
                         </motion.span>
                         <motion.span
                           animate={{ width: isHighlighted ? "100%" : "0%" }}
@@ -459,6 +491,43 @@ export default function Navbar() {
                           style={{ backgroundColor: GOLD }}
                         />
                       </SectionLink>
+
+                      {/* ── Dropdown panel ──
+                         Lives inside the same relative/hover container as
+                         the link above, so moving the cursor down into
+                         the panel never triggers onMouseLeave — the gap
+                         (mt-3) is still part of this element's DOM
+                         subtree, not a visual break in hover tracking.
+                         min/max width widened vs. the placeholder version
+                         so longer real titles (e.g. Insights, Capabilities)
+                         wrap cleanly onto 1-2 lines instead of a narrow
+                         column. */}
+                      {hasDropdown && (
+                        <AnimatePresence>
+                          {isDropdownOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                              transition={DROPDOWN_TRANSITION}
+                              role="menu"
+                              aria-label={`${item.label} submenu`}
+                              className="absolute left-1/2 top-full z-20 mt-3 min-w-[260px] max-w-[320px] -translate-x-1/2 overflow-hidden rounded-2xl border border-[#2A2D31]/8 bg-white/95 py-2 shadow-[0_18px_40px_rgba(0,0,0,0.14)] backdrop-blur-xl"
+                            >
+                              {dropdownItems!.map((sub) => (
+                                <Link
+                                  key={sub.label}
+                                  href={sub.href}
+                                  role="menuitem"
+                                  className={`block px-4 py-2.5 text-sm font-medium leading-snug text-[#2A2D31] transition-colors duration-200 hover:bg-[#D9822B]/8 hover:text-[#D9822B] ${FOCUS_RING}`}
+                                >
+                                  {sub.label}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      )}
                     </div>
                   </motion.div>
                 );

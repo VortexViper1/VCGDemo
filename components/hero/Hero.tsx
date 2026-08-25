@@ -65,14 +65,18 @@ export default function App() {
       className="
         relative w-full overflow-hidden
         bg-[#FBF1DC]
-        md:h-[100svh] md:min-h-[600px] md:bg-[#2A1D0F]
+        md:flex md:h-[100svh] md:min-h-[600px] md:flex-row md:items-stretch
+        md:gap-8 lg:gap-12
+        md:pt-24 lg:pt-28
       "
     >
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          VIDEO — sits first in DOM so it renders above text on mobile.
-          Card on mobile (rounded, amber border, in-flow).
-          Full-bleed absolute background on desktop.
+          VIDEO — sits first in DOM so it renders above text on mobile
+          (mobile behaviour is unchanged: rounded card, in-flow, on top).
+          On desktop it becomes a 60%-wide rounded card on the RIGHT side
+          of a two-column flex row (md:order-2 flips it right while the
+          DOM stays video-first, so mobile order is untouched).
           Mute button lives inside this container so it's always visible
           and positioned correctly on both mobile and desktop.
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
@@ -84,12 +88,14 @@ export default function App() {
           border border-[#C49A4A]/35
           shadow-[0_14px_56px_-10px_rgba(196,154,74,0.24),0_2px_8px_-2px_rgba(42,29,15,0.12)]
           sm:mx-8 sm:mt-28 sm:rounded-[24px]
-          md:absolute md:inset-0 md:z-0 md:m-0
-          md:rounded-none md:border-0 md:shadow-none
+          md:order-2 md:mx-0 md:mt-0 md:my-8 md:mr-8
+          md:h-auto md:w-[60%] md:shrink
+          md:rounded-[28px]
+          lg:my-10 lg:mr-10 lg:rounded-[32px]
         "
       >
-        {/* Aspect-ratio holder — 3/2 on mobile, fills section on desktop */}
-        <div className="relative aspect-[3/2] w-full bg-[#2A1D0F] md:absolute md:inset-0 md:aspect-auto md:h-full">
+        {/* Aspect-ratio holder — 3/2 on mobile, fills the card on desktop */}
+        <div className="relative aspect-[3/2] w-full bg-[#2A1D0F] md:aspect-auto md:h-full">
 
           {/* Ken Burns slow zoom */}
           <motion.div
@@ -111,7 +117,7 @@ export default function App() {
               onLoadedData={() => setVideoReady(true)}
               onError={() => setVideoError(true)}
             >
-              <source src="/hero-video.mp4" type="video/mp4" />
+              <source src="/hero-video1.mp4" type="video/mp4" />
               <track kind="captions" src="/hero-captions.vtt" srcLang="en" label="English" />
             </video>
           </motion.div>
@@ -122,26 +128,17 @@ export default function App() {
             </div>
           )}
 
-          {/* Mobile: bottom vignette inside card */}
+          {/* Bottom vignette inside card — shown on mobile and desktop now
+              that the video isn't used as a full-bleed text backdrop. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2A1D0F]/40 to-transparent md:hidden"
-          />
-
-          {/* Desktop: directional vignette — heavy left, fades right */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden md:block"
-            style={{
-              background:
-                "linear-gradient(105deg, rgba(42,29,15,0.92) 0%, rgba(42,29,15,0.65) 28%, rgba(42,29,15,0.22) 58%, rgba(42,29,15,0.04) 100%)",
-            }}
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#2A1D0F]/40 to-transparent"
           />
         </div>
 
-        {/* ── Mute button — inside the video container so it's visible on
-            both mobile (top-right of card) and desktop (bottom-right of
-            section, since the container is absolute inset-0 on md+). ── */}
+        {/* ── Mute button — top-right corner of the card on both mobile
+            and desktop, since the card is a self-contained element now
+            rather than a full-screen background. ── */}
         <motion.button
           type="button"
           onClick={toggleMute}
@@ -155,8 +152,7 @@ export default function App() {
             top-3 right-3
             h-9 w-9
             sm:top-4 sm:right-4 sm:h-10 sm:w-10
-            md:top-[38%] md:right-10
-            lg:right-14
+            md:top-6 md:right-6
             rounded-full
             border border-white/35 bg-black/28
             text-white backdrop-blur-[6px]
@@ -174,22 +170,25 @@ export default function App() {
       </div>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          CONTENT — in-flow on mobile (below video card), absolute overlay
-          on desktop. pointer-events-none on the full wrapper prevents the
-          invisible right half eating video clicks; re-enabled on inner box.
+          CONTENT — in-flow below the video card on mobile (unchanged).
+          On desktop it's a normal 40%-wide flex column on the LEFT
+          (md:order-1) with the plain cream section background — no
+          longer an absolute overlay on top of the video, so the
+          white/text-shadow treatment that existed for video contrast
+          is dropped in favor of the same dark text used on mobile.
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <div
         className="
           relative z-20
           px-6 pt-7 pb-0
           sm:px-10 sm:pt-9
-          md:pointer-events-none md:absolute md:inset-0
-          md:flex md:flex-col md:justify-center
-          md:px-12 md:pt-24 md:pb-0
+          md:order-1 md:flex md:w-[40%] md:shrink
+          md:flex-col md:justify-center
+          md:px-12 md:py-16
           lg:px-16 xl:px-20
         "
       >
-        <div className="w-full max-w-[560px] md:pointer-events-auto">
+        <div className="w-full max-w-[560px]">
 
           {/* Eyebrow */}
           <motion.div
@@ -198,15 +197,7 @@ export default function App() {
             transition={{ duration: 0.7, ease: EASE }}
             className="mb-5 flex items-center gap-3 sm:mb-6"
           >
-            <span aria-hidden="true" className="block h-px w-6 shrink-0 bg-[#C49A4A] md:bg-[#C49A4A]/70" />
-            <span className="
-              text-[10px] font-semibold uppercase tracking-[0.3em]
-              text-[#8B6116]
-              sm:text-[11px]
-              md:text-[#C49A4A]/90
-            ">
-              Strategy · Capital · Transformation
-            </span>
+            <span aria-hidden="true" className="block h-px w-6 shrink-0 bg-[#C49A4A]" />
           </motion.div>
 
           {/* Headline */}
@@ -221,8 +212,8 @@ export default function App() {
                     block pb-[3px] sm:pb-1
                     text-[clamp(2.05rem,6.4vw,3.8rem)]
                     ${italic
-                      ? "italic font-[350] text-[#A97317] md:text-[#C49A4A]"
-                      : "font-[500] text-[#071F2D] md:text-white md:[text-shadow:0_2px_32px_rgba(0,0,0,0.55)]"
+                      ? "italic font-[350] text-[#A97317]"
+                      : "font-[500] text-[#071F2D]"
                     }
                   `}
                   initial={rm ? false : { y: "112%", opacity: 0 }}
@@ -244,7 +235,6 @@ export default function App() {
               mb-7 max-w-[430px]
               text-[15px] leading-[1.78] text-[#3F4248]
               sm:mb-8 sm:text-[16px]
-              md:text-white/78 md:[text-shadow:0_1px_18px_rgba(0,0,0,0.5)]
             "
           >
             VISWAAS integrates strategy, corporate finance, governance and
@@ -291,7 +281,6 @@ export default function App() {
               text-[10px] font-medium uppercase tracking-[0.22em]
               text-[#071F2D]/42
               sm:text-[11px]
-              md:text-white/50
             ">
               Trusted advisors to boards &amp; promoters
             </span>
@@ -304,12 +293,6 @@ export default function App() {
       <div
         aria-hidden="true"
         className="mt-8 h-24 w-full bg-gradient-to-b from-[#FBF1DC] to-white sm:mt-10 sm:h-28 md:hidden"
-      />
-
-      {/* Desktop: fade sits between video (z-0) and content (z-20) so it never covers buttons */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-32 bg-gradient-to-b from-transparent to-white md:block"
       />
 
     </section>

@@ -120,7 +120,7 @@ const handleEnter = () => {
   className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
     isReady ? "opacity-100" : "opacity-0"
   }`}
-  src="/hero-video.mp4"
+  src="/hero-video1.mp4"
   poster="/hero-poster.jpg"
   autoPlay
   muted

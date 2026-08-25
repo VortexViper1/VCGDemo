@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   motion,
   AnimatePresence,
   type Variants,
 } from "framer-motion";
-import { X, ArrowUpRight } from "lucide-react";
+import { X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { NAVIGATION, CTA_BUTTON } from "@/lib/navigation";
+import { NAV_DROPDOWNS } from "@/lib/nav-dropdowns";
 import SectionLink from "@/components/shared/SectionLink";
 
 interface MobileMenuProps {
@@ -61,6 +63,8 @@ const itemVariants: Variants = {
   },
 };
 
+const ACCORDION_TRANSITION = { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const };
+
 /* ── Palette for this panel ──
    Panel bg: amber (#C89B3C)
    Text: graphite (#2A2D31) — matches --color-ink
@@ -75,6 +79,9 @@ export default function MobileMenu({
   open,
   onClose,
 }: MobileMenuProps) {
+  // Which nav item's accordion (if any) is currently expanded.
+  const [openLabel, setOpenLabel] = useState<string | null>(null);
+
   // Lock body scroll
   useEffect(() => {
     const original = document.body.style.overflow;
@@ -92,6 +99,12 @@ export default function MobileMenu({
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  // Collapse any open accordion whenever the menu itself closes, so it
+  // doesn't reopen already-expanded next time.
+  useEffect(() => {
+    if (!open) setOpenLabel(null);
+  }, [open]);
 
   return (
     <AnimatePresence mode="wait">
@@ -115,28 +128,73 @@ export default function MobileMenu({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-[120] w-full max-w-sm bg-[#C89B3C] shadow-2xl shadow-black/40"
+className="
+  fixed inset-y-0 right-0 z-[120]
+  w-full max-w-[420px]
+  overflow-hidden
+  border-l border-[#2A2D31]/10
+  bg-[#FAF8F4]/95
+  shadow-[-20px_0_60px_rgba(0,0,0,0.12)]
+  backdrop-blur-2xl
+"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
           >
             {/* Decorative gradient orb */}
-            <div className="pointer-events-none absolute -top-32 -right-32 h-64 w-64 rounded-full bg-[#2A2D31]/10 blur-3xl" />
+<div
+  className="
+    pointer-events-none absolute
+    -top-32 -right-32
+    h-72 w-72
+    rounded-full
+    bg-[#D9822B]/10
+    blur-3xl
+  "
+/>
 
-            <div className="flex h-full flex-col px-8 py-10">
-              {/* Header */}
-              <div className="flex items-center justify-between">
-                <span
-                  className="text-lg font-semibold tracking-[0.06em]"
-                  style={{ color: GRAPHITE }}
-                >
-                  Viswaas
-                </span>
+<div
+  className="
+    pointer-events-none absolute
+    bottom-[-120px] left-[-120px]
+    h-72 w-72
+    rounded-full
+    bg-[#B7964A]/8
+    blur-3xl
+  "
+/>
+
+            {/* overflow-hidden here keeps the scrollable nav region below
+               (and its internal scrollbar) clipped to the panel's rounded
+               edges; it does not affect the orb above, which is a sibling
+               positioned against the outer panel instead. */}
+            <div className="flex h-full flex-col overflow-hidden px-8 py-10">
+              {/* Header — shrink-0 so it never gets squeezed by the
+                 scrollable nav area below. */}
+              <div className="flex shrink-0 items-center justify-between border-b border-[#2A2D31]/8 pb-6">
+                
+<span
+  className="text-[17px] font-semibold uppercase tracking-[0.16em]"
+  style={{ color: GRAPHITE }}
+>
+  VISWAAS
+</span>
                 <motion.button
                   whileHover={{ borderColor: WARM_SLATE, opacity: 1, color: WARM_SLATE }}
                   whileTap={{ scale: 0.9, rotate: 90, borderColor: WARM_SLATE, color: WARM_SLATE }}
                   onClick={onClose}
-                  className="rounded-full border border-[#2A2D31]/30 p-3 transition-all duration-300"
+className="
+  group rounded-full
+  border border-[#2A2D31]/10
+  bg-white/70
+  p-3
+  shadow-sm
+  backdrop-blur-md
+  transition-all duration-300
+  hover:border-[#D9822B]/40
+  hover:bg-[#D9822B]
+  hover:text-white
+"
                   style={{ color: GRAPHITE }}
                   aria-label="Close menu"
                 >
@@ -144,39 +202,163 @@ export default function MobileMenu({
                 </motion.button>
               </div>
 
-              {/* Links */}
-              <nav className="mt-16 flex flex-col gap-2">
-                {NAVIGATION.map((item) => (
-                  <motion.div key={item.label} variants={itemVariants}>
-                    <SectionLink
-                      href={item.href}
-                      onNavigate={onClose}
-                      className="group flex items-center justify-between rounded-xl px-4 py-4 transition-all duration-300 hover:bg-[#2A2D31]/5"
-                    >
-                      <span
-                        className="text-2xl font-medium transition-colors duration-300 group-hover:!text-[#5C5347]"
-                        style={{ color: GRAPHITE }}
-                      >
-                        {item.label}
-                      </span>
+              {/* Links — this is the key fix. flex-1 + min-h-0 lets this
+                 region shrink and scroll independently of the header and
+                 CTA below, instead of the old `mt-auto` CTA layout where
+                 a long/expanded list had nowhere to go but overlap the
+                 CTA. min-h-0 is required: without it a flex child won't
+                 shrink below its content size, so overflow-y-auto never
+                 actually kicks in. */}
+<nav
+  className="
+    mt-8 min-h-0 flex-1
+    overflow-y-auto
+    pr-2
+    scrollbar-thin
+    scrollbar-track-transparent
+    scrollbar-thumb-[#B7964A]/30
+    hover:scrollbar-thumb-[#B7964A]/50
+  "
+>
+                <div className="flex flex-col gap-1.5">
+                  {NAVIGATION.map((item) => {
+                    const dropdownItems = NAV_DROPDOWNS[item.label];
+                    const hasDropdown = Boolean(dropdownItems?.length);
+                    const isOpen = hasDropdown && openLabel === item.label;
 
-                      <ArrowUpRight
-                        size={20}
-                        className="opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-                        style={{ color: WARM_SLATE }}
-                      />
-                    </SectionLink>
-                  </motion.div>
-                ))}
+                    return (
+                      <motion.div key={item.label} variants={itemVariants}>
+                        <div className="flex items-center rounded-xl transition-all duration-300 hover:bg-[#2A2D31]/5">
+                          <SectionLink
+                            href={item.href}
+                            onNavigate={onClose}
+                            className="group flex flex-1 items-center justify-between px-4 py-4"
+                          >
+                            <span
+className="
+  text-[21px]
+  font-medium
+  tracking-[-0.015em]
+  transition-all duration-300
+  group-hover:translate-x-1
+  group-hover:!text-[#D9822B]
+"
+                              style={{ color: GRAPHITE }}
+                            >
+                              {item.label}
+                            </span>
+
+                            {!hasDropdown && (
+                              <ArrowUpRight
+                                size={20}
+                                className="opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                                style={{ color: WARM_SLATE }}
+                              />
+                            )}
+                          </SectionLink>
+
+                          {/* Separate tap target from the label link, so
+                             tapping the chevron expands/collapses the
+                             sub-list instead of navigating. */}
+                          {hasDropdown && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setOpenLabel((v) => (v === item.label ? null : item.label))
+                              }
+                              aria-expanded={isOpen}
+                              aria-label={`${isOpen ? "Collapse" : "Expand"} ${item.label} submenu`}
+className="
+  mr-1 shrink-0
+  rounded-full
+  border border-transparent
+  p-3
+  transition-all duration-300
+  hover:border-[#D9822B]/20
+  hover:bg-[#D9822B]/8
+"
+                              style={{ color: GRAPHITE }}
+                            >
+                              <motion.span
+                                animate={{ rotate: isOpen ? 180 : 0 }}
+                                transition={ACCORDION_TRANSITION}
+                                className="inline-flex"
+                              >
+                               <ChevronDown
+  size={19}
+  strokeWidth={1.8}
+/>
+                              </motion.span>
+                            </button>
+                          )}
+                        </div>
+
+                        {hasDropdown && (
+                          <AnimatePresence initial={false}>
+                            {isOpen && (
+                              <motion.div
+                                key="submenu"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={ACCORDION_TRANSITION}
+                                className="overflow-hidden"
+                              >
+                                <div
+                                  className="
+  ml-5
+  flex flex-col gap-1
+  border-l
+  py-3 pl-5
+"
+                                  style={{ borderColor: "rgba(42,45,49,0.18)" }}
+                                >
+                                  {dropdownItems!.map((sub) => (
+                                    <Link
+                                      key={sub.label}
+                                      href={sub.href}
+                                      onClick={onClose}
+                                      className="rounded-lg px-3 py-2.5 text-base font-medium transition-colors duration-200 hover:bg-[#2A2D31]/5"
+                                      style={{ color: WARM_SLATE }}
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </nav>
 
-              {/* CTA — graphite surface for deliberate contrast against the amber panel */}
-              <motion.div variants={itemVariants} className="mt-auto pt-8">
+              {/* CTA — shrink-0, sits right below the scrollable nav
+                 instead of being pinned via mt-auto. Always visible,
+                 never overlapped, regardless of how many items/dropdowns
+                 are expanded above it. Graphite surface for deliberate
+                 contrast against the amber panel. */}
+              <motion.div variants={itemVariants} className="shrink-0 pt-8">
                 <SectionLink href={CTA_BUTTON.href} onNavigate={onClose}>
                   <motion.div
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold shadow-lg shadow-black/20"
+className="
+  group
+  relative
+  flex items-center justify-center
+  gap-3
+  overflow-hidden
+  rounded-full
+  border border-[#2A2D31]
+  px-8 py-4
+  text-[15px]
+  font-semibold
+  tracking-[0.01em]
+  shadow-[0_12px_30px_rgba(42,45,49,0.16)]
+"
                     style={{ backgroundColor: GRAPHITE, color: IVORY }}
                   >
                     <span>{CTA_BUTTON.label}</span>

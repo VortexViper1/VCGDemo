@@ -50,7 +50,10 @@ function BusinessJourneyInner() {
   const toVisible = { opacity: 1, y: 0 };
 
   return (
-    <section id="journey" className="relative overflow-hidden bg-[#FFFFFF] py-28 sm:py-36">
+<section
+  id="journey"
+  className="relative overflow-hidden bg-white py-28 sm:py-36"
+>
       <JourneyFilters />
 
       <div
