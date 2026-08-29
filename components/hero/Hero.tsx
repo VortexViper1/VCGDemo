@@ -65,37 +65,45 @@ export default function App() {
       className="
         relative w-full overflow-hidden
         bg-[#FBF1DC]
-        md:flex md:h-[100svh] md:min-h-[600px] md:flex-row md:items-stretch
-        md:gap-8 lg:gap-12
-        md:pt-24 lg:pt-28
+        pt-[var(--nav-h,76px)]
+        sm:pt-[var(--nav-h,84px)]
+        md:pt-[var(--nav-h,92px)]
+        lg:flex lg:h-[100svh] lg:min-h-[600px] lg:flex-row lg:items-stretch
+        lg:gap-8 xl:gap-12
+        lg:pt-[var(--nav-h,104px)]
       "
     >
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          VIDEO — sits first in DOM so it renders above text on mobile
-          (mobile behaviour is unchanged: rounded card, in-flow, on top).
-          On desktop it becomes a 60%-wide rounded card on the RIGHT side
-          of a two-column flex row (md:order-2 flips it right while the
-          DOM stays video-first, so mobile order is untouched).
+          VIDEO — sits first in DOM so it renders above text on mobile/
+          tablet (stacked layout unchanged there: rounded card, in-flow,
+          on top). At lg+ it becomes a 60%-wide rounded card on the RIGHT
+          side of a two-column flex row (lg:order-2 flips it right while
+          the DOM stays video-first, so mobile/tablet order is untouched).
           Mute button lives inside this container so it's always visible
-          and positioned correctly on both mobile and desktop.
+          and positioned correctly at every breakpoint.
+
+          The old fixed mt-24/mt-28 offsets are gone — the SECTION now
+          owns nav clearance via pt-[var(--nav-h)], so these are just
+          breathing room under that, not a raw guess at nav height.
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <div
         className="
           relative z-10
-          mx-5 mt-24 overflow-hidden
+          mx-5 mt-6 overflow-hidden
           rounded-[20px]
           border border-[#C49A4A]/35
           shadow-[0_14px_56px_-10px_rgba(196,154,74,0.24),0_2px_8px_-2px_rgba(42,29,15,0.12)]
-          sm:mx-8 sm:mt-28 sm:rounded-[24px]
-          md:order-2 md:mx-0 md:mt-0 md:my-8 md:mr-8
-          md:h-auto md:w-[60%] md:shrink
-          md:rounded-[28px]
-          lg:my-10 lg:mr-10 lg:rounded-[32px]
+          sm:mx-8 sm:mt-8 sm:rounded-[24px]
+          md:mx-10 md:mt-10
+          lg:order-2 lg:mx-0 lg:mt-0 lg:my-8 lg:mr-8
+          lg:h-auto lg:w-[60%] lg:shrink
+          lg:rounded-[28px]
+          xl:my-10 xl:mr-10 xl:rounded-[32px]
         "
       >
-        {/* Aspect-ratio holder — 3/2 on mobile, fills the card on desktop */}
-        <div className="relative aspect-[3/2] w-full bg-[#2A1D0F] md:aspect-auto md:h-full">
+        {/* Aspect-ratio holder — 3/2 on mobile/tablet, fills the card at lg+ */}
+        <div className="relative aspect-[3/2] w-full bg-[#2A1D0F] lg:aspect-auto lg:h-full">
 
           {/* Ken Burns slow zoom */}
           <motion.div
@@ -128,7 +136,7 @@ export default function App() {
             </div>
           )}
 
-          {/* Bottom vignette inside card — shown on mobile and desktop now
+          {/* Bottom vignette inside card — shown at every breakpoint now
               that the video isn't used as a full-bleed text backdrop. */}
           <div
             aria-hidden="true"
@@ -136,8 +144,8 @@ export default function App() {
           />
         </div>
 
-        {/* ── Mute button — top-right corner of the card on both mobile
-            and desktop, since the card is a self-contained element now
+        {/* ── Mute button — top-right corner of the card at every
+            breakpoint, since the card is a self-contained element now
             rather than a full-screen background. ── */}
         <motion.button
           type="button"
@@ -152,7 +160,7 @@ export default function App() {
             top-3 right-3
             h-9 w-9
             sm:top-4 sm:right-4 sm:h-10 sm:w-10
-            md:top-6 md:right-6
+            lg:top-6 lg:right-6
             rounded-full
             border border-white/35 bg-black/28
             text-white backdrop-blur-[6px]
@@ -170,22 +178,22 @@ export default function App() {
       </div>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-          CONTENT — in-flow below the video card on mobile (unchanged).
-          On desktop it's a normal 40%-wide flex column on the LEFT
-          (md:order-1) with the plain cream section background — no
-          longer an absolute overlay on top of the video, so the
-          white/text-shadow treatment that existed for video contrast
-          is dropped in favor of the same dark text used on mobile.
+          CONTENT — in-flow below the video card on mobile/tablet
+          (unchanged there). At lg+ it's a 40%-wide flex column on the
+          LEFT (lg:order-1) with the plain cream section background —
+          not an absolute overlay on the video, so plain dark text is
+          used at every breakpoint (no video-contrast treatment needed).
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <div
         className="
           relative z-20
           px-6 pt-7 pb-0
           sm:px-10 sm:pt-9
-          md:order-1 md:flex md:w-[40%] md:shrink
-          md:flex-col md:justify-center
-          md:px-12 md:py-16
-          lg:px-16 xl:px-20
+          md:px-12 md:pt-10
+          lg:order-1 lg:flex lg:w-[40%] lg:shrink
+          lg:flex-col lg:justify-center
+          lg:px-12 lg:py-16
+          xl:px-16 2xl:px-20
         "
       >
         <div className="w-full max-w-[560px]">
@@ -198,6 +206,13 @@ export default function App() {
             className="mb-5 flex items-center gap-3 sm:mb-6"
           >
             <span aria-hidden="true" className="block h-px w-6 shrink-0 bg-[#C49A4A]" />
+            <span className="
+              text-[10px] font-semibold uppercase tracking-[0.3em]
+              text-[#8B6116]
+              sm:text-[11px]
+            ">
+              Strategy · Capital · Transformation
+            </span>
           </motion.div>
 
           {/* Headline */}
@@ -210,7 +225,8 @@ export default function App() {
                 <motion.span
                   className={`
                     block pb-[3px] sm:pb-1
-                    text-[clamp(2.05rem,6.4vw,3.8rem)]
+                    text-[clamp(1.85rem,5.2vw,3.4rem)]
+                    lg:text-[clamp(2.1rem,3.4vw,3.4rem)]
                     ${italic
                       ? "italic font-[350] text-[#A97317]"
                       : "font-[500] text-[#071F2D]"
@@ -289,10 +305,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* Mobile: generous fade from cream into white */}
+      {/* Mobile/tablet: generous fade from cream into white */}
       <div
         aria-hidden="true"
-        className="mt-8 h-24 w-full bg-gradient-to-b from-[#FBF1DC] to-white sm:mt-10 sm:h-28 md:hidden"
+        className="mt-8 h-24 w-full bg-gradient-to-b from-[#FBF1DC] to-white sm:mt-10 sm:h-28 lg:hidden"
       />
 
     </section>
