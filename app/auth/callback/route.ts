@@ -1,28 +1,27 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const ADMIN_EMAIL = "vcg@viswaas.com";
-
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
-
-  const code = searchParams.get("code");
+  const url = new URL(request.url);
+  const code = url.searchParams.get("code");
+  const origin = url.origin;
 
   if (!code) {
     return NextResponse.redirect(
-      `${origin}/portal/login?error=google_auth`
+      new URL("/portal/login?error=google_auth", origin)
     );
   }
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { error: exchangeError } =
+    await supabase.auth.exchangeCodeForSession(code);
 
-  if (error) {
-    console.error("Google OAuth callback error:", error);
+  if (exchangeError) {
+    console.error("Google OAuth callback error:", exchangeError);
 
     return NextResponse.redirect(
-      `${origin}/portal/login?error=google_auth`
+      new URL("/portal/login?error=google_auth", origin)
     );
   }
 
@@ -30,9 +29,33 @@ export async function GET(request: Request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (user?.email?.trim().toLowerCase() === ADMIN_EMAIL) {
-    return NextResponse.redirect(`${origin}/portal/admin`);
+  if (!user) {
+    return NextResponse.redirect(
+      new URL("/portal/login?error=no_user", origin)
+    );
   }
 
-  return NextResponse.redirect(`${origin}/portal/dashboard`);
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (profileError) {
+    console.error("Profile lookup error:", profileError);
+
+    return NextResponse.redirect(
+      new URL("/portal/login?error=profile", origin)
+    );
+  }
+
+  if (profile?.role === "admin") {
+    return NextResponse.redirect(
+      new URL("/portal/admin", origin)
+    );
+  }
+
+  return NextResponse.redirect(
+    new URL("/portal/dashboard", origin)
+  );
 }

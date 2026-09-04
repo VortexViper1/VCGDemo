@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/portal/reset-password`,
+      redirectTo: `https://viswaas.com/portal/reset-password`,
     });
 
     setLoading(false);
@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
   async function handleResend() {
     setResending(true);
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/portal/reset-password`,
+      redirectTo: `https://viswaas.com/portal/reset-password`,
     });
     setResending(false);
   }
