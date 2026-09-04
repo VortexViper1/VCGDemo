@@ -1,182 +1,285 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { AuthDialog, DialogCheckIcon } from "@/components/portal/Authdialog";
-import { ButtonSpinner, SecureSessionLoader } from "@/components/portal/AuthSpinner";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const supabase = createClient();
 
+  const [checkingSession, setCheckingSession] = useState(true);
   const [sessionReady, setSessionReady] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" || session) {
-        setSessionReady(true);
+    const supabase = createClient();
+    let mounted = true;
+
+    const checkRecoverySession = async () => {
+      try {
+        /*
+         * First listen for PASSWORD_RECOVERY.
+         * Supabase fires this when the reset link establishes
+         * the recovery session.
+         */
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+          if (!mounted) return;
+
+          if (event === "PASSWORD_RECOVERY" && session) {
+            setSessionReady(true);
+            setCheckingSession(false);
+          }
+        });
+
+        /*
+         * Also check whether a session already exists.
+         * This handles cases where Supabase has already processed
+         * the recovery URL before the listener is attached.
+         */
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (!mounted) {
+          subscription.unsubscribe();
+          return;
+        }
+
+        if (session) {
+          setSessionReady(true);
+          setCheckingSession(false);
+        } else {
+          /*
+           * Give Supabase a short moment to process the recovery
+           * URL and fire PASSWORD_RECOVERY.
+           */
+          setTimeout(() => {
+            if (!mounted) return;
+
+            setCheckingSession(false);
+          }, 1500);
+        }
+
+        return () => {
+          subscription.unsubscribe();
+        };
+      } catch (err) {
+        console.error("Recovery session error:", err);
+
+        if (mounted) {
+          setCheckingSession(false);
+          setSessionReady(false);
+        }
       }
+    };
+
+    let cleanup: (() => void) | undefined;
+
+    checkRecoverySession().then((fn) => {
+      cleanup = fn;
     });
 
-    // Covers the case where the event already fired before this
-    // listener attached.
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) setSessionReady(true);
-    });
+    return () => {
+      mounted = false;
+      cleanup?.();
+    };
+  }, []);
 
-    return () => subscription.unsubscribe();
-  }, [supabase]);
-
-  async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+  const handleUpdatePassword = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
+
     setError("");
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+    if (!password || !confirmPassword) {
+      setError("Please enter and confirm your new password.");
       return;
     }
+
     if (password.length < 6) {
       setError("Password must be at least 6 characters.");
       return;
     }
 
-    setLoading(true);
-    const { error } = await supabase.auth.updateUser({ password });
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
-    setShowSuccess(true);
+    setLoading(true);
+
+    try {
+      const supabase = createClient();
+
+      const { error } = await supabase.auth.updateUser({
+        password,
+      });
+
+      if (error) {
+        console.error("Password update error:", error);
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+
+      setSuccess(true);
+      setLoading(false);
+    } catch (err) {
+      console.error("Password update error:", err);
+      setError("Something went wrong. Please try again.");
+      setLoading(false);
+    }
+  };
+
+  /*
+   * IMPORTANT:
+   * Directly visiting /portal/reset-password without a recovery
+   * session should NOT show an infinite loader.
+   */
+  if (checkingSession) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
+        <div className="text-center">
+          <div className="mx-auto mb-5 h-8 w-8 animate-spin rounded-full border-2 border-[#E6DDD0] border-t-[#D9822B]" />
+
+          <h1 className="text-xl font-semibold text-[#23272B]">
+            Verifying secure recovery session…
+          </h1>
+
+          <p className="mt-2 text-sm text-[#77736D]">
+            Please wait a moment.
+          </p>
+        </div>
+      </main>
+    );
   }
 
-  function handleContinue() {
-    router.push("/portal/login");
-    router.refresh();
-  }
-
+  /*
+   * No recovery session.
+   * This is what the user sees if they manually type:
+   * /portal/reset-password
+   */
   if (!sessionReady) {
-    return <SecureSessionLoader headline="We're verifying your secure recovery session…" />;
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
+        <div className="w-full max-w-md text-center">
+          <h1 className="text-3xl font-semibold text-[#23272B]">
+            Reset link required
+          </h1>
+
+          <p className="mt-3 text-[#77736D]">
+            This page can only be accessed through a valid password
+            reset link sent to your email.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={() => router.push("/portal/forgot-password")}
+              className="rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B]"
+            >
+              Request a new reset link
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push("/portal/login")}
+              className="rounded-xl border border-[#E6DDD0] bg-white px-5 py-3 font-semibold text-[#23272B] transition hover:border-[#D9822B]"
+            >
+              Back to login
+            </button>
+          </div>
+        </div>
+      </main>
+    );
   }
 
+  /*
+   * Password successfully changed.
+   */
+  if (success) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
+        <div className="w-full max-w-md text-center">
+          <h1 className="text-3xl font-semibold text-[#23272B]">
+            Password updated
+          </h1>
+
+          <p className="mt-3 text-[#77736D]">
+            Your password has been changed successfully.
+            You can now sign in with your new password.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => router.push("/portal/login")}
+            className="mt-8 w-full rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B]"
+          >
+            Continue to login
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  /*
+   * Valid recovery session → password form.
+   */
   return (
-    <main className="ff-body flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6 py-14">
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap");
-        .ff-body {
-          font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        .ff-serif {
-          font-family: "Fraunces", Georgia, serif;
-        }
-        .underline-input {
-          border: none;
-          border-bottom: 1px solid #e8e2d9;
-          border-radius: 0;
-          background: transparent;
-          transition: border-color 0.2s ease, border-width 0.2s ease;
-        }
-        .underline-input:focus {
-          outline: none;
-          border-bottom: 2px solid #c49a4a;
-        }
-        @keyframes riseIn {
-          from {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .rise-1 {
-          animation: riseIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        .rise-2 {
-          animation: riseIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.07s both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .rise-1,
-          .rise-2 {
-            animation: none;
-          }
-        }
-      `}</style>
-
-      <div className="w-full max-w-[380px]">
-        <p className="mb-8 text-center text-sm font-semibold tracking-[0.28em] text-[#23272B]">
-          VISWAAS
-        </p>
-
-        <h2 className="ff-serif rise-1 text-center text-[2rem] leading-tight text-[#23272B]">
-          Set a new password
-        </h2>
-        <p className="rise-2 mt-3 text-center text-[15px] text-[#77736D]">
-          Choose a new password to secure your Viswaas account.
-        </p>
-
-        <form onSubmit={handleUpdate} className="mt-10 space-y-7">
+    <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
+      <div className="w-full max-w-md">
+        <form onSubmit={handleUpdatePassword} className="space-y-6">
           <div>
-            <label htmlFor="password" className="mb-2 block text-sm text-[#343434]">
-              New password
-            </label>
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="new-password"
-                placeholder="Enter a new password"
-                className="underline-input w-full py-2.5 pr-9 text-[15px] text-[#23272B] placeholder:text-[#B0AAA1]"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-[#9A958D] transition-colors duration-200 hover:text-[#23272B]"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
+            <h1 className="text-3xl font-semibold text-[#23272B]">
+              Create a new password
+            </h1>
+
+            <p className="mt-2 text-[#77736D]">
+              Enter your new password below.
+            </p>
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="mb-2 block text-sm text-[#343434]">
+            <label className="mb-2 block text-sm font-medium text-[#23272B]">
+              New password
+            </label>
+
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+              placeholder="Enter new password"
+              className="w-full rounded-xl border border-[#E6DDD0] bg-white px-4 py-3 outline-none focus:border-[#D9822B]"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-[#23272B]">
               Confirm password
             </label>
+
             <input
-              id="confirmPassword"
-              type={showPassword ? "text" : "password"}
+              type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              required
               autoComplete="new-password"
-              placeholder="Confirm your new password"
-              className="underline-input w-full py-2.5 text-[15px] text-[#23272B] placeholder:text-[#B0AAA1]"
+              placeholder="Confirm new password"
+              className="w-full rounded-xl border border-[#E6DDD0] bg-white px-4 py-3 outline-none focus:border-[#D9822B]"
             />
           </div>
 
           {error && (
-            <p
-              role="alert"
-              className="rounded-md border-l-2 border-[#B3261E] bg-[#FBEAEA] px-4 py-3 text-sm text-[#8B2A22]"
-            >
+            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
               {error}
             </p>
           )}
@@ -184,38 +287,12 @@ export default function ResetPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#23272B] text-sm font-medium text-white transition-all duration-200 hover:bg-[#D9822B] hover:shadow-[0_8px_20px_-8px_rgba(217,130,43,0.55)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:shadow-none"
+            className="w-full rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading && <ButtonSpinner />}
-            {loading ? "Updating password…" : "Update password"}
+            {loading ? "Updating password..." : "Update password"}
           </button>
         </form>
-
-        <p className="mt-9 text-center text-sm text-[#77736D]">
-          <Link href="/portal/login" className="font-medium text-[#D9822B] hover:underline">
-            Back to sign in
-          </Link>
-        </p>
       </div>
-
-      <AuthDialog
-        open={showSuccess}
-        closable={false}
-        icon={<DialogCheckIcon />}
-        title="Password updated"
-      >
-        <p>Your password has been securely changed.</p>
-        <p className="mt-2">You&apos;re ready to sign in again.</p>
-
-        <button
-          type="button"
-          onClick={handleContinue}
-          className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#23272B] text-sm font-medium text-white transition-all duration-200 hover:bg-[#D9822B]"
-        >
-          <ShieldCheck size={16} />
-          Continue to sign in
-        </button>
-      </AuthDialog>
     </main>
   );
 }
