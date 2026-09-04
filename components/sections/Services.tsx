@@ -212,23 +212,23 @@ function ServiceCard({
 
               {/* Oversized ghost icon, watermark-style */}
               <Icon
-                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#23272B]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#C49A4A]/20"
+                className="pointer-events-none absolute right-6 top-6 h-16 w-16 text-[#23272B]/[0.06] transition-colors duration-700 ease-out group-hover:text-[#D9822B]/20"
                 strokeWidth={1}
               />
 
              <div className="relative flex h-full min-h-[420px] flex-col p-10">
                 <div className="mb-8 flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C49A4A]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C49A4A]/60 group-hover:bg-[#C49A4A]/10">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C49A4A]/30 bg-white/40 transition-colors duration-500 group-hover:border-[#C49A4A]/60 group-hover:bg-[#D9822B]/10">
                     <Icon
                       size={24}
                       strokeWidth={1.5}
-                      className="text-[#2A2D31] transition-colors duration-500 group-hover:text-[#C49A4A]"
+                      className="text-[#2A2D31] transition-colors duration-500 group-hover:text-[#D9822B]"
                     />
                   </div>
 
                   <motion.div whileHover={{ x: 5, y: -5 }}>
                     <ArrowUpRight
-                      className="text-[#23272B]/40 transition-colors duration-500 group-hover:text-[#C49A4A]"
+                      className="text-[#23272B]/40 transition-colors duration-500 group-hover:text-[#D9822B]"
                       size={24}
                     />
                   </motion.div>
@@ -244,7 +244,7 @@ function ServiceCard({
 </h3>
 
                 <p
-                  className="line-clamp-3 font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#C49A4A]"
+                  className="line-clamp-3 font-[var(--font-sans)] text-[18px] leading-[1.9] tracking-[0.01em] transition-colors duration-500 group-hover:text-[#D9822B]"
                   style={{ color: "#6C7278" }}
                 >
                   {service.description}
@@ -288,12 +288,12 @@ export default function Services() {
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#D9822B]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#C49A4A]/15 blur-[140px]"
+          className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#D9822B]/15 blur-[140px]"
         />
       </div>
 

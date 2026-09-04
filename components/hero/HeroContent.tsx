@@ -62,7 +62,7 @@ export default function HeroContent() {
 
   return (
     <div ref={containerRef} className="relative z-20 flex flex-col text-left">
-      <span className="hero-eyebrow mb-4 block text-[11px] font-semibold uppercase tracking-[0.32em] text-[#8B6116] opacity-0 sm:mb-5 sm:text-[12px] sm:tracking-[0.36em] md:text-[#C49A4A]">
+      <span className="hero-eyebrow mb-4 block text-[11px] font-semibold uppercase tracking-[0.32em] text-[#8B6116] opacity-0 sm:mb-5 sm:text-[12px] sm:tracking-[0.36em] md:text-[#D9822B]">
         Strategy · Capital · Transformation
       </span>
 
@@ -75,7 +75,7 @@ export default function HeroContent() {
             <span
               className={`hero-line-inner block pb-0.5 text-[clamp(1.8rem,5vw,3.6rem)] opacity-0 sm:pb-1 md:[text-shadow:0_2px_24px_rgba(0,0,0,0.45)] ${
                 i === 3
-                  ? "text-[#A97317] italic md:text-[#C49A4A]"
+                  ? "text-[#A97317] italic md:text-[#D9822B]"
                   : "text-[#071F2D] md:text-white"
               }`}
             >
@@ -99,7 +99,7 @@ export default function HeroContent() {
           <MagneticButton
             className="
               group flex w-full items-center justify-center gap-3
-              rounded-full bg-[#C49A4A]
+              rounded-full bg-[#D9822B]
               px-6 py-3.5 text-sm font-medium uppercase tracking-[0.08em]
               text-[#2A2D31]
               transition-all duration-700 ease-out
@@ -114,7 +114,7 @@ export default function HeroContent() {
       </div>
 
       <div className="hero-trust mt-9 flex items-center gap-3 opacity-0 sm:mt-11">
-        <span className="h-px w-9 bg-[#C49A4A]/50" aria-hidden="true" />
+        <span className="h-px w-9 bg-[#D9822B]/50" aria-hidden="true" />
         <span className="text-[10px] font-medium uppercase tracking-[0.24em] text-[#071F2D]/50 sm:text-[11px] md:text-white/70">
           Trusted advisors to boards &amp; promoters
         </span>

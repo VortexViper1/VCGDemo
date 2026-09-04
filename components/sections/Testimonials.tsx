@@ -215,7 +215,7 @@ description="We build enduring partnerships by helping organizations solve compl
           key={logo}
           whileHover={{ scale: 1.08 }}
           transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-          className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#23272B]/40 transition-colors duration-300 hover:text-[#C49A4A]"
+          className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#23272B]/40 transition-colors duration-300 hover:text-[#D9822B]"
         >
           {logo}
         </motion.div>

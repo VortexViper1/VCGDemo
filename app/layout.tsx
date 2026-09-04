@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import HashScroll from "@/components/shared/HashScroll";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/animations/ScrollProgress";
 import CursorGlow from "@/components/shared/CursorGlow";
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://viswaas.com"),
 
   title: {
-    default: "VISWAAS Consulting Group",
+    default: "Viswaas Consulting Group",
     template: "%s | Viswaas Consulting Group",
   },
 
@@ -104,17 +103,14 @@ export default function RootLayout({
 
   <HashScroll />
 
-  <ScrollProgress />
 
   <CursorGlow />
 
-  <Navbar />
+
 
   <main className="overflow-x-hidden">
     {children}
   </main>
-
-  <Footer />
 
 </body>
     </html>

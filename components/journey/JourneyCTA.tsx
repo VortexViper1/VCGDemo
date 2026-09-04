@@ -26,7 +26,7 @@ export default function JourneyCTA() {
         -translate-x-1/2
         -translate-y-1/2
         rounded-full
-        bg-[#C49A4A]/10
+        bg-[#D9822B]/10
         blur-[160px]
         "
       />
@@ -44,7 +44,7 @@ export default function JourneyCTA() {
           text-xs
           uppercase
           tracking-[0.45em]
-          text-[#C49A4A]
+          text-[#D9822B]
           "
         >
           YOUR NEXT CHAPTER
@@ -133,7 +133,7 @@ export default function JourneyCTA() {
               transition-all
               duration-500
               hover:border-[#C49A4A]
-              hover:bg-[#C49A4A]
+              hover:bg-[#D9822B]
               hover:text-[#2A2D31]
               "
             >
@@ -168,7 +168,7 @@ export default function JourneyCTA() {
             items-center
             gap-4
             rounded-full
-            bg-[#C49A4A]
+            bg-[#D9822B]
             px-9
             py-5
             font-semibold

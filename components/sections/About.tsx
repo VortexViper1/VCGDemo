@@ -69,7 +69,7 @@ export default function About() {
               description="Viswaas Consulting Group partners with ambitious organizations, investors, and institutions to solve complex business challenges with clarity, innovation, and measurable impact."
             />
             <div className="mt-10 mb-12 flex items-center gap-4">
-  <div className="h-px w-16 bg-[#C49A4A]" />
+  <div className="h-px w-16 bg-[#D9822B]" />
 </div>
 
             <div className="mt-10 space-y-6">
@@ -86,12 +86,12 @@ export default function About() {
                     <div
   className="
     rounded-full
-    bg-[#C49A4A]/10
+    bg-[#D9822B]/10
     p-3
     transition-all
     duration-700
 ease-out
-    group-hover:bg-[#C49A4A]
+    group-hover:bg-[#D9822B]
     group-hover:scale-110
 "
 >
@@ -154,7 +154,7 @@ hover:scale-[1.02] hover:border-[#C49A4A]/40 hover:shadow-[0_25px_80px_rgba(23,6
   style={{ color: "#2A2D31" }}
 >
   {metric.value}
-  <div className="mt-5 h-px w-16 bg-[#C49A4A]/70" />
+  <div className="mt-5 h-px w-16 bg-[#D9822B]/70" />
 </motion.h3>
 
                       <p className="
@@ -197,7 +197,7 @@ text-[#6C7278]
   "
 >
               <div className="space-y-6">
-                <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+                <span className="text-xs uppercase tracking-[0.35em] text-[#D9822B]">
                   Our Philosophy
                 </span>
 

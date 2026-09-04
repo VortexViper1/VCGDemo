@@ -57,7 +57,7 @@ export default function HeroStats() {
         aria-hidden
         animate={{ opacity: [0.35, 0.6, 0.35], scale: [1, 1.05, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full bg-[#C49A4A]/20 blur-[100px]"
+        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full bg-[#D9822B]/20 blur-[100px]"
       />
 
       {/* Gradient-border shell: 1px of gradient peeking around the card
@@ -73,7 +73,7 @@ export default function HeroStats() {
         <div className="group relative overflow-hidden rounded-[36px] border border-white/40 bg-gradient-to-br from-[#FFFDF8] via-[#FBF8F1] to-[#F7F2E7] p-6 md:p-8 backdrop-blur-xl">
           {/* Premium gold ambient background */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#C49A4A]/14 blur-[110px]" />
+            <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-[#D9822B]/14 blur-[110px]" />
             <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-[#E3C88C]/12 blur-[120px]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,163,95,0.08),transparent_45%)]" />
           </div>

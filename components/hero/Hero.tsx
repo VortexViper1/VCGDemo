@@ -12,7 +12,15 @@ const LINES = [
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export default function App() {
+type HeroProps = {
+  onGetStarted?: () => void;
+};
+
+export default function Hero({
+  onGetStarted,
+}: {
+  onGetStarted?: () => void;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -172,7 +180,7 @@ export default function App() {
         >
           {muted
             ? <VolumeX  className="h-[13px] w-[13px] sm:h-[14px] sm:w-[14px]" />
-            : <Volume2  className="h-[13px] w-[13px] text-[#C49A4A] sm:h-[14px] sm:w-[14px]" />
+            : <Volume2  className="h-[13px] w-[13px] text-[#D9822B] sm:h-[14px] sm:w-[14px]" />
           }
         </motion.button>
       </div>
@@ -198,22 +206,6 @@ export default function App() {
       >
         <div className="w-full max-w-[560px]">
 
-          {/* Eyebrow */}
-          <motion.div
-            initial={fromBelow}
-            animate={toVisible}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="mb-5 flex items-center gap-3 sm:mb-6"
-          >
-            <span aria-hidden="true" className="block h-px w-6 shrink-0 bg-[#C49A4A]" />
-            <span className="
-              text-[10px] font-semibold uppercase tracking-[0.3em]
-              text-[#8B6116]
-              sm:text-[11px]
-            ">
-              Strategy · Capital · Transformation
-            </span>
-          </motion.div>
 
           {/* Headline */}
           <h1
@@ -292,7 +284,7 @@ export default function App() {
             transition={{ duration: 0.8, delay: 1.12, ease: EASE }}
             className="mt-8 flex items-center gap-3 sm:mt-10"
           >
-            <span aria-hidden="true" className="block h-px w-8 shrink-0 bg-[#C49A4A]/40" />
+            <span aria-hidden="true" className="block h-px w-8 shrink-0 bg-[#D9822B]/40" />
             <span className="
               text-[10px] font-medium uppercase tracking-[0.22em]
               text-[#071F2D]/42

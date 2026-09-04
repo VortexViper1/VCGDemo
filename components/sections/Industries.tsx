@@ -201,7 +201,7 @@ function FeatureCarousel() {
               */}
               <Link
                 href={feature.href}
-                className="relative z-30 mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[#C49A4A] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:px-5 sm:py-2.5 sm:text-sm md:mt-0 md:bg-white/95 md:text-[#23272B] md:hover:bg-[#D9822B] md:hover:text-white"
+                className="relative z-30 mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[#D9822B] px-4 py-2 text-[13px] font-medium text-[#1A1C20] transition-all duration-300 hover:scale-105 hover:bg-[#D9822B] hover:text-white sm:px-5 sm:py-2.5 sm:text-sm md:mt-0 md:bg-white/95 md:text-[#23272B] md:hover:bg-[#D9822B] md:hover:text-white"
               >
                 Discover More
                 <ArrowRight size={15} />
@@ -267,7 +267,7 @@ export default function WhyVISWAAS() {
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
+          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#D9822B]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 30, 0] }}

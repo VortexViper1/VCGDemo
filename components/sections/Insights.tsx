@@ -554,7 +554,7 @@ useEffect(() => {
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
+          className="absolute -left-20 bottom-10 h-96 w-96 rounded-full bg-[#D9822B]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0] }}

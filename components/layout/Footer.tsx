@@ -17,7 +17,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-[#2A2D31]/8 bg-[#FFFFFF]">
       <div className="absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C49A4A]/12 blur-[140px]" />
+        <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-[#D9822B]/12 blur-[140px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
@@ -30,7 +30,7 @@ export default function Footer() {
         >
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+              <p className="mb-4 text-xs uppercase tracking-[0.35em] text-[#D9822B]">
                 Let&apos;s Build Together
               </p>
               <h2
@@ -61,7 +61,7 @@ export default function Footer() {
             <h2 className="text-3xl font-semibold" style={{ color: "#2A2D31" }}>
               VISWAAS
             </h2>
-            <p className="mt-3 text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+            <p className="mt-3 text-xs uppercase tracking-[0.35em] text-[#D9822B]">
               Strategy • Capital • Transformation
             </p>
             <p className="mt-8 max-w-md leading-8 text-[#23272B]/70">
@@ -72,7 +72,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#C49A4A]">
+            <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#D9822B]">
               Navigation
             </h4>
             <div className="space-y-5">
@@ -80,7 +80,7 @@ export default function Footer() {
                 <SectionLink
                   key={item.label}
                   href={item.href}
-                  className="block transition hover:text-[#C49A4A]"
+                  className="block transition hover:text-[#D9822B]"
                   style={{ color: "#2A2D31" }}
                 >
                   {item.label}
@@ -90,25 +90,25 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#C49A4A]">
+            <h4 className="mb-8 text-sm font-semibold uppercase tracking-[0.3em] text-[#D9822B]">
               Contact
             </h4>
             <div className="space-y-6">
               {/* EMAIL LINK - check "<a" is here */}
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#D9822B]"
               >
-                <Mail size={18} className="mt-1 text-[#C49A4A]" />
+                <Mail size={18} className="mt-1 text-[#D9822B]" />
                 <span>{SITE_CONFIG.email}</span>
               </a>
 
               {/* PHONE LINK - check "<a" is here */}
               <a
                 href={`tel:${phoneHref}`}
-                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#D9822B]"
               >
-                <Phone size={18} className="mt-1 text-[#C49A4A]" />
+                <Phone size={18} className="mt-1 text-[#D9822B]" />
                 <span>{SITE_CONFIG.phone}</span>
               </a>
 
@@ -117,9 +117,9 @@ export default function Footer() {
                 href={mapsHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#C49A4A]"
+                className="flex items-start gap-4 text-[#23272B]/70 transition hover:text-[#D9822B]"
               >
-                <MapPin size={18} className="mt-1 text-[#C49A4A]" />
+                <MapPin size={18} className="mt-1 text-[#D9822B]" />
                 <span>{SITE_CONFIG.location}</span>
               </a>
 
@@ -128,10 +128,10 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/viswaas-consulting-group-148b39428/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 transition hover:text-[#C49A4A]"
+                className="inline-flex items-center gap-3 transition hover:text-[#D9822B]"
                 style={{ color: "#2A2D31" }}
               >
-                <Globe size={20} className="text-[#C49A4A]" />
+                <Globe size={20} className="text-[#D9822B]" />
                 LinkedIn
               </a>
             </div>
@@ -146,14 +146,14 @@ export default function Footer() {
           <div className="flex gap-6 md:p-8">
             <Link
               href="/privacy-policy"
-              className="transition hover:text-[#C49A4A]"
+              className="transition hover:text-[#D9822B]"
               style={{ color: "#2A2D31" }}
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms-of-use"
-              className="transition hover:text-[#C49A4A]"
+              className="transition hover:text-[#D9822B]"
               style={{ color: "#2A2D31" }}
             >
               Terms of Use

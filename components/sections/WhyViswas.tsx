@@ -146,7 +146,7 @@ function FeatureCard({
           >
             <span
               className={`absolute right-6 top-6 font-serif text-6xl tracking-tight font-bold transition-colors duration-700 ease-out ${
-                active ? "text-[#C49A4A]/10" : "text-[#23272B]/[0.04]"
+                active ? "text-[#D9822B]/10" : "text-[#23272B]/[0.04]"
               }`}
             >
               {String(index + 1).padStart(2, "0")}
@@ -161,11 +161,11 @@ function FeatureCard({
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border transition-colors duration-700 ease-out ${
                   active
-                    ? "border-[#C49A4A]/50 bg-[#C49A4A]/20"
-                    : "border-[#C49A4A]/20 bg-[#C49A4A]/12"
+                    ? "border-[#C49A4A]/50 bg-[#D9822B]/20"
+                    : "border-[#C49A4A]/20 bg-[#D9822B]/12"
                 }`}
               >
-                <Icon size={30} className="text-[#C49A4A]" />
+                <Icon size={30} className="text-[#D9822B]" />
               </motion.div>
 
               <h3 className="mb-5 text-2xl font-semibold" style={{ color: "#2A2D31" }}>
@@ -190,7 +190,7 @@ export default function WhyVISWAAS() {
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -40, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
+          className="absolute -left-16 top-1/3 h-96 w-96 rounded-full bg-[#D9822B]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 30, 0] }}

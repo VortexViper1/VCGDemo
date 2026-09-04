@@ -74,7 +74,11 @@ const sectionIdFromHref = (href: string) => href.split("#")[1] ?? null;
    COMPONENT
    ───────────────────────────────────────────── */
 
-export default function Navbar() {
+export default function Navbar({
+  onGetStarted,
+}: {
+  onGetStarted?: () => void;
+}) {
   const prefersReducedMotion = useReducedMotion();
 
   const [progress, setProgress] = useState(0);
@@ -535,60 +539,73 @@ className="absolute left-[48%] z-10 hidden origin-center items-center whitespace
             </motion.nav>
 
             {/* ── CTA Button ── */}
-            <motion.div
-              initial={{ width: 172, opacity: 1, scale: 1 }}
-              animate={{
-                width: 172 * (1 - effectiveProgress),
-                opacity: 1 - effectiveProgress,
-                scale: 1 - effectiveProgress * 0.16,
-              }}
-              transition={getTransition(0.015, 0.045)}
-              style={{ pointerEvents: compact ? "none" : "auto" }}
-              className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
-            >
-              <SectionLink href={CTA_BUTTON.href} className={FOCUS_RING}>
-                <motion.button
-                  onHoverStart={() => setCtaHovered(true)}
-                  onHoverEnd={() => setCtaHovered(false)}
-                  animate={{ backgroundColor: "#D9822B" }}
-                  whileHover={{
-                    y: -3,
-                    scale: 1.025,
-                    boxShadow:
-                      "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
-                  }}
-                  whileTap={{ scale: 0.97, y: 0 }}
-                  transition={{
-                    y: { type: "spring" as const, stiffness: 320, damping: 22 },
-                    scale: { type: "spring" as const, stiffness: 320, damping: 22 },
-                    boxShadow: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                    backgroundColor: { duration: 0 },
-                  }}
-                  className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
-                  style={{ background: "#B7964A" }}
-                >
-                  <motion.span
-                    initial={{ x: "-110%" }}
-                    animate={{ x: ctaHovered ? "110%" : "-110%" }}
-                    transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
-                    }}
-                  />
-                  <span className="relative z-10">{CTA_BUTTON.label}</span>
-                  <motion.span
-                    animate={{ x: ctaHovered ? 3 : 0, y: ctaHovered ? -3 : 0 }}
-                    transition={{ type: "spring" as const, stiffness: 340, damping: 24 }}
-                    className="relative z-10 flex"
-                  >
-                    <ArrowUpRight size={18} />
-                  </motion.span>
-                </motion.button>
-              </SectionLink>
-            </motion.div>
+           <motion.div
+  initial={{ width: 172, opacity: 1, scale: 1 }}
+  animate={{
+    width: 172 * (1 - effectiveProgress),
+    opacity: 1 - effectiveProgress,
+    scale: 1 - effectiveProgress * 0.16,
+  }}
+  transition={getTransition(0.015, 0.045)}
+  style={{ pointerEvents: compact ? "none" : "auto" }}
+  className="absolute right-6 z-10 hidden origin-right whitespace-nowrap lg:block"
+>
+  <div className={FOCUS_RING}>
+    <motion.button
+      type="button"
+      onClick={onGetStarted}
+      onHoverStart={() => setCtaHovered(true)}
+      onHoverEnd={() => setCtaHovered(false)}
+      animate={{ backgroundColor: "#D9822B" }}
+      whileHover={{
+        y: -3,
+        scale: 1.025,
+        boxShadow:
+          "0 8px 20px rgba(183,150,74,0.28), 0 20px 40px rgba(183,150,74,0.14)",
+      }}
+      whileTap={{ scale: 0.97, y: 0 }}
+      transition={{
+        y: { type: "spring", stiffness: 320, damping: 22 },
+        scale: { type: "spring", stiffness: 320, damping: 22 },
+        boxShadow: {
+          duration: 0.3,
+          ease: [0.22, 1, 0.36, 1],
+        },
+        backgroundColor: { duration: 0 },
+      }}
+      className="relative flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-[#1A1C20]"
+      style={{ background: "#B7964A" }}
+    >
+      <motion.span
+        initial={{ x: "-110%" }}
+        animate={{ x: ctaHovered ? "110%" : "-110%" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.38) 50%, transparent 65%)",
+        }}
+      />
 
+      <span className="relative z-10">{CTA_BUTTON.label}</span>
+
+      <motion.span
+        animate={{
+          x: ctaHovered ? 3 : 0,
+          y: ctaHovered ? -3 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 340,
+          damping: 24,
+        }}
+        className="relative z-10 flex"
+      >
+        <ArrowUpRight size={18} />
+      </motion.span>
+    </motion.button>
+  </div>
+</motion.div>
             {/* ── Mobile Menu Button ── */}
             <motion.button
               initial={{ opacity: 1, scale: 1 }}
@@ -614,7 +631,11 @@ className={`absolute right-5 z-10 flex -translate-y-[3px] rounded-full border bo
 
       <AnimatePresence>
         {menuOpen && (
-          <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+          <MobileMenu
+  open={menuOpen}
+  onClose={() => setMenuOpen(false)}
+  onGetStarted={onGetStarted}
+/>
         )}
       </AnimatePresence>
     </>

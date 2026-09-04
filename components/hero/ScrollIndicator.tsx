@@ -17,7 +17,7 @@ export default function ScrollIndicator() {
         <motion.div
           animate={{ y: ["-100%", "100%"] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-x-0 top-0 h-1/2 bg-[#C49A4A]"
+          className="absolute inset-x-0 top-0 h-1/2 bg-[#D9822B]"
         />
       </div>
     </motion.div>

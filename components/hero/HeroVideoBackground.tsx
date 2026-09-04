@@ -153,7 +153,7 @@ export default function HeroVideoBackground({ sectionRef }: Props) {
         {isMuted ? (
           <VolumeX className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         ) : (
-          <Volume2 className="h-3.5 w-3.5 text-[#C49A4A] sm:h-4 sm:w-4" />
+          <Volume2 className="h-3.5 w-3.5 text-[#D9822B] sm:h-4 sm:w-4" />
         )}
       </motion.button>
     </div>

@@ -33,7 +33,7 @@ export default function CTA() {
     <Section className="relative overflow-hidden bg-[#FFFFFF]">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#C49A4A]/12 blur-[180px]" />
+        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#D9822B]/12 blur-[180px]" />
         <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-[#1F2428]/30 blur-[160px]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
@@ -54,11 +54,11 @@ export default function CTA() {
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="mb-8 inline-flex cursor-pointer items-center gap-3 rounded-full border border-[#C49A4A]/20 bg-[#C49A4A]/12 px-5 py-3 transition-colors duration-300 hover:border-[#C49A4A]/40 hover:bg-[#C49A4A]/20"
+                    className="mb-8 inline-flex cursor-pointer items-center gap-3 rounded-full border border-[#C49A4A]/20 bg-[#D9822B]/12 px-5 py-3 transition-colors duration-300 hover:border-[#C49A4A]/40 hover:bg-[#D9822B]/20"
                   >
-                    <Workflow size={18} className="text-[#C49A4A]" />
+                    <Workflow size={18} className="text-[#D9822B]" />
                     
-                    <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#C49A4A]">
+                    <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#D9822B]">
                       Let's Build Together
                     </span>
                   </motion.div>
@@ -84,7 +84,7 @@ export default function CTA() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.98 }}
-                      className="group flex items-center gap-3 rounded-full bg-[#C49A4A] px-9 py-5 font-semibold text-[#23272B] shadow-[0_15px_40px_rgba(201,163,95,0.35)] transition-all"
+                      className="group flex items-center gap-3 rounded-full bg-[#D9822B] px-9 py-5 font-semibold text-[#23272B] shadow-[0_15px_40px_rgba(201,163,95,0.35)] transition-all"
                     >
                       Schedule Consultation
                       <ArrowUpRight
@@ -114,7 +114,7 @@ export default function CTA() {
                         transition={{ type: "spring" as const, stiffness: 250, damping: 20 }}
                         className="group cursor-pointer rounded-2xl px-4 py-2 transition-colors duration-300 hover:bg-white"
                       >
-                        <h3 className="text-4xl font-bold transition-colors duration-300 group-hover:text-[#C49A4A]"
+                        <h3 className="text-4xl font-bold transition-colors duration-300 group-hover:text-[#D9822B]"
                          style={{ color: "#2A2D31" }} >
                           {stat.value}
                         </h3>

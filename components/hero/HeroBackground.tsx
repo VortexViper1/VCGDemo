@@ -155,7 +155,7 @@ const handleEnter = () => {
               className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-white/30 bg-white/10 px-7 py-3.5 uppercase tracking-[0.2em] text-white backdrop-blur-md transition-colors duration-500 hover:border-[#C49A4A]/70 hover:bg-white/15 sm:px-9 sm:py-4"
             >
               <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#C49A4A]/0 via-[#C49A4A]/25 to-[#C49A4A]/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <Volume2 className="h-4 w-4 shrink-0 text-[#C49A4A]" />
+              <Volume2 className="h-4 w-4 shrink-0 text-[#D9822B]" />
               <span className="text-xs font-medium sm:text-sm">
                 Enter Experience
               </span>

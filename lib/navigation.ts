@@ -44,6 +44,6 @@ export const NAVIGATION: NavigationItem[] = [
 ];
 
 export const CTA_BUTTON = {
-  label: "Let's Talk",
-  href: "/#contact",
-} as const;
+  label: "Get Started",
+  href: "/portal/login",
+}as const;

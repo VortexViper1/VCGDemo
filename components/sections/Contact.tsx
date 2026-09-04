@@ -101,7 +101,7 @@ function FormField({
         <motion.div
           animate={{ opacity: focused ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#C49A4A]/12 blur-md"
+          className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#D9822B]/12 blur-md"
         />
       </div>
     </div>
@@ -145,7 +145,7 @@ function MapPanel() {
 
           <div className="flex w-full flex-col justify-center gap-6 p-10 lg:w-2/5 lg:p-12">
             <div>
-              <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+              <span className="text-xs uppercase tracking-[0.35em] text-[#D9822B]">
                 Find Us
               </span>
               <h3 className="mt-4 text-2xl font-semibold" style={{ color: "#2A2D31" }}>
@@ -271,7 +271,7 @@ export default function Contact() {
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#C49A4A]/12 blur-[140px]"
+          className="absolute -left-20 top-0 h-96 w-96 rounded-full bg-[#D9822B]/12 blur-[140px]"
         />
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
@@ -295,7 +295,7 @@ export default function Contact() {
             <div className="flex flex-1 flex-col justify-between space-y-10">
               <div className="space-y-10">
                 <div>
-                  <span className="text-xs uppercase tracking-[0.35em] text-[#C49A4A]">
+                  <span className="text-xs uppercase tracking-[0.35em] text-[#D9822B]">
                     Office
                   </span>
                   <h3 className="mt-4 text-3xl font-semibold" style={{ color: "#2A2D31" }}>
@@ -320,9 +320,9 @@ export default function Contact() {
                         <motion.div
                           whileHover={item.href ? { rotate: -8, scale: 1.08 } : undefined}
                           transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
-                          className="rounded-2xl bg-[#C49A4A]/12 p-4 transition-colors duration-300 group-hover:bg-[#C49A4A]/20"
+                          className="rounded-2xl bg-[#D9822B]/12 p-4 transition-colors duration-300 group-hover:bg-[#D9822B]/20"
                         >
-                          <Icon size={22} className="text-[#C49A4A]" />
+                          <Icon size={22} className="text-[#D9822B]" />
                         </motion.div>
 
                         <div>
@@ -359,9 +359,9 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ x: 4 }}
-                  className="inline-flex items-center gap-3 text-[#23272B]/70 transition-colors hover:text-[#C49A4A]"
+                  className="inline-flex items-center gap-3 text-[#23272B]/70 transition-colors hover:text-[#D9822B]"
                 >
-                  <Globe size={20} className="text-[#C49A4A]" />
+                  <Globe size={20} className="text-[#D9822B]" />
                   LinkedIn
                 </motion.a>
               </div>

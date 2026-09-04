@@ -34,7 +34,7 @@ text-[13px]
 font-semibold
 uppercase
 tracking-[0.28em]
-text-[#C49A4A]
+text-[#D9822B]
 "
         >
           {eyebrow}

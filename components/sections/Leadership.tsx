@@ -25,7 +25,7 @@ export default function Leadership() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-[#C49A4A]/12 blur-[160px]"
+          className="absolute -left-24 top-20 h-[420px] w-[420px] rounded-full bg-[#D9822B]/12 blur-[160px]"
         />
 
         <motion.div
@@ -66,11 +66,11 @@ export default function Leadership() {
                   <motion.div
                     whileHover={{ rotate: 8, scale: 1.05 }}
                     transition={{ duration: 0.35 }}
-                    className="relative flex h-40 w-40 items-center justify-center rounded-full border border-[#C49A4A]/25 bg-[#C49A4A]/12 p-8"
+                    className="relative flex h-40 w-40 items-center justify-center rounded-full border border-[#C49A4A]/25 bg-[#D9822B]/12 p-8"
                   >
                     <Image
                       src="/logo/MAIN LOGO.png"
-                      alt="VISWAAS Consulting Group"
+                      alt="Viswaas Consulting Group"
                       fill
                       sizes="160px"
                       className="object-contain p-8"
@@ -81,7 +81,7 @@ export default function Leadership() {
                 {/* Content */}
                 <div>
 
-                  <span className="text-xs uppercase tracking-[0.3em] text-[#C49A4A]">
+                  <span className="text-xs uppercase tracking-[0.3em] text-[#D9822B]">
                     Leadership Network
                   </span>
 

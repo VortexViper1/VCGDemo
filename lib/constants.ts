@@ -1,12 +1,12 @@
 // lib/constants.ts
 
 export const SITE_CONFIG = {
-  name: "VISWAAS Consulting Group",
-  shortName: "VISWAAS",
+  name: "Viswaas Consulting Group",
+  shortName: "Viswaas",
   tagline: "Strategy • Capital • Transformation",
 
   description:
-    "VISWAAS Consulting Group partners with businesses, investors, and institutions to unlock sustainable growth through strategy, capital advisory, and digital transformation.",
+    "Viswaas Consulting Group partners with businesses, investors, and institutions to unlock sustainable growth through strategy, capital advisory, and digital transformation.",
 
   url: "https://viswaas.com",
 
