@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -21,69 +22,55 @@ export default function ResetPasswordPage() {
     const supabase = createClient();
     let mounted = true;
 
-    const checkRecoverySession = async () => {
-      try {
-        /*
-         * First listen for PASSWORD_RECOVERY.
-         * Supabase fires this when the reset link establishes
-         * the recovery session.
-         */
-        const {
-          data: { subscription },
-        } = supabase.auth.onAuthStateChange((event, session) => {
-          if (!mounted) return;
+    const init = async () => {
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event, session) => {
+        console.log("AUTH EVENT:", event);
 
-          if (event === "PASSWORD_RECOVERY" && session) {
-            setSessionReady(true);
-            setCheckingSession(false);
-          }
-        });
+        if (!mounted) return;
 
-        /*
-         * Also check whether a session already exists.
-         * This handles cases where Supabase has already processed
-         * the recovery URL before the listener is attached.
-         */
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+        if (event === "PASSWORD_RECOVERY" && session) {
+          console.log("PASSWORD RECOVERY SESSION FOUND");
 
-        if (!mounted) {
-          subscription.unsubscribe();
-          return;
-        }
-
-        if (session) {
           setSessionReady(true);
           setCheckingSession(false);
-        } else {
-          /*
-           * Give Supabase a short moment to process the recovery
-           * URL and fire PASSWORD_RECOVERY.
-           */
-          setTimeout(() => {
-            if (!mounted) return;
-
-            setCheckingSession(false);
-          }, 1500);
         }
+      });
 
-        return () => {
-          subscription.unsubscribe();
-        };
-      } catch (err) {
-        console.error("Recovery session error:", err);
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-        if (mounted) {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!mounted) {
+        subscription.unsubscribe();
+        return;
+      }
+
+      if (session) {
+        console.log("EXISTING SESSION FOUND");
+
+        setSessionReady(true);
+        setCheckingSession(false);
+      } else {
+        setTimeout(() => {
+          if (!mounted) return;
+
           setCheckingSession(false);
           setSessionReady(false);
-        }
+        }, 1500);
       }
+
+      return () => {
+        subscription.unsubscribe();
+      };
     };
 
     let cleanup: (() => void) | undefined;
 
-    checkRecoverySession().then((fn) => {
+    init().then((fn) => {
       cleanup = fn;
     });
 
@@ -117,181 +104,312 @@ export default function ResetPasswordPage() {
 
     setLoading(true);
 
-    try {
-      const supabase = createClient();
+    const supabase = createClient();
 
-      const { error } = await supabase.auth.updateUser({
-        password,
-      });
+    const { error } = await supabase.auth.updateUser({
+      password,
+    });
 
-      if (error) {
-        console.error("Password update error:", error);
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-
-      setSuccess(true);
+    if (error) {
+      console.error("Password update error:", error);
+      setError(error.message);
       setLoading(false);
-    } catch (err) {
-      console.error("Password update error:", err);
-      setError("Something went wrong. Please try again.");
-      setLoading(false);
+      return;
     }
+
+    setLoading(false);
+    setSuccess(true);
   };
 
-  /*
-   * IMPORTANT:
-   * Directly visiting /portal/reset-password without a recovery
-   * session should NOT show an infinite loader.
-   */
+  /* -------------------------------------------
+     VERIFYING SESSION
+  -------------------------------------------- */
   if (checkingSession) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
-        <div className="text-center">
-          <div className="mx-auto mb-5 h-8 w-8 animate-spin rounded-full border-2 border-[#E6DDD0] border-t-[#D9822B]" />
+      <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FCFBF8] px-6">
 
-          <h1 className="text-xl font-semibold text-[#23272B]">
-            Verifying secure recovery session…
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[10%] top-[15%] h-72 w-72 rounded-full bg-[#D9822B]/10 blur-3xl" />
+          <div className="absolute bottom-[5%] right-[10%] h-80 w-80 rounded-full bg-[#D9822B]/8 blur-3xl" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-md rounded-[28px] border border-white/70 bg-white/65 p-10 text-center shadow-[0_25px_80px_rgba(35,39,43,0.10)] backdrop-blur-2xl">
+
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#D9822B]/20 bg-[#D9822B]/10">
+            <div className="h-7 w-7 animate-spin rounded-full border-2 border-[#E6DDD0] border-t-[#D9822B]" />
+          </div>
+
+          <h1 className="text-2xl font-semibold text-[#23272B]">
+            Verifying secure session
           </h1>
 
-          <p className="mt-2 text-sm text-[#77736D]">
-            Please wait a moment.
+          <p className="mt-3 text-sm leading-6 text-[#77736D]">
+            Please wait while we securely verify your password
+            recovery link.
           </p>
         </div>
       </main>
     );
   }
 
-  /*
-   * No recovery session.
-   * This is what the user sees if they manually type:
-   * /portal/reset-password
-   */
+  /* -------------------------------------------
+     INVALID / DIRECT ACCESS
+  -------------------------------------------- */
   if (!sessionReady) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
-        <div className="w-full max-w-md text-center">
-          <h1 className="text-3xl font-semibold text-[#23272B]">
+      <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FCFBF8] px-6">
+
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[8%] top-[10%] h-72 w-72 rounded-full bg-[#D9822B]/10 blur-3xl" />
+          <div className="absolute bottom-[8%] right-[5%] h-80 w-80 rounded-full bg-[#D9822B]/8 blur-3xl" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-md rounded-[28px] border border-white/70 bg-white/65 p-8 text-center shadow-[0_25px_80px_rgba(35,39,43,0.10)] backdrop-blur-2xl sm:p-10">
+
+          <div className="mb-7">
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-2"
+            >
+              <span className="text-2xl font-bold tracking-tight transition-colors duration-300 group-hover:text-[#D9822B]">
+                Viswaas
+              </span>
+
+              <span className="h-2 w-2 rounded-full bg-[#D9822B] shadow-[0_0_14px_rgba(217,130,43,0.55)]" />
+            </Link>
+          </div>
+
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#D9822B]/20 bg-[#D9822B]/10 text-[#D9822B]">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+              <path d="M10.3 3.8 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0Z" />
+            </svg>
+          </div>
+
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D9822B]">
+            Recovery
+          </p>
+
+          <h1 className="text-3xl font-semibold tracking-tight">
             Reset link required
           </h1>
 
-          <p className="mt-3 text-[#77736D]">
+          <p className="mt-3 text-sm leading-6 text-[#77736D]">
             This page can only be accessed through a valid password
             reset link sent to your email.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3">
-            <button
-              type="button"
-              onClick={() => router.push("/portal/forgot-password")}
-              className="rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B]"
+          <div className="mt-8 space-y-3">
+            <Link
+              href="/portal/forgot-password"
+              className="group relative block w-full overflow-hidden rounded-2xl bg-[#23272B] px-5 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9822B] hover:shadow-[0_14px_35px_rgba(217,130,43,0.25)]"
             >
               Request a new reset link
-            </button>
+            </Link>
 
-            <button
-              type="button"
-              onClick={() => router.push("/portal/login")}
-              className="rounded-xl border border-[#E6DDD0] bg-white px-5 py-3 font-semibold text-[#23272B] transition hover:border-[#D9822B]"
+            <Link
+              href="/portal/login"
+              className="block w-full rounded-2xl border border-[#E6DDD0] bg-white/60 px-5 py-3.5 font-semibold text-[#23272B] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D9822B]/50 hover:bg-[#D9822B]/5 hover:text-[#D9822B]"
             >
-              Back to login
-            </button>
+              Back to Sign In
+            </Link>
           </div>
         </div>
       </main>
     );
   }
 
-  /*
-   * Password successfully changed.
-   */
+  /* -------------------------------------------
+     SUCCESS
+  -------------------------------------------- */
   if (success) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
-        <div className="w-full max-w-md text-center">
-          <h1 className="text-3xl font-semibold text-[#23272B]">
+      <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FCFBF8] px-6">
+
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[10%] top-[10%] h-72 w-72 rounded-full bg-[#D9822B]/10 blur-3xl" />
+          <div className="absolute bottom-[5%] right-[8%] h-80 w-80 rounded-full bg-[#D9822B]/8 blur-3xl" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-md rounded-[28px] border border-white/70 bg-white/65 p-8 text-center shadow-[0_25px_80px_rgba(35,39,43,0.10)] backdrop-blur-2xl sm:p-10">
+
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#D9822B]/20 bg-[#D9822B]/10">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#D9822B"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </div>
+
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D9822B]">
+            Success
+          </p>
+
+          <h1 className="text-3xl font-semibold tracking-tight">
             Password updated
           </h1>
 
-          <p className="mt-3 text-[#77736D]">
+          <p className="mt-3 text-sm leading-6 text-[#77736D]">
             Your password has been changed successfully.
-            You can now sign in with your new password.
+            You can now sign in using your new password.
           </p>
 
           <button
             type="button"
             onClick={() => router.push("/portal/login")}
-            className="mt-8 w-full rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B]"
+            className="mt-8 w-full rounded-2xl bg-[#23272B] px-5 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9822B] hover:shadow-[0_14px_35px_rgba(217,130,43,0.25)]"
           >
-            Continue to login
+            Continue to Sign In
           </button>
         </div>
       </main>
     );
   }
 
-  /*
-   * Valid recovery session → password form.
-   */
+  /* -------------------------------------------
+     VALID RECOVERY SESSION
+  -------------------------------------------- */
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#FCFBF8] px-6">
-      <div className="w-full max-w-md">
-        <form onSubmit={handleUpdatePassword} className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-semibold text-[#23272B]">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FCFBF8] px-6 py-12">
+
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[8%] top-[10%] h-72 w-72 rounded-full bg-[#D9822B]/10 blur-3xl" />
+        <div className="absolute bottom-[5%] right-[8%] h-80 w-80 rounded-full bg-[#D9822B]/8 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md">
+
+        <div className="rounded-[28px] border border-white/70 bg-white/65 p-8 shadow-[0_25px_80px_rgba(35,39,43,0.10)] backdrop-blur-2xl sm:p-10">
+
+          {/* Brand */}
+          <div className="mb-10 text-center">
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-2"
+            >
+              <span className="text-2xl font-bold tracking-tight transition-colors duration-300 group-hover:text-[#D9822B]">
+                Viswaas
+              </span>
+
+              <span className="h-2 w-2 rounded-full bg-[#D9822B] shadow-[0_0_14px_rgba(217,130,43,0.55)] transition-transform duration-300 group-hover:scale-125" />
+            </Link>
+          </div>
+
+          {/* Heading */}
+          <div className="mb-8">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D9822B]">
+              Account Security
+            </p>
+
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               Create a new password
             </h1>
 
-            <p className="mt-2 text-[#77736D]">
-              Enter your new password below.
+            <p className="mt-3 text-sm leading-6 text-[#77736D]">
+              Choose a strong password to secure your Viswaas account.
             </p>
           </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-[#23272B]">
-              New password
-            </label>
-
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
-              placeholder="Enter new password"
-              className="w-full rounded-xl border border-[#E6DDD0] bg-white px-4 py-3 outline-none focus:border-[#D9822B]"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-[#23272B]">
-              Confirm password
-            </label>
-
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              autoComplete="new-password"
-              placeholder="Confirm new password"
-              className="w-full rounded-xl border border-[#E6DDD0] bg-white px-4 py-3 outline-none focus:border-[#D9822B]"
-            />
-          </div>
-
-          {error && (
-            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-[#23272B] px-5 py-3 font-semibold text-white transition hover:bg-[#D9822B] disabled:cursor-not-allowed disabled:opacity-60"
+          <form
+            onSubmit={handleUpdatePassword}
+            className="space-y-5"
           >
-            {loading ? "Updating password..." : "Update password"}
-          </button>
-        </form>
+            {/* New password */}
+            <div>
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-medium"
+              >
+                New password
+              </label>
+
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
+                placeholder="Enter new password"
+                className="w-full rounded-2xl border border-[#E6DDD0] bg-white/75 px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-[#AAA49C] hover:border-[#D9822B]/40 focus:border-[#D9822B] focus:bg-white focus:ring-4 focus:ring-[#D9822B]/10"
+              />
+            </div>
+
+            {/* Confirm password */}
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="mb-2 block text-sm font-medium"
+              >
+                Confirm password
+              </label>
+
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) =>
+                  setConfirmPassword(e.target.value)
+                }
+                autoComplete="new-password"
+                placeholder="Confirm new password"
+                className="w-full rounded-2xl border border-[#E6DDD0] bg-white/75 px-4 py-3.5 outline-none transition-all duration-300 placeholder:text-[#AAA49C] hover:border-[#D9822B]/40 focus:border-[#D9822B] focus:bg-white focus:ring-4 focus:ring-[#D9822B]/10"
+              />
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="rounded-2xl border border-red-200/70 bg-red-50/70 px-4 py-3 text-sm leading-5 text-red-600 backdrop-blur-md">
+                {error}
+              </div>
+            )}
+
+            {/* Update */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="group relative w-full overflow-hidden rounded-2xl bg-[#23272B] px-5 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D9822B] hover:shadow-[0_14px_35px_rgba(217,130,43,0.25)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <span className="relative z-10">
+                {loading
+                  ? "Updating password..."
+                  : "Update password"}
+              </span>
+
+              <span className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-500 group-hover:translate-x-0" />
+            </button>
+          </form>
+
+          {/* Sign in */}
+          <div className="mt-8 border-t border-[#E6DDD0]/70 pt-6 text-center">
+            <Link
+              href="/portal/login"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[#77736D] transition-colors duration-300 hover:text-[#D9822B]"
+            >
+              <span className="transition-transform duration-300 group-hover:-translate-x-1">
+                ←
+              </span>
+
+              Back to Sign In
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
