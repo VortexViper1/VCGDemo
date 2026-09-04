@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
     const { error } = await supabase.auth.resetPasswordForEmail(
       email.trim(),
       {
-        redirectTo: getResetRedirectUrl(),
+        redirectTo: "https://viswaas.com/portal/reset-password",
       }
     );
 
