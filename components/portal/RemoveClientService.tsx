@@ -11,7 +11,11 @@ type Props = {
   serviceName: string;
 };
 
-export default function RemoveClientService({ serviceId, clientId, serviceName }: Props) {
+export default function RemoveClientService({
+  serviceId,
+  clientId,
+  serviceName,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -23,31 +27,111 @@ export default function RemoveClientService({ serviceId, clientId, serviceName }
     try {
       const supabase = createClient();
 
-      const { error } = await supabase.from("client_services").delete().eq("id", serviceId);
+      // --------------------------------------------------
+      // 1. FIND EMPLOYEE TASKS FOR THIS CLIENT SERVICE
+      // --------------------------------------------------
 
-      if (error) {
-        console.error("Remove service error:", error);
-        setMessage(error.message);
+      const { data: tasks, error: tasksFetchError } =
+        await supabase
+          .from("tasks")
+          .select("id")
+          .eq("client_service_id", serviceId);
+
+      if (tasksFetchError) {
+        console.error(
+          "Find related tasks error:",
+          tasksFetchError
+        );
+
+        setMessage(tasksFetchError.message);
         setLoading(false);
         return;
       }
 
-      const { error: notificationError } = await supabase.from("notifications").insert({
-        user_id: clientId,
-        title: "Service removed",
-        message: `${serviceName} has been removed from your account.`,
-        type: "service",
-        read: false,
-      });
+      // --------------------------------------------------
+      // 2. DELETE RELATED EMPLOYEE TASKS
+      // --------------------------------------------------
+
+      if (tasks && tasks.length > 0) {
+        const taskIds = tasks.map((task) => task.id);
+
+        const { error: tasksDeleteError } =
+          await supabase
+            .from("tasks")
+            .delete()
+            .in("id", taskIds);
+
+        if (tasksDeleteError) {
+          console.error(
+            "Delete related tasks error:",
+            tasksDeleteError
+          );
+
+          setMessage(tasksDeleteError.message);
+          setLoading(false);
+          return;
+        }
+      }
+
+      // --------------------------------------------------
+      // 3. DELETE CLIENT SERVICE ASSIGNMENT
+      // --------------------------------------------------
+
+      const { error: serviceDeleteError } =
+        await supabase
+          .from("client_services")
+          .delete()
+          .eq("id", serviceId)
+          .eq("client_id", clientId);
+
+      if (serviceDeleteError) {
+        console.error(
+          "Remove service error:",
+          serviceDeleteError
+        );
+
+        setMessage(serviceDeleteError.message);
+        setLoading(false);
+        return;
+      }
+
+      // --------------------------------------------------
+      // 4. NOTIFY CLIENT
+      // --------------------------------------------------
+
+      const { error: notificationError } =
+        await supabase
+          .from("notifications")
+          .insert({
+            user_id: clientId,
+            title: "Service removed",
+            message: `${serviceName} has been removed from your account.`,
+            type: "service",
+            read: false,
+          });
 
       if (notificationError) {
-        console.error("Notification error:", notificationError);
+        console.error(
+          "Notification error:",
+          notificationError
+        );
       }
+
+      // --------------------------------------------------
+      // 5. REFRESH PAGE
+      // --------------------------------------------------
 
       window.location.reload();
     } catch (error) {
-      console.error(error);
-      setMessage("Something went wrong. Please try again.");
+      console.error(
+        "Remove service unexpected error:",
+        error
+      );
+
+      setMessage(
+        "Something went wrong. Please try again."
+      );
+
       setLoading(false);
     }
   }
@@ -66,21 +150,36 @@ export default function RemoveClientService({ serviceId, clientId, serviceName }
         Remove
       </button>
 
-      <Modal open={open} onClose={() => setOpen(false)} eyebrow="Client Service" title="Remove Service?">
+      <Modal
+        open={open}
+        onClose={() => {
+          if (!loading) {
+            setOpen(false);
+          }
+        }}
+        eyebrow="Client Service"
+        title="Remove Service?"
+      >
         <div>
           <p className="text-sm leading-6 text-[#55514B]">
             Are you sure you want to remove{" "}
-            <span className="font-medium text-[#23272B]">{serviceName}</span> from this client?
+            <span className="font-medium text-[#23272B]">
+              {serviceName}
+            </span>{" "}
+            from this client?
           </p>
 
           <p className="mt-3 text-xs leading-5 text-[#77736D]">
-            This will remove the service assignment from the client. Their service progress and status for
-            this assignment will also be removed.
+            This will remove the service assignment and
+            any employee tasks associated with this
+            assignment.
           </p>
 
           {message && (
             <div className="mt-5 rounded-lg bg-[#FBF1EE] px-4 py-3">
-              <p className="text-xs text-[#B4432F]">{message}</p>
+              <p className="text-xs text-[#B4432F]">
+                {message}
+              </p>
             </div>
           )}
 
@@ -100,7 +199,9 @@ export default function RemoveClientService({ serviceId, clientId, serviceName }
               disabled={loading}
               className="h-11 flex-1 rounded-lg bg-[#B4432F] text-sm font-medium text-white transition-colors duration-200 hover:bg-[#9C3827] disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Removing..." : "Remove Service"}
+              {loading
+                ? "Removing..."
+                : "Remove Service"}
             </button>
           </div>
         </div>

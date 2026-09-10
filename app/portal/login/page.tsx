@@ -18,43 +18,63 @@
     const [googleLoading, setGoogleLoading] = useState(false);
     const [error, setError] = useState("");
 
-    async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-      e.preventDefault();
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-      setLoading(true);
-      setError("");
+    setLoading(true);
+    setError("");
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-
-      // Check Supabase profile role
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", data.user.id)
-        .single();
-
-      if (profile?.role === "admin") {
-        router.push("/portal/admin");
-      } else {
-        router.push("/portal/dashboard");
-      }
-
-      router.refresh();
+    if (error) {
+      setError(error.message);
+      setLoading(false);   // <-- added
+      return;
     }
 
-    async function handleGoogleLogin() {
-      setGoogleLoading(true);
-      setError("");
+    // Get logged-in user
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
+    if (!user) {
+      setError("Unable to retrieve your account.");
+      setLoading(false);   // <-- added
+      return;
+    }
+
+    // Get role from profiles
+    const { data: profile, error: profileError } =
+      await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+    if (profileError || !profile) {
+      setError("Your account profile could not be found.");
+      setLoading(false);   // <-- added
+      return;
+    }
+
+    // Role-based redirect
+    if (profile.role === "admin") {
+      router.push("/portal/admin");
+    } else if (profile.role === "team") {
+      router.push("/portal/employee");
+    } else {
+      router.push("/portal/dashboard");
+    }
+
+    router.refresh();
+  }
+  async function handleGoogleLogin() {
+    setGoogleLoading(true);
+    setError("");
+
+    try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
@@ -67,7 +87,12 @@
         setError(error.message);
         setGoogleLoading(false);
       }
+    } catch (err) {
+      console.error("Google login error:", err);
+      setError("Something went wrong signing in with Google. Please try again.");
+      setGoogleLoading(false);
     }
+  }
 
     return (
       <main className="ff-body min-h-screen bg-[#FCFBF8]">

@@ -29,44 +29,73 @@ export default function LoginForm({
 
     setLoading(true);
     setError("");
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
       password,
     });
 
     if (error) {
-      console.error("Login error:", error);
       setError(error.message);
-      setLoading(false);
+      setLoading(false);   // <-- added
       return;
     }
 
-    const loggedInEmail = data.user.email?.trim().toLowerCase();
+    // Get logged-in user
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (loggedInEmail === ADMIN_EMAIL) {
-      router.replace("/portal/admin");
+    if (!user) {
+      setError("Unable to retrieve your account.");
+      setLoading(false);   // <-- added
+      return;
+    }
+
+    // Get role from profiles
+    const { data: profile, error: profileError } =
+      await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+    if (profileError || !profile) {
+      setError("Your account profile could not be found.");
+      setLoading(false);   // <-- added
+      return;
+    }
+
+    // Role-based redirect
+    if (profile.role === "admin") {
+      router.push("/portal/admin");
+    } else if (profile.role === "team") {
+      router.push("/portal/employee");
     } else {
-      router.replace("/portal/dashboard");
+      router.push("/portal/dashboard");
     }
 
     router.refresh();
   }
-
   async function handleGoogleLogin() {
     setGoogleLoading(true);
     setError("");
 
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "https://viswaas.com/auth/callback",
-      },
-    });
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: "https://viswaas.com/auth/callback",
+        },
+      });
 
-    if (error) {
-      console.error("Google login error:", error);
-      setError(error.message);
+      if (error) {
+        console.error("Google login error:", error);
+        setError(error.message);
+        setGoogleLoading(false);
+      }
+    } catch (err) {
+      console.error("Google login error:", err);
+      setError("Something went wrong signing in with Google. Please try again.");
       setGoogleLoading(false);
     }
   }

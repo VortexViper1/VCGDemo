@@ -63,7 +63,7 @@ function NavList({
   hasUnreadNotifications: boolean;
 }) {
   return (
-    <nav className="flex-1 overflow-y-auto px-4 py-6">
+    <nav className="min-h-0 flex-1 overflow-y-auto px-4 py-6">
       <p className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#B5AFA3]">
         {sectionLabel}
       </p>

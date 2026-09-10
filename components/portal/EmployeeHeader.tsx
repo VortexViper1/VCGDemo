@@ -23,14 +23,13 @@ type Notification = {
   created_at: string;
 };
 
-export default function AdminHeader() {
+export default function EmployeeHeader() {
   const router = useRouter();
 
-  const [name, setName] = useState("Admin");
+  const [name, setName] = useState("Employee");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -38,14 +37,8 @@ export default function AdminHeader() {
   const menuRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
 
-  /* =====================================================
-     LOAD ADMIN PROFILE
-  ===================================================== */
-
   useEffect(() => {
-    let mounted = true;
-
-    async function loadAdmin() {
+    async function loadEmployee() {
       const supabase = createClient();
 
       const {
@@ -54,10 +47,6 @@ export default function AdminHeader() {
 
       if (!user) {
         router.replace("/portal/login");
-        return;
-      }
-
-      if (!mounted) {
         return;
       }
 
@@ -70,15 +59,11 @@ export default function AdminHeader() {
         .single();
 
       if (error) {
-        console.error("ADMIN PROFILE ERROR:", error);
+        console.error("EMPLOYEE PROFILE ERROR:", error);
       }
 
-      if (profile?.role !== "admin") {
+      if (profile?.role !== "team") {
         router.replace("/portal/dashboard");
-        return;
-      }
-
-      if (!mounted) {
         return;
       }
 
@@ -91,20 +76,10 @@ export default function AdminHeader() {
       setLoading(false);
     }
 
-    loadAdmin();
-
-    return () => {
-      mounted = false;
-    };
+    loadEmployee();
   }, [router]);
 
-  /* =====================================================
-     LOAD NOTIFICATIONS
-  ===================================================== */
-
   useEffect(() => {
-    let mounted = true;
-
     async function loadNotifications() {
       const supabase = createClient();
 
@@ -112,20 +87,22 @@ export default function AdminHeader() {
         data: { user },
       } = await supabase.auth.getUser();
 
-      if (!user || !mounted) {
+      if (!user) {
         return;
       }
 
       const { data, error } = await supabase
         .from("notifications")
-        .select(`
-          id,
-          title,
-          message,
-          type,
-          read,
-          created_at
-        `)
+        .select(
+          `
+            id,
+            title,
+            message,
+            type,
+            read,
+            created_at
+          `
+        )
         .eq("user_id", user.id)
         .order("created_at", {
           ascending: false,
@@ -133,153 +110,15 @@ export default function AdminHeader() {
         .limit(8);
 
       if (error) {
-        console.error("ADMIN NOTIFICATIONS ERROR:", error);
+        console.error("EMPLOYEE NOTIFICATIONS ERROR:", error);
         return;
       }
 
-      if (mounted) {
-        setNotifications(data ?? []);
-      }
+      setNotifications(data ?? []);
     }
 
     loadNotifications();
-
-    return () => {
-      mounted = false;
-    };
   }, []);
-
-  /* =====================================================
-     REALTIME NOTIFICATIONS
-     
-     IMPORTANT:
-     A UNIQUE CHANNEL IS USED FOR EVERY SUBSCRIPTION.
-     This prevents:
-     "cannot add postgres_changes callbacks after subscribe"
-  ===================================================== */
-
-  useEffect(() => {
-    let cancelled = false;
-    let channel: ReturnType<
-      ReturnType<typeof createClient>["channel"]
-    > | null = null;
-
-    async function setupRealtime() {
-      const supabase = createClient();
-
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user || cancelled) {
-        return;
-      }
-
-      const channelName = `admin-notifications-${user.id}-${crypto.randomUUID()}`;
-
-      channel = supabase
-        .channel(channelName)
-        .on(
-          "postgres_changes",
-          {
-            event: "INSERT",
-            schema: "public",
-            table: "notifications",
-            filter: `user_id=eq.${user.id}`,
-          },
-          (payload) => {
-            if (cancelled) {
-              return;
-            }
-
-            const newNotification =
-              payload.new as Notification;
-
-            setNotifications((current) => {
-              const alreadyExists = current.some(
-                (notification) =>
-                  notification.id === newNotification.id
-              );
-
-              if (alreadyExists) {
-                return current;
-              }
-
-              return [
-                newNotification,
-                ...current,
-              ].slice(0, 8);
-            });
-          }
-        )
-        .on(
-          "postgres_changes",
-          {
-            event: "UPDATE",
-            schema: "public",
-            table: "notifications",
-            filter: `user_id=eq.${user.id}`,
-          },
-          (payload) => {
-            if (cancelled) {
-              return;
-            }
-
-            const updatedNotification =
-              payload.new as Notification;
-
-            setNotifications((current) =>
-              current.map((notification) =>
-                notification.id === updatedNotification.id
-                  ? updatedNotification
-                  : notification
-              )
-            );
-          }
-        )
-        .subscribe((status) => {
-          if (
-            status !== "SUBSCRIBED" &&
-            status !== "CHANNEL_ERROR" &&
-            status !== "TIMED_OUT"
-          ) {
-            return;
-          }
-
-          if (status === "CHANNEL_ERROR") {
-            console.error(
-              "ADMIN NOTIFICATION REALTIME CHANNEL ERROR"
-            );
-          }
-        });
-
-    }
-
-    setupRealtime();
-
-    return () => {
-      cancelled = true;
-
-      if (channel) {
-        const supabase = createClient();
-
-        supabase
-          .removeChannel(channel)
-          .catch((error) => {
-            console.error(
-              "ADMIN NOTIFICATION CHANNEL CLEANUP ERROR:",
-              error
-            );
-          });
-
-        channel = null;
-      }
-    };
-  }, []);
-
-  /* =====================================================
-     OUTSIDE CLICK + ESCAPE
-  ===================================================== */
 
   useEffect(() => {
     function handleClick(event: MouseEvent) {
@@ -307,57 +146,27 @@ export default function AdminHeader() {
       }
     }
 
-    document.addEventListener(
-      "mousedown",
-      handleClick
-    );
-
-    document.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleClick
-      );
-
-      document.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  /* =====================================================
-     MARK ONE NOTIFICATION AS READ
-  ===================================================== */
-
   async function markAsRead(notificationId: string) {
     const supabase = createClient();
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return;
-    }
 
     const { error } = await supabase
       .from("notifications")
       .update({
         read: true,
       })
-      .eq("id", notificationId)
-      .eq("user_id", user.id);
+      .eq("id", notificationId);
 
     if (error) {
-      console.error(
-        "MARK NOTIFICATION READ ERROR:",
-        error
-      );
+      console.error("MARK NOTIFICATION READ ERROR:", error);
       return;
     }
 
@@ -372,10 +181,6 @@ export default function AdminHeader() {
       )
     );
   }
-
-  /* =====================================================
-     MARK ALL NOTIFICATIONS AS READ
-  ===================================================== */
 
   async function markAllAsRead() {
     const supabase = createClient();
@@ -397,10 +202,7 @@ export default function AdminHeader() {
       .eq("read", false);
 
     if (error) {
-      console.error(
-        "MARK ALL NOTIFICATIONS ERROR:",
-        error
-      );
+      console.error("MARK ALL NOTIFICATIONS ERROR:", error);
       return;
     }
 
@@ -411,10 +213,6 @@ export default function AdminHeader() {
       }))
     );
   }
-
-  /* =====================================================
-     LOGOUT
-  ===================================================== */
 
   async function handleLogout() {
     setLoggingOut(true);
@@ -427,10 +225,6 @@ export default function AdminHeader() {
     router.refresh();
   }
 
-  /* =====================================================
-     HELPERS
-  ===================================================== */
-
   const unreadCount = notifications.filter(
     (notification) => !notification.read
   ).length;
@@ -442,18 +236,14 @@ export default function AdminHeader() {
       .slice(0, 2)
       .map((part) => part[0])
       .join("")
-      .toUpperCase() || "A";
+      .toUpperCase() || "E";
 
   function formatNotificationTime(date: string) {
     const value = new Date(date);
     const now = new Date();
 
-    const difference =
-      now.getTime() - value.getTime();
-
-    const minutes = Math.floor(
-      difference / 60000
-    );
+    const difference = now.getTime() - value.getTime();
+    const minutes = Math.floor(difference / 60000);
 
     if (minutes < 1) {
       return "Just now";
@@ -478,22 +268,11 @@ export default function AdminHeader() {
     return value.toLocaleDateString();
   }
 
-  /* =====================================================
-     HEADER
-  ===================================================== */
-
   return (
     <Header
-      homeHref="/portal/admin"
-      tagline="Administration"
+      homeHref="/portal/employee"
+      tagline="Employee Portal"
     >
-      {/* =================================================
-          NOTIFICATION BELL
-
-          EXACT SAME POSITION AS EMPLOYEE HEADER:
-          Bell -> Divider -> Profile
-      ================================================= */}
-
       <div
         ref={notificationRef}
         className="relative"
@@ -501,9 +280,7 @@ export default function AdminHeader() {
         <button
           type="button"
           onClick={() => {
-            setNotificationOpen(
-              (value) => !value
-            );
+            setNotificationOpen((value) => !value);
             setMenuOpen(false);
           }}
           aria-label="Notifications"
@@ -522,16 +299,10 @@ export default function AdminHeader() {
 
           {unreadCount > 0 && (
             <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D9822B] px-1 text-[8px] font-bold leading-none text-white ring-2 ring-white">
-              {unreadCount > 9
-                ? "9+"
-                : unreadCount}
+              {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
         </button>
-
-        {/* ===============================================
-            NOTIFICATION DROPDOWN
-        =============================================== */}
 
         {notificationOpen && (
           <div
@@ -539,8 +310,6 @@ export default function AdminHeader() {
             aria-label="Notifications"
             className="absolute right-0 top-[calc(100%+10px)] z-[500] w-[350px] max-w-[calc(100vw-24px)] overflow-hidden rounded-xl border border-[#E8E2D9] bg-white shadow-[0_16px_40px_-16px_rgba(35,39,43,0.28)]"
           >
-            {/* Header */}
-
             <div className="flex items-center justify-between border-b border-[#E8E2D9] px-4 py-3.5">
               <div>
                 <p className="text-sm font-medium text-[#23272B]">
@@ -548,7 +317,7 @@ export default function AdminHeader() {
                 </p>
 
                 <p className="mt-0.5 text-[11px] text-[#77736D]">
-                  Updates about your administration
+                  Updates about your work
                 </p>
               </div>
 
@@ -562,8 +331,6 @@ export default function AdminHeader() {
                 </button>
               )}
             </div>
-
-            {/* Empty state */}
 
             {notifications.length === 0 ? (
               <div className="px-5 py-10 text-center">
@@ -580,83 +347,68 @@ export default function AdminHeader() {
                 </p>
 
                 <p className="mt-1 text-[11px] text-[#9A958D]">
-                  New client, service and task
-                  updates will appear here.
+                  New task and service updates will appear here.
                 </p>
               </div>
             ) : (
-              /* Notification list */
-
               <div className="max-h-[360px] overflow-y-auto">
-                {notifications.map(
-                  (notification) => (
-                    <button
-                      type="button"
-                      key={notification.id}
-                      onClick={() => {
-                        if (!notification.read) {
-                          markAsRead(
-                            notification.id
-                          );
-                        }
-                      }}
-                      className={
-                        notification.read
-                          ? "block w-full border-b border-[#23272B]/5 bg-white px-4 py-3.5 text-left transition-colors hover:bg-[#FCFBF8]"
-                          : "block w-full border-b border-[#23272B]/5 bg-[#FFF9F2] px-4 py-3.5 text-left transition-colors hover:bg-[#FFF5E9]"
+                {notifications.map((notification) => (
+                  <button
+                    type="button"
+                    key={notification.id}
+                    onClick={() => {
+                      if (!notification.read) {
+                        markAsRead(notification.id);
                       }
-                    >
-                      <div className="flex gap-3">
-                        <span
-                          className={
-                            notification.read
-                              ? "mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#D8D4CD]"
-                              : "mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#D9822B]"
-                          }
-                        />
+                    }}
+                    className={
+                      notification.read
+                        ? "block w-full border-b border-[#23272B]/5 bg-white px-4 py-3.5 text-left transition-colors hover:bg-[#FCFBF8]"
+                        : "block w-full border-b border-[#23272B]/5 bg-[#FFF9F2] px-4 py-3.5 text-left transition-colors hover:bg-[#FFF5E9]"
+                    }
+                  >
+                    <div className="flex gap-3">
+                      <span
+                        className={
+                          notification.read
+                            ? "mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#D8D4CD]"
+                            : "mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#D9822B]"
+                        }
+                      />
 
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-start justify-between gap-2">
-                            <p className="truncate text-xs font-semibold text-[#23272B]">
-                              {
-                                notification.title
-                              }
-                            </p>
-
-                            {notification.read && (
-                              <Check
-                                size={12}
-                                className="shrink-0 text-[#9A958D]"
-                              />
-                            )}
-                          </div>
-
-                          <p className="mt-1 text-[11px] leading-5 text-[#77736D]">
-                            {
-                              notification.message
-                            }
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="truncate text-xs font-semibold text-[#23272B]">
+                            {notification.title}
                           </p>
 
-                          <p className="mt-1.5 text-[10px] text-[#9A958D]">
-                            {formatNotificationTime(
-                              notification.created_at
-                            )}
-                          </p>
+                          {notification.read && (
+                            <Check
+                              size={12}
+                              className="shrink-0 text-[#9A958D]"
+                            />
+                          )}
                         </div>
+
+                        <p className="mt-1 text-[11px] leading-5 text-[#77736D]">
+                          {notification.message}
+                        </p>
+
+                        <p className="mt-1.5 text-[10px] text-[#9A958D]">
+                          {formatNotificationTime(
+                            notification.created_at
+                          )}
+                        </p>
                       </div>
-                    </button>
-                  )
-                )}
+                    </div>
+                  </button>
+                ))}
               </div>
             )}
 
-            {/* View all */}
-
             <Link
-              href="/portal/admin/notifications"
-              onClick={() =>
-                setNotificationOpen(false)
-              }
+              href="/portal/employee/notifications"
+              onClick={() => setNotificationOpen(false)}
               className="block border-t border-[#E8E2D9] px-4 py-3 text-center text-xs font-semibold text-[#A8732A] transition-colors hover:bg-[#FFF9F2] hover:text-[#D9822B]"
             >
               View all notifications
@@ -665,15 +417,7 @@ export default function AdminHeader() {
         )}
       </div>
 
-      {/* =================================================
-          DIVIDER
-      ================================================= */}
-
       <div className="hidden h-6 w-px bg-[#23272B]/10 sm:block" />
-
-      {/* =================================================
-          ADMIN PROFILE
-      ================================================= */}
 
       <div
         ref={menuRef}
@@ -682,9 +426,7 @@ export default function AdminHeader() {
         <button
           type="button"
           onClick={() => {
-            setMenuOpen(
-              (value) => !value
-            );
+            setMenuOpen((value) => !value);
             setNotificationOpen(false);
           }}
           aria-haspopup="true"
@@ -717,8 +459,6 @@ export default function AdminHeader() {
           />
         </button>
 
-        {/* Profile dropdown */}
-
         {menuOpen && (
           <div className="absolute right-0 top-[calc(100%+10px)] z-[500] w-64 rounded-xl border border-[#E8E2D9] bg-white p-4 shadow-[0_16px_40px_-16px_rgba(35,39,43,0.28)]">
             <div className="flex items-center gap-3">
@@ -740,10 +480,8 @@ export default function AdminHeader() {
             <div className="my-3 h-px bg-[#E8E2D9]" />
 
             <Link
-              href="/portal/admin/settings"
-              onClick={() =>
-                setMenuOpen(false)
-              }
+              href="/portal/employee/settings"
+              onClick={() => setMenuOpen(false)}
               className="flex h-10 items-center gap-2.5 rounded-lg px-2 text-sm text-[#4B4A47] transition-colors hover:bg-[#F3E5D2] hover:text-[#23272B]"
             >
               <Settings
@@ -765,9 +503,7 @@ export default function AdminHeader() {
                 strokeWidth={1.8}
               />
 
-              {loggingOut
-                ? "Signing out..."
-                : "Sign out"}
+              {loggingOut ? "Signing out..." : "Sign out"}
             </button>
           </div>
         )}

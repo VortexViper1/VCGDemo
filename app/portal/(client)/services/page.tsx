@@ -31,7 +31,8 @@ export default async function ServicesPage() {
         status,
         progress,
         start_date,
-        created_at
+        created_at,
+        assigned_to
       `)
       .eq("client_id", user.id)
       .order("created_at", { ascending: false });
@@ -44,6 +45,49 @@ export default async function ServicesPage() {
   }
 
   const assignments = clientServices ?? [];
+
+  // --------------------------------------------------
+  // GET EMPLOYEE IDS
+  // --------------------------------------------------
+
+  const employeeIds = [
+    ...new Set(
+      assignments
+        .map((item) => item.assigned_to)
+        .filter(Boolean)
+    ),
+  ];
+
+  // --------------------------------------------------
+  // GET ASSIGNED EMPLOYEES
+  // --------------------------------------------------
+
+  let employees: {
+    id: string;
+    full_name: string | null;
+    phone: string | null;
+  }[] = [];
+
+  if (employeeIds.length > 0) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(`
+        id,
+        full_name,
+        phone
+      `)
+      .eq("role", "team")
+      .in("id", employeeIds);
+
+    if (error) {
+      console.error(
+        "EMPLOYEES ERROR:",
+        error
+      );
+    } else {
+      employees = data ?? [];
+    }
+  }
 
   // --------------------------------------------------
   // GET TASK IDS
@@ -146,6 +190,13 @@ export default async function ServicesPage() {
     ])
   );
 
+  const employeesById = new Map(
+    employees.map((employee) => [
+      employee.id,
+      employee,
+    ])
+  );
+
   // --------------------------------------------------
   // COMBINE ASSIGNMENTS
   // --------------------------------------------------
@@ -159,10 +210,15 @@ export default async function ServicesPage() {
       ? servicesById.get(task.service_id)
       : undefined;
 
+    const employee = item.assigned_to
+      ? employeesById.get(item.assigned_to)
+      : undefined;
+
     return {
       ...item,
       task,
       service,
+      employee,
     };
   });
 
@@ -307,6 +363,24 @@ export default async function ServicesPage() {
                         {item.task?.description && (
                           <p className="mt-1 max-w-2xl text-xs leading-5 text-[#77736D]">
                             {item.task.description}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* ASSIGNED EMPLOYEE */}
+                      <div className="mt-5">
+                        <p className="text-xs uppercase tracking-[0.14em] text-[#9A958D]">
+                          Assigned Employee
+                        </p>
+
+                        <p className="mt-1 text-sm font-medium text-[#23272B]">
+                          {item.employee?.full_name ||
+                            "Not assigned"}
+                        </p>
+
+                        {item.employee?.phone && (
+                          <p className="mt-1 text-xs text-[#77736D]">
+                            {item.employee.phone}
                           </p>
                         )}
                       </div>

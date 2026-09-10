@@ -170,13 +170,19 @@ async function ServiceList({ userId }: { userId: string }) {
   const supabase = await createClient();
 
   /*
-    New relationship:
+    Relationship:
 
     client_services
       ↓ task_id
     service_tasks
       ↓ service_id
     services
+
+    Employee:
+
+    client_services
+      ↓ assigned_to
+    profiles
   */
 
   const { data: clientServices, error: clientServicesError } =
@@ -188,7 +194,8 @@ async function ServiceList({ userId }: { userId: string }) {
         status,
         progress,
         start_date,
-        created_at
+        created_at,
+        assigned_to
       `)
       .eq("client_id", userId)
       .order("created_at", { ascending: false });
@@ -210,6 +217,42 @@ async function ServiceList({ userId }: { userId: string }) {
         </p>
       </div>
     );
+  }
+
+  /* =========================================================
+     GET EMPLOYEE IDs
+  ========================================================= */
+
+  const employeeIds = [
+    ...new Set(
+      assignments
+        .map((item) => item.assigned_to)
+        .filter(Boolean)
+    ),
+  ];
+
+  let employees: {
+    id: string;
+    full_name: string | null;
+    phone: string | null;
+  }[] = [];
+
+  if (employeeIds.length > 0) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(`
+        id,
+        full_name,
+        phone
+      `)
+      .eq("role", "team")
+      .in("id", employeeIds);
+
+    if (error) {
+      console.error("EMPLOYEES ERROR:", error);
+    } else {
+      employees = data ?? [];
+    }
   }
 
   /* Get task IDs */
@@ -290,6 +333,10 @@ async function ServiceList({ userId }: { userId: string }) {
     mainServices.map((service) => [service.id, service])
   );
 
+  const employeesById = new Map(
+    employees.map((employee) => [employee.id, employee])
+  );
+
   /* Combine everything */
 
   const services = assignments.map((item) => {
@@ -301,10 +348,15 @@ async function ServiceList({ userId }: { userId: string }) {
       ? servicesById.get(task.service_id)
       : undefined;
 
+    const employee = item.assigned_to
+      ? employeesById.get(item.assigned_to)
+      : undefined;
+
     return {
       ...item,
       task,
       service,
+      employee,
     };
   });
 
@@ -341,6 +393,23 @@ async function ServiceList({ userId }: { userId: string }) {
               <span className="shrink-0 rounded-full bg-[#F6E3CC] px-3 py-1 text-xs font-medium capitalize text-[#B8661A]">
                 {status || "pending"}
               </span>
+            </div>
+
+            {/* Employee details */}
+            <div className="mt-4">
+              <p className="text-xs text-[#77736D]">
+                Assigned Employee
+              </p>
+
+              <p className="mt-1 text-sm font-medium text-[#23272B]">
+                {item.employee?.full_name || "Not assigned"}
+              </p>
+
+              {item.employee?.phone && (
+                <p className="mt-0.5 text-xs text-[#9A958D]">
+                  {item.employee.phone}
+                </p>
+              )}
             </div>
 
             <div className="mt-5">

@@ -1,47 +1,88 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { usePathname } from "next/navigation";
 
 type NavigationContextValue = {
   open: boolean;
-  setOpen: (v: boolean) => void;
+  setOpen: (value: boolean) => void;
   toggle: () => void;
 };
 
-const NavigationContext = createContext<NavigationContextValue | null>(null);
+const NavigationContext =
+  createContext<NavigationContextValue | null>(null);
 
-export function NavigationProvider({ children }: { children: ReactNode }) {
+export function NavigationProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    const original = document.body.style.overflow;
-    if (open) document.body.style.overflow = "hidden";
+    const originalOverflow = document.body.style.overflow;
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+    }
+
     return () => {
-      document.body.style.overflow = original;
+      document.body.style.overflow = originalOverflow;
     };
   }, [open]);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
     }
-    if (open) window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    if (open) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [open]);
 
+  const toggle = () => {
+    setOpen((current) => !current);
+  };
+
   return (
-    <NavigationContext.Provider value={{ open, setOpen, toggle: () => setOpen((v) => !v) }}>
+    <NavigationContext.Provider
+      value={{
+        open,
+        setOpen,
+        toggle,
+      }}
+    >
       {children}
     </NavigationContext.Provider>
   );
 }
 
 export function useNavigation() {
-  const ctx = useContext(NavigationContext);
-  if (!ctx) throw new Error("useNavigation must be used within a NavigationProvider");
-  return ctx;
+  const context = useContext(NavigationContext);
+
+  if (!context) {
+    throw new Error(
+      "useNavigation must be used within a NavigationProvider"
+    );
+  }
+
+  return context;
 }
